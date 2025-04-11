@@ -23,17 +23,33 @@ const Profile = () => {
 
   return (
     <section className="Profile">
-      <h1 className="profile__name">
-        {user ? user.nome : "Usuário Desconhecido"}
-      </h1>
-      {/* <button className="profile__edit">
+      <div className="Profile__box">
+        <h1 className="profile__name">
+          {user ? user.nome : "Usuário Desconhecido"}
+        </h1>
+
+        <ul>
+          <li>
+            <img src={user.fotoPerfilURL} alt="foto de perfil" />
+          </li>
+          <li>{user.nome}</li>
+          <li>{user.cpf}</li>
+          <li>{user.idade}</li>
+          <li>{user.email}</li>
+          <li>{user.cep}</li>
+          <li>{user.numero}</li>
+          <li>{user.endereco}</li>
+        </ul>
+
+        {/* <button className="profile__edit">
         <FaEdit /> Editar Perfil
       </button> */}
 
-      {/* Botão de Logout */}
-      <button className="profile__logout" onClick={handleLogout}>
-        <FaSignOutAlt /> Sair
-      </button>
+        {/* Botão de Logout */}
+        <button className="profile__logout" onClick={handleLogout}>
+          <FaSignOutAlt /> Sair
+        </button>
+      </div>
     </section>
   );
 };

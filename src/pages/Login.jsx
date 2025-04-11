@@ -29,6 +29,7 @@ const Login = () => {
       }
 
       const user = await req.json();
+      alert(`Usuario logado com sucesso, Bem-Vindo ${user.nome}`)
 
       dispatch(login(user)); // Atualiza o Redux e o localStorage
       navigate("/");

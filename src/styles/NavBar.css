@@ -21,7 +21,7 @@
 .navbar__brand {
   font-size: 40px;
   font-weight: bold;
-  transition: .3s ease;
+  transition: 0.3s ease;
 }
 
 .navbar__brand:hover {
@@ -52,7 +52,7 @@
   font-size: 2rem;
   color: #ffffff;
   cursor: pointer;
-  transition: .3s ease;
+  transition: 0.3s ease;
 }
 
 .navbar__toggle:hover {
@@ -75,6 +75,11 @@
 }
 
 .navbar__mobile__container {
+  list-style: none;
+  padding-left: 1.5rem;
+}
+
+.navbar__mobile__container a{
   padding-left: 1.5rem;
 }
 
@@ -127,7 +132,7 @@
   color: #ffffff;
   cursor: pointer;
   border: 1px solid #ffffff;
-  transition: .3s ease;
+  transition: 0.3s ease;
 }
 
 .navbar__close:hover {

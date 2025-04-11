@@ -2,11 +2,48 @@
   width: 100%;
   height: 100vh;
   color: aliceblue;
-  background-color: black;
+  background-color: rgb(37 36 34);
   padding-top: 10rem;
-  color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.Profile__box {
+  margin-top: -100px;
+  margin-right: -500px;
+  width: 400px;
+  height: 400px;
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.Profile__box ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.Profile__box li {
+  text-decoration: none;
+  color: #fff;
+}
+
+.Profile__box button {
+  padding: 1em;
+  border: 1px solid #fff;
+  background-color: transparent;
+  border-radius: 7px;
+  color: #fff;
+  font-size: 1rem;
+  transition: .3s ease;
+}
+
+.Profile__box button:hover {
+  cursor: pointer;
+  transform: scale(1.05);
 }
