@@ -1,36 +1,48 @@
 # AurunCraveWebsite
 
-Repositório do site **AurunCrave**, desenvolvido com foco em front-end moderno e responsivo. O projeto utiliza tecnologias como HTML5, CSS3, JavaScript e bibliotecas auxiliares para criar uma experiência de usuário fluida e visualmente atraente.
+Repositório do site **AurunCrave**, desenvolvido com **React (JSX)** para proporcionar uma interface moderna e responsiva. O projeto utiliza tecnologias como React, CSS3 e JavaScript para criar uma experiência de usuário fluida e eficiente.
 
 ## 💁 Estrutura do Projeto
 
 ```
 AurunCraveWebsite/
-├── assets/
-│   ├── css/
-│   │   └── style.css
-│   ├── js/
-│   │   └── script.js
-│   └── images/
-│       └── [imagens do projeto]
-├── index.html
-├── about.html
-├── contact.html
-└── README.md
+├── src/
+│   ├── components/
+│   │   ├── Header.jsx
+│   │   ├── Footer.jsx
+│   │   └── [outros componentes]
+│   ├── pages/
+│   │   ├── Home.jsx
+│   │   ├── About.jsx
+│   │   ├── Contact.jsx
+│   │   └── [outras páginas]
+│   ├── assets/
+│   │   ├── css/
+│   │   │   └── styles.css
+│   │   ├── images/
+│   │   │   └── [imagens do projeto]
+│   └── App.jsx
+├── public/
+│   ├── index.html
+├── package.json
+├── README.md
+└── .gitignore
 ```
 
-- **assets/**: Contém os recursos estáticos do projeto, como folhas de estilo, scripts JavaScript e imagens.
-- **index.html**: Página inicial do site.
-- **about.html**: Página "Sobre", com informações sobre o projeto ou empresa.
-- **contact.html**: Página de contato, possivelmente com um formulário para envio de mensagens.
+- **src/**: Contém o código-fonte principal do projeto.
+- **components/**: Componentes reutilizáveis para a interface.
+- **pages/**: Arquivos JSX representando as páginas do site.
+- **assets/**: Recursos como folhas de estilo e imagens.
+- **public/**: Contém o arquivo `index.html`, base do projeto.
+- **package.json**: Gerenciamento de dependências e scripts do projeto.
 - **README.md**: Documento com informações sobre o projeto.
 
 ## 🚀 Tecnologias Utilizadas
 
-- **HTML5**: Estruturação semântica das páginas.
+- **React (JSX)**: Biblioteca para criação da interface do usuário.
 - **CSS3**: Estilização e layout responsivo.
-- **JavaScript**: Interatividade e manipulação do DOM.
-- **[Bibliotecas ou frameworks adicionais, se houver]**
+- **JavaScript (ES6+)**: Lógica e interatividade.
+- **React Router**: Gerenciamento de navegação entre páginas.
 
 ## 🛠 Como Executar o Projeto
 
@@ -46,16 +58,27 @@ AurunCraveWebsite/
    cd AurunCraveWebsite
    ```
 
-3. Abra o arquivo `index.html` em seu navegador preferido para visualizar o site.
+3. Instale as dependências:
+
+   ```bash
+   npm install
+   ```
+
+4. Execute o projeto:
+
+   ```bash
+   npm start
+   ```
+
+5. Acesse `http://localhost:3000` no navegador para visualizar o site.
 
 ## 📌 Funcionalidades Principais
 
-- Layout responsivo adaptado para diferentes dispositivos.
-- Navegação intuitiva entre as páginas.
-- Formulário de contato funcional (se implementado).
+- Interface responsiva desenvolvida com React.
+- Componentização para reuso e melhor manutenção do código.
+- Navegação SPA utilizando React Router.
 - Design moderno com foco na experiência do usuário.
 
 ## 📄 Licença
 
 [Informação sobre a licença do projeto, se disponível.]
-
