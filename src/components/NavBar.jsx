@@ -37,7 +37,7 @@ const NavBar = () => {
         </li>
         {user ? (
           <li>
-            <Link to="/profile">Perfil</Link>
+            <Link to="/profile">Bem-Vindo, {user.nome}! </Link>
           </li>
         ) : (
           <li>
@@ -102,6 +102,15 @@ const NavBar = () => {
               Contact
             </Link>
           </li>
+          {user ? (
+            <li>
+              <Link to="/profile">Bem-Vindo, {user.nome}! </Link>
+            </li>
+          ) : (
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+          )}
         </ul>
       </div>
     </nav>

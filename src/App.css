@@ -6,6 +6,12 @@
   color: rgb(69 72 67);
 }
 
+.title {
+  font-family: "Alliance-semi";
+  font-size: 5rem;
+  max-width: 550px;
+}
+
 @font-face {
   font-family: "Alliance";
   src: url("./assets/fonts/AllianceNo2-Regular.woff2") format("woff2"),
