@@ -1,0 +1,149 @@
+/* Navbar */
+.navbar {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4em;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  z-index: 1000;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.navbar__brand {
+  font-size: 40px;
+  font-weight: bold;
+  transition: .3s ease;
+}
+
+.navbar__brand:hover {
+  color: #b9b9b9;
+}
+
+/* Estilo para menu desktop */
+.navbar__list {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
+
+.navbar__list a {
+  font-size: 18px;
+  font-weight: 600;
+  transition: color 0.3s ease-in-out;
+}
+
+.navbar__list a:hover {
+  color: #b9b9b9;
+}
+
+/* Botão abrir menu mobile */
+.navbar__toggle {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #ffffff;
+  cursor: pointer;
+  transition: .3s ease;
+}
+
+.navbar__toggle:hover {
+  color: #b9b9b9;
+}
+
+/* Estilizando o menu mobile */
+.navbar__mobile {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(12, 12, 12, 0.95);
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  transform: translateY(-100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+.navbar__mobile__container {
+  padding-left: 1.5rem;
+}
+
+.navbar__mobile__ul {
+  padding: 3rem;
+}
+
+.navbar__mobile__ul li {
+  text-align: left;
+}
+
+.navbar__mobile.open {
+  transform: translateY(0);
+}
+
+.navbar__mobile ul {
+  list-style: none;
+  text-align: center;
+}
+
+.navbar__mobile li {
+  margin: 20px 0;
+}
+
+.navbar__mobile a {
+  font-size: 24px;
+  font-weight: 600;
+  color: #ffffff;
+  transition: color 0.3s ease-in-out;
+}
+
+.navbar__mobile a:hover {
+  color: #b9b9b9;
+}
+
+/* Botão fechar menu */
+.navbar__close {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 20px;
+  right: 20px;
+  font-size: 20px;
+  background: none;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  border: 1px solid #ffffff;
+  transition: .3s ease;
+}
+
+.navbar__close:hover {
+  color: #b9b9b9;
+  border: 1px solid #b9b9b9;
+}
+
+/* Responsividade */
+@media (max-width: 960px) {
+  .navbar__list {
+    display: none;
+    /* Esconde a navegação desktop */
+  }
+
+  .navbar__toggle {
+    display: block;
+    /* Exibe o botão de abrir menu */
+  }
+}

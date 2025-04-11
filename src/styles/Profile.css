@@ -1,0 +1,12 @@
+.Profile {
+  width: 100%;
+  height: 100vh;
+  color: aliceblue;
+  background-color: black;
+  padding-top: 10rem;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

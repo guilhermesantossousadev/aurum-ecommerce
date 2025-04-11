@@ -1,0 +1,31 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Alliance";
+  color: rgb(69 72 67);
+}
+
+@font-face {
+  font-family: "Alliance";
+  src: url("./assets/fonts/AllianceNo2-Regular.woff2") format("woff2"),
+    url("./assets/fonts/AllianceNo2-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Alliance-semi";
+  src: url("./assets/fonts/AllianceNo1-SemiBold.woff2") format("woff2"),
+    url("./assets/fonts/AllianceNo1-SemiBold.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: "Alliance", sans-serif;
+}
+
+h1 {
+  font-family: "Alliance-semi", sans-serif;
+}
