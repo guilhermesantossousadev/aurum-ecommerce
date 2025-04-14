@@ -1,3 +1,13 @@
+/*Variaveis*/
+
+:root {
+  --text-color: #fff;
+  --text-hover-color: #b9b9b9;
+  --border-color: #ffffff;
+  --border-hover-color: #b9b9b9;
+  --text-transform: uppercase;
+}
+
 /* Navbar */
 .navbar {
   width: 100%;
@@ -15,7 +25,8 @@
 
 .navbar a {
   text-decoration: none;
-  color: #ffffff;
+  color: var(--text-color);
+  text-transform: var(--text-transform);
 }
 
 .navbar__brand {
@@ -25,7 +36,7 @@
 }
 
 .navbar__brand:hover {
-  color: #b9b9b9;
+  color: var(--text-hover-color);
 }
 
 /* Estilo para menu desktop */
@@ -36,13 +47,13 @@
 }
 
 .navbar__list a {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   transition: color 0.3s ease-in-out;
 }
 
 .navbar__list a:hover {
-  color: #b9b9b9;
+  color: var(--text-hover-color);
 }
 
 /* Botão abrir menu mobile */
@@ -50,13 +61,13 @@
   background: none;
   border: none;
   font-size: 2rem;
-  color: #ffffff;
+  color: var(--text-color);
   cursor: pointer;
   transition: 0.3s ease;
 }
 
 .navbar__toggle:hover {
-  color: #b9b9b9;
+  color: var(--text-hover-color);
 }
 
 /* Estilizando o menu mobile */
@@ -79,7 +90,7 @@
   padding-left: 1.5rem;
 }
 
-.navbar__mobile__container a{
+.navbar__mobile__container a {
   padding-left: 1.5rem;
 }
 
@@ -107,12 +118,12 @@
 .navbar__mobile a {
   font-size: 24px;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--texto);
   transition: color 0.3s ease-in-out;
 }
 
 .navbar__mobile a:hover {
-  color: #b9b9b9;
+  color: var(--text-hover-color);
 }
 
 /* Botão fechar menu */
@@ -129,15 +140,15 @@
   font-size: 20px;
   background: none;
   border: none;
-  color: #ffffff;
+  color: var(--texto);
   cursor: pointer;
-  border: 1px solid #ffffff;
+  border: 1px solid var(--border-color);
   transition: 0.3s ease;
 }
 
 .navbar__close:hover {
-  color: #b9b9b9;
-  border: 1px solid #b9b9b9;
+  color: var(--text-hover-color);
+  border: 1px solid var(--border-hover-color);
 }
 
 /* Responsividade */
