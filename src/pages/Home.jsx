@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom"
 import "../styles/Home.css";
 import video from "../images/videoplayback.mp4";
 import adage from "../images/Adage.png";
@@ -9,6 +10,9 @@ import webby from "../images/webby.png";
 import corrente from "../images/corrente.png";
 import pulseira from "../images/pulseira.png";
 import relogio from "../images/relogio.png";
+import anel from "../images/anel.png";
+import piercing from "../images/piercing.png";
+import pingente from "../images/pingente.png";
 
 function Home() {
   const [hideTitle, setHideTitle] = useState(false);
@@ -79,7 +83,7 @@ function Home() {
             </div>
           </div>
 
-          <hr></hr>
+          <div className="part"><div className="part__inside"></div></div>
 
           <div className="Home__delta">
             <div className="Home__delta__container">
@@ -97,54 +101,66 @@ function Home() {
             </div>
           </div>
 
-          <hr></hr>
+          <div className="part"><div className="part__inside"></div></div>
 
           <div className="Home__Echo">
             <div className="Home__Echo__container">
-              
-              <div className="Home__Echo__container__box">
-                <div className="Home__Echo__container__item">
+              <div className="Home__Echo__container__row">
+                <Link to="/relogios" className="Home__Echo__container__item">
                   <div className="Home__Echo__container__item__img">
                     <img src={relogio} alt="relogio" />
                   </div>
                   <div className="Home__Echo__container__item__text">
                     an Ecommerce experience of relogios
                   </div>
-                </div>
-                <div className="Home__Echo__container__item">
+                </Link>
+                <Link to="/correntes" className="Home__Echo__container__item">
                   <div className="Home__Echo__container__item__img">
                     <img src={corrente} alt="corrente" />
                   </div>
                   <div className="Home__Echo__container__item__text">
                     an Ecommerce experience of correntes
                   </div>
-                </div>
-                <div className="Home__Echo__container__item">
+                </Link>
+                <Link to="/pulseiras" className="Home__Echo__container__item">
                   <div className="Home__Echo__container__item__img">
                     <img src={pulseira} alt="pulseira" />
                   </div>
                   <div className="Home__Echo__container__item__text">
                     an Ecommerce experience of pulseiras
                   </div>
-                </div>
+                </Link>
               </div>
 
-              <div className="Home__Echo__container__box">
-                <div className="Home__Echo__container__item">
-                  <div className="Home__Echo__container__item__img">teste</div>
-                  <div className="Home__Echo__container__item__text">teste</div>
-                </div>
-                <div className="Home__Echo__container__item">
-                  <div className="Home__Echo__container__item__img">teste</div>
-                  <div className="Home__Echo__container__item__text">teste</div>
-                </div>
-                <div className="Home__Echo__container__item">
-                  <div className="Home__Echo__container__item__img">teste</div>
-                  <div className="Home__Echo__container__item__text">teste</div>
-                </div>
+              <div className="Home__Echo__container__row">
+                <Link to="/aneis" className="Home__Echo__container__item">
+                  <div className="Home__Echo__container__item__img">
+                    <img src={anel} alt="anel" />
+                  </div>
+                  <div className="Home__Echo__container__item__text">
+                    an Ecommerce experience of Aneis
+                  </div>
+                </Link>
+                <Link to="/pingentes" className="Home__Echo__container__item">
+                  <div className="Home__Echo__container__item__img">
+                    <img src={pingente} alt="pingente" />
+                  </div>
+                  <div className="Home__Echo__container__item__text">
+                    an Ecommerce experience of Pingente
+                  </div>
+                </Link>
+                <Link to="/piercings" className="Home__Echo__container__item">
+                  <div className="Home__Echo__container__item__img">
+                    <img src={piercing} alt="piercing" />
+                  </div>
+                  <div className="Home__Echo__container__item__text">
+                    an Ecommerce experience of piercings
+                  </div>
+                </Link>
               </div>
             </div>
           </div>
+
         </section>
       </section>
     </>
