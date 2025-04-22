@@ -1,28 +1,34 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "../styles/Navbar.css";
 import { useDispatch, useSelector } from "react-redux";
 
 const NavBar = () => {
+  const location = useLocation();
+  
   const user = useSelector((state) => state.user);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const [isScrolled, setIsScrolled] = useState(false);
 
+  // Determina se estamos na página principal
+  const isHomePage = location.pathname === "/";
+  
+  // Determina se estamos em uma página que deve ter texto preto
+  const isBlackTextPage = ["/work", "/contact", "/news"].includes(location.pathname);
+
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
-      setIsScrolled(scrollTop > window.innerHeight); // se passou do banner (100vh)
+      setIsScrolled(scrollTop > window.innerHeight * 0.9); // se passou de 90vh
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-
   return (
-    <nav className={`navbar ${isScrolled ? "scrolled" : ""}`}>
-
+    <nav className={`navbar ${isScrolled ? "scrolled" : ""} ${isHomePage ? "white-text" : isBlackTextPage ? "black-text" : "pink-text"}`}>
       <div className="Nav__item">
         <Link to="/" className="navbar__brand">
           Aurum
@@ -118,7 +124,9 @@ const NavBar = () => {
           </li>
           {user ? (
             <li>
-              <Link to="/profile">Bem-Vindo, {user.nome}! </Link>
+              <Link to="/profile" onClick={() => setIsMenuOpen(false)}>
+                Bem-Vindo, {user.nome}!{" "}
+              </Link>
             </li>
           ) : (
             <li>

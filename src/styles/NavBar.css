@@ -6,6 +6,7 @@
   --border-color: #ffffff;
   --border-hover-color: #b9b9b9;
   --text-transform: uppercase;
+  --pink-color: #f9cdcd;
 }
 
 /* Navbar */
@@ -15,13 +16,41 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 4em;
+  padding: 0 4em;
   position: fixed;
   top: 0;
   left: 0;
   background-color: transparent;
   z-index: 1000;
   transition: background-color 0.45s ease, color 0.4s ease;
+  box-sizing: border-box;
+}
+
+/* Estilo para texto branco na página principal */
+.navbar.white-text a {
+  color: #fff;
+}
+
+.navbar.white-text .navbar__toggle {
+  color: #fff;
+}
+
+/* Estilo para texto preto nas páginas Work, Contact e News */
+.navbar.black-text a {
+  color: #000;
+}
+
+.navbar.black-text .navbar__toggle {
+  color: #000;
+}
+
+/* Estilo para texto rosa nas outras páginas */
+.navbar.pink-text a {
+  color: var(--pink-color);
+}
+
+.navbar.pink-text .navbar__toggle {
+  color: var(--pink-color);
 }
 
 .navbar a {
@@ -77,13 +106,15 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
+  height: 100%;
+  max-height: 100vh;
   background-color: rgba(12, 12, 12, 0.95);
   display: flex;
   flex-direction: column;
   align-items: start;
   transform: translateY(-100%);
   transition: transform 0.3s ease-in-out;
+  overflow-y: auto;
 }
 
 .navbar__mobile__container {

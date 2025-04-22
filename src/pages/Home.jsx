@@ -40,9 +40,8 @@ function Home() {
                 animate={{ opacity: 0 }}
                 transition={{ duration: 1 }}
               >
-                <p className="a__Aurun">Bem-Vindo</p>
-                <p className="a__Aurun">ao</p>
                 <p className="a__Aurun">Aurum</p>
+                <p className="a__Aurun lumine">/Lumine</p>
               </motion.h1>
             )}
           </motion.div>

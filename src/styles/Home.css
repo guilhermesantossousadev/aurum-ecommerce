@@ -50,6 +50,22 @@
 
 .a__Aurun {
   text-align: center;
+  font-size: 12rem;
+  margin-left: -150px;
+  position: relative;
+}
+
+.a__Aurun.lumine::after {
+  content: "®";
+  position: absolute;
+  font-size: 5rem;
+  bottom: 10px;
+  right: -120px;
+}
+
+.a__Aurun__icon {
+  font-size: 1rem;
+  margin-bottom: -100px;
 }
 
 .Banner {
@@ -181,13 +197,32 @@ h1 {
   border-radius: 40px;
   color: var(--text-second-color);
   border: 1px solid var(--text-second-color);
-  transition: 0.3s ease;
+  background-color: transparent;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.3s ease;
+  z-index: 1;
+}
+
+.Home__delta__left button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: var(--text-second-color);
+  transition: width 0.3s ease;
+  z-index: -1;
 }
 
 .Home__delta__left button:hover {
   cursor: pointer;
-  color: var(--text-hover-color);
-  border: 1px solid var(--border-hover-color);
+  color: var(--text-primary-color);
+}
+
+.Home__delta__left button:hover::before {
+  width: 100%;
 }
 
 .Home__delta__right {
@@ -248,8 +283,6 @@ a.Home__Echo__container__item {
   font-weight: 600;
 }
 
-
-
 .Home__Echo__container__item img {
   width: 100%;
   max-width: 500px;
@@ -266,7 +299,6 @@ a.Home__Echo__container__item {
   /* Volta ao normal no hover */
   cursor: pointer;
 }
-
 
 .Home__Echo__container__item__img {
   width: 100%;
@@ -289,7 +321,6 @@ a.Home__Echo__container__item {
   color: var(--text-second-color);
   text-transform: uppercase;
 }
-
 
 /*Home Delta responsividade*/
 @media (max-width: 1024px) {
@@ -350,8 +381,6 @@ a.Home__Echo__container__item {
     color: var(--text-second-color);
   }
 }
-
-
 
 /*Home Echo responsividade*/
 @media (max-width: 1024px) {

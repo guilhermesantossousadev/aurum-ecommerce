@@ -5,6 +5,7 @@ import About from "./pages/About";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import Login from "./pages/Login";
+import News from "./pages/News";
 import Register from "./pages/Register";
 import Profile from "./components/Profile";
 import "./App.css";
@@ -17,12 +18,13 @@ function App() {
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/news" element={<News />} />
         <Route path="/about" element={<About />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
       </Routes>
-      <Footer/>
+      <Footer />
     </Router>
   );
 }

@@ -11,6 +11,7 @@ const Register = () => {
 
   const [nome, setNome] = useState("");
   const [cpf, setCpf] = useState("");
+  const [cpfError, setCpfError] = useState("");
   const [idade, setIdade] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -34,8 +35,75 @@ const Register = () => {
     }
   };
 
+  const validarCPF = (cpf) => {
+    // Remove caracteres não numéricos
+    cpf = cpf.replace(/[^\d]/g, "");
+
+    // Verifica se tem 11 dígitos
+    if (cpf.length !== 11) {
+      return false;
+    }
+
+    // Verifica se todos os dígitos são iguais
+    if (/^(\d)\1{10}$/.test(cpf)) {
+      return false;
+    }
+
+    // Validação do primeiro dígito verificador
+    let soma = 0;
+    for (let i = 0; i < 9; i++) {
+      soma += parseInt(cpf.charAt(i)) * (10 - i);
+    }
+    let resto = 11 - (soma % 11);
+    let digitoVerificador1 = resto > 9 ? 0 : resto;
+    if (digitoVerificador1 !== parseInt(cpf.charAt(9))) {
+      return false;
+    }
+
+    // Validação do segundo dígito verificador
+    soma = 0;
+    for (let i = 0; i < 10; i++) {
+      soma += parseInt(cpf.charAt(i)) * (11 - i);
+    }
+    resto = 11 - (soma % 11);
+    let digitoVerificador2 = resto > 9 ? 0 : resto;
+    if (digitoVerificador2 !== parseInt(cpf.charAt(10))) {
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleCpfChange = (e) => {
+    const value = e.target.value;
+    // Formata o CPF enquanto digita
+    const formattedCpf = value
+      .replace(/\D/g, "")
+      .replace(/(\d{3})(\d)/, "$1.$2")
+      .replace(/(\d{3})(\d)/, "$1.$2")
+      .replace(/(\d{3})(\d{1,2})/, "$1-$2")
+      .replace(/(-\d{2})\d+?$/, "$1");
+
+    setCpf(formattedCpf);
+
+    if (formattedCpf.length === 14) {
+      if (!validarCPF(formattedCpf)) {
+        setCpfError("CPF inválido");
+      } else {
+        setCpfError("");
+      }
+    } else {
+      setCpfError("");
+    }
+  };
+
   const handleRegister = async (e) => {
     e.preventDefault();
+
+    if (cpfError) {
+      alert("Por favor, insira um CPF válido");
+      return;
+    }
 
     const cepData = await searchCEP();
 
@@ -92,9 +160,13 @@ const Register = () => {
         <input
           type="text"
           value={cpf}
-          onChange={(e) => setCpf(e.target.value)}
+          onChange={handleCpfChange}
           placeholder="CPF"
+          maxLength={14}
         />
+        {cpfError && (
+          <span style={{ color: "red", fontSize: "0.8rem" }}>{cpfError}</span>
+        )}
 
         <input
           type="number"
