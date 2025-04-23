@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 const NavBar = () => {
   const location = useLocation();
-  
+
   const user = useSelector((state) => state.user);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -13,9 +13,11 @@ const NavBar = () => {
 
   // Determina se estamos na página principal
   const isHomePage = location.pathname === "/";
-  
+
   // Determina se estamos em uma página que deve ter texto preto
-  const isBlackTextPage = ["/work", "/contact", "/news"].includes(location.pathname);
+  const isBlackTextPage = ["/work", "/contact", "/catalogo"].includes(
+    location.pathname
+  );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,7 +30,11 @@ const NavBar = () => {
   }, []);
 
   return (
-    <nav className={`navbar ${isScrolled ? "scrolled" : ""} ${isHomePage ? "white-text" : isBlackTextPage ? "black-text" : "pink-text"}`}>
+    <nav
+      className={`navbar ${isScrolled ? "scrolled" : ""} ${
+        isHomePage ? "white-text" : isBlackTextPage ? "black-text" : "pink-text"
+      }`}
+    >
       <div className="Nav__item">
         <Link to="/" className="navbar__brand">
           Aurum
@@ -44,7 +50,7 @@ const NavBar = () => {
           <Link to="/about">About</Link>
         </li>
         <li>
-          <Link to="/news">News</Link>
+          <Link to="/catalogo">Catalogo</Link>
         </li>
         <li>
           <Link to="/thinking">Thinking</Link>
@@ -103,8 +109,8 @@ const NavBar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/news" onClick={() => setIsMenuOpen(false)}>
-              News
+            <Link to="/catalogo" onClick={() => setIsMenuOpen(false)}>
+              Catalogo
             </Link>
           </li>
           <li>

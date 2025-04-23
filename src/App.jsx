@@ -5,11 +5,14 @@ import About from "./pages/About";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import Login from "./pages/Login";
-import News from "./pages/News";
+import DetalhesAnuncio from "./pages/DetalhesAnuncio";
+import Catalogo from "./pages/Catalogo";
 import Register from "./pages/Register";
 import Profile from "./components/Profile";
 import "./App.css";
-
+import DetalhesAnel from "./pages/detalhes/DetalhesAnel";
+import DetalhesRelogio from "./pages/detalhes/DetalhesRelogio";
+import DetalhesColar from "./pages/detalhes/DetalhesColar";
 function App() {
   const usuario = useSelector((state) => state.user);
 
@@ -18,7 +21,11 @@ function App() {
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/news" element={<News />} />
+        <Route path="/catalogo" element={<Catalogo />} />
+        <Route path="/detalhesAnuncio/:id" element={<DetalhesAnuncio />} />
+        <Route path="/detalhesAnel/:id" element={<DetalhesAnel />} />
+        <Route path="/detalhesRelogio/:id" element={<DetalhesRelogio />} />
+        <Route path="/detalhesColar/:id" element={<DetalhesColar />} />
         <Route path="/about" element={<About />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
