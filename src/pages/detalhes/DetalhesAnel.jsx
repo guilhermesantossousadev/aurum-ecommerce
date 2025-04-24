@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import "../../styles/DetalhesAnuncio.css";
 import "../../styles/detalhes/DetalhesAnel.css";
+
+import setaEsquerda from "../../images/seta-esquerda.png";
 
 function DetalhesAnel() {
   const [anuncio, setAnuncio] = useState(null);
@@ -72,30 +73,30 @@ function DetalhesAnel() {
 
   if (loading) {
     return (
-      <div className="detalhes-container">
-        <div className="loading-message">Carregando detalhes do anel...</div>
+      <div className="detalhes__container">
+        <div className="loading__message">Carregando detalhes do anel...</div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="detalhes-container">
-        <button className="voltar-button" onClick={() => navigate(-1)}>
+      <div className="detalhes__container">
+        <button className="voltar__button" onClick={() => navigate(-1)}>
           Voltar
         </button>
-        <div className="error-message">{error}</div>
+        <div className="error__message">{error}</div>
       </div>
     );
   }
 
   if (!anuncio) {
     return (
-      <div className="detalhes-container">
-        <button className="voltar-button" onClick={() => navigate(-1)}>
-          Voltar
+      <div className="detalhes__container">
+        <button className="voltar__button" onClick={() => navigate(-1)}>
+          <img src={setaEsquerda} alt="Voltar" />
         </button>
-        <div className="error-message">Anel não encontrado</div>
+        <div className="error__message">Anel não encontrado</div>
       </div>
     );
   }
@@ -113,59 +114,50 @@ function DetalhesAnel() {
 
   return (
     <div className="Anel">
-      <div className="detalhes-container">
-        <button className="voltar-button" onClick={() => navigate(-1)}>
-          Voltar
+      <div className="detalhes__container">
+        <button className="voltar__button" onClick={() => navigate(-1)}>
+          <img src={setaEsquerda} alt="Voltar" />
         </button>
 
-        <div className="detalhes-content">
-          <div className="detalhes-header">
-            <h1>{anuncio.tipoPeca}</h1>
-            <p className="categoria">Anel</p>
-          </div>
-
-          <div className="detalhes-info">
-            {/* Detalhes do Anúncio */}
-            <div className="detalhes-anuncio">
-              <h2>Detalhes do Anúncio</h2>
-              <p>
-                <strong>Titulo:</strong> {anuncio.titulo}
-              </p>
-              <p>
-                <strong>Descrição:</strong>{" "}
-                {anuncio.tipoPeca || "tipo peça não disponível"}
-              </p>
-            </div>
-
+        {/* Detalhes do Anúncio */}
+        <p className="detalhes__info__titulo">{anuncio.titulo}</p>
+        <p>{anuncio.tipoPeca || "tipo peça não disponível"}</p>
+        <div className="detalhes__info">
+          <div className="detalhes__info__item">
             {/* Detalhes da Joia */}
-            <div className="detalhes-joia">
-              <h2>Detalhes do Anel</h2>
+            <h2>Detalhes do Anel</h2>
+            <p>
+              <strong>tamanho:</strong>{" "}
+              {joia.tamanho || "tamanho não disponível"}
+            </p>
+            <p>
+              <strong>formato:</strong>{" "}
+              {joia.formato || "formato não disponível"}
+            </p>
+            <p>
+              <strong>tipoPeca:</strong>{" "}
+              {joia.tipoPeca || "tipoPeca não disponível"}
+            </p>
+            <p>
+              <strong>peso:</strong> {joia.peso || "peso não disponível"}
+            </p>
+            <p>
+              <strong>material:</strong>{" "}
+              {joia.material || "material não disponível"}
+            </p>
+            <p>
+              <strong>valor:</strong>{" "}
+              {formatarPreco(joia.valor) || "valor não disponível"}
+            </p>
+            {joia.isStudded && (
               <p>
-                <strong>tamanho:</strong>{" "}
-                {joia.tamanho || "tamanho não disponível"}
+                <strong>Material Cravejado:</strong>{" "}
+                {joia.materialCravejado || "Não especificado"}
               </p>
-              <p>
-                <strong>formato:</strong>{" "}
-                {joia.formato || "formato não disponível"}
-              </p>
-              <p>
-                <strong>tipoPeca:</strong>{" "}
-                {joia.tipoPeca || "tipoPeca não disponível"}
-              </p>
-              <p>
-                <strong>valor:</strong>{" "}
-                {formatarPreco(joia.valor) || "valor não disponível"}
-              </p>
-              <p>
-                <strong>descricao:</strong> {joia.descricao}
-              </p>
-              {joia.isStudded && (
-                <p>
-                  <strong>Material Cravejado:</strong>{" "}
-                  {joia.materialCravejado || "Não especificado"}
-                </p>
-              )}
-            </div>
+            )}
+          </div>
+          <div className="detalhes__info__item descricao">
+            <p>{joia.descricao}</p>
           </div>
         </div>
       </div>

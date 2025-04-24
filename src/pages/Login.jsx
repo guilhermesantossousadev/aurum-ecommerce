@@ -17,7 +17,7 @@ const Login = () => {
 
     try {
       const req = await fetch(
-        `https://localhost:7081/api/Usuario/LoginUsuario?email=${Email}&password=${Password}`,
+        `http://localhost:7081/api/Usuario/LoginUsuario?email=${Email}&password=${Password}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

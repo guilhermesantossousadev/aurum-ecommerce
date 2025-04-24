@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import "../../styles/DetalhesAnuncio.css";
 
 function DetalhesPiercing() {
   const [anuncio, setAnuncio] = useState(null);

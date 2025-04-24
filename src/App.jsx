@@ -5,7 +5,6 @@ import About from "./pages/About";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import Login from "./pages/Login";
-import DetalhesAnuncio from "./pages/DetalhesAnuncio";
 import Catalogo from "./pages/Catalogo";
 import Register from "./pages/Register";
 import Profile from "./components/Profile";
@@ -22,7 +21,6 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/catalogo" element={<Catalogo />} />
-        <Route path="/detalhesAnuncio/:id" element={<DetalhesAnuncio />} />
         <Route path="/detalhesAnel/:id" element={<DetalhesAnel />} />
         <Route path="/detalhesRelogio/:id" element={<DetalhesRelogio />} />
         <Route path="/detalhesColar/:id" element={<DetalhesColar />} />

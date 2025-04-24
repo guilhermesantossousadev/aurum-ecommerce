@@ -54,7 +54,7 @@ function Catalogo() {
     selectedFilter === "todos"
       ? anuncios
       : anuncios.filter(
-          (anuncio) => anuncio.categoria?.toLowerCase() === selectedFilter
+          (anuncio) => anuncio.ttipoPeca.toLowerCase() === selectedFilter
         );
 
   const handleAnuncioClick = (anuncioId) => {
@@ -77,6 +77,12 @@ function Catalogo() {
           navigate(`/detalhesRelogio/${anuncioId}`);
         } else if (tipoJoia === "colar") {
           navigate(`/detalhesColar/${anuncioId}`);
+        } else if (tipoJoia === "brinco") {
+          navigate(`/detalhesBrinco/${anuncioId}`);
+        } else if (tipoJoia === "pulseira") {
+          navigate(`/detalhesPulseira/${anuncioId}`);
+        } else if (tipoJoia === "pingente") {
+          navigate(`/detalhesPingente/${anuncioId}`);
         } else {
           // Redirecionamento genérico (opcional)
           navigate(`/DetalhesAnuncio/${anuncioId}`);
@@ -195,29 +201,39 @@ function Catalogo() {
             </div>
           </div>
         </div>
-        <div className="part">
-          <div className="part__inside"></div>
+        <div className="Catalogo__part">
+          <div className="Catalogo__part__inside"></div>
         </div>
 
         {/* Exibição dos anúncios */}
-        <div className="anuncios-container">
+        <div className="anuncios__container">
           {loading && <p>Carregando anúncios...</p>}
-          {error && <p className="error-message">{error}</p>}
+          {error && <p className="error__message">{error}</p>}
 
           {!loading && !error && anunciosFiltrados.length === 0 && (
             <p>Nenhum anúncio encontrado.</p>
           )}
 
-          <div className="anuncios-grid">
+          <div className="anuncios__grid">
+            {/*Anuncio Card*/}
             {anunciosFiltrados.map((anuncio) => (
               <div
                 key={anuncio.id}
-                className="anuncio-card"
+                className="anuncio__card"
                 onClick={() => handleAnuncioClick(anuncio.id)}
               >
-                {/*<img src={anuncio.imagemUrl} alt={anuncio.titulo} />*/}
+                {anuncio.urLs && anuncio.urLs.length > 0 && (
+                  <img
+                    src={anuncio.urLs[0]}
+                    alt="Imagem do anúncio"
+                    className="anuncio__image"
+                  />
+                )}
                 <h3>{anuncio.titulo}</h3>
                 <p>{anuncio.descricao}</p>
+                <div className="Catalogo__part">
+                  <div className="Catalogo__part__inside"></div>
+                </div>{" "}
               </div>
             ))}
           </div>

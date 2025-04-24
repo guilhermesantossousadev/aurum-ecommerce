@@ -124,7 +124,7 @@ const Register = () => {
 
     try {
       const response = await fetch(
-        "https://localhost:7081/api/Usuario/PostUsuario",
+        "http://localhost:7081/api/Usuario/PostUsuario",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
