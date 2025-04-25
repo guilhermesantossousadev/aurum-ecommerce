@@ -18,7 +18,7 @@ function Footer() {
           <div className="footer__item__bottom">
             <form onSubmit={handleSubmit}>
               <h1 className="footer__item__bottom__title">
-                ESTEJA POR DENTRO.
+                ● ESTEJA POR DENTRO.
               </h1>
               <input type="email" placeholder="Email" />
               <button type="submit">
