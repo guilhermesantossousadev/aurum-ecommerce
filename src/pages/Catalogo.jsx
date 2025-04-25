@@ -1,16 +1,22 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Catalogo.css";
+import lupabranca from "../images/lupa-branca.png";
 
 function Catalogo() {
   const [selectedFilter, setSelectedFilter] = useState("todos");
   const [anuncios, setAnuncios] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isSearchExpanded, setIsSearchExpanded] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const anunciosPerPage = 7;
   const navigate = useNavigate();
 
   const handleFilterChange = (e) => {
     setSelectedFilter(e.target.value);
+    setCurrentPage(1); // Resetar para a primeira página ao mudar o filtro
   };
 
   const getAnuncios = async () => {
@@ -49,13 +55,31 @@ function Catalogo() {
     getAnuncios();
   }, []);
 
-  // Filtrar anúncios com base na seleção
-  const anunciosFiltrados =
-    selectedFilter === "todos"
-      ? anuncios
-      : anuncios.filter(
-          (anuncio) => anuncio.ttipoPeca.toLowerCase() === selectedFilter
-        );
+  // Filtrar anúncios com base na seleção e termo de pesquisa
+  const anunciosFiltrados = anuncios
+    .filter((anuncio) => {
+      if (selectedFilter === "todos") return true;
+      return anuncio.tipoPeca.toLowerCase() === selectedFilter;
+    })
+    .filter((anuncio) => {
+      if (!searchTerm) return true;
+      return (
+        anuncio.titulo.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        anuncio.descricao.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    });
+
+  // Calcular índices para paginação
+  const indexOfLastAnuncio = currentPage * anunciosPerPage;
+  const indexOfFirstAnuncio = indexOfLastAnuncio - anunciosPerPage;
+  const currentAnuncios = anunciosFiltrados.slice(indexOfFirstAnuncio, indexOfLastAnuncio);
+  const totalPages = Math.ceil(anunciosFiltrados.length / anunciosPerPage);
+
+  // Função para mudar de página
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo(0, 0); // Rolar para o topo da página
+  };
 
   const handleAnuncioClick = (anuncioId) => {
     const fetchTipoJoia = async () => {
@@ -83,6 +107,8 @@ function Catalogo() {
           navigate(`/detalhesPulseira/${anuncioId}`);
         } else if (tipoJoia === "pingente") {
           navigate(`/detalhesPingente/${anuncioId}`);
+        } else if (tipoJoia === "piercing") {
+          navigate(`/detalhesPiercing/${anuncioId}`);
         } else {
           // Redirecionamento genérico (opcional)
           navigate(`/DetalhesAnuncio/${anuncioId}`);
@@ -99,10 +125,26 @@ function Catalogo() {
     <>
       <div className="Catalogo">
         <div className="Catalogo__Header__container">
-          <div className="Header__container__item">
+          <div className="Header__container__item__left">
             <h1>Catalogo</h1>
           </div>
-          <div className="Header__container__item pesquisa">pesquisa</div>
+          <div className="Header__container__item__right">
+            <div className={`search-container ${isSearchExpanded ? 'expanded' : ''}`}>
+              <input
+                type="text"
+                className="search-input"
+                placeholder="Pesquisar..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <button
+                className="search-button"
+                onClick={() => setIsSearchExpanded(!isSearchExpanded)}
+              >
+                <img src={lupabranca} alt="Lupa" style={{ width: '30px', height: '30px' }} />
+              </button>
+            </div>
+          </div>
         </div>
         <div className="Filter__elements_container">
           <div className="Filter__elements__item"></div>
@@ -216,7 +258,7 @@ function Catalogo() {
 
           <div className="anuncios__grid">
             {/*Anuncio Card*/}
-            {anunciosFiltrados.map((anuncio) => (
+            {currentAnuncios.map((anuncio) => (
               <div
                 key={anuncio.id}
                 className="anuncio__card"
@@ -237,6 +279,39 @@ function Catalogo() {
               </div>
             ))}
           </div>
+
+          {/* Paginação */}
+          {totalPages > 1 && (
+            <div className="pagination">
+              <button
+                className="pagination__button"
+                onClick={() => paginate(currentPage - 1)}
+                disabled={currentPage === 1}
+              >
+                Anterior
+              </button>
+
+              <div className="pagination__numbers">
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((number) => (
+                  <button
+                    key={number}
+                    className={`pagination__number ${currentPage === number ? 'active' : ''}`}
+                    onClick={() => paginate(number)}
+                  >
+                    {number}
+                  </button>
+                ))}
+              </div>
+
+              <button
+                className="pagination__button"
+                onClick={() => paginate(currentPage + 1)}
+                disabled={currentPage === totalPages}
+              >
+                Próximo
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </>

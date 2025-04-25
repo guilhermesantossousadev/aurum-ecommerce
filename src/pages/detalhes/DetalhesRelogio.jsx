@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import "../../styles/detalhes/DetalhesComum.css";
+import ImageCarousel from "../../components/ImageCarousel";
+import setaesquerdabranca from "../../images/seta-esquerda-branca.png";
 
 function DetalhesRelogio() {
   const [anuncio, setAnuncio] = useState(null);
@@ -15,43 +18,24 @@ function DetalhesRelogio() {
         setLoading(true);
         setError(null);
 
-        // Buscar detalhes do anúncio
         const anuncioResponse = await fetch(
           `https://localhost:7081/api/Anuncio/GetByIdAnuncio?id=${id}`
         );
-        
+
         if (!anuncioResponse.ok) {
           throw new Error("Não foi possível carregar os detalhes do anúncio");
         }
-        
-        const anuncioData = await anuncioResponse.json();
-        
-        if (!anuncioData) {
-          throw new Error("Anúncio não encontrado");
-        }
-        
-        setAnuncio(anuncioData);
 
-        // Buscar detalhes do relógio
-        const relogioResponse = await fetch(
-          `https://localhost:7081/api/Relogio/GetByIdRelogio?id=${anuncioData.joiaId}`
-        );
-        
-        if (!relogioResponse.ok) {
-          throw new Error("Não foi possível carregar os detalhes do relógio");
-        }
-        
-        const relogioData = await relogioResponse.json();
-        
-        if (!relogioData) {
+        const anuncioData = await anuncioResponse.json();
+
+        if (!anuncioData) {
           throw new Error("Relógio não encontrado");
         }
-        
-        setRelogio(relogioData);
+
+        setAnuncio(anuncioData);
       } catch (err) {
         setError(err.message);
         console.error("Erro ao carregar dados:", err);
-      } finally {
         setLoading(false);
       }
     };
@@ -61,53 +45,67 @@ function DetalhesRelogio() {
     }
   }, [id]);
 
+  useEffect(() => {
+    const fetchRelogio = async () => {
+      try {
+        const relogioResponse = await fetch(
+          `https://localhost:7081/api/Joia/GetByIdJoia?id=${anuncio.joiaId}`
+        );
+
+        if (!relogioResponse.ok) {
+          throw new Error("Não foi possível carregar os detalhes do relógio");
+        }
+
+        const relogioData = await relogioResponse.json();
+        setRelogio(relogioData);
+      } catch (err) {
+        setError(err.message);
+        console.error("Erro ao carregar dados do relógio:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (anuncio && anuncio.joiaId) {
+      fetchRelogio();
+    }
+  }, [anuncio]);
+
   if (loading) {
     return (
-      <div className="detalhes-container">
-        <div className="loading-message">Carregando detalhes do relógio...</div>
+      <div className="detalhes__container">
+        <div className="loading__message">Carregando detalhes do relógio...</div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="detalhes-container">
-        <button className="voltar-button" onClick={() => navigate(-1)}>
+      <div className="detalhes__container">
+        <button className="voltar__button" onClick={() => navigate(-1)}>
           Voltar
         </button>
-        <div className="error-message">{error}</div>
+        <div className="error__message">{error}</div>
       </div>
     );
   }
 
-  if (!anuncio || !relogio) {
+  if (!anuncio) {
     return (
-      <div className="detalhes-container">
-        <button className="voltar-button" onClick={() => navigate(-1)}>
-          Voltar
+      <div className="detalhes__container">
+        <button className="voltar__button" onClick={() => navigate(-1)}>
+          <img src={setaesquerdabranca} alt="Voltar" />
         </button>
-        <div className="error-message">Relógio não encontrado</div>
+        <div className="error__message">Relógio não encontrado</div>
       </div>
     );
   }
-
-  const formatarData = (data) => {
-    try {
-      return new Date(data).toLocaleDateString('pt-BR', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric'
-      });
-    } catch (error) {
-      return "Data não disponível";
-    }
-  };
 
   const formatarPreco = (preco) => {
     try {
-      return new Intl.NumberFormat('pt-BR', {
-        style: 'currency',
-        currency: 'BRL'
+      return new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL",
       }).format(preco);
     } catch (error) {
       return "Preço não disponível";
@@ -115,56 +113,67 @@ function DetalhesRelogio() {
   };
 
   return (
-    <div className="detalhes-container">
-      <button className="voltar-button" onClick={() => navigate(-1)}>
-        Voltar
-      </button>
+    <div className="detalhes">
+      <div className="detalhes__container">
+        <button className="voltar__button" onClick={() => navigate(-1)}>
+          <img src={setaesquerdabranca} alt="Voltar" />
+        </button>
 
-      <div className="detalhes-content">
-        <div className="detalhes-header">
-          <h1>{relogio.nome || "Nome não disponível"}</h1>
-          <p className="categoria">Relógio</p>
+        <div className="detalhes__container__imagem">
+          {anuncio.urLs && anuncio.urLs.length > 0 ? (
+            <ImageCarousel images={anuncio.urLs} />
+          ) : (
+            <img src={anuncio.url} alt="Imagem do relógio" />
+          )}
         </div>
 
-        <div className="detalhes-info">
-          <div className="detalhes-anuncio">
-            <h2>Detalhes do Anúncio</h2>
-            <p>
-              <strong>Preço:</strong>{" "}
-              <span className="preco">{formatarPreco(anuncio.preco)}</span>
-            </p>
-            <p>
-              <strong>Data de Publicação:</strong>{" "}
-              {formatarData(anuncio.dataPublicacao)}
-            </p>
-            <p>
-              <strong>Descrição:</strong> {anuncio.descricao || "Descrição não disponível"}
-            </p>
-          </div>
-
-          <div className="detalhes-joia">
+        {/* Detalhes do Anúncio */}
+        <p className="detalhes__info__titulo">{anuncio.titulo}</p>
+        <div className="detalhes__info">
+          <div className="detalhes__info__item">
+            {/* Detalhes do Relógio */}
             <h2>Detalhes do Relógio</h2>
-            <p>
-              <strong>Material:</strong> {relogio.material || "Material não disponível"}
+            <p className="detalhes__info__item__p">
+              <strong className="detalhes__info__item__p__strong">Tipo de Movimento</strong>{" "}
+              {relogio?.tipoMovimento || "Tipo de movimento não disponível"}
             </p>
-            <p>
-              <strong>Peso:</strong> {relogio.peso ? `${relogio.peso}g` : "Peso não disponível"}
+            <p className="detalhes__info__item__p">
+              <strong className="detalhes__info__item__p__strong">Resistente à Água</strong>{" "}
+              {relogio?.haveWaterResistance ? "Sim" : "Não"}
             </p>
-            <p>
-              <strong>Tipo:</strong> {relogio.tipo || "Tipo não disponível"}
+            <p className="detalhes__info__item__p">
+              <strong className="detalhes__info__item__p__strong">Diâmetro da Caixa</strong>{" "}
+              {relogio?.diametroCaixa ? `${relogio.diametroCaixa}mm` : "Diâmetro não disponível"}
             </p>
-            <p>
-              <strong>Estado:</strong> {relogio.estado || "Estado não disponível"}
+            <p className="detalhes__info__item__p">
+              <strong className="detalhes__info__item__p__strong">Material da Pulseira</strong>{" "}
+              {relogio?.materialPulseira || "Material não disponível"}
             </p>
-            <p>
-              <strong>Marca:</strong> {relogio.marca || "Marca não disponível"}
+            <p className="detalhes__info__item__p">
+              <strong className="detalhes__info__item__p__strong">Fonte de Energia</strong>{" "}
+              {relogio?.fonteEnergia || "Fonte de energia não disponível"}
             </p>
-            <p>
-              <strong>Cor:</strong> {relogio.cor || "Cor não disponível"}
+            <p className="detalhes__info__item__p">
+              <strong className="detalhes__info__item__p__strong">Peso</strong>{" "}
+              {relogio?.peso ? `${relogio.peso}g` : "Peso não disponível"}
             </p>
-            <p>
-              <strong>Pulseira:</strong> {relogio.pulseira || "Pulseira não disponível"}
+            <p className="detalhes__info__item__p">
+              <strong className="detalhes__info__item__p__strong">Material</strong>{" "}
+              {relogio?.material || "Material não disponível"}
             </p>
+            <p className="detalhes__info__item__p">
+              <strong className="detalhes__info__item__p__strong">Valor</strong>{" "}
+              {formatarPreco(relogio?.valor) || "Valor não disponível"}
+            </p>
+            {relogio?.isStudded && (
+              <p className="detalhes__info__item__p">
+                <strong className="detalhes__info__item__p__strong">Material Cravejado</strong>{" "}
+                {relogio?.materialCravejado || "Não especificado"}
+              </p>
+            )}
+          </div>
+          <div className="detalhes__info__item descricao">
+            <p className="detalhes__info__item__p">{relogio?.descricao}</p>
           </div>
         </div>
       </div>

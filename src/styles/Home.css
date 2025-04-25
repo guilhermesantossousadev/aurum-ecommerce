@@ -83,7 +83,7 @@
   object-fit: cover;
 }
 
-h1 {
+.Home__delta__right h1 {
   position: relative;
   color: var(--text-primary-color);
   font-size: 3rem;

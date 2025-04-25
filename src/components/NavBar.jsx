@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import "../styles/Navbar.css";
+import "../styles/NavBar.css";
 import { useDispatch, useSelector } from "react-redux";
 
 const NavBar = () => {
@@ -15,9 +15,18 @@ const NavBar = () => {
   const isHomePage = location.pathname === "/";
 
   // Determina se estamos em uma página que deve ter texto preto
-  const isBlackTextPage = ["/work", "/contact", "/catalogo"].includes(
+  const isBlackTextPage = ["/work", "/contact", "/careers"].includes(
     location.pathname
   );
+  
+  // Determina se estamos na página de catálogo
+  const isCatalogoPage = location.pathname === "/catalogo";
+  
+  // Determina se estamos na página About
+  const isAboutPage = location.pathname === "/about";
+  
+  // Determina se estamos em uma página de autenticação
+  const isAuthPage = ["/login", "/register"].includes(location.pathname);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,11 +38,24 @@ const NavBar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Determina a classe de texto com base na página atual
+  const getTextClass = () => {
+    if (isHomePage) return "white-text";
+    if (isBlackTextPage) return "black-text";
+    if (isAboutPage) return "gray-text";
+    return "pink-text";
+  };
+  
+  // Determina a classe específica da página
+  const getPageClass = () => {
+    if (isCatalogoPage) return "catalogo-nav";
+    if (isAuthPage) return "auth-nav";
+    return "";
+  };
+
   return (
     <nav
-      className={`navbar ${isScrolled ? "scrolled" : ""} ${
-        isHomePage ? "white-text" : isBlackTextPage ? "black-text" : "pink-text"
-      }`}
+      className={`navbar ${isScrolled ? "scrolled" : ""} ${getTextClass()} ${getPageClass()}`}
     >
       <div className="Nav__item">
         <Link to="/" className="navbar__brand">
@@ -136,7 +158,7 @@ const NavBar = () => {
             </li>
           ) : (
             <li>
-              <Link to="/login">Login</Link>
+              <Link to="/login" onClick={() => setIsMenuOpen(false)}>Login</Link>
             </li>
           )}
         </ul>

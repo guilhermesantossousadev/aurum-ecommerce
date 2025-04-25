@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import "../../styles/detalhes/DetalhesComum.css";
+import ImageCarousel from "../../components/ImageCarousel";
+import setaesquerdabranca from "../../images/seta-esquerda-branca.png";
 
 function DetalhesBrinco() {
   const [anuncio, setAnuncio] = useState(null);
@@ -15,43 +18,24 @@ function DetalhesBrinco() {
         setLoading(true);
         setError(null);
 
-        // Buscar detalhes do anúncio
         const anuncioResponse = await fetch(
           `https://localhost:7081/api/Anuncio/GetByIdAnuncio?id=${id}`
         );
-        
+
         if (!anuncioResponse.ok) {
           throw new Error("Não foi possível carregar os detalhes do anúncio");
         }
-        
+
         const anuncioData = await anuncioResponse.json();
-        
+
         if (!anuncioData) {
           throw new Error("Anúncio não encontrado");
         }
-        
-        setAnuncio(anuncioData);
 
-        // Buscar detalhes do brinco
-        const brincoResponse = await fetch(
-          `https://localhost:7081/api/Brinco/GetByIdBrinco?id=${anuncioData.joiaId}`
-        );
-        
-        if (!brincoResponse.ok) {
-          throw new Error("Não foi possível carregar os detalhes do brinco");
-        }
-        
-        const brincoData = await brincoResponse.json();
-        
-        if (!brincoData) {
-          throw new Error("Brinco não encontrado");
-        }
-        
-        setBrinco(brincoData);
+        setAnuncio(anuncioData);
       } catch (err) {
         setError(err.message);
         console.error("Erro ao carregar dados:", err);
-      } finally {
         setLoading(false);
       }
     };
@@ -61,53 +45,67 @@ function DetalhesBrinco() {
     }
   }, [id]);
 
+  useEffect(() => {
+    const fetchBrinco = async () => {
+      try {
+        const brincoResponse = await fetch(
+          `https://localhost:7081/api/Joia/GetByIdJoia?id=${anuncio.joiaId}`
+        );
+
+        if (!brincoResponse.ok) {
+          throw new Error("Não foi possível carregar os detalhes do brinco");
+        }
+
+        const brincoData = await brincoResponse.json();
+        setBrinco(brincoData);
+      } catch (err) {
+        setError(err.message);
+        console.error("Erro ao carregar dados do brinco:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (anuncio && anuncio.joiaId) {
+      fetchBrinco();
+    }
+  }, [anuncio]);
+
   if (loading) {
     return (
-      <div className="detalhes-container">
-        <div className="loading-message">Carregando detalhes do brinco...</div>
+      <div className="detalhes__container">
+        <div className="loading__message">Carregando detalhes do brinco...</div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="detalhes-container">
-        <button className="voltar-button" onClick={() => navigate(-1)}>
+      <div className="detalhes__container">
+        <button className="voltar__button" onClick={() => navigate(-1)}>
           Voltar
         </button>
-        <div className="error-message">{error}</div>
+        <div className="error__message">{error}</div>
       </div>
     );
   }
 
-  if (!anuncio || !brinco) {
+  if (!anuncio) {
     return (
-      <div className="detalhes-container">
-        <button className="voltar-button" onClick={() => navigate(-1)}>
-          Voltar
+      <div className="detalhes__container">
+        <button className="voltar__button" onClick={() => navigate(-1)}>
+          <img src={setaesquerdabranca} alt="Voltar" />
         </button>
-        <div className="error-message">Brinco não encontrado</div>
+        <div className="error__message">Brinco não encontrado</div>
       </div>
     );
   }
-
-  const formatarData = (data) => {
-    try {
-      return new Date(data).toLocaleDateString('pt-BR', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric'
-      });
-    } catch (error) {
-      return "Data não disponível";
-    }
-  };
 
   const formatarPreco = (preco) => {
     try {
-      return new Intl.NumberFormat('pt-BR', {
-        style: 'currency',
-        currency: 'BRL'
+      return new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL",
       }).format(preco);
     } catch (error) {
       return "Preço não disponível";
@@ -115,53 +113,59 @@ function DetalhesBrinco() {
   };
 
   return (
-    <div className="detalhes-container">
-      <button className="voltar-button" onClick={() => navigate(-1)}>
-        Voltar
-      </button>
+    <div className="Brinco">
+      <div className="detalhes__container">
+        <button className="voltar__button" onClick={() => navigate(-1)}>
+          <img src={setaesquerdabranca} alt="Voltar" />
+        </button>
 
-      <div className="detalhes-content">
-        <div className="detalhes-header">
-          <h1>{brinco.nome || "Nome não disponível"}</h1>
-          <p className="categoria">Brinco</p>
+        <div className="detalhes__container__imagem">
+          {anuncio.urLs && anuncio.urLs.length > 0 ? (
+            <ImageCarousel images={anuncio.urLs} />
+          ) : (
+            <img src={anuncio.url} alt="Imagem do brinco" />
+          )}
         </div>
 
-        <div className="detalhes-info">
-          <div className="detalhes-anuncio">
-            <h2>Detalhes do Anúncio</h2>
-            <p>
-              <strong>Preço:</strong>{" "}
-              <span className="preco">{formatarPreco(anuncio.preco)}</span>
-            </p>
-            <p>
-              <strong>Data de Publicação:</strong>{" "}
-              {formatarData(anuncio.dataPublicacao)}
-            </p>
-            <p>
-              <strong>Descrição:</strong> {anuncio.descricao || "Descrição não disponível"}
-            </p>
-          </div>
-
-          <div className="detalhes-joia">
+        {/* Detalhes do Anúncio */}
+        <p className="detalhes__info__titulo">{anuncio.titulo}</p>
+        <div className="detalhes__info">
+          <div className="detalhes__info__item">
+            {/* Detalhes do Brinco */}
             <h2>Detalhes do Brinco</h2>
-            <p>
-              <strong>Material:</strong> {brinco.material || "Material não disponível"}
+            <p className="detalhes__info__item__p">
+              <strong className="detalhes__info__item__p__strong">Modelo</strong>{" "}
+              {brinco?.modelo || "Modelo não disponível"}
             </p>
-            <p>
-              <strong>Peso:</strong> {brinco.peso ? `${brinco.peso}g` : "Peso não disponível"}
+            <p className="detalhes__info__item__p">
+              <strong className="detalhes__info__item__p__strong">Tipo de Fecho</strong>{" "}
+              {brinco?.tipoFecho || "Tipo de fecho não disponível"}
             </p>
-            <p>
-              <strong>Tipo:</strong> {brinco.tipo || "Tipo não disponível"}
+            <p className="detalhes__info__item__p">
+              <strong className="detalhes__info__item__p__strong">Altura</strong>{" "}
+              {brinco?.altura ? `${brinco.altura}mm` : "Altura não disponível"}
             </p>
-            <p>
-              <strong>Estado:</strong> {brinco.estado || "Estado não disponível"}
+            <p className="detalhes__info__item__p">
+              <strong className="detalhes__info__item__p__strong">Peso Individual</strong>{" "}
+              {brinco?.pesoIndividual ? `${brinco.pesoIndividual}g` : "Peso não disponível"}
             </p>
-            <p>
-              <strong>Marca:</strong> {brinco.marca || "Marca não disponível"}
+            <p className="detalhes__info__item__p">
+              <strong className="detalhes__info__item__p__strong">Material</strong>{" "}
+              {brinco?.material || "Material não disponível"}
             </p>
-            <p>
-              <strong>Pedra:</strong> {brinco.pedra || "Pedra não disponível"}
+            <p className="detalhes__info__item__p">
+              <strong className="detalhes__info__item__p__strong">Valor</strong>{" "}
+              {formatarPreco(brinco?.valor) || "Valor não disponível"}
             </p>
+            {brinco?.isStudded && (
+              <p className="detalhes__info__item__p">
+                <strong className="detalhes__info__item__p__strong">Material Cravejado</strong>{" "}
+                {brinco?.materialCravejado || "Não especificado"}
+              </p>
+            )}
+          </div>
+          <div className="detalhes__info__item descricao">
+            <p className="detalhes__info__item__p">{brinco?.descricao}</p>
           </div>
         </div>
       </div>

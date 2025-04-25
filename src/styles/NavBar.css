@@ -1,12 +1,15 @@
 /*Variaveis*/
 
 :root {
-  --text-color: #fff;
+  --text-color: #f4f4f4;
   --text-hover-color: #b9b9b9;
   --border-color: #ffffff;
   --border-hover-color: #b9b9b9;
   --text-transform: uppercase;
   --pink-color: #f9cdcd;
+  --dark-bg: rgba(12, 12, 12, 0.95);
+  --light-bg: rgba(255, 255, 255, 0.95);
+  --transition-speed: 0.3s;
 }
 
 /* Navbar */
@@ -22,7 +25,7 @@
   left: 0;
   background-color: transparent;
   z-index: 1000;
-  transition: background-color 0.45s ease, color 0.4s ease;
+  transition: background-color 0.45s ease, color 0.4s ease, box-shadow 0.4s ease;
   box-sizing: border-box;
 }
 
@@ -35,7 +38,7 @@
   color: #fff;
 }
 
-/* Estilo para texto preto nas páginas Work, Contact e News */
+/* Estilo para texto preto nas páginas Work, Contact, Catalogo e Careers */
 .navbar.black-text a {
   color: #000;
 }
@@ -53,6 +56,15 @@
   color: var(--pink-color);
 }
 
+/* Estilo para texto cinza na página About */
+.navbar.gray-text a {
+  color: #666;
+}
+
+.navbar.gray-text .navbar__toggle {
+  color: #666;
+}
+
 .navbar a {
   text-decoration: none;
   color: var(--text-color);
@@ -62,7 +74,7 @@
 .navbar__brand {
   font-size: 40px;
   font-weight: bold;
-  transition: 0.3s ease;
+  transition: var(--transition-speed) ease;
 }
 
 .navbar__brand:hover {
@@ -79,7 +91,23 @@
 .navbar__list a {
   font-size: 16px;
   font-weight: 600;
-  transition: color 0.3s ease-in-out;
+  transition: color var(--transition-speed) ease-in-out;
+  position: relative;
+}
+
+.navbar__list a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background-color: currentColor;
+  transition: width var(--transition-speed) ease-in-out;
+}
+
+.navbar__list a:hover::after {
+  width: 100%;
 }
 
 .navbar__list a:hover {
@@ -93,7 +121,7 @@
   font-size: 2rem;
   color: var(--text-color);
   cursor: pointer;
-  transition: 0.3s ease;
+  transition: var(--transition-speed) ease;
 }
 
 .navbar__toggle:hover {
@@ -108,12 +136,12 @@
   width: 100%;
   height: 100%;
   max-height: 100vh;
-  background-color: rgba(12, 12, 12, 0.95);
+  background-color: var(--dark-bg);
   display: flex;
   flex-direction: column;
   align-items: start;
   transform: translateY(-100%);
-  transition: transform 0.3s ease-in-out;
+  transition: transform var(--transition-speed) ease-in-out;
   overflow-y: auto;
 }
 
@@ -150,8 +178,8 @@
 .navbar__mobile a {
   font-size: 24px;
   font-weight: 600;
-  color: var(--texto);
-  transition: color 0.3s ease-in-out;
+  color: var(--text-color);
+  transition: color var(--transition-speed) ease-in-out;
 }
 
 .navbar__mobile a:hover {
@@ -175,7 +203,7 @@
   color: var(--text-color);
   cursor: pointer;
   border: 1px solid var(--border-color);
-  transition: 0.3s ease;
+  transition: var(--transition-speed) ease;
 }
 
 .navbar__close:hover {
@@ -183,26 +211,58 @@
   border: 1px solid var(--border-hover-color);
 }
 
+/* Estilo para navbar com scroll */
 .navbar.scrolled {
-  background-color: white;
-  border-bottom: 1px solid black;
+  background-color: var(--light-bg);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.navbar.scrolled a {
-  color: black;
+.navbar.scrolled.white-text a,
+.navbar.scrolled.pink-text a,
+.navbar.scrolled.gray-text a {
+  color: #000;
 }
 
-.navbar.scrolled .navbar__mobile a {
-  color: var(--text-color);
+.navbar.scrolled.white-text .navbar__toggle,
+.navbar.scrolled.pink-text .navbar__toggle,
+.navbar.scrolled.gray-text .navbar__toggle {
+  color: #000;
 }
 
-.navbar.scrolled .navbar__toggle {
-  color: black;
+/* Estilo específico para página de catálogo */
+.navbar.catalogo-nav {
+  background-color: rgba(244, 244, 244, 0.9);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
+.navbar.catalogo-nav a {
+  color: #252422;
+}
+
+.navbar.catalogo-nav .navbar__toggle {
+  color: #252422;
+}
+
+/* Estilo específico para página de login/registro */
+.navbar.auth-nav {
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.navbar.auth-nav a {
+  color: #252422;
+}
+
+.navbar.auth-nav .navbar__toggle {
+  color: #252422;
+}
 
 /* Responsividade */
 @media (max-width: 960px) {
+  .navbar {
+    padding: 0 2em;
+  }
+  
   .navbar__list {
     display: none;
     /* Esconde a navegação desktop */
@@ -211,5 +271,19 @@
   .navbar__toggle {
     display: block;
     /* Exibe o botão de abrir menu */
+  }
+  
+  .navbar__brand {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0 1em;
+  }
+  
+  .navbar__brand {
+    font-size: 28px;
   }
 }

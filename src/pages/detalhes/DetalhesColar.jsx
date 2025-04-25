@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import "../../styles/detalhes/DetalhesComum.css"; 
+import ImageCarousel from "../../components/ImageCarousel";
+import setaesquerdabranca from "../../images/seta-esquerda-branca.png";
 
 function DetalhesColar() {
   const [anuncio, setAnuncio] = useState(null);
@@ -15,43 +18,24 @@ function DetalhesColar() {
         setLoading(true);
         setError(null);
 
-        // Buscar detalhes do anúncio
         const anuncioResponse = await fetch(
           `https://localhost:7081/api/Anuncio/GetByIdAnuncio?id=${id}`
         );
-        
+
         if (!anuncioResponse.ok) {
           throw new Error("Não foi possível carregar os detalhes do anúncio");
         }
-        
+
         const anuncioData = await anuncioResponse.json();
-        
+
         if (!anuncioData) {
           throw new Error("Anúncio não encontrado");
         }
-        
-        setAnuncio(anuncioData);
 
-        // Buscar detalhes do colar
-        const colarResponse = await fetch(
-          `https://localhost:7081/api/Colar/GetByIdColar?id=${anuncioData.joiaId}`
-        );
-        
-        if (!colarResponse.ok) {
-          throw new Error("Não foi possível carregar os detalhes do colar");
-        }
-        
-        const colarData = await colarResponse.json();
-        
-        if (!colarData) {
-          throw new Error("Colar não encontrado");
-        }
-        
-        setColar(colarData);
+        setAnuncio(anuncioData);
       } catch (err) {
         setError(err.message);
         console.error("Erro ao carregar dados:", err);
-      } finally {
         setLoading(false);
       }
     };
@@ -61,53 +45,67 @@ function DetalhesColar() {
     }
   }, [id]);
 
+  useEffect(() => {
+    const fetchColar = async () => {
+      try {
+        const colarResponse = await fetch(
+          `https://localhost:7081/api/Joia/GetByIdJoia?id=${anuncio.joiaId}`
+        );
+
+        if (!colarResponse.ok) {
+          throw new Error("Não foi possível carregar os detalhes do colar");
+        }
+
+        const colarData = await colarResponse.json();
+        setColar(colarData);
+      } catch (err) {
+        setError(err.message);
+        console.error("Erro ao carregar dados do colar:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (anuncio && anuncio.joiaId) {
+      fetchColar();
+    }
+  }, [anuncio]);
+
   if (loading) {
     return (
-      <div className="detalhes-container">
-        <div className="loading-message">Carregando detalhes do colar...</div>
+      <div className="detalhes__container">
+        <div className="loading__message">Carregando detalhes do colar...</div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="detalhes-container">
-        <button className="voltar-button" onClick={() => navigate(-1)}>
+      <div className="detalhes__container">
+        <button className="voltar__button" onClick={() => navigate(-1)}>
           Voltar
         </button>
-        <div className="error-message">{error}</div>
+        <div className="error__message">{error}</div>
       </div>
     );
   }
 
-  if (!anuncio || !colar) {
+  if (!anuncio) {
     return (
-      <div className="detalhes-container">
-        <button className="voltar-button" onClick={() => navigate(-1)}>
-          Voltar
+      <div className="detalhes__container">
+        <button className="voltar__button" onClick={() => navigate(-1)}>
+          <img src={setaesquerdabranca} alt="Voltar" />
         </button>
-        <div className="error-message">Colar não encontrado</div>
+        <div className="error__message">Colar não encontrado</div>
       </div>
     );
   }
-
-  const formatarData = (data) => {
-    try {
-      return new Date(data).toLocaleDateString('pt-BR', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric'
-      });
-    } catch (error) {
-      return "Data não disponível";
-    }
-  };
 
   const formatarPreco = (preco) => {
     try {
-      return new Intl.NumberFormat('pt-BR', {
-        style: 'currency',
-        currency: 'BRL'
+      return new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL",
       }).format(preco);
     } catch (error) {
       return "Preço não disponível";
@@ -115,53 +113,67 @@ function DetalhesColar() {
   };
 
   return (
-    <div className="detalhes-container">
-      <button className="voltar-button" onClick={() => navigate(-1)}>
-        Voltar
-      </button>
+    <div className="Colar">
+      <div className="detalhes__container">
+        <button className="voltar__button" onClick={() => navigate(-1)}>
+          <img src={setaesquerdabranca} alt="Voltar" />
+        </button>
 
-      <div className="detalhes-content">
-        <div className="detalhes-header">
-          <h1>{colar.nome || "Nome não disponível"}</h1>
-          <p className="categoria">Colar</p>
+        <div className="detalhes__container__imagem">
+          {anuncio.urLs && anuncio.urLs.length > 0 ? (
+            <ImageCarousel images={anuncio.urLs} />
+          ) : (
+            <img src={anuncio.url} alt="Imagem do colar" />
+          )}
         </div>
 
-        <div className="detalhes-info">
-          <div className="detalhes-anuncio">
-            <h2>Detalhes do Anúncio</h2>
-            <p>
-              <strong>Preço:</strong>{" "}
-              <span className="preco">{formatarPreco(anuncio.preco)}</span>
+        {/* Detalhes do Anúncio */}
+        <p className="detalhes__info__titulo">{anuncio.titulo}</p>
+        <div className="detalhes__info">
+          <div className="detalhes__info__item">
+            {/* Detalhes do Colar */}
+            <h2>Detalhes do Colar</h2>
+            <p className="detalhes__info__item__p">
+              <strong className="detalhes__info__item__p__strong">Modelo</strong>{" "}
+              {colar?.modelo || "Modelo não disponível"}
             </p>
-            <p>
-              <strong>Data de Publicação:</strong>{" "}
-              {formatarData(anuncio.dataPublicacao)}
+            <p className="detalhes__info__item__p">
+              <strong className="detalhes__info__item__p__strong">Tipo de Corrente</strong>{" "}
+              {colar?.tipoCorrente || "Tipo de corrente não disponível"}
             </p>
-            <p>
-              <strong>Descrição:</strong> {anuncio.descricao || "Descrição não disponível"}
+            <p className="detalhes__info__item__p">
+              <strong className="detalhes__info__item__p__strong">Comprimento</strong>{" "}
+              {colar?.comprimento ? `${colar.comprimento}cm` : "Comprimento não disponível"}
+            </p>
+            <p className="detalhes__info__item__p">
+              <strong className="detalhes__info__item__p__strong">Espessura</strong>{" "}
+              {colar?.espessura ? `${colar.espessura}mm` : "Espessura não disponível"}
+            </p>
+            <p className="detalhes__info__item__p">
+              <strong className="detalhes__info__item__p__strong">Peso</strong>{" "}
+              {colar?.peso ? `${colar.peso}g` : "Peso não disponível"}
+            </p>
+            <p className="detalhes__info__item__p">
+              <strong className="detalhes__info__item__p__strong">Material</strong>{" "}
+              {colar?.material || "Material não disponível"}
+            </p>
+            <p className="detalhes__info__item__p">
+              <strong className="detalhes__info__item__p__strong">Valor</strong>{" "}
+              {formatarPreco(colar?.valor) || "Valor não disponível"}
+            </p>
+            {colar?.isStudded && (
+              <p className="detalhes__info__item__p">
+                <strong className="detalhes__info__item__p__strong">Material Cravejado</strong>{" "}
+                {colar?.materialCravejado || "Não especificado"}
+              </p>
+            )}
+            <p className="detalhes__info__item__p">
+              <strong className="detalhes__info__item__p__strong">Possui Pingente</strong>{" "}
+              {colar?.havePendant ? "Sim" : "Não"}
             </p>
           </div>
-
-          <div className="detalhes-joia">
-            <h2>Detalhes do Colar</h2>
-            <p>
-              <strong>Material:</strong> {colar.material || "Material não disponível"}
-            </p>
-            <p>
-              <strong>Peso:</strong> {colar.peso ? `${colar.peso}g` : "Peso não disponível"}
-            </p>
-            <p>
-              <strong>Comprimento:</strong> {colar.comprimento || "Comprimento não disponível"}
-            </p>
-            <p>
-              <strong>Estado:</strong> {colar.estado || "Estado não disponível"}
-            </p>
-            <p>
-              <strong>Marca:</strong> {colar.marca || "Marca não disponível"}
-            </p>
-            <p>
-              <strong>Pedra:</strong> {colar.pedra || "Pedra não disponível"}
-            </p>
+          <div className="detalhes__info__item descricao">
+            <p className="detalhes__info__item__p">{colar?.descricao}</p>
           </div>
         </div>
       </div>
