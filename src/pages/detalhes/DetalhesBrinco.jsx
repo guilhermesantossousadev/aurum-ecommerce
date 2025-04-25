@@ -113,7 +113,7 @@ function DetalhesBrinco() {
   };
 
   return (
-    <div className="Brinco">
+    <div className="detalhes">
       <div className="detalhes__container">
         <button className="voltar__button" onClick={() => navigate(-1)}>
           <img src={setaesquerdabranca} alt="Voltar" />
