@@ -1,0 +1,121 @@
+/* Variáveis */
+:root {
+  --text-color: #252422;
+  --text-hover-color: #181716;
+  --background-color: #f4f4f4;
+  --pink-color: #f9cdcd;
+  --border-color: #252422;
+  --border-hover-color: #181716;
+  --text-transform: uppercase;
+  --transition-speed: 0.3s;
+}
+
+.Auth {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--background-color);
+  padding: 120px 5vw 5vw 5vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.Auth__container {
+  width: 100%;
+  max-width: 400px;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 9px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+}
+
+.Auth__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.Auth__input {
+  width: 100%;
+  padding: 0.8rem;
+  border: none;
+  border-bottom: 1px solid var(--border-color);
+  background-color: transparent;
+  font-size: 1rem;
+  transition: var(--transition-speed) ease;
+}
+
+.Auth__input:focus {
+  outline: none;
+  border-bottom-color: var(--pink-color);
+}
+
+.Auth__button {
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--text-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: var(--text-transform);
+  cursor: pointer;
+  transition: var(--transition-speed) ease;
+}
+
+.Auth__button:hover {
+  background-color: var(--text-hover-color);
+  transform: translateY(-2px);
+}
+
+.Auth__link {
+  color: var(--text-color);
+  text-decoration: none;
+  font-size: 0.9rem;
+  text-align: center;
+  transition: var(--transition-speed) ease;
+}
+
+.Auth__link:hover {
+  color: var(--pink-color);
+}
+
+.Auth__error {
+  color: #e74c3c;
+  font-size: 0.9rem;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .Auth {
+    padding: 100px 3vw 5vw 3vw;
+  }
+
+  .Auth__container {
+    padding: 1.5rem;
+  }
+
+  .Auth__title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .Auth__title {
+    font-size: 1.8rem;
+  }
+
+  .Auth__input {
+    font-size: 0.9rem;
+  }
+
+  .Auth__button {
+    font-size: 0.9rem;
+  }
+} 

@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { login } from "../store/userSlice";
-import "../styles/Register.css";
+import "../styles/Auth.css";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -18,6 +17,8 @@ const Register = () => {
   const [cep, setCep] = useState("");
   const [numero, setNumero] = useState("");
   const [endereco, setEndereco] = useState("");
+  const [error, setError] = useState("");
+  const [focus, setFocus] = useState("none");
 
   const searchCEP = async () => {
     try {
@@ -26,30 +27,30 @@ const Register = () => {
       if (!response.ok) {
         throw new Error("Erro ao buscar CEP.");
       }
+      else{
+        setFocus("numero")
+      }
 
       const data = await response.json();
       return data;
+
     } catch (error) {
       console.error("Erro ao buscar CEP:", error);
-      return null; // Retorna null em caso de erro
+      return null;
     }
   };
 
   const validarCPF = (cpf) => {
-    // Remove caracteres não numéricos
     cpf = cpf.replace(/[^\d]/g, "");
 
-    // Verifica se tem 11 dígitos
     if (cpf.length !== 11) {
       return false;
     }
 
-    // Verifica se todos os dígitos são iguais
     if (/^(\d)\1{10}$/.test(cpf)) {
       return false;
     }
 
-    // Validação do primeiro dígito verificador
     let soma = 0;
     for (let i = 0; i < 9; i++) {
       soma += parseInt(cpf.charAt(i)) * (10 - i);
@@ -60,7 +61,6 @@ const Register = () => {
       return false;
     }
 
-    // Validação do segundo dígito verificador
     soma = 0;
     for (let i = 0; i < 10; i++) {
       soma += parseInt(cpf.charAt(i)) * (11 - i);
@@ -76,7 +76,6 @@ const Register = () => {
 
   const handleCpfChange = (e) => {
     const value = e.target.value;
-    // Formata o CPF enquanto digita
     const formattedCpf = value
       .replace(/\D/g, "")
       .replace(/(\d{3})(\d)/, "$1.$2")
@@ -99,9 +98,10 @@ const Register = () => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    setError("");
 
     if (cpfError) {
-      alert("Por favor, insira um CPF válido");
+      setError("Por favor, insira um CPF válido");
       return;
     }
 
@@ -137,75 +137,94 @@ const Register = () => {
       }
 
       const user = await response.json();
-
       dispatch(login(user));
       navigate("/");
     } catch (error) {
       console.error("Erro no cadastro:", error);
+      setError("Erro ao criar conta. Por favor, tente novamente.");
     }
   };
 
   return (
-    <div className="Register">
-      <form onSubmit={handleRegister}>
-        <h2>Cadastre-se</h2>
+    <div className="Auth">
+      <div className="Auth__container">
+        <h2 className="Auth__title">Cadastre-se</h2>
+        <form className="Auth__form" onSubmit={handleRegister}>
+          <input
+            className="Auth__input"
+            type="text"
+            value={nome}
+            onChange={(e) => setNome(e.target.value)}
+            placeholder="Nome"
+            required
+          />
 
-        <input
-          type="text"
-          value={nome}
-          onChange={(e) => setNome(e.target.value)}
-          placeholder="Nome"
-        />
+          <input
+            className="Auth__input"
+            type="text"
+            value={cpf}
+            onChange={handleCpfChange}
+            placeholder="CPF"
+            maxLength={14}
+            required
+          />
+          {cpfError && <p className="Auth__error">{cpfError}</p>}
 
-        <input
-          type="text"
-          value={cpf}
-          onChange={handleCpfChange}
-          placeholder="CPF"
-          maxLength={14}
-        />
-        {cpfError && (
-          <span style={{ color: "red", fontSize: "0.8rem" }}>{cpfError}</span>
-        )}
+          <input
+            className="Auth__input"
+            type="number"
+            value={idade}
+            onChange={(e) => setIdade(e.target.value)}
+            placeholder="Idade"
+            required
+          />
 
-        <input
-          type="number"
-          value={idade}
-          onChange={(e) => setIdade(e.target.value)}
-          placeholder="Idade"
-        />
+          <input
+            className="Auth__input"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+            required
+          />
 
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-        />
+          <input
+            className="Auth__input"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Senha"
+            required
+          />
 
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Senha"
-        />
+          <input
+            className="Auth__input"
+            type="text"
+            value={cep}
+            onChange={(e) => setCep(e.target.value)}
+            placeholder="CEP"
+            required
+          />
 
-        <input
-          type="text"
-          value={cep}
-          onChange={(e) => setCep(e.target.value)}
-          placeholder="CEP"
-        />
+          <input
+            className="Auth__input"
+            type="text"
+            value={numero}
+            onChange={(e) => setNumero(e.target.value)}
+            placeholder="Número"
+            required
+          />
 
-        <input
-          type="text"
-          value={numero}
-          onChange={(e) => setNumero(e.target.value)}
-          placeholder="Número"
-        />
+          {error && <p className="Auth__error">{error}</p>}
 
-        <button type="submit">Cadastrar</button>
-      </form>
-      <Link to="/login">Já tem uma conta? Faça login</Link>
+          <button className="Auth__button" type="submit">
+            Cadastrar
+          </button>
+        </form>
+        <Link to="/login" className="Auth__link">
+          Já tem uma conta? Faça login
+        </Link>
+      </div>
     </div>
   );
 };
