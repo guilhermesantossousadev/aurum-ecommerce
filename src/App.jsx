@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Catalogo from "./pages/Catalogo";
 import Register from "./pages/Register";
 import Profile from "./components/Profile";
+import TokenAuthentication from "./pages/TokenAuthentication";
 import "./App.css";
 import DetalhesAnel from "./pages/detalhes/DetalhesAnel";
 import DetalhesRelogio from "./pages/detalhes/DetalhesRelogio";
@@ -16,6 +17,7 @@ import DetalhesBrinco from "./pages/detalhes/DetalhesBrinco";
 import DetalhesPiercing from "./pages/detalhes/DetalhesPiercing";
 import DetalhesPulseira from "./pages/detalhes/DetalhesPulseira";
 import DetalhesPingente from "./pages/detalhes/DetalhesPingente";
+
 function App() {
   const usuario = useSelector((state) => state.user);
 
@@ -36,6 +38,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/token-authentication" element={<TokenAuthentication />} />
       </Routes>
       <Footer />
     </Router>

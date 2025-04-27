@@ -24,6 +24,10 @@ const NavBar = () => {
   
   // Determina se estamos na página About
   const isAboutPage = location.pathname === "/about";
+
+  
+  // Determina se estamos na página token authentication
+  const isTokenAuthenticationPage = location.pathname === "/token-authentication";
   
   // Determina se estamos em uma página de autenticação
   const isAuthPage = ["/login", "/register"].includes(location.pathname);
@@ -42,6 +46,7 @@ const NavBar = () => {
   const getTextClass = () => {
     if (isHomePage) return "white-text";
     if (isBlackTextPage) return "black-text";
+    if (isTokenAuthenticationPage) return "black-text";
     if (isAboutPage) return "gray-text";
     return "pink-text";
   };

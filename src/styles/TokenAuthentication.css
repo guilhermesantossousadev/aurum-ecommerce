@@ -1,4 +1,4 @@
-.Register {
+.TokenAuth {
   min-height: 100vh;
   width: 100%;
   display: flex;
@@ -9,7 +9,7 @@
   padding: 2rem;
 }
 
-.Register__container {
+.TokenAuth__container {
   width: 100%;
   max-width: 400px;
   background-color: #ffffff;
@@ -18,20 +18,20 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.Register__title {
+.TokenAuth__title {
   text-align: center;
   color: #333;
   margin-bottom: 2rem;
   font-size: 1.8rem;
 }
 
-.Register__form {
+.TokenAuth__form {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
 
-.Register__input {
+.TokenAuth__input {
   width: 100%;
   padding: 0.8rem;
   border: 1px solid #ddd;
@@ -40,12 +40,12 @@
   transition: border-color 0.3s ease;
 }
 
-.Register__input:focus {
+.TokenAuth__input:focus {
   outline: none;
   border-color: #007bff;
 }
 
-.Register__button {
+.TokenAuth__button {
   width: 100%;
   padding: 0.8rem;
   background-color: #007bff;
@@ -57,16 +57,16 @@
   transition: background-color 0.3s ease;
 }
 
-.Register__button:hover {
+.TokenAuth__button:hover {
   background-color: #0056b3;
 }
 
-.Register__button:disabled {
+.TokenAuth__button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
 }
 
-.Register__links {
+.TokenAuth__links {
   margin-top: 1.5rem;
   display: flex;
   flex-direction: column;
@@ -74,19 +74,19 @@
   gap: 1rem;
 }
 
-.Register__link {
+.TokenAuth__link {
   color: #007bff;
   text-decoration: none;
   font-size: 0.9rem;
   transition: color 0.3s ease;
 }
 
-.Register__link:hover {
+.TokenAuth__link:hover {
   color: #0056b3;
   text-decoration: underline;
 }
 
-.Register__error {
+.TokenAuth__error {
   background-color: #f8d7da;
   color: #721c24;
   padding: 0.8rem;
@@ -95,7 +95,7 @@
   text-align: center;
 }
 
-.Register__success {
+.TokenAuth__success {
   background-color: #d4edda;
   color: #155724;
   padding: 0.8rem;
@@ -104,16 +104,23 @@
   text-align: center;
 }
 
+.TokenAuth__step {
+  text-align: center;
+  color: #666;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
 @media (max-width: 480px) {
-  .Register {
+  .TokenAuth {
     padding: 1rem;
   }
 
-  .Register__container {
+  .TokenAuth__container {
     padding: 1.5rem;
   }
 
-  .Register__title {
+  .TokenAuth__title {
     font-size: 1.5rem;
   }
-}
+} 
