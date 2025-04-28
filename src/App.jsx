@@ -1,15 +1,20 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Home from "./pages/Home";
-import About from "./pages/About";
+
+
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
+
+
+import Home from "./pages/Home";
+import About from "./pages/About";
 import Login from "./pages/Login";
 import Catalogo from "./pages/Catalogo";
 import Register from "./pages/Register";
 import Profile from "./components/Profile";
 import TokenAuthentication from "./pages/TokenAuthentication";
-import "./App.css";
+
+
 import DetalhesAnel from "./pages/detalhes/DetalhesAnel";
 import DetalhesRelogio from "./pages/detalhes/DetalhesRelogio";
 import DetalhesColar from "./pages/detalhes/DetalhesColar";
@@ -18,6 +23,7 @@ import DetalhesPiercing from "./pages/detalhes/DetalhesPiercing";
 import DetalhesPulseira from "./pages/detalhes/DetalhesPulseira";
 import DetalhesPingente from "./pages/detalhes/DetalhesPingente";
 import Carrinho from "./pages/Carrinho";
+import "./App.css";
 
 function App() {
   const usuario = useSelector((state) => state.user);
