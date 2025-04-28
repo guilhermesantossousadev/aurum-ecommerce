@@ -10,7 +10,7 @@
     width: 100%;
     height: 100%;
     background-color: var(--background-color);
-    min-height: 200vh;
+    min-height: 230vh;
     padding-top: 10rem;
 }
 
@@ -56,7 +56,7 @@
 
 .About__part {
     width: 100%;
-    height: 20px;
+    height: 90px;
     padding-inline: 0;
     display: flex;
     align-items: center;
@@ -74,7 +74,7 @@
 
 .About__part__top {
     width: 100%;
-    height: 33%;
+    height: 40%;
     position: absolute;
     bottom: 30px;
     left: 5%;
@@ -83,7 +83,7 @@
 
 .About__part__bottom {
     width: 100%;
-    height: 33%;
+    height: 100%;
     position: absolute;
     bottom: 0;
     display: flex;
