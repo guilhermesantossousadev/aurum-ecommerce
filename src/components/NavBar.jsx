@@ -47,7 +47,7 @@ const NavBar = () => {
     if (isHomePage) return "white-text";
     if (isBlackTextPage) return "black-text";
     if (isTokenAuthenticationPage) return "black-text";
-    if (isAboutPage) return "gray-text";
+    if (isAboutPage) return "white-text";
     return "pink-text";
   };
   
