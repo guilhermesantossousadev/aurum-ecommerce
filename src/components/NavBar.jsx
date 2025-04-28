@@ -80,7 +80,7 @@ const NavBar = () => {
           <Link to="/catalogo">Catalogo</Link>
         </li>
         <li>
-          <Link to="/thinking">Thinking</Link>
+          <Link to="/carrinho">Carrinho</Link>
         </li>
         <li>
           <Link to="/careers">Careers</Link>
@@ -141,8 +141,8 @@ const NavBar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/thinking" onClick={() => setIsMenuOpen(false)}>
-              Thinking
+            <Link to="/carrinho" onClick={() => setIsMenuOpen(false)}>
+              Carrinho
             </Link>
           </li>
           <li>

@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom"
 import "../styles/Home.css";
 import video from "../images/videoplayback.mp4";
-import adage from "../images/Adage.png";
+import adage from "../images/adage.png";
 import campaing from "../images/campaing.png";
 import webby from "../images/webby.png";
 

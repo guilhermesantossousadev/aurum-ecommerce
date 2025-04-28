@@ -17,6 +17,7 @@ import DetalhesBrinco from "./pages/detalhes/DetalhesBrinco";
 import DetalhesPiercing from "./pages/detalhes/DetalhesPiercing";
 import DetalhesPulseira from "./pages/detalhes/DetalhesPulseira";
 import DetalhesPingente from "./pages/detalhes/DetalhesPingente";
+import Carrinho from "./pages/Carrinho";
 
 function App() {
   const usuario = useSelector((state) => state.user);
@@ -35,6 +36,7 @@ function App() {
         <Route path="/detalhesPulseira/:id" element={<DetalhesPulseira />} />
         <Route path="/detalhesPingente/:id" element={<DetalhesPingente />} />
         <Route path="/about" element={<About />} />
+        <Route path="/carrinho" element={<Carrinho />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
