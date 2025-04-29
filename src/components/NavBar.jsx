@@ -3,6 +3,9 @@ import { Link, useLocation } from "react-router-dom";
 import "../styles/NavBar.css";
 import { useDispatch, useSelector } from "react-redux";
 
+import { FaShoppingCart } from "react-icons/fa";
+import { li } from "framer-motion/client";
+
 const NavBar = () => {
   const location = useLocation();
 
@@ -18,17 +21,17 @@ const NavBar = () => {
   const isBlackTextPage = ["/work", "/contact", "/careers"].includes(
     location.pathname
   );
-  
+
   // Determina se estamos na página de catálogo
   const isCatalogoPage = location.pathname === "/catalogo";
-  
+
   // Determina se estamos na página About
   const isAboutPage = location.pathname === "/about";
 
-  
   // Determina se estamos na página token authentication
-  const isTokenAuthenticationPage = location.pathname === "/token-authentication";
-  
+  const isTokenAuthenticationPage =
+    location.pathname === "/token-authentication";
+
   // Determina se estamos em uma página de autenticação
   const isAuthPage = ["/login", "/register"].includes(location.pathname);
 
@@ -50,7 +53,7 @@ const NavBar = () => {
     if (isAboutPage) return "white-text";
     return "pink-text";
   };
-  
+
   // Determina a classe específica da página
   const getPageClass = () => {
     if (isCatalogoPage) return "catalogo-nav";
@@ -60,7 +63,9 @@ const NavBar = () => {
 
   return (
     <nav
-      className={`navbar ${isScrolled ? "scrolled" : ""} ${getTextClass()} ${getPageClass()}`}
+      className={`navbar ${
+        isScrolled ? "scrolled" : ""
+      } ${getTextClass()} ${getPageClass()}`}
     >
       <div className="Nav__item">
         <Link to="/" className="navbar__brand">
@@ -80,14 +85,19 @@ const NavBar = () => {
           <Link to="/catalogo">Catalogo</Link>
         </li>
         <li>
-          <Link to="/carrinho">Carrinho</Link>
-        </li>
-        <li>
           <Link to="/careers">Careers</Link>
         </li>
         <li>
           <Link to="/contact">Contact</Link>
         </li>
+
+        {user ? (
+          <li>
+            <Link to="/carrinho">Carrinho</Link>
+          </li>
+        ) : (
+          <li></li>
+        )}
         {user ? (
           <li>
             <Link to="/profile">Bem-Vindo, {user.nome}! </Link>
@@ -163,7 +173,9 @@ const NavBar = () => {
             </li>
           ) : (
             <li>
-              <Link to="/login" onClick={() => setIsMenuOpen(false)}>Login</Link>
+              <Link to="/login" onClick={() => setIsMenuOpen(false)}>
+                Login
+              </Link>
             </li>
           )}
         </ul>

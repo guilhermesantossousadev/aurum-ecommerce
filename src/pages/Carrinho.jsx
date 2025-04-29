@@ -29,8 +29,8 @@ function Carrinho() {
         })
       );
       setAnuncios(detalhesAnuncios);
-      
-      const joiasIds = detalhesAnuncios.map(anuncio => anuncio.joiaId);
+
+      const joiasIds = detalhesAnuncios.map((anuncio) => anuncio.joiaId);
       await buscarDetalhesJoia(joiasIds);
     } catch (error) {
       console.error("Erro ao buscar detalhes dos anúncios:", error);
@@ -66,7 +66,7 @@ function Carrinho() {
     try {
       setLoading(true);
       setError(null);
-      
+
       const response = await fetch(
         `https://localhost:7081/api/Carrinho/GetByUsuarioIdCarrinho?usuarioId=${user.id}`,
         {
@@ -81,7 +81,7 @@ function Carrinho() {
 
       const data = await response.json();
       setCarrinho(data);
-      
+
       if (data?.anunciosId?.anunciosId?.length > 0) {
         await buscarDetalhesAnuncios(data.anunciosId.anunciosId);
       }
@@ -134,11 +134,6 @@ function Carrinho() {
             <button onClick={fetchCarrinho}>Tentar novamente</button>
           </div>
         </div>
-        <footer className="carrinho-footer">
-          <p>Copyright Azure 2025 todos direitos reservados.</p>
-          <p>CNPJ: 44321248000139</p>
-          <p>Rua Washington Lima 300 CASA, Bangu - Rio de Janeiro, RJ</p>
-        </footer>
       </div>
     );
   }
@@ -152,11 +147,6 @@ function Carrinho() {
             <p>Carregando seu carrinho...</p>
           </div>
         </div>
-        <footer className="carrinho-footer">
-          <p>Copyright Azure 2025 todos direitos reservados.</p>
-          <p>CNPJ: 44321248000139</p>
-          <p>Rua Washington Lima 300 CASA, Bangu - Rio de Janeiro, RJ</p>
-        </footer>
       </div>
     );
   }
@@ -164,21 +154,19 @@ function Carrinho() {
   return (
     <div className="Carrinho">
       <div className="carrinho-container">
-        <h1 className="carrinho-titulo">
-          <FaShoppingBag /> Checkout
-        </h1>
-        
         {!carrinho?.anunciosId?.anunciosId?.length ? (
           <div className="carrinho-vazio">
             <h2>Seu carrinho está vazio</h2>
             <p>Explore nossa coleção de joias exclusivas</p>
-            <a href="/" className="btn-continuar-comprando">Continuar Comprando</a>
+            <a href="/" className="btn-continuar-comprando">
+              Continuar Comprando
+            </a>
           </div>
         ) : (
           <div className="carrinho-content">
             <div className="carrinho-items">
               {anuncios.map((anuncio, index) => {
-                const joia = joias.find(j => j.id === anuncio.joiaId);
+                const joia = joias.find((j) => j.id === anuncio.joiaId);
                 return (
                   <div key={index} className="carrinho-item">
                     <div className="item-imagem">
@@ -189,11 +177,15 @@ function Carrinho() {
                     <div className="item-detalhes">
                       <h3>{anuncio.titulo}</h3>
                       <p className="item-tipo">Tipo: {joia?.tipoPeca}</p>
-                      <p className="item-material">Material: {joia?.material}</p>
+                      <p className="item-material">
+                        Material: {joia?.material}
+                      </p>
                       {joia?.isStudded && (
-                        <p className="item-cravejado">Material Cravejado: {joia.materialCravejado}</p>
+                        <p className="item-cravejado">
+                          Material Cravejado: {joia.materialCravejado}
+                        </p>
                       )}
-                      <button 
+                      <button
                         className="btn-remover"
                         onClick={() => removerDoCarrinho(anuncio.id)}
                       >
@@ -201,19 +193,29 @@ function Carrinho() {
                       </button>
                     </div>
                     <div className="item-valor">
-                      R$ {joia?.valor?.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                      R${" "}
+                      {joia?.valor?.toLocaleString("pt-BR", {
+                        minimumFractionDigits: 2,
+                      })}
                     </div>
                   </div>
                 );
               })}
-              <a href="/" className="btn-continuar-comprando">Continuar comprando</a>
+              <a href="/catalogo" className="btn-continuar-comprando">
+                Continuar comprando
+              </a>
             </div>
-            
+
             <div className="carrinho-resumo">
               <h3>Resumo do pedido</h3>
               <div className="resumo-item">
                 <span>Subtotal do pedido</span>
-                <span>R$ {calcularTotal().toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
+                <span>
+                  R${" "}
+                  {calcularTotal().toLocaleString("pt-BR", {
+                    minimumFractionDigits: 2,
+                  })}
+                </span>
               </div>
               <div className="resumo-item">
                 <span>Frete</span>
@@ -221,22 +223,31 @@ function Carrinho() {
               </div>
               <div className="resumo-total">
                 <span>Total:</span>
-                <span>R$ {calcularTotal().toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
+                <span>
+                  R${" "}
+                  {calcularTotal().toLocaleString("pt-BR", {
+                    minimumFractionDigits: 2,
+                  })}
+                </span>
               </div>
-              <button className="btn-finalizar-compra">
-                FINALIZAR PEDIDO
-              </button>
-              <p className="installments">Em até 9x de R$ {(calcularTotal() / 9).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</p>
-              <p className="pix-discount">Pix: R$ {(calcularTotal() * 0.95).toLocaleString('pt-BR', { minimumFractionDigits: 2 })} (5% nos produtos)</p>
+              <button className="btn-finalizar-compra">FINALIZAR PEDIDO</button>
+              <p className="installments">
+                Em até 9x de R${" "}
+                {(calcularTotal() / 9).toLocaleString("pt-BR", {
+                  minimumFractionDigits: 2,
+                })}
+              </p>
+              <p className="pix-discount">
+                Pix: R${" "}
+                {(calcularTotal() * 0.95).toLocaleString("pt-BR", {
+                  minimumFractionDigits: 2,
+                })}{" "}
+                (5% nos produtos)
+              </p>
             </div>
           </div>
         )}
       </div>
-      <footer className="carrinho-footer">
-        <p>Copyright Azure 2025 todos direitos reservados.</p>
-        <p>CNPJ: 44321248000139</p>
-        <p>Rua Washington Lima 300 CASA, Bangu - Rio de Janeiro, RJ</p>
-      </footer>
     </div>
   );
 }
