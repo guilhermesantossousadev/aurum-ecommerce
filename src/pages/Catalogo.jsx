@@ -72,7 +72,10 @@ function Catalogo() {
   // Calcular índices para paginação
   const indexOfLastAnuncio = currentPage * anunciosPerPage;
   const indexOfFirstAnuncio = indexOfLastAnuncio - anunciosPerPage;
-  const currentAnuncios = anunciosFiltrados.slice(indexOfFirstAnuncio, indexOfLastAnuncio);
+  const currentAnuncios = anunciosFiltrados.slice(
+    indexOfFirstAnuncio,
+    indexOfLastAnuncio
+  );
   const totalPages = Math.ceil(anunciosFiltrados.length / anunciosPerPage);
 
   // Função para mudar de página
@@ -129,7 +132,11 @@ function Catalogo() {
             <h1>Catalogo</h1>
           </div>
           <div className="Header__container__item__right">
-            <div className={`search-container ${isSearchExpanded ? 'expanded' : ''}`}>
+            <div
+              className={`search-container ${
+                isSearchExpanded ? "expanded" : ""
+              }`}
+            >
               <input
                 type="text"
                 className="search-input"
@@ -141,7 +148,11 @@ function Catalogo() {
                 className="search-button"
                 onClick={() => setIsSearchExpanded(!isSearchExpanded)}
               >
-                <img src={lupabranca} alt="Lupa" style={{ width: '30px', height: '30px' }} />
+                <img
+                  src={lupabranca}
+                  alt="Lupa"
+                  style={{ width: "30px", height: "30px" }}
+                />
               </button>
             </div>
           </div>
@@ -264,15 +275,17 @@ function Catalogo() {
                 className="anuncio__card"
                 onClick={() => handleAnuncioClick(anuncio.id)}
               >
-                {anuncio.urLs && anuncio.urLs.length > 0 && (
-                  <img
-                    src={anuncio.urLs[0]}
-                    alt="Imagem do anúncio"
-                    className="anuncio__image"
-                  />
-                )}
-                <h3>{anuncio.titulo}</h3>
-                <p>{anuncio.descricao}</p>
+                <div className="anuncio__card__content">
+                  {anuncio.urLs && anuncio.urLs.length > 0 && (
+                    <img
+                      src={anuncio.urLs[0]}
+                      alt="Imagem do anúncio"
+                      className="anuncio__image"
+                    />
+                  )}
+                  <h3>{anuncio.titulo}</h3>
+                  <p>{anuncio.descricao}</p>
+                </div>
                 <div className="Catalogo__part">
                   <div className="Catalogo__part__inside"></div>
                 </div>{" "}
@@ -292,15 +305,19 @@ function Catalogo() {
               </button>
 
               <div className="pagination__numbers">
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map((number) => (
-                  <button
-                    key={number}
-                    className={`pagination__number ${currentPage === number ? 'active' : ''}`}
-                    onClick={() => paginate(number)}
-                  >
-                    {number}
-                  </button>
-                ))}
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                  (number) => (
+                    <button
+                      key={number}
+                      className={`pagination__number ${
+                        currentPage === number ? "active" : ""
+                      }`}
+                      onClick={() => paginate(number)}
+                    >
+                      {number}
+                    </button>
+                  )
+                )}
               </div>
 
               <button
