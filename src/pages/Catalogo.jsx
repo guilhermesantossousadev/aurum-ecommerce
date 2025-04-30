@@ -275,7 +275,7 @@ function Catalogo() {
                 className="anuncio__card"
                 onClick={() => handleAnuncioClick(anuncio.id)}
               >
-                <div className="anuncio__card__content">
+                <div className="anuncio__card__container">
                   {anuncio.urLs && anuncio.urLs.length > 0 && (
                     <img
                       src={anuncio.urLs[0]}

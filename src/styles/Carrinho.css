@@ -316,7 +316,6 @@
 
   .carrinho-item {
     grid-template-columns: 1fr;
-    text-align: center;
   }
 
   .item-imagem {
@@ -326,12 +325,10 @@
   }
 
   .item-valor {
-    justify-content: center;
     margin-top: 1rem;
   }
 
   .btn-remover {
-    justify-content: center;
     margin-top: 0.5rem;
   }
 
