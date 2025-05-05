@@ -152,6 +152,7 @@
 
 .navbar__mobile__container a {
   padding-left: 1.5rem;
+  color: #fff !important;
 }
 
 .navbar__mobile__ul {
@@ -178,6 +179,7 @@
 .navbar__mobile a {
   font-size: 24px;
   font-weight: 600;
+  color: #fff !important;
   color: var(--text-color);
   transition: color var(--transition-speed) ease-in-out;
 }

@@ -4,12 +4,13 @@ import { useState, useEffect } from "react";
 import { FaTrash, FaShoppingBag } from "react-icons/fa";
 
 function Carrinho() {
+  const user = useSelector((state) => state.user);
+
   const [carrinho, setCarrinho] = useState(null);
   const [error, setError] = useState(null);
   const [anuncios, setAnuncios] = useState([]);
   const [joias, setJoias] = useState([]);
   const [loading, setLoading] = useState(true);
-  const user = useSelector((state) => state.user);
 
   const buscarDetalhesAnuncios = async (anunciosIds) => {
     try {
@@ -67,16 +68,20 @@ function Carrinho() {
       setLoading(true);
       setError(null);
 
-      const response = await fetch(
-        `https://localhost:7081/api/Carrinho/GetByUsuarioIdCarrinho?usuarioId=${user.id}`,
+      const valorValue = await fetch(
+        `https://localhost:7081/api/Carrinho/CompileValue?usuarioId=${user.id}`,
         {
-          method: "GET",
+          method: "PUT",
           headers: { "Content-Type": "application/json" },
         }
       );
 
+      const response = await fetch(
+        `https://localhost:7081/api/Carrinho/GetByUsuarioIdCarrinho?usuarioId=${user.id}`
+      );
+
       if (!response.ok) {
-        throw new Error("Erro ao buscar o carrinho.");
+        throw new Error("Erro ao buscar carrinho");
       }
 
       const data = await response.json();
@@ -84,10 +89,13 @@ function Carrinho() {
 
       if (data?.anunciosId?.anunciosId?.length > 0) {
         await buscarDetalhesAnuncios(data.anunciosId.anunciosId);
+      } else {
+        setAnuncios([]);
+        setJoias([]);
       }
-    } catch (error) {
-      console.error("Erro ao buscar carrinho:", error);
-      setError(error.message);
+    } catch (err) {
+      console.error("Erro ao buscar carrinho:", err);
+      setError("Erro ao carregar o carrinho");
     } finally {
       setLoading(false);
     }
@@ -95,22 +103,91 @@ function Carrinho() {
 
   const removerDoCarrinho = async (anuncioId) => {
     try {
-      const response = await fetch(
-        `https://localhost:7081/api/Carrinho/RemoveAnuncioFromCarrinho?usuarioId=${user.id}&anuncioId=${anuncioId}`,
+      const usuarioId = user?.id;
+      if (!usuarioId) {
+        alert("Usuário não está logado.");
+        return;
+      }
+
+      // 1. Buscar carrinho atual do usuário
+      const carrinhoResponse = await fetch(
+        `https://localhost:7081/api/Carrinho/GetByUsuarioIdCarrinho?usuarioId=${usuarioId}`
+      );
+
+      if (!carrinhoResponse.ok) {
+        throw new Error("Erro ao buscar carrinho");
+      }
+
+      const carrinhoData = await carrinhoResponse.json();
+
+      // 2. Atualizar lista de anúncios
+      const anunciosAtuais = carrinhoData.anunciosId?.anunciosId || [];
+
+      // Encontra o índice do primeiro anúncioId que corresponde
+      const indexToRemove = anunciosAtuais.indexOf(anuncioId.toString());
+
+      // Se encontrar, remove a primeira ocorrência
+      if (indexToRemove !== -1) {
+        anunciosAtuais.splice(indexToRemove, 1); // Remove apenas a primeira ocorrência
+      }
+
+      // 3. Criar objeto PUT conforme especificado
+      const carrinhoAtualizado = {
+        baseUrl: "string", // fixo
+        requestClientOptions: {
+          schema: "string",
+          headers: {
+            additionalProp1: "string",
+            additionalProp2: "string",
+            additionalProp3: "string",
+          },
+          queryParams: {
+            additionalProp1: "string",
+            additionalProp2: "string",
+            additionalProp3: "string",
+          },
+        },
+        id: carrinhoData.id,
+        usuarioId: usuarioId,
+        anunciosId: {
+          anunciosId: anunciosAtuais,
+        },
+        valorTotal: carrinhoData.valorTotal, // usa null se o valor não estiver presente
+      };
+
+      console.log(JSON.stringify(carrinhoAtualizado));
+
+      // 4. Requisição PUT para remover o item
+      const updateResponse = await fetch(
+        `https://localhost:7081/api/Carrinho/PutCarrinho`,
         {
-          method: "DELETE",
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(carrinhoAtualizado),
+        }
+      );
+
+      if (!updateResponse.ok) {
+        throw new Error("Erro ao atualizar carrinho");
+      }
+
+      // 5. Recalcular o valor total do carrinho
+      const valorValue = await fetch(
+        `https://localhost:7081/api/Carrinho/CompileValue?usuarioId=${usuarioId}`,
+        {
+          method: "PUT",
           headers: { "Content-Type": "application/json" },
         }
       );
 
-      if (!response.ok) {
-        throw new Error("Erro ao remover item do carrinho");
+      if (!valorValue.ok) {
+        throw new Error("Erro ao calcular o valor total do carrinho");
       }
-
-      await fetchCarrinho();
-    } catch (error) {
-      console.error("Erro ao remover item:", error);
-      setError("Erro ao remover item do carrinho");
+    } catch (err) {
+      console.error("Erro ao remover do carrinho:", err);
+      alert("Erro ao remover item do carrinho");
     }
   };
 
@@ -119,10 +196,6 @@ function Carrinho() {
       fetchCarrinho();
     }
   }, [user]);
-
-  const calcularTotal = () => {
-    return joias.reduce((total, joia) => total + (joia?.valor || 0), 0);
-  };
 
   if (error) {
     return (
@@ -193,10 +266,8 @@ function Carrinho() {
                       </button>
                     </div>
                     <div className="item-valor">
-                      R${" "}
-                      {joia?.valor?.toLocaleString("pt-BR", {
-                        minimumFractionDigits: 2,
-                      })}
+                      R$
+                      {joia?.valor}
                     </div>
                   </div>
                 );
@@ -210,12 +281,7 @@ function Carrinho() {
               <h3>Resumo do pedido</h3>
               <div className="resumo-item">
                 <span>Subtotal do pedido</span>
-                <span>
-                  R${" "}
-                  {calcularTotal().toLocaleString("pt-BR", {
-                    minimumFractionDigits: 2,
-                  })}
-                </span>
+                <span>R$ {carrinho.valorTotal}</span>
               </div>
               <div className="resumo-item">
                 <span>Frete</span>
@@ -223,25 +289,17 @@ function Carrinho() {
               </div>
               <div className="resumo-total">
                 <span>Total:</span>
-                <span>
-                  R${" "}
-                  {calcularTotal().toLocaleString("pt-BR", {
-                    minimumFractionDigits: 2,
-                  })}
-                </span>
+                <span>R$ {carrinho.valorTotal}</span>
               </div>
               <button className="btn-finalizar-compra">FINALIZAR PEDIDO</button>
               <p className="installments">
                 Em até 9x de R${" "}
-                {(calcularTotal() / 9).toLocaleString("pt-BR", {
+                {(carrinho.valorTotal / 9).toLocaleString("pt-BR", {
                   minimumFractionDigits: 2,
                 })}
               </p>
               <p className="pix-discount">
-                Pix: R${" "}
-                {(calcularTotal() * 0.95).toLocaleString("pt-BR", {
-                  minimumFractionDigits: 2,
-                })}{" "}
+                Pix: R$ {carrinho.valorTotal * 0.95}
                 (5% nos produtos)
               </p>
             </div>

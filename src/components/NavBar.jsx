@@ -28,6 +28,9 @@ const NavBar = () => {
   // Determina se estamos na página About
   const isAboutPage = location.pathname === "/about";
 
+  // Determina se estamos na página Carrinho
+  const isCarrinhoPage = location.pathname === "/carrinho";
+
   // Determina se estamos na página token authentication
   const isTokenAuthenticationPage =
     location.pathname === "/token-authentication";
@@ -49,8 +52,9 @@ const NavBar = () => {
   const getTextClass = () => {
     if (isHomePage) return "white-text";
     if (isBlackTextPage) return "black-text";
+    if (isCarrinhoPage) return "black-text";
     if (isTokenAuthenticationPage) return "black-text";
-    if (isAboutPage) return "white-text";
+    if (isAboutPage) return "pink-text";
     return "pink-text";
   };
 
@@ -82,7 +86,7 @@ const NavBar = () => {
           <Link to="/about">About</Link>
         </li>
         <li>
-          <Link to="/catalogo">Catalogo</Link>
+          <Link to="/catalogo">Catálogo</Link>
         </li>
         <li>
           <Link to="/careers">Careers</Link>
@@ -147,7 +151,7 @@ const NavBar = () => {
           </li>
           <li>
             <Link to="/catalogo" onClick={() => setIsMenuOpen(false)}>
-              Catalogo
+              Catálogo
             </Link>
           </li>
           <li>

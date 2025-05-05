@@ -5,6 +5,21 @@
   --text-transform: uppercase;
 }
 
+.detalhes__venda__container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 3rem;
+  align-items: start;
+}
+
+.detalhes__valor {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #ffffff;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+}
+
 .detalhes {
   min-height: 200vh;
   padding-top: 80px;
@@ -13,7 +28,9 @@
   background-color: var(--background-color);
   margin-top: 0;
 }
-
+.detalhes__info__titulo {
+  color: var(--text-color);
+}
 .loading__message {
   text-align: center;
   font-size: 1.2rem;
@@ -100,7 +117,6 @@
   line-height: 1.2;
 }
 
-
 @media (max-width: 1024px) {
   .detalhes__info {
     flex-direction: column;
@@ -134,4 +150,4 @@
   .detalhes__info__item__p__strong {
     font-size: 1.2rem;
   }
-} 
+}

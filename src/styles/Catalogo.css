@@ -239,20 +239,36 @@
 }
 
 .anuncio__card img {
-  width: 33%;
-  height: 250px;
-  max-width: 450px;
-  max-height: 250px;
-  object-fit: cover;
-  overflow: hidden;
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  object-fit: contain;
   transform: scale(1.1);
+  /* Zoom inicial */
   transition: transform 0.5s ease;
-  margin-left: 20px;
+  /* Animação suave */
 }
 
 .anuncio__card:hover img {
   transform: scale(1);
+  /* Volta ao normal no hover */
   cursor: pointer;
+}
+
+.anuncio__card:hover h3 {
+  text-decoration: underline;
+}
+
+.anuncio__card__img {
+  width: 100%;
+  min-width: 500px;
+  max-width: 500px;
+  min-height: 300px;
+  max-height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
 .anuncio__card h3 {

@@ -31,7 +31,7 @@ function Home() {
             className="overlay"
             initial={{ y: 0 }}
             animate={{ y: hideTitle ? "-100%" : 0 }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
+            transition={{ duration: 0.7, ease: "easeInOut" }}
           >
             {!hideTitle && (
               <motion.h1

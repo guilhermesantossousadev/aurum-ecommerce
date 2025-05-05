@@ -1,0 +1,11 @@
+.botao-primario {
+  background-color: #f9cdcd;
+  color: #0c0c0c;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}

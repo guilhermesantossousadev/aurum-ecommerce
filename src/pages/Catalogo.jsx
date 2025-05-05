@@ -129,7 +129,7 @@ function Catalogo() {
       <div className="Catalogo">
         <div className="Catalogo__Header__container">
           <div className="Header__container__item__left">
-            <h1>Catalogo</h1>
+            <h1>Catálogo</h1>
           </div>
           <div className="Header__container__item__right">
             <div
@@ -276,13 +276,15 @@ function Catalogo() {
                 onClick={() => handleAnuncioClick(anuncio.id)}
               >
                 <div className="anuncio__card__container">
-                  {anuncio.urLs && anuncio.urLs.length > 0 && (
-                    <img
-                      src={anuncio.urLs[0]}
-                      alt="Imagem do anúncio"
-                      className="anuncio__image"
-                    />
-                  )}
+                  <div className="anuncio__card__img">
+                    {anuncio.urLs && anuncio.urLs.length > 0 && (
+                      <img
+                        src={anuncio.urLs[0]}
+                        alt="Imagem do anúncio"
+                        className="anuncio__image"
+                      />
+                    )}
+                  </div>
                   <h3>{anuncio.titulo}</h3>
                   <p>{anuncio.descricao}</p>
                 </div>
