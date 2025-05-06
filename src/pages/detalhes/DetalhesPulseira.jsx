@@ -64,7 +64,7 @@ function DetalhesPulseira() {
         anunciosId: {
           anunciosId: anunciosAtuais,
         },
-        valorTotal: ""
+        valorTotal: 0
       };
 
       console.log(JSON.stringify(carrinhoAtualizado));

@@ -1,10 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
-
+import ScrollToTop from "./components/ScrollToTop";
 
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -13,7 +12,6 @@ import Catalogo from "./pages/Catalogo";
 import Register from "./pages/Register";
 import Profile from "./components/Profile";
 import TokenAuthentication from "./pages/TokenAuthentication";
-
 
 import DetalhesAnel from "./pages/detalhes/DetalhesAnel";
 import DetalhesRelogio from "./pages/detalhes/DetalhesRelogio";
@@ -31,6 +29,7 @@ function App() {
   return (
     <Router>
       <NavBar />
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/catalogo" element={<Catalogo />} />

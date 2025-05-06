@@ -64,7 +64,7 @@ function DetalhesColar() {
         anunciosId: {
           anunciosId: anunciosAtuais,
         },
-        valorTotal: ""
+        valorTotal: 0
       };
 
       console.log(JSON.stringify(carrinhoAtualizado));
@@ -92,7 +92,6 @@ function DetalhesColar() {
       if (!updateResponse.ok) {
         throw new Error("Erro ao atualizar carrinho");
       }
-      alert("Anel adicionado ao carrinho com sucesso!");
     } catch (err) {
       console.error("Erro ao adicionar ao carrinho:", err);
       alert("Erro ao adicionar ao carrinho");

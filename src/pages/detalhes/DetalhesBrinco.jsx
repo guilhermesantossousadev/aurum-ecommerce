@@ -64,7 +64,7 @@ function DetalhesBrinco() {
         anunciosId: {
           anunciosId: anunciosAtuais,
         },
-        valorTotal: 0, // mantém zerado se não puder calcular aqui
+        valorTotal: 0
       };
 
       console.log(JSON.stringify(carrinhoAtualizado));
