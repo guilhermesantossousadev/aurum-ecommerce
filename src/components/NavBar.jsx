@@ -18,15 +18,15 @@ const NavBar = () => {
   const isHomePage = location.pathname === "/";
 
   // Determina se estamos em uma página que deve ter texto preto
-  const isBlackTextPage = ["/work", "/contact", "/careers"].includes(
+  const isBlackTextPage = ["/trabalho", "/contact", "/careers"].includes(
     location.pathname
   );
 
   // Determina se estamos na página de catálogo
   const isCatalogoPage = location.pathname === "/catalogo";
 
-  // Determina se estamos na página About
-  const isAboutPage = location.pathname === "/about";
+  // Determina se estamos na página Sobre
+  const isSobrePage = location.pathname === "/Sobre";
 
   // Determina se estamos na página Carrinho
   const isCarrinhoPage = location.pathname === "/carrinho";
@@ -54,7 +54,7 @@ const NavBar = () => {
     if (isBlackTextPage) return "black-text";
     if (isCarrinhoPage) return "black-text";
     if (isTokenAuthenticationPage) return "black-text";
-    if (isAboutPage) return "pink-text";
+    if (isSobrePage) return "pink-text";
     return "pink-text";
   };
 
@@ -80,10 +80,10 @@ const NavBar = () => {
       {/* Menu para telas grandes */}
       <ul className="navbar__list">
         <li>
-          <Link to="/work">Work</Link>
+          <Link to="/trabalho">Trabalho</Link>
         </li>
         <li>
-          <Link to="/about">About</Link>
+          <Link to="/sobre">Sobre</Link>
         </li>
         <li>
           <Link to="/catalogo">Catálogo</Link>
@@ -140,13 +140,13 @@ const NavBar = () => {
         </div>
         <ul className="navbar__mobile__ul">
           <li>
-            <Link to="/work" onClick={() => setIsMenuOpen(false)}>
-              Work
+            <Link to="/trabalho" onClick={() => setIsMenuOpen(false)}>
+              Trabalho
             </Link>
           </li>
           <li>
-            <Link to="/about" onClick={() => setIsMenuOpen(false)}>
-              About
+            <Link to="/sobre" onClick={() => setIsMenuOpen(false)}>
+              Sobre
             </Link>
           </li>
           <li>

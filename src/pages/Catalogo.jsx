@@ -290,7 +290,7 @@ function Catalogo() {
                 </div>
                 <div className="Catalogo__part">
                   <div className="Catalogo__part__inside"></div>
-                </div>{" "}
+                </div>
               </div>
             ))}
           </div>

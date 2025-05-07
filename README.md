@@ -5,7 +5,7 @@ Aurum Crave é uma aplicação web moderna desenvolvida com React, utilizando as
 
 ## 🚀 Tecnologias Utilizadas
 
-- **React 19** - Framework principal
+- **React 19** - FrameWork principal
 - **Vite** - Build tool e servidor de desenvolvimento
 - **Redux Toolkit** - Gerenciamento de estado
 - **React Router DOM** - Roteamento

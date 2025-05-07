@@ -7,12 +7,12 @@ import adage from "../images/adage.png";
 import campaing from "../images/campaing.png";
 import webby from "../images/webby.png";
 
-import corrente from "../images/corrente.png";
-import pulseira from "../images/pulseira.png";
-import relogio from "../images/relogio.png";
-import anel from "../images/anel.png";
-import piercing from "../images/piercing.png";
-import pingente from "../images/pingente.png";
+import anel from "../images/AnelHome.jpg";
+import corrente from "../images/CorrenteHome.jpg";
+import pulseira from "../images/PulseiraHome.jpg";
+import relogio from "../images/RelogioHome.jpg";
+import brinco from "../images/BrincoHome.jpg";
+import pingente from "../images/PingenteHome.jpg";
 
 function Home() {
   const [hideTitle, setHideTitle] = useState(false);
@@ -92,7 +92,7 @@ function Home() {
                   products, services, and eCommerce experiences that turn
                   cultural values into company value.
                 </h2>
-                <button>See The Work</button>
+                <button>See The Trabalho</button>
               </div>
               <div className="Home__delta__right">
                 <h1> A/L®</h1>
@@ -105,7 +105,7 @@ function Home() {
           <div className="Home__Echo">
             <div className="Home__Echo__container">
               <div className="Home__Echo__container__row">
-                <Link to="/relogios" className="Home__Echo__container__item">
+                <Link to="/catalogoRelogio" className="Home__Echo__container__item">
                   <div className="Home__Echo__container__item__img">
                     <img src={relogio} alt="relogio" />
                   </div>
@@ -113,7 +113,7 @@ function Home() {
                     an Ecommerce experience of relogios
                   </div>
                 </Link>
-                <Link to="/correntes" className="Home__Echo__container__item">
+                <Link to="/catalogoColar" className="Home__Echo__container__item">
                   <div className="Home__Echo__container__item__img">
                     <img src={corrente} alt="corrente" />
                   </div>
@@ -121,7 +121,7 @@ function Home() {
                     an Ecommerce experience of correntes
                   </div>
                 </Link>
-                <Link to="/pulseiras" className="Home__Echo__container__item">
+                <Link to="/catalogoPulseira" className="Home__Echo__container__item">
                   <div className="Home__Echo__container__item__img">
                     <img src={pulseira} alt="pulseira" />
                   </div>
@@ -132,7 +132,7 @@ function Home() {
               </div>
 
               <div className="Home__Echo__container__row">
-                <Link to="/aneis" className="Home__Echo__container__item">
+                <Link to="/catalogoAnel" className="Home__Echo__container__item">
                   <div className="Home__Echo__container__item__img">
                     <img src={anel} alt="anel" />
                   </div>
@@ -140,7 +140,7 @@ function Home() {
                     an Ecommerce experience of Aneis
                   </div>
                 </Link>
-                <Link to="/pingentes" className="Home__Echo__container__item">
+                <Link to="/catalogoPingente" className="Home__Echo__container__item">
                   <div className="Home__Echo__container__item__img">
                     <img src={pingente} alt="pingente" />
                   </div>
@@ -148,12 +148,12 @@ function Home() {
                     an Ecommerce experience of Pingente
                   </div>
                 </Link>
-                <Link to="/piercings" className="Home__Echo__container__item">
+                <Link to="/catalogoBrinco" className="Home__Echo__container__item">
                   <div className="Home__Echo__container__item__img">
-                    <img src={piercing} alt="piercing" />
+                    <img src={brinco} alt="brinco" />
                   </div>
                   <div className="Home__Echo__container__item__text">
-                    an Ecommerce experience of piercings
+                    an Ecommerce experience of brincos
                   </div>
                 </Link>
               </div>
