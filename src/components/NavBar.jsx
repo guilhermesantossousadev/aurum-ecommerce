@@ -31,6 +31,15 @@ const NavBar = () => {
   // Determina se estamos na página Carrinho
   const isCarrinhoPage = location.pathname === "/carrinho";
 
+  // Determina se estamos na página Carrinho
+  const isCatalogosPage =
+    location.pathname === "/catalogoAnel" ||
+    "catalogoBrinco" ||
+    "catalogoPiercing" ||
+    "catalogoPingente" ||
+    "catalogoPulseira" ||
+    "catalogoRelogio";
+
   // Determina se estamos na página token authentication
   const isTokenAuthenticationPage =
     location.pathname === "/token-authentication";
@@ -53,6 +62,7 @@ const NavBar = () => {
     if (isHomePage) return "white-text";
     if (isBlackTextPage) return "black-text";
     if (isCarrinhoPage) return "black-text";
+    if (isCatalogosPage) return "black-text";
     if (isTokenAuthenticationPage) return "black-text";
     if (isSobrePage) return "pink-text";
     return "pink-text";

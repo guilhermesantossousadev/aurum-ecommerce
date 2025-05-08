@@ -39,10 +39,16 @@
   border-radius: 7px;
   color: #fff;
   font-size: 1rem;
-  transition: .3s ease;
+  transition: 0.3s ease;
 }
 
 .Profile__box button:hover {
   cursor: pointer;
   transform: scale(1.05);
+}
+
+.fotoperfil {
+  height: 300px;
+  width: 300px;
+  border-radius: 50%;
 }

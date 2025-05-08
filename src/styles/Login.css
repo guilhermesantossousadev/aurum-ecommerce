@@ -38,6 +38,7 @@
   border-radius: 4px;
   font-size: 1rem;
   transition: border-color 0.3s ease;
+  color: #000000 !important;
 }
 
 .Login__input:focus {

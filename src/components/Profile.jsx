@@ -30,8 +30,9 @@ const Profile = () => {
 
         <ul>
           <li>
-            <img src={user.fotoPerfilURL} alt="foto de perfil" />
+            <img src={user.fotoPerfilURL} alt="foto de perfil"  className="fotoperfil"/>
           </li>
+
           <li>{user.nome}</li>
           <li>{user.cpf}</li>
           <li>{user.idade}</li>
