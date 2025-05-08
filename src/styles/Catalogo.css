@@ -506,16 +506,17 @@
 }
 
 .search-container.expanded {
-  width: 300px;
+  width: 500px;
 }
 
 .search-input {
   position: absolute;
   right: 60px;
+  height: 60px;
   width: 100%;
   padding: 15px 12px;
   border: 1px solid #000000;
-  border-radius: 20px;
+  background-color: #000000;
   font-size: 14px;
   opacity: 0;
   visibility: hidden;
@@ -525,6 +526,10 @@
 .search-container.expanded .search-input {
   opacity: 1;
   visibility: visible;
+}
+
+input::placeholder {
+  color: #f4f4f4;
 }
 
 .search-button {
