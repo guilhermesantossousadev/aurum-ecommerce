@@ -162,94 +162,101 @@ function Catalogo() {
           <div className="Filter__elements__item">
             <div className="Filter__elements">
               <ul className="Ul__elements">
-                <li className="Li__element">
-                  <input
-                    type="radio"
-                    id="filter-todos"
-                    name="filter"
-                    value="todos"
-                    checked={selectedFilter === "todos"}
-                    onChange={handleFilterChange}
-                  />
-                  <label htmlFor="filter-todos">Todos</label>
-                </li>
-                <li className="Li__element">
-                  <input
-                    type="radio"
-                    id="filter-anel"
-                    name="filter"
-                    value="anel"
-                    checked={selectedFilter === "anel"}
-                    onChange={handleFilterChange}
-                  />
-                  <label htmlFor="filter-anel">Anel</label>
-                </li>
-                <li className="Li__element">
-                  <input
-                    type="radio"
-                    id="filter-brinco"
-                    name="filter"
-                    value="brinco"
-                    checked={selectedFilter === "brinco"}
-                    onChange={handleFilterChange}
-                  />
-                  <label htmlFor="filter-brinco">Brinco</label>
-                </li>
-                <li className="Li__element">
-                  <input
-                    type="radio"
-                    id="filter-colar"
-                    name="filter"
-                    value="colar"
-                    checked={selectedFilter === "colar"}
-                    onChange={handleFilterChange}
-                  />
-                  <label htmlFor="filter-colar">Colar</label>
-                </li>
-                <li className="Li__element">
-                  <input
-                    type="radio"
-                    id="filter-piercing"
-                    name="filter"
-                    value="piercing"
-                    checked={selectedFilter === "piercing"}
-                    onChange={handleFilterChange}
-                  />
-                  <label htmlFor="filter-piercing">Piercing</label>
-                </li>
-                <li className="Li__element">
-                  <input
-                    type="radio"
-                    id="filter-pingente"
-                    name="filter"
-                    value="pingente"
-                    checked={selectedFilter === "pingente"}
-                    onChange={handleFilterChange}
-                  />
-                  <label htmlFor="filter-pingente">Pingente</label>
-                </li>
-                <li className="Li__element">
-                  <input
-                    type="radio"
-                    id="filter-pulseira"
-                    name="filter"
-                    value="pulseira"
-                    checked={selectedFilter === "pulseira"}
-                    onChange={handleFilterChange}
-                  />
-                  <label htmlFor="filter-pulseira">Pulseira</label>
-                </li>
-                <li className="Li__element">
-                  <input
-                    type="radio"
-                    id="filter-relogio"
-                    name="filter"
-                    value="relogio"
-                    checked={selectedFilter === "relogio"}
-                    onChange={handleFilterChange}
-                  />
-                  <label htmlFor="filter-relogio">Relogio</label>
-                </li>
+                <div className="Ul__elements__inside">
+                  <li className="Li__element">
+                    <input
+                      type="radio"
+                      id="filter-todos"
+                      name="filter"
+                      value="todos"
+                      checked={selectedFilter === "todos"}
+                      onChange={handleFilterChange}
+                    />
+                    <label htmlFor="filter-todos">Todos</label>
+                  </li>
+                  <li className="Li__element">
+                    <input
+                      type="radio"
+                      id="filter-anel"
+                      name="filter"
+                      value="anel"
+                      checked={selectedFilter === "anel"}
+                      onChange={handleFilterChange}
+                    />
+                    <label htmlFor="filter-anel">Anel</label>
+                  </li>
+                  <li className="Li__element">
+                    <input
+                      type="radio"
+                      id="filter-brinco"
+                      name="filter"
+                      value="brinco"
+                      checked={selectedFilter === "brinco"}
+                      onChange={handleFilterChange}
+                    />
+                    <label htmlFor="filter-brinco">Brinco</label>
+                  </li>
+                </div>
+                <div className="Ul__elements__inside">
+                  <li className="Li__element">
+                    <input
+                      type="radio"
+                      id="filter-colar"
+                      name="filter"
+                      value="colar"
+                      checked={selectedFilter === "colar"}
+                      onChange={handleFilterChange}
+                    />
+                    <label htmlFor="filter-colar">Colar</label>
+                  </li>
+                  <li className="Li__element">
+                    <input
+                      type="radio"
+                      id="filter-piercing"
+                      name="filter"
+                      value="piercing"
+                      checked={selectedFilter === "piercing"}
+                      onChange={handleFilterChange}
+                    />
+                    <label htmlFor="filter-piercing">Piercing</label>
+                  </li>
+                  <li className="Li__element">
+                    <input
+                      type="radio"
+                      id="filter-pingente"
+                      name="filter"
+                      value="pingente"
+                      checked={selectedFilter === "pingente"}
+                      onChange={handleFilterChange}
+                    />
+                    <label htmlFor="filter-pingente">Pingente</label>
+                  </li>
+                </div>
+                <div className="Ul__elements__inside">
+                  <li className="Li__element">
+                    <input
+                      type="radio"
+                      id="filter-relogio"
+                      name="filter"
+                      value="relogio"
+                      checked={selectedFilter === "relogio"}
+                      onChange={handleFilterChange}
+                    />
+                    <label htmlFor="filter-relogio">Relogio</label>
+                  </li>
+
+                  <li className="Li__element">
+                    <input
+                      type="radio"
+                      id="filter-pulseira"
+                      name="filter"
+                      value="pulseira"
+                      checked={selectedFilter === "pulseira"}
+                      onChange={handleFilterChange}
+                    />
+                    <label htmlFor="filter-pulseira">Pulseira</label>
+                  </li>
+                </div>
               </ul>
             </div>
           </div>

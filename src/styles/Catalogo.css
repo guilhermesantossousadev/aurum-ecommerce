@@ -1,5 +1,4 @@
 /*Variaveis*/
-
 :root {
   --text-color: #252422;
   --secondary-text-color: #f4f4f4;
@@ -72,6 +71,82 @@
   color: #252422;
 }
 
+@media (max-width: 768px) {
+  .Catalogo__Header__container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .Header__container__item,
+  .Header__container__item__left,
+  .Header__container__item__right {
+    width: 100%;
+    height: auto;
+    justify-content: center;
+  }
+
+  .anuncio__card__container {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .anuncio__card__img {
+    max-width: 100%;
+    min-width: auto;
+    height: auto;
+    max-height: none;
+  }
+
+  .search-container {
+    width: 100%;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .search-container.expanded {
+    width: 100%;
+  }
+
+  .search-input {
+    position: static;
+    margin: 0;
+    width: 100%;
+  }
+
+  .search-button {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+
+  .Header__container__item__left {
+    width: 100%;
+    height: 100%;
+    min-height: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media (max-width: 360px) {
+  .Catalogo h1 {
+    font-size: 1.8rem;
+  }
+
+  .search-button {
+    width: 50px;
+    height: 50px;
+    font-size: 18px;
+  }
+
+  .search-input {
+    height: 50px;
+    font-size: 12px;
+  }
+}
+
 .Catalogo__part {
   width: 100%;
   height: 1px;
@@ -113,6 +188,11 @@
   gap: var(--filter-gap);
   list-style: none;
   justify-content: flex-end;
+}
+
+.Ul__elements__inside {
+  width: 100%;
+  height: 100%;
 }
 
 .Ul__elements__item {
@@ -171,7 +251,6 @@
   opacity: 0.5;
 }
 
-/* Removendo o efeito de hover quando o radio button está marcado */
 .Li__element input[type="radio"]:checked:hover::after {
   content: none;
 }
@@ -192,7 +271,6 @@
   border-radius: 50%;
 }
 
-/* Adicionando label para melhorar a usabilidade */
 .Li__element label {
   cursor: pointer;
   user-select: none;
@@ -209,7 +287,6 @@
   margin: 1rem 0;
 }
 
-/* Estilos para a exibição dos anúncios */
 .anuncios__container {
   width: 100%;
   padding: 2rem 0;
@@ -244,14 +321,11 @@
   height: auto;
   object-fit: contain;
   transform: scale(1.1);
-  /* Zoom inicial */
   transition: transform 0.5s ease;
-  /* Animação suave */
 }
 
 .anuncio__card:hover img {
   transform: scale(1);
-  /* Volta ao normal no hover */
   cursor: pointer;
 }
 
@@ -295,7 +369,6 @@
   max-width: 600px;
 }
 
-/* Responsividade */
 @media (max-width: 1200px) {
   .Catalogo h1 {
     font-size: 4rem;
@@ -332,8 +405,9 @@
 
   .Filter__elements__item {
     width: 100%;
-    justify-content: flex-start;
+    justify-content: center;
     padding-right: 0;
+    padding-top: 10px;
   }
 
   .Ul__elements {
@@ -351,9 +425,15 @@
 
   .anuncio__card {
     width: 100%;
-    height: 500px;
+    height: 640px;
     overflow: hidden;
     padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .anuncio__card__container{
+    display: flex;
+    flex-direction: column;
   }
 
   .anuncio__card img {
@@ -386,8 +466,10 @@
   }
 
   .Ul__elements {
-    gap: 8px;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    justify-content: center;
   }
 
   .Ul__elements__item {
@@ -407,8 +489,9 @@
   }
 
   .Ul__elements {
-    flex-direction: column;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
   }
 
   .Ul__elements__item {
@@ -422,7 +505,6 @@
   }
 }
 
-/* Estilos para a paginação */
 .pagination {
   display: flex;
   justify-content: center;
@@ -483,7 +565,6 @@
   font-weight: bold;
 }
 
-/* Responsividade para a paginação */
 @media (max-width: 768px) {
   .pagination {
     flex-direction: column;
@@ -507,33 +588,23 @@
 
 .search-container.expanded {
   width: 500px;
+  height: 80px;
 }
 
 .search-input {
   position: absolute;
   right: 60px;
   height: 60px;
-  width: 100%;
+  width: 80%;
   padding: 15px 12px;
-  border: 2px solid #000000; /* borda preta externa */
+  border: 2px solid #000000;
   background-color: #000000;
   font-size: 14px;
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s ease-in-out;
   margin-right: 10px;
-
-  /* borda branca fina interna simulada com box-shadow */
   box-shadow: inset 0 0 0 1px #ffffff;
-}
-
-.search-container.expanded .search-input {
-  opacity: 1;
-  visibility: visible;
-}
-
-input::placeholder {
-  color: #f4f4f4;
 }
 
 .search-container.expanded .search-input {
