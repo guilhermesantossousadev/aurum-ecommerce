@@ -63,9 +63,13 @@ function Catalogo() {
     })
     .filter((anuncio) => {
       if (!searchTerm) return true;
+
+      const titulo = anuncio.titulo?.toLowerCase() || "";
+      const descricao = anuncio.descricao?.toLowerCase() || "";
+
       return (
-        anuncio.titulo.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        anuncio.descricao.toLowerCase().includes(searchTerm.toLowerCase())
+        titulo.includes(searchTerm.toLowerCase()) ||
+        descricao.includes(searchTerm.toLowerCase())
       );
     });
 
