@@ -1,22 +1,20 @@
-import "../styles/Trabalho.css";
+import "../styles/Servicos.css";
 import anel from "../images/AnelHome.jpg";
 
-function Trabalho() {
+function Servicos() {
   return (
     <>
-      <div className="Trabalho">
-        <div className="Trabalho__container">
-          <div className="Trabalho__container__item">
-            <h1 className="Trabalho__container__item__h1__left">
-              Easy to understand. ●Impossible to ignore.
+      <div className="Servicos">
+        <div className="Servicos__container">
+          <div className="Servicos__container__item">
+            <h1 className="Servicos__container__item__h1__left">
+              Facil de entender. ●Impossivel de ignorar.
             </h1>
           </div>
 
-          <div className="Trabalho__container__item right">
-            <h3 className="Trabalho__container__item__right h3">
-              The work we create lives at the intersection of clarity and
-              surprise and positions brands in culture through shared values and
-              ideals.
+          <div className="Servicos__container__item right">
+            <h3 className="Servicos__container__item__right h3">
+              O trabalho que criamos vive na intersecção entre clareza e surpresa e posiciona marcas na cultura por meio de valores e ideais compartilhados.
             </h3>
           </div>
         </div>
@@ -30,8 +28,7 @@ function Trabalho() {
           <div className="Box__item first">
             <h1>Branded eCommerce </h1>
             <h4>
-              We go beyond best practices and build best-in-class D2C channels
-              that drive commerce, shape culture, and define categories.
+              Nós vamos além das melhores práticas e criamos os melhores canais D2C que impulsionam o comércio, moldam a cultura e definem categorias.
             </h4>
             <button>Learn More</button>
           </div>
@@ -204,4 +201,4 @@ function Trabalho() {
   );
 }
 
-export default Trabalho;
+export default Servicos;

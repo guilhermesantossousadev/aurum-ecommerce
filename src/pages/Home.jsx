@@ -88,11 +88,12 @@ function Home() {
             <div className="Home__delta__container">
               <div className="Home__delta__left">
                 <h2>
-                  Aurum® is a global branding and digital design agency building
-                  products, services, and eCommerce experiences that turn
-                  cultural values into company value.
+                  Aurum Lumine® é uma joalheria digital que une arte,
+                  luxo e tecnologia para criar experiências de e-commerce exclusivas.
+                  Especializada em joias cravejadas,
+                  transformamos elegância e valor cultural em peças que refletem sofisticação e autenticidade.
                 </h2>
-                <button>See The Trabalho</button>
+                <button>Veja nossos Servicos</button>
               </div>
               <div className="Home__delta__right">
                 <h1> A/L®</h1>
@@ -110,15 +111,16 @@ function Home() {
                     <img src={relogio} alt="relogio" />
                   </div>
                   <div className="Home__Echo__container__item__text">
-                    an Ecommerce experience of relogios
+                    relógios
                   </div>
                 </Link>
+
                 <Link to="/catalogoColar" className="Home__Echo__container__item">
                   <div className="Home__Echo__container__item__img">
                     <img src={corrente} alt="corrente" />
                   </div>
                   <div className="Home__Echo__container__item__text">
-                    an Ecommerce experience of correntes
+                    correntes
                   </div>
                 </Link>
                 <Link to="/catalogoPulseira" className="Home__Echo__container__item">
@@ -126,7 +128,7 @@ function Home() {
                     <img src={pulseira} alt="pulseira" />
                   </div>
                   <div className="Home__Echo__container__item__text">
-                    an Ecommerce experience of pulseiras
+                    pulseiras
                   </div>
                 </Link>
               </div>
@@ -137,7 +139,7 @@ function Home() {
                     <img src={anel} alt="anel" />
                   </div>
                   <div className="Home__Echo__container__item__text">
-                    an Ecommerce experience of Aneis
+                    Aneis
                   </div>
                 </Link>
                 <Link to="/catalogoPingente" className="Home__Echo__container__item">
@@ -145,7 +147,7 @@ function Home() {
                     <img src={pingente} alt="pingente" />
                   </div>
                   <div className="Home__Echo__container__item__text">
-                    an Ecommerce experience of Pingente
+                    Pingente
                   </div>
                 </Link>
                 <Link to="/catalogoBrinco" className="Home__Echo__container__item">
@@ -153,7 +155,7 @@ function Home() {
                     <img src={brinco} alt="brinco" />
                   </div>
                   <div className="Home__Echo__container__item__text">
-                    an Ecommerce experience of brincos
+                    brincos
                   </div>
                 </Link>
               </div>

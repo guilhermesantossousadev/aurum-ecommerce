@@ -6,7 +6,7 @@ import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 
 import Home from "./pages/Home";
-import Trabalho from "./pages/Trabalho";
+import Servicos from "./pages/Servicos";
 import Sobre from "./pages/Sobre";
 import Login from "./pages/Login";
 import Catalogo from "./pages/Catalogo";
@@ -61,7 +61,7 @@ function App() {
         <Route path="/catalogoRelogio" element={<CatalogoRelogio />} />
 
         <Route path="/sobre" element={<Sobre />} />
-        <Route path="/trabalho" element={<Trabalho />} />
+        <Route path="/servicos" element={<Servicos />} />
         <Route path="/carrinho" element={<Carrinho />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />

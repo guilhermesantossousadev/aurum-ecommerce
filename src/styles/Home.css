@@ -192,7 +192,7 @@
 }
 
 .Home__delta__left button {
-  width: 25%;
+  width: 82%;
   padding: 0.5rem 2rem;
   border-radius: 40px;
   color: var(--text-second-color);
@@ -202,6 +202,8 @@
   overflow: hidden;
   transition: color 0.3s ease;
   z-index: 1;
+  text-transform: uppercase;
+  font-weight: 600;
 }
 
 .Home__delta__left button::before {
@@ -298,6 +300,7 @@ a.Home__Echo__container__item {
   transform: scale(1);
   /* Volta ao normal no hover */
   cursor: pointer;
+  filter: blur(4px);
 }
 
 .Home__Echo__container__item__img {
@@ -311,16 +314,37 @@ a.Home__Echo__container__item {
 }
 
 .Home__Echo__container__item__text {
-  width: 100%;
-  min-height: 70px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  justify-content: center;
-  padding: 0.5rem 1rem;
-  color: var(--text-second-color);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--text-primary-color);
   text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  text-align: center;
+  font-size: 2rem;
+  z-index: 2;
 }
+
+.Home__Echo__container__item {
+  position: relative;
+  overflow: hidden;
+}
+
+.Home__Echo__container__item__img img {
+  transition: filter 0.3s ease;
+}
+
+.Home__Echo__container__item:hover .Home__Echo__container__item__img img {
+  filter: blur(4px);
+}
+
+.Home__Echo__container__item:hover .Home__Echo__container__item__text {
+  opacity: 1;
+}
+
 
 /*Home Delta responsividade*/
 @media (max-width: 1024px) {
@@ -402,7 +426,8 @@ a.Home__Echo__container__item {
 
   .Home__Echo__container__item__img img {
     max-width: 100%;
-    transform: scale(1); /* Remover o zoom fixo em mobile */
+    transform: scale(1);
+    /* Remover o zoom fixo em mobile */
   }
 }
 
@@ -449,7 +474,7 @@ a.Home__Echo__container__item {
     font-size: 10rem;
     margin-left: -120px;
   }
-  
+
   .a__Aurun.lumine::after {
     font-size: 4rem;
     right: -100px;
@@ -461,7 +486,7 @@ a.Home__Echo__container__item {
     font-size: 8rem;
     margin-left: -80px;
   }
-  
+
   .a__Aurun.lumine::after {
     font-size: 3rem;
     right: -80px;
@@ -473,7 +498,7 @@ a.Home__Echo__container__item {
     font-size: 5rem;
     margin-left: -10px;
   }
-  
+
   .a__Aurun.lumine::after {
     font-size: 2.5rem;
     right: -60px;
@@ -485,7 +510,7 @@ a.Home__Echo__container__item {
     font-size: 4rem;
     margin-left: -20px;
   }
-  
+
   .a__Aurun.lumine::after {
     font-size: 2rem;
     right: -40px;

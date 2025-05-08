@@ -18,7 +18,7 @@ const NavBar = () => {
   const isHomePage = location.pathname === "/";
 
   // Determina se estamos em uma página que deve ter texto preto
-  const isBlackTextPage = ["/trabalho", "/contact", "/careers"].includes(
+  const isBlackTextPage = ["/Servicos", "/contact", "/careers"].includes(
     location.pathname
   );
 
@@ -26,19 +26,21 @@ const NavBar = () => {
   const isCatalogoPage = location.pathname === "/catalogo";
 
   // Determina se estamos na página Sobre
-  const isSobrePage = location.pathname === "/Sobre";
+  const isSobrePage = location.pathname === "/sobre";
 
   // Determina se estamos na página Carrinho
   const isCarrinhoPage = location.pathname === "/carrinho";
 
   // Determina se estamos na página Carrinho
-  const isCatalogosPage =
-    location.pathname === "/catalogoAnel" ||
-    "catalogoBrinco" ||
-    "catalogoPiercing" ||
-    "catalogoPingente" ||
-    "catalogoPulseira" ||
-    "catalogoRelogio";
+  const isCatalogosPage = [
+    "/catalogoAnel",
+    "/catalogoBrinco",
+    "/catalogoPiercing",
+    "/catalogoPingente",
+    "/catalogoPulseira",
+    "/catalogoRelogio",
+  ].includes(location.pathname);
+
 
   // Determina se estamos na página token authentication
   const isTokenAuthenticationPage =
@@ -77,9 +79,8 @@ const NavBar = () => {
 
   return (
     <nav
-      className={`navbar ${
-        isScrolled ? "scrolled" : ""
-      } ${getTextClass()} ${getPageClass()}`}
+      className={`navbar ${isScrolled ? "scrolled" : ""
+        } ${getTextClass()} ${getPageClass()}`}
     >
       <div className="Nav__item">
         <Link to="/" className="navbar__brand">
@@ -90,7 +91,7 @@ const NavBar = () => {
       {/* Menu para telas grandes */}
       <ul className="navbar__list">
         <li>
-          <Link to="/trabalho">Trabalho</Link>
+          <Link to="/Servicos">Servicos</Link>
         </li>
         <li>
           <Link to="/sobre">Sobre</Link>
@@ -150,8 +151,8 @@ const NavBar = () => {
         </div>
         <ul className="navbar__mobile__ul">
           <li>
-            <Link to="/trabalho" onClick={() => setIsMenuOpen(false)}>
-              Trabalho
+            <Link to="/Servicos" onClick={() => setIsMenuOpen(false)}>
+              Servicos
             </Link>
           </li>
           <li>
