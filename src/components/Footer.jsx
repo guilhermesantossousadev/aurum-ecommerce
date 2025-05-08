@@ -1,5 +1,5 @@
 import "../styles/Footer.css";
-import setadireita from "../images/seta-direita.png";
+import setadireita from "../images/seta-direita-branca.png";
 
 function Footer() {
   const handleSubmit = (e) => {
