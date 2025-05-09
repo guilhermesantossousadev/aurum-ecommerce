@@ -258,6 +258,7 @@
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
@@ -307,6 +308,19 @@
   margin: 0.5rem 0;
   font-size: 0.9rem;
   opacity: 0.8;
+}
+
+.popup-sucesso {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: rgb(123, 209, 83);
+  color: #000;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  z-index: 9999;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 @media (max-width: 768px) {

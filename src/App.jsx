@@ -31,6 +31,9 @@ import CatalogoPingente from "./pages/tipo/CatalogoPingente";
 import CatalogoPulseira from "./pages/tipo/CatalogoPulseira";
 import CatalogoRelogio from "./pages/tipo/CatalogoRelogio";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import "./App.css";
 
 function App() {
@@ -68,7 +71,9 @@ function App() {
         <Route path="/profile" element={<Profile />} />
 
         <Route path="/token-authentication" element={<TokenAuthentication />} />
+
       </Routes>
+      <ToastContainer position="top-center" autoClose={3000} />
       <Footer />
     </Router>
   );

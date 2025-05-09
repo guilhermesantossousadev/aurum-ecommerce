@@ -1,4 +1,4 @@
-/*Variaveis*/
+/* =================== VARIÁVEIS =================== */
 :root {
   --text-color: #252422;
   --secondary-text-color: #f4f4f4;
@@ -16,6 +16,7 @@
   --filter-transition: all 0.3s ease;
 }
 
+/* =================== ESTRUTURA PRINCIPAL =================== */
 .Catalogo {
   width: 100%;
   min-height: 100vh;
@@ -27,10 +28,11 @@
 .Catalogo h1 {
   font-size: 5rem;
   font-weight: 600;
-  color: var(--text-color);
+  color: #252422 !important;
   text-transform: var(--text-transform);
 }
 
+/* =================== CABEÇALHO =================== */
 .Catalogo__Header__container {
   width: 100%;
   height: 100%;
@@ -40,113 +42,33 @@
   align-items: center;
 }
 
-.Header__container__item {
-  width: 50%;
-  height: 100%;
-  min-height: 110px;
-  display: flex;
-  justify-content: end;
-  align-items: center;
-}
-
-.Header__container__item__left {
-  width: 50%;
-  height: 100%;
-  min-height: 110px;
-  display: flex;
-  justify-content: start;
-  align-items: center;
-}
-
+.Header__container__item,
+.Header__container__item__left,
 .Header__container__item__right {
   width: 50%;
   height: 100%;
   min-height: 110px;
   display: flex;
-  justify-content: end;
   align-items: center;
+}
+
+.Header__container__item {
+  justify-content: end;
+}
+
+.Header__container__item__left {
+  justify-content: start;
+}
+
+.Header__container__item__right {
+  justify-content: end;
 }
 
 .Header__container__item__left h1 {
   color: #252422;
 }
 
-@media (max-width: 768px) {
-  .Catalogo__Header__container {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .Header__container__item,
-  .Header__container__item__left,
-  .Header__container__item__right {
-    width: 100%;
-    height: auto;
-    justify-content: center;
-  }
-
-  .anuncio__card__container {
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-  }
-
-  .anuncio__card__img {
-    max-width: 100%;
-    min-width: auto;
-    height: auto;
-    max-height: none;
-  }
-
-  .search-container {
-    width: 100%;
-    justify-content: center;
-    margin-top: 20px;
-  }
-
-  .search-container.expanded {
-    width: 100%;
-  }
-
-  .search-input {
-    position: static;
-    margin: 0;
-    width: 100%;
-  }
-
-  .search-button {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-  }
-
-  .Header__container__item__left {
-    width: 100%;
-    height: 100%;
-    min-height: 110px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-}
-
-@media (max-width: 360px) {
-  .Catalogo h1 {
-    font-size: 1.8rem;
-  }
-
-  .search-button {
-    width: 50px;
-    height: 50px;
-    font-size: 18px;
-  }
-
-  .search-input {
-    height: 50px;
-    font-size: 12px;
-  }
-}
-
+/* =================== LINHA DIVISÓRIA =================== */
 .Catalogo__part {
   width: 100%;
   height: 1px;
@@ -156,10 +78,11 @@
 .Catalogo__part__inside {
   width: 100%;
   height: 100%;
-  background-color: rgb(37, 36, 34);
+  background-color: #252422;
   border-radius: 7px;
 }
 
+/* =================== FILTROS =================== */
 .Filter__elements_container {
   width: 100%;
   min-height: 50px;
@@ -193,16 +116,7 @@
 .Ul__elements__inside {
   width: 100%;
   height: 100%;
-}
-
-.Ul__elements__item {
-  width: 100%;
-  height: 100%;
-  gap: 5px;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-end;
 }
 
 .Li__element {
@@ -278,6 +192,7 @@
   font-weight: 500;
 }
 
+/* =================== MENSAGEM DE ERRO =================== */
 .error__message {
   color: #e74c3c;
   text-align: center;
@@ -287,6 +202,7 @@
   margin: 1rem 0;
 }
 
+/* =================== ANÚNCIOS =================== */
 .anuncios__container {
   width: 100%;
   padding: 2rem 0;
@@ -326,7 +242,6 @@
 
 .anuncio__card:hover img {
   transform: scale(1);
-  cursor: pointer;
 }
 
 .anuncio__card:hover h3 {
@@ -345,15 +260,7 @@
   overflow: hidden;
 }
 
-.anuncio__card h3 {
-  padding-top: 20px;
-  font-size: 1.7rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-  max-width: 600px;
-}
-
+.anuncio__card h3,
 .anuncio__titulo {
   font-size: 1.7rem;
   font-weight: 600;
@@ -361,6 +268,7 @@
   text-transform: uppercase;
   margin-bottom: 10px;
   max-width: 600px;
+  padding-top: 20px;
 }
 
 .anuncio__card p {
@@ -369,6 +277,129 @@
   max-width: 600px;
 }
 
+/* =================== PAGINAÇÃO =================== */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px 0;
+  gap: 15px;
+}
+
+.pagination__button {
+  background-color: var(--background-color);
+  border: 1px solid var(--text-color);
+  color: var(--text-color);
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: var(--filter-transition);
+}
+
+.pagination__button:hover:not(:disabled) {
+  background-color: var(--text-color);
+  color: var(--background-color);
+}
+
+.pagination__button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination__numbers {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.pagination__number {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--background-color);
+  border: 1px solid var(--text-color);
+  color: var(--text-color);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: var(--filter-transition);
+}
+
+.pagination__number:hover,
+.pagination__number.active {
+  background-color: var(--text-color);
+  color: var(--background-color);
+  font-weight: bold;
+}
+
+/* =================== SEARCH =================== */
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+  width: 40px;
+  transition: width 0.3s ease-in-out;
+}
+
+.search-container.expanded {
+  width: 500px;
+  height: 80px;
+}
+
+.search-input {
+  position: absolute;
+  right: 60px;
+  height: 60px;
+  width: 80%;
+  padding: 15px 12px;
+  border: 2px solid var(--text-hover-color);
+  background-color: var(--text-hover-color);
+  font-size: 14px;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--filter-transition);
+  margin-right: 10px;
+  box-shadow: inset 0 0 0 1px #ffffff;
+  color: var(--background-color);
+  border-radius: 7px;
+}
+
+.search-container.expanded .search-input {
+  opacity: 1;
+  visibility: visible;
+}
+
+.search-input::placeholder {
+  color: #f4f4f4;
+  font-size: 1.2rem;
+}
+
+.search-button {
+  position: absolute;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  border: none;
+  background: var(--text-hover-color);
+  color: var(--secondary-text-color);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.search-button:hover {
+  opacity: 0.8;
+}
+
+/* =================== MEDIA QUERIES =================== */
 @media (max-width: 1200px) {
   .Catalogo h1 {
     font-size: 4rem;
@@ -411,12 +442,20 @@
   }
 
   .Ul__elements {
-    justify-content: flex-start;
-    gap: 10px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: var(--filter-gap);
+    list-style: none;
+    justify-content: flex-end;
   }
 
-  .Ul__elements__item {
-    justify-content: flex-start;
+  .Ul__elements__inside {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
   }
 
   .Li__element {
@@ -424,45 +463,76 @@
   }
 
   .anuncio__card {
-    width: 100%;
-    height: 640px;
-    overflow: hidden;
+    height: auto;
     padding: 20px;
     margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
   }
 
   .anuncio__card__container {
-    display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
   }
 
-  .anuncio__card img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
+  .anuncio__card__img {
+    min-width: unset;
+    max-width: 100%;
+    min-height: auto;
+    max-height: 300px;
   }
 
-  .anuncio__card h3 {
-    padding-top: 20px;
-    font-size: 1.7rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-    max-width: 600px;
-  }
-
+  .anuncio__card h3,
   .anuncio__card p {
-    font-size: 1rem;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
   }
+
 }
 
 @media (max-width: 768px) {
   .Catalogo {
-    padding: 100px 3vw 5vw 3vw;
+    padding: 100px 3vw 5vw;
   }
 
   .Catalogo h1 {
     font-size: 2.5rem;
+  }
+
+  .Catalogo__Header__container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .Header__container__item,
+  .Header__container__item__left,
+  .Header__container__item__right {
+    width: 100%;
+    height: auto;
+    justify-content: center;
+  }
+
+  .search-container {
+    width: 100%;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .search-input {
+    position: static;
+    margin: 0;
+    width: 100%;
+  }
+
+  .search-button {
+    position: absolute;
+    right: 10px;
+    top: 10px;
   }
 
   .Ul__elements {
@@ -481,6 +551,11 @@
     font-size: 0.9rem;
     width: 100%;
   }
+
+  .pagination {
+    flex-direction: column;
+    gap: 10px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -489,152 +564,29 @@
   }
 
   .Ul__elements {
-    display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 8px;
-  }
-
-  .Ul__elements__item {
-    flex-direction: column;
-    align-items: flex-start;
   }
 
   .Li__element {
     width: 100%;
     padding: 8px 0;
   }
-}
 
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 30px;
-  margin-bottom: 30px;
-  gap: 15px;
-}
-
-.pagination__button {
-  background-color: #f4f4f4;
-  border: 1px solid #252422;
-  color: #252422;
-  padding: 8px 15px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.3s ease;
-}
-
-.pagination__button:hover:not(:disabled) {
-  background-color: #252422;
-  color: #f4f4f4;
-}
-
-.pagination__button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.pagination__numbers {
-  display: flex;
-  gap: 5px;
-}
-
-.pagination__number {
-  width: 35px;
-  height: 35px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f4f4f4;
-  border: 1px solid #252422;
-  color: #252422;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.pagination__number:hover {
-  background-color: #252422;
-  color: #f4f4f4;
-}
-
-.pagination__number.active {
-  background-color: #252422;
-  color: #f4f4f4;
-  font-weight: bold;
-}
-
-@media (max-width: 768px) {
-  .pagination {
-    flex-direction: column;
-    gap: 10px;
+  .search-button {
+    width: 50px;
+    height: 50px;
+    font-size: 18px;
   }
 
-  .pagination__numbers {
-    flex-wrap: wrap;
-    justify-content: center;
+  .search-input {
+    height: 50px;
+    font-size: 12px;
   }
 }
 
-.search-container {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  position: relative;
-  width: 40px;
-  transition: width 0.3s ease-in-out;
-}
-
-.search-container.expanded {
-  width: 500px;
-  height: 80px;
-}
-
-.search-input {
-  position: absolute;
-  right: 60px;
-  height: 60px;
-  width: 80%;
-  padding: 15px 12px;
-  border: 2px solid #181716;
-  background-color: #181716;
-  font-size: 14px;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease-in-out;
-  margin-right: 10px;
-  box-shadow: inset 0 0 0 1px #ffffff;
-  color: #f4f4f4;
-  border-radius: 7px;
-}
-
-.search-container.expanded .search-input {
-  opacity: 1;
-  visibility: visible;
-}
-
-.search-input input::placeholder {
-  color: #f4f4f4;
-}
-
-.search-button {
-  position: absolute;
-  right: 0;
-  width: 60px;
-  height: 60px;
-  border: none;
-  background: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  z-index: 1;
-  background-color: #181716;
-  border-radius: 50%;
-}
-
-.search-button:hover {
-  opacity: 0.8;
+@media (max-width: 360px) {
+  .Catalogo h1 {
+    font-size: 1.8rem;
+  }
 }

@@ -54,8 +54,7 @@ const Sobre = () => {
           </div>
 
           <div className="image-stack-text">
-            Easy to understand. Impossible to ignore.™ AURUM/LUMINE®, Inc 10 -
-            25©
+            Facil de Entender. Impossivel de ignorar.™ AURUM/LUMINE®, Inc 10 - 25©
           </div>
         </div>
       </div>

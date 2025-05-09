@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { FaTrash, FaShoppingBag } from "react-icons/fa";
 
+import { toast } from "react-toastify";
+
 function Carrinho() {
   const user = useSelector((state) => state.user);
 
@@ -10,22 +12,23 @@ function Carrinho() {
   const [error, setError] = useState(null);
   const [anuncios, setAnuncios] = useState([]);
   const [joias, setJoias] = useState([]);
+
+  const [notificacao, setNotificacao] = useState("");
+
   const [loading, setLoading] = useState(true);
+
+  const mostrarNotificacao = (mensagem) => {
+    setNotificacao(mensagem);
+    setTimeout(() => setNotificacao(""), 3000); // limpa após 3 segundos
+  };
+
 
   const buscarDetalhesAnuncios = async (anunciosIds) => {
     try {
       const detalhesAnuncios = await Promise.all(
         anunciosIds.map(async (id) => {
-          const response = await fetch(
-            `https://localhost:7081/api/Anuncio/GetByIdAnuncio?id=${id}`,
-            {
-              method: "GET",
-              headers: { "Content-Type": "application/json" },
-            }
-          );
-          if (!response.ok) {
-            throw new Error(`Erro ao buscar anúncio ${id}`);
-          }
+          const response = await fetch(`https://localhost:7081/api/Anuncio/GetByIdAnuncio?id=${id}`);
+          if (!response.ok) throw new Error(`Erro ao buscar anúncio ${id}`);
           return response.json();
         })
       );
@@ -43,16 +46,8 @@ function Carrinho() {
     try {
       const detalhesJoias = await Promise.all(
         joiasIds.map(async (id) => {
-          const response = await fetch(
-            `https://localhost:7081/api/Joia/GetByIdJoia?id=${id}`,
-            {
-              method: "GET",
-              headers: { "Content-Type": "application/json" },
-            }
-          );
-          if (!response.ok) {
-            throw new Error(`Erro ao buscar joia ${id}`);
-          }
+          const response = await fetch(`https://localhost:7081/api/Joia/GetByIdJoia?id=${id}`);
+          if (!response.ok) throw new Error(`Erro ao buscar joia ${id}`);
           return response.json();
         })
       );
@@ -68,21 +63,13 @@ function Carrinho() {
       setLoading(true);
       setError(null);
 
-      const valorValue = await fetch(
-        `https://localhost:7081/api/Carrinho/CompileValue?usuarioId=${user.id}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      await fetch(`https://localhost:7081/api/Carrinho/CompileValue?usuarioId=${user.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+      });
 
-      const response = await fetch(
-        `https://localhost:7081/api/Carrinho/GetByUsuarioIdCarrinho?usuarioId=${user.id}`
-      );
-
-      if (!response.ok) {
-        throw new Error("Erro ao buscar carrinho");
-      }
+      const response = await fetch(`https://localhost:7081/api/Carrinho/GetByUsuarioIdCarrinho?usuarioId=${user.id}`);
+      if (!response.ok) throw new Error("Erro ao buscar carrinho");
 
       const data = await response.json();
       setCarrinho(data);
@@ -105,35 +92,23 @@ function Carrinho() {
     try {
       const usuarioId = user?.id;
       if (!usuarioId) {
-        alert("Usuário não está logado.");
+        toast.error("Usuário não está logado.");
         return;
       }
 
-      // 1. Buscar carrinho atual do usuário
-      const carrinhoResponse = await fetch(
-        `https://localhost:7081/api/Carrinho/GetByUsuarioIdCarrinho?usuarioId=${usuarioId}`
-      );
-
-      if (!carrinhoResponse.ok) {
-        throw new Error("Erro ao buscar carrinho");
-      }
+      const carrinhoResponse = await fetch(`https://localhost:7081/api/Carrinho/GetByUsuarioIdCarrinho?usuarioId=${usuarioId}`);
+      if (!carrinhoResponse.ok) throw new Error("Erro ao buscar carrinho");
 
       const carrinhoData = await carrinhoResponse.json();
-
-      // 2. Atualizar lista de anúncios
       const anunciosAtuais = carrinhoData.anunciosId?.anunciosId || [];
-
-      // Encontra o índice do primeiro anúncioId que corresponde
       const indexToRemove = anunciosAtuais.indexOf(anuncioId.toString());
 
-      // Se encontrar, remove a primeira ocorrência
       if (indexToRemove !== -1) {
-        anunciosAtuais.splice(indexToRemove, 1); // Remove apenas a primeira ocorrência
+        anunciosAtuais.splice(indexToRemove, 1);
       }
 
-      // 3. Criar objeto PUT conforme especificado
       const carrinhoAtualizado = {
-        baseUrl: "string", // fixo
+        baseUrl: "string",
         requestClientOptions: {
           schema: "string",
           headers: {
@@ -149,47 +124,35 @@ function Carrinho() {
         },
         id: carrinhoData.id,
         usuarioId: usuarioId,
-        anunciosId: {
-          anunciosId: anunciosAtuais,
-        },
-        valorTotal: carrinhoData.valorTotal, // usa null se o valor não estiver presente
+        anunciosId: { anunciosId: anunciosAtuais },
+        valorTotal: carrinhoData.valorTotal ?? 0,
       };
 
-      console.log(JSON.stringify(carrinhoAtualizado));
+      const updateResponse = await fetch(`https://localhost:7081/api/Carrinho/PutCarrinho`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(carrinhoAtualizado),
+      });
 
-      // 4. Requisição PUT para remover o item
-      const updateResponse = await fetch(
-        `https://localhost:7081/api/Carrinho/PutCarrinho`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(carrinhoAtualizado),
-        }
-      );
+      if (!updateResponse.ok) throw new Error("Erro ao atualizar carrinho");
 
-      if (!updateResponse.ok) {
-        throw new Error("Erro ao atualizar carrinho");
-      }
+      // Atualiza o valor do carrinho após remoção
+      await fetch(`https://localhost:7081/api/Carrinho/CompileValue?usuarioId=${usuarioId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+      });
 
-      // 5. Recalcular o valor total do carrinho
-      const valorValue = await fetch(
-        `https://localhost:7081/api/Carrinho/CompileValue?usuarioId=${usuarioId}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      // ✅ Toast correto
+      toast.success("Produto removido do carrinho com sucesso!");
 
-      if (!valorValue.ok) {
-        throw new Error("Erro ao calcular o valor total do carrinho");
-      }
+      await fetchCarrinho();
+
     } catch (err) {
       console.error("Erro ao remover do carrinho:", err);
-      alert("Erro ao remover item do carrinho");
+      toast.error("Erro ao remover do carrinho");
     }
   };
+
 
   useEffect(() => {
     if (user?.id) {
@@ -225,15 +188,14 @@ function Carrinho() {
   }
 
   return (
+
     <div className="Carrinho">
       <div className="carrinho-container">
         {!carrinho?.anunciosId?.anunciosId?.length ? (
           <div className="carrinho-vazio">
             <h2>Seu carrinho está vazio</h2>
             <p>Explore nossa coleção de joias exclusivas</p>
-            <a href="/" className="btn-continuar-comprando">
-              Continuar Comprando
-            </a>
+            <a href="/" className="btn-continuar-comprando">Continuar Comprando</a>
           </div>
         ) : (
           <div className="carrinho-content">
@@ -243,16 +205,14 @@ function Carrinho() {
                 return (
                   <div key={index} className="carrinho-item">
                     <div className="item-imagem">
-                      {anuncio.urLs && anuncio.urLs.length > 0 && (
+                      {anuncio.urLs?.length > 0 && (
                         <img src={anuncio.urLs[0]} alt={anuncio.titulo} />
                       )}
                     </div>
                     <div className="item-detalhes">
                       <h3>{anuncio.titulo}</h3>
                       <p className="item-tipo">Tipo: {joia?.tipoPeca}</p>
-                      <p className="item-material">
-                        Material: {joia?.material}
-                      </p>
+                      <p className="item-material">Material: {joia?.material}</p>
                       {joia?.isStudded && (
                         <p className="item-cravejado">
                           Material Cravejado: {joia.materialCravejado}
@@ -266,8 +226,7 @@ function Carrinho() {
                       </button>
                     </div>
                     <div className="item-valor">
-                      R$
-                      {joia?.valor}
+                      R$ {joia?.valor?.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
                     </div>
                   </div>
                 );
@@ -281,7 +240,9 @@ function Carrinho() {
               <h3>Resumo do pedido</h3>
               <div className="resumo-item">
                 <span>Subtotal do pedido</span>
-                <span>R$ {carrinho.valorTotal}</span>
+                <span>
+                  R$ {carrinho.valorTotal?.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
+                </span>
               </div>
               <div className="resumo-item">
                 <span>Frete</span>
@@ -289,7 +250,9 @@ function Carrinho() {
               </div>
               <div className="resumo-total">
                 <span>Total:</span>
-                <span>R$ {carrinho.valorTotal}</span>
+                <span>
+                  R$ {carrinho.valorTotal?.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
+                </span>
               </div>
               <button className="btn-finalizar-compra">FINALIZAR PEDIDO</button>
               <p className="installments">
@@ -299,7 +262,9 @@ function Carrinho() {
                 })}
               </p>
               <p className="pix-discount">
-                Pix: R$ {carrinho.valorTotal * 0.95}
+                Pix: R$ {(carrinho.valorTotal * 0.95).toLocaleString("pt-BR", {
+                  minimumFractionDigits: 2,
+                })}{" "}
                 (5% nos produtos)
               </p>
             </div>

@@ -30,7 +30,7 @@ function Footer() {
 
         <div className="footer__item">
           <div className="footer__item__top">
-            NOS COLABORAMOS COM DIVERSAS EMPRESAS
+            NOS COLABORAMOS COM MARCAS E PESSOAS AMBICIOSAS.VAMOS COLABORAR. AURUMLUMINE@GMAIL.COM
           </div>
 
           <div className="footer__item__bottom">
@@ -38,13 +38,16 @@ function Footer() {
             <ul className="footer__item__bottom__ul">
               <h1>● SOCIAL</h1>
               <li>
-                <a href="#">Home</a>
+                <a href="#">Instagram</a>
               </li>
               <li>
-                <a href="#">Home</a>
+                <a href="#">Twitter</a>
               </li>
               <li>
-                <a href="#">Home</a>
+                <a href="#">Linkedin</a>
+              </li>
+              <li>
+                <a href="#">Facebook</a>
               </li>
             </ul>
 
@@ -52,13 +55,16 @@ function Footer() {
             <ul className="footer__item__bottom__ul">
               <h1>● INICIATIVAS</h1>
               <li>
-                <a href="#">Home</a>
+                <a href="#">Applied</a>
               </li>
               <li>
-                <a href="#">Home</a>
+                <a href="#">BrandBeats</a>
               </li>
               <li>
-                <a href="#">Home</a>
+                <a href="#">Moves</a>
+              </li>
+              <li>
+                <a href="#">B/Good</a>
               </li>
             </ul>
 
@@ -66,13 +72,28 @@ function Footer() {
             <ul className="footer__item__bottom__ul">
               <h1>● ESCRITORIOS</h1>
               <li>
-                <a href="#">Home</a>
+                <a href="#">San Diego - CA</a>
               </li>
               <li>
-                <a href="#">Home</a>
+                <a href="#">New York - NY</a>
               </li>
               <li>
-                <a href="#">Home</a>
+                <a href="#">Bay Area - CA</a>
+              </li>
+              <li>
+                <a href="#">ST.Louis - MO</a>
+              </li>
+              <li>
+                <a href="#">Amsterdan - NL</a>
+              </li>
+              <li>
+                <a href="#">London - EN</a>
+              </li>
+              <li>
+                <a href="#">Berlin - GE</a>
+              </li>
+              <li>
+                <a href="#">Argentina - AR</a>
               </li>
             </ul>
           </div>
@@ -82,9 +103,9 @@ function Footer() {
       <div className="footer__bottom">
         <div className="footer__bottom__item">AURUM/LUMINE®, Inc 10 - 25©</div>
         <div className="footer__bottom__item">
-          Easy to understand, impossible to ignore.™
+          Facil de enteder, impossivel de ignorar.™
         </div>
-        <div className="footer__bottom__item">Terms, Privacy Policy</div>
+        <div className="footer__bottom__item">Termos, Politica de Privacidade</div>
       </div>
     </footer>
   );

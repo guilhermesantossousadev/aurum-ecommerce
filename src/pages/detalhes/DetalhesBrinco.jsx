@@ -1,11 +1,13 @@
 import { useSelector } from "react-redux";
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import "../../styles/detalhes/DetalhesComum.css";
 import ImageCarousel from "../../components/ImageCarousel";
 import setaesquerdabranca from "../../images/seta-esquerda-branca.png";
 
 import BotaoPrimario from "../../components/BotaoPrimario";
+import { toast } from "react-toastify";
+
+import "../../styles/detalhes/DetalhesComum.css";
 
 function DetalhesBrinco() {
   const user = useSelector((state) => state.user);
@@ -92,9 +94,12 @@ function DetalhesBrinco() {
       if (!updateResponse.ok) {
         throw new Error("Erro ao atualizar carrinho");
       }
+
+      toast.success("Produto adicionado ao carrinho com sucesso!");
+
     } catch (err) {
       console.error("Erro ao adicionar ao carrinho:", err);
-      alert("Erro ao adicionar ao carrinho");
+      toast.error("Erro ao adicionar ao carrinho");
     }
   };
 
