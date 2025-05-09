@@ -277,6 +277,7 @@
   justify-content: space-between;
   gap: 1rem;
   text-align: center;
+  transition: transform 0.5s ease;
 }
 
 a.Home__Echo__container__item {
@@ -311,6 +312,7 @@ a.Home__Echo__container__item {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  transition: transform 0.5s ease;
 }
 
 .Home__Echo__container__item__text {
