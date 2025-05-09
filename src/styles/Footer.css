@@ -5,7 +5,7 @@
   color: white;
   position: relative;
   bottom: 0;
-  border-top: 10px solid white;
+  border-top: 1px solid white;
 }
 
 .footer__top {
@@ -54,13 +54,11 @@
   margin-top: 5rem;
 }
 
-
 .footer__item__bottom__ul {
   width: 30%;
   list-style: none;
   min-width: 150px;
 }
-
 
 .footer__item__bottom__ul h1 {
   font-size: 1rem !important;

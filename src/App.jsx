@@ -21,6 +21,7 @@ import DetalhesBrinco from "./pages/detalhes/DetalhesBrinco";
 import DetalhesPiercing from "./pages/detalhes/DetalhesPiercing";
 import DetalhesPulseira from "./pages/detalhes/DetalhesPulseira";
 import DetalhesPingente from "./pages/detalhes/DetalhesPingente";
+import AdminPage from "./pages/Admin/AdminPage";
 import Carrinho from "./pages/Carrinho";
 
 import CatalogoAnel from "./pages/tipo/CatalogoAnel";
@@ -69,6 +70,10 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
+
+
+        <Route path="/adminPage" element={<AdminPage />} />
+
 
         <Route path="/token-authentication" element={<TokenAuthentication />} />
 

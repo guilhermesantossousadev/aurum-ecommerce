@@ -34,16 +34,25 @@ const Login = () => {
       }
 
       const user = await response.json();
-      
+
       dispatch(login(user)); // Atualiza o Redux e localStorage
 
-      setSuccess(`Login realizado com sucesso! Bem-vindo, ${user.nome}`);
-      
-      setTimeout(() => {
-        navigate("/");
-      }, 1500);
+      if (user.isAdmin) {
+        setSuccess(
+          `Login realizado com sucesso! Bem-vindo Admin, ${user.nome}`
+        );
+        setTimeout(() => {
+          navigate("/adminPage");
+        }, 1500);
+      } else {
+        setSuccess(`Login realizado com sucesso! Bem-vindo, ${user.nome}`);
+        setTimeout(() => {
+          navigate("/");
+        }, 1500);
+      }
     } catch (error) {
       console.error("Erro no login:", error);
+
       setError("Email ou senha incorretos. Por favor, tente novamente.");
     } finally {
       setIsLoading(false);
@@ -75,11 +84,7 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button
-            className="Login__button"
-            type="submit"
-            disabled={isLoading}
-          >
+          <button className="Login__button" type="submit" disabled={isLoading}>
             {isLoading ? "Entrando..." : "Entrar"}
           </button>
         </form>
