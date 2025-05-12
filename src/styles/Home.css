@@ -40,6 +40,7 @@
   align-items: center;
   justify-content: center;
   z-index: 10;
+  overflow: hidden; /* Garante que nada vazará ao esconder */
 }
 
 .title {
@@ -48,10 +49,29 @@
   color: black;
 }
 
+@keyframes clipDisappear {
+  0% {
+    clip-path: inset(0% 0% 0% 0%);
+  }
+  100% {
+    clip-path: inset(0% 0% 100% 0%);
+  }
+}
+
+.clip-container {
+  position: relative;
+  overflow: hidden; /* garante que nada vaze */
+  height: 100vh;
+  width: 100vw;
+  animation: clipDisappear 1.5s ease forwards;
+  margin-left: -600px;
+
+  margin-bottom: -250px;
+}
+
 .a__Aurun {
   text-align: center;
   font-size: 12rem;
-  margin-left: -150px;
   position: relative;
 }
 
@@ -346,7 +366,6 @@ a.Home__Echo__container__item {
 .Home__Echo__container__item:hover .Home__Echo__container__item__text {
   opacity: 1;
 }
-
 
 /*Home Delta responsividade*/
 @media (max-width: 1024px) {

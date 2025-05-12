@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 import "../styles/Home.css";
 import video from "../images/videoplayback.mp4";
 import adage from "../images/adage.png";
@@ -18,30 +18,41 @@ function Home() {
   const [hideTitle, setHideTitle] = useState(false);
   const [hideOverlay, setHideOverlay] = useState(false);
 
+  // Controla as animações de fade-out do título e overlay
   useEffect(() => {
-    setTimeout(() => setHideTitle(true), 500); // Esconde o título após 1.5s
-    setTimeout(() => setHideOverlay(true), 2000); // Remove a cortina após 3s
+    const titleTimer = setTimeout(() => setHideTitle(true), 1500); // Esconde o título após 1.5s
+    const overlayTimer = setTimeout(() => setHideOverlay(true), 1700); // Remove a cortina após 1.7s
+
+    // Limpeza dos timers quando o componente for desmontado
+    return () => {
+      clearTimeout(titleTimer);
+      clearTimeout(overlayTimer);
+    };
   }, []);
 
   return (
     <>
       <section className="Home">
+        {/* Controle de animação do título e overlay */}
         {!hideOverlay && (
           <motion.div
             className="overlay"
-            initial={{ y: 0 }}
-            animate={{ y: hideTitle ? "-100%" : 0 }}
-            transition={{ duration: 0.7, ease: "easeInOut" }}
+            initial={{ y: 0 }} // Inicializa a cortina em sua posição original
+            animate={{ y: hideTitle ? "-100%" : 0 }} // Animação da cortina subindo
+            transition={{ duration: 0.3, ease: "easeInOut" }} // Duração aumentada
           >
             {!hideTitle && (
               <motion.h1
                 className="title"
-                initial={{ opacity: 1 }}
-                animate={{ opacity: 0 }}
-                transition={{ duration: 1 }}
+                animate={{
+                  transition: { duration: 3 }, // Ajuste do tempo de transição do título
+                }}
+                onAnimationComplete={() => setHideTitle(true)}
               >
-                <p className="a__Aurun">Aurum</p>
-                <p className="a__Aurun lumine">/Lumine</p>
+                <div className="clip-container">
+                  <div className="a__Aurun">AURUM</div>
+                  <p className="a__Aurun lumine">/Lumine</p>
+                </div>
               </motion.h1>
             )}
           </motion.div>
@@ -82,16 +93,19 @@ function Home() {
             </div>
           </div>
 
-          <div className="part"><div className="part__inside"></div></div>
+          <div className="part">
+            <div className="part__inside"></div>
+          </div>
 
           <div className="Home__delta">
             <div className="Home__delta__container">
               <div className="Home__delta__left">
                 <h2>
-                  Aurum Lumine® é uma joalheria digital que une arte,
-                  luxo e tecnologia para criar experiências de e-commerce exclusivas.
-                  Especializada em joias cravejadas,
-                  transformamos elegância e valor cultural em peças que refletem sofisticação e autenticidade.
+                  Aurum Lumine® é uma joalheria digital que une arte, luxo e
+                  tecnologia para criar experiências de e-commerce exclusivas.
+                  Especializada em joias cravejadas, transformamos elegância e
+                  valor cultural em peças que refletem sofisticação e
+                  autenticidade.
                 </h2>
                 <button>Veja nossos Servicos</button>
               </div>
@@ -101,12 +115,17 @@ function Home() {
             </div>
           </div>
 
-          <div className="part"><div className="part__inside"></div></div>
+          <div className="part">
+            <div className="part__inside"></div>
+          </div>
 
           <div className="Home__Echo">
             <div className="Home__Echo__container">
               <div className="Home__Echo__container__row">
-                <Link to="/catalogoRelogio" className="Home__Echo__container__item">
+                <Link
+                  to="/catalogoRelogio"
+                  className="Home__Echo__container__item"
+                >
                   <div className="Home__Echo__container__item__img">
                     <img src={relogio} alt="relogio" />
                   </div>
@@ -115,7 +134,10 @@ function Home() {
                   </div>
                 </Link>
 
-                <Link to="/catalogoColar" className="Home__Echo__container__item">
+                <Link
+                  to="/catalogoColar"
+                  className="Home__Echo__container__item"
+                >
                   <div className="Home__Echo__container__item__img">
                     <img src={corrente} alt="corrente" />
                   </div>
@@ -123,7 +145,10 @@ function Home() {
                     correntes
                   </div>
                 </Link>
-                <Link to="/catalogoPulseira" className="Home__Echo__container__item">
+                <Link
+                  to="/catalogoPulseira"
+                  className="Home__Echo__container__item"
+                >
                   <div className="Home__Echo__container__item__img">
                     <img src={pulseira} alt="pulseira" />
                   </div>
@@ -134,15 +159,19 @@ function Home() {
               </div>
 
               <div className="Home__Echo__container__row">
-                <Link to="/catalogoAnel" className="Home__Echo__container__item">
+                <Link
+                  to="/catalogoAnel"
+                  className="Home__Echo__container__item"
+                >
                   <div className="Home__Echo__container__item__img">
                     <img src={anel} alt="anel" />
                   </div>
-                  <div className="Home__Echo__container__item__text">
-                    Aneis
-                  </div>
+                  <div className="Home__Echo__container__item__text">Aneis</div>
                 </Link>
-                <Link to="/catalogoPingente" className="Home__Echo__container__item">
+                <Link
+                  to="/catalogoPingente"
+                  className="Home__Echo__container__item"
+                >
                   <div className="Home__Echo__container__item__img">
                     <img src={pingente} alt="pingente" />
                   </div>
@@ -150,7 +179,10 @@ function Home() {
                     Pingente
                   </div>
                 </Link>
-                <Link to="/catalogoBrinco" className="Home__Echo__container__item">
+                <Link
+                  to="/catalogoBrinco"
+                  className="Home__Echo__container__item"
+                >
                   <div className="Home__Echo__container__item__img">
                     <img src={brinco} alt="brinco" />
                   </div>
@@ -161,7 +193,6 @@ function Home() {
               </div>
             </div>
           </div>
-
         </section>
       </section>
     </>
