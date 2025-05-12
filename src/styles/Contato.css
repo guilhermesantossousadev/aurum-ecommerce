@@ -254,6 +254,7 @@
 
   .Contato__init__item__bottom__left h1 {
     font-size: 5rem;
+    margin-top: 0;
   }
 
   .Contato__end__bottom__item__h1 {

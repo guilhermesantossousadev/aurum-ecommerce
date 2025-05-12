@@ -58,10 +58,7 @@ function Home() {
           </motion.div>
         )}
         <div className="Banner">
-          <video autoPlay muted loop className="video-bg">
-            <source src={video} type="video/mp4" />
-            Seu navegador não suporta vídeos.
-          </video>
+          
         </div>
         <section className="Home__bg">
           <div className="Home__Hero">

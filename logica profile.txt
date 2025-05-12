@@ -1,0 +1,150 @@
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [editing, setEditing] = useState(false);
+  const [changingPassword, setChangingPassword] = useState(false);
+  const [formData, setFormData] = useState({ ...user, password: "" });
+  const [passwordData, setPasswordData] = useState({
+    email: user?.email,
+    token: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
+  const [step, setStep] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/");
+  };
+
+  const handleEditProfile = async () => {
+    setLoading(true);
+    setError("");
+    setMessage("");
+
+    try {
+      const response = await fetch(`https://localhost:7081/api/Usuario`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) throw new Error("Erro ao atualizar perfil");
+
+      setMessage("Perfil atualizado com sucesso!");
+      setEditing(false);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleRequestToken = async () => {
+    setLoading(true);
+    setError("");
+    setMessage("");
+
+    try {
+      const res = await fetch(
+        `https://localhost:7081/api/Suport/RequestToken?email=${user.email}`,
+        { method: "POST" }
+      );
+      if (!res.ok) throw new Error("Falha ao solicitar token");
+      setMessage("Token enviado para seu e-mail.");
+      setStep(2);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleVerifyToken = async () => {
+    setLoading(true);
+    setError("");
+    setMessage("");
+
+    try {
+      const res = await fetch(`https://localhost:7081/api/Usuario/VerifyToken`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: passwordData.email,
+          token: passwordData.token,
+        }),
+      });
+      if (!res.ok) throw new Error("Token inválido ou expirado");
+      setMessage("Token verificado. Insira nova senha.");
+      setStep(3);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleResetPassword = async () => {
+    if (passwordData.newPassword !== passwordData.confirmPassword) {
+      setError("As senhas não coincidem");
+      return;
+    }
+
+    setLoading(true);
+    setError("");
+    setMessage("");
+
+    try {
+      const res = await fetch(`https://localhost:7081/api/Usuario/ResetPassword`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: passwordData.email,
+          token: passwordData.token,
+          newPassword: passwordData.newPassword,
+        }),
+      });
+
+      if (!res.ok) throw new Error("Erro ao redefinir senha");
+
+      setMessage("Senha redefinida com sucesso.");
+      setChangingPassword(false);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handlePasswordChange = (e) => {
+    const { name, value } = e.target;
+    setPasswordData({ ...passwordData, [name]: value });
+  }; 
+
+
+
+
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../store/userSlice";
+import "../styles/Profile.css";
+import {
+  FaEnvelope,
+  FaCalendarAlt,
+  FaIdCard,
+  FaMapMarkerAlt,
+  FaHome,
+  FaSignOutAlt,
+  FaUserEdit,
+  FaKey,
+} from "react-icons/fa";

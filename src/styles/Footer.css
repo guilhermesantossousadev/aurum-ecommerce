@@ -163,7 +163,7 @@
 @media (max-width: 1024px) {
   .footer {
     height: auto;
-    min-height: 600px;
+    padding-bottom: 80px;
   }
 
   .footer__top {
@@ -201,6 +201,13 @@
 }
 
 @media (max-width: 768px) {
+
+
+  .footer {
+    height: auto;
+    padding-bottom: 40px;
+  }
+
   .footer__item__top {
     font-size: 1.2rem;
     padding-inline: 1rem;
@@ -223,6 +230,12 @@
 }
 
 @media (max-width: 480px) {
+
+  .footer {
+    height: auto;
+    padding-bottom: 200px;
+  }
+
   .footer__item__top {
     font-size: 1rem;
   }
