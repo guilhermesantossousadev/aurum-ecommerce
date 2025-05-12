@@ -162,6 +162,7 @@
 .Contato__end__bottom__item.right {
   width: 80%;
   padding: 2rem;
+  padding-inline: 20rem;
   display: flex;
   flex-direction: column;
   gap: 20px;
