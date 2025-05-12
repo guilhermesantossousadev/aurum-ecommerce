@@ -180,8 +180,8 @@ const NavBar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/contact" onClick={() => setIsMenuOpen(false)}>
-              Contact
+            <Link to="/contato" onClick={() => setIsMenuOpen(false)}>
+              Contato
             </Link>
           </li>
           {user ? (
