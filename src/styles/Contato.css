@@ -55,16 +55,17 @@
 }
 
 .Contato__init__item__bottom__left {
-  width: 20%;
+  width: 30%;
   height: 100%;
 }
 
 .Contato__init__item__bottom__left h1 {
-  font-size: 8rem;
+  font-size: 7rem;
+  margin-top: -30px;
 }
 
 .Contato__init__item__bottom__right {
-  width: 80%;
+  width: 70%;
   height: 100%;
 }
 
@@ -72,12 +73,14 @@
   width: 100%;
   height: 50%;
   display: flex;
+  gap: 20px;
 }
 
 .Contato__init__item__bottom__right__bottom {
   width: 100%;
   height: 50%;
   display: flex;
+  gap: 20px;
 }
 
 .Contato__init__item__bottom__right__top__item {
