@@ -13,6 +13,7 @@ import Catalogo from "./pages/Catalogo";
 import Register from "./pages/Register";
 import Profile from "./components/Profile";
 import TokenAuthentication from "./pages/TokenAuthentication";
+import Contato from "./pages/Contato";
 
 import DetalhesAnel from "./pages/detalhes/DetalhesAnel";
 import DetalhesRelogio from "./pages/detalhes/DetalhesRelogio";
@@ -65,18 +66,16 @@ function App() {
         <Route path="/catalogoRelogio" element={<CatalogoRelogio />} />
 
         <Route path="/sobre" element={<Sobre />} />
+        <Route path="/contato" element={<Contato />} />
         <Route path="/servicos" element={<Servicos />} />
         <Route path="/carrinho" element={<Carrinho />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
 
-
         <Route path="/adminPage" element={<AdminPage />} />
 
-
         <Route path="/token-authentication" element={<TokenAuthentication />} />
-
       </Routes>
       <ToastContainer position="top-center" autoClose={3000} />
       <Footer />

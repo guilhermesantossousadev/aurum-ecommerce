@@ -1,0 +1,266 @@
+.Contato {
+  height: auto;
+  width: 100%;
+  min-height: 150vh;
+  display: flex;
+  flex-direction: column;
+  padding-top: 10rem;
+}
+
+.Contato__init {
+  width: 100%;
+  height: 1200px;
+  display: flex;
+  padding-inline: 3.8rem;
+}
+
+.Contato__init__item {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.Contato__init__item img {
+  width: 100%;
+}
+
+.Contato__init__item.right {
+  padding: 2rem;
+}
+
+.Contato__init__item__top {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.Contato__init__item__top h1 {
+  font-size: 7rem;
+  max-width: 100px;
+}
+
+.Contato__init__item__top p {
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  max-width: 200px;
+  padding-left: 10px;
+  padding-top: 50px;
+}
+.Contato__init__item__bottom {
+  width: 100%;
+  height: 50%;
+  display: flex;
+}
+
+.Contato__init__item__bottom__left {
+  width: 20%;
+  height: 100%;
+}
+
+.Contato__init__item__bottom__left h1 {
+  font-size: 8rem;
+}
+
+.Contato__init__item__bottom__right {
+  width: 80%;
+  height: 100%;
+}
+
+.Contato__init__item__bottom__right__top {
+  width: 100%;
+  height: 50%;
+  display: flex;
+}
+
+.Contato__init__item__bottom__right__bottom {
+  width: 100%;
+  height: 50%;
+  display: flex;
+}
+
+.Contato__init__item__bottom__right__top__item {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.Contato__init__item__bottom__right__bottom__item {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.Contato__init__item__bottom__right__top__item span {
+  text-decoration: underline;
+}
+
+.Contato__init__item__bottom__right__bottom__item span {
+  text-decoration: underline;
+}
+
+.Contato__init__item__bottom__right__top__item span:hover {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.Contato__init__item__bottom__right__bottom__item span:hover {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.Contato__end {
+  width: 100%;
+  height: 400px;
+  padding-top: 50px;
+}
+
+.Contato__part {
+  width: 100%;
+  height: 1px;
+  padding-inline: 3.8rem;
+}
+
+.Contato__part__inside {
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  border-radius: 7px;
+}
+
+.Contato__end__bottom {
+  width: 100%;
+  height: 80%;
+  display: flex;
+}
+
+.Contato__end__bottom__item {
+  height: 100%;
+}
+
+.Contato__end__bottom__item.left {
+  padding: 2rem;
+  width: 20%;
+  padding-inline: 3.8rem;
+}
+
+.Contato__end__bottom__item__h1 {
+  font-size: 3rem;
+  text-transform: uppercase;
+}
+
+.Contato__end__bottom__item__h2 {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+
+.Contato__end__bottom__item.right {
+  width: 80%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.Contato__end__bottom__item.right ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.Contato__end__bottom__item.right li {
+  font-size: 1.2rem;
+  text-decoration: underline;
+}
+
+.Contato__end__bottom__item.right li:hover {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+@media (max-width: 1024px) {
+  .Contato__init {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .Contato__init__item {
+    width: 100%;
+    height: auto;
+  }
+
+  .Contato__init__item.right {
+    padding: 2rem 1rem;
+  }
+
+  .Contato__init__item__top {
+    height: auto;
+  }
+
+  .Contato__init__item__bottom {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .Contato__init__item__bottom__left,
+  .Contato__init__item__bottom__right {
+    width: 100%;
+    height: auto;
+  }
+
+  .Contato__init__item__bottom__right__top,
+  .Contato__init__item__bottom__right__bottom {
+    flex-direction: column;
+  }
+
+  .Contato__init__item__bottom__right__top__item,
+  .Contato__init__item__bottom__right__bottom__item {
+    width: 100%;
+  }
+
+  .Contato__end__bottom {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .Contato__end__bottom__item.left,
+  .Contato__end__bottom__item.right {
+    width: 100%;
+    padding-inline: 3.8rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .Contato__init__item__top h1 {
+    font-size: 4rem;
+    max-width: none;
+  }
+
+  .Contato__init__item__top p {
+    font-size: 0.7rem;
+    padding-top: 20px;
+    max-width: none;
+  }
+
+  .Contato__init__item__bottom__left h1 {
+    font-size: 5rem;
+  }
+
+  .Contato__end__bottom__item__h1 {
+    font-size: 2rem;
+  }
+
+  .Contato__end__bottom__item__h2 {
+    font-size: 1.2rem;
+  }
+
+  .Contato__end__bottom__item.right li {
+    font-size: 1rem;
+  }
+}

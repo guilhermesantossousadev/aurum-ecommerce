@@ -30,7 +30,7 @@ function Footer() {
 
         <div className="footer__item">
           <div className="footer__item__top">
-            NOS COLABORAMOS COM MARCAS E PESSOAS AMBICIOSAS.VAMOS COLABORAR. AURUMLUMINE@GMAIL.COM
+            NOS COLABORAMOS COM MARCAS E PESSOAS AMBICIOSAS. VAMOS COLABORAR. AURUMLUMINE@GMAIL.COM
           </div>
 
           <div className="footer__item__bottom">

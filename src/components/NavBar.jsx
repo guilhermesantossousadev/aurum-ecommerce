@@ -28,6 +28,9 @@ const NavBar = () => {
   // Determina se estamos na página Sobre
   const isSobrePage = location.pathname === "/sobre";
 
+  // Determina se estamos na página Contato
+  const isContatoPage = location.pathname === "/contato";
+
   // Determina se estamos na página Carrinho
   const isCarrinhoPage = location.pathname === "/carrinho";
 
@@ -40,7 +43,6 @@ const NavBar = () => {
     "/catalogoPulseira",
     "/catalogoRelogio",
   ].includes(location.pathname);
-
 
   // Determina se estamos na página token authentication
   const isTokenAuthenticationPage =
@@ -65,6 +67,7 @@ const NavBar = () => {
     if (isBlackTextPage) return "black-text";
     if (isCarrinhoPage) return "black-text";
     if (isCatalogosPage) return "black-text";
+    if (isContatoPage) return "black-text";
     if (isTokenAuthenticationPage) return "black-text";
     if (isSobrePage) return "pink-text";
     return "pink-text";
@@ -79,8 +82,9 @@ const NavBar = () => {
 
   return (
     <nav
-      className={`navbar ${isScrolled ? "scrolled" : ""
-        } ${getTextClass()} ${getPageClass()}`}
+      className={`navbar ${
+        isScrolled ? "scrolled" : ""
+      } ${getTextClass()} ${getPageClass()}`}
     >
       <div className="Nav__item">
         <Link to="/" className="navbar__brand">
@@ -103,7 +107,7 @@ const NavBar = () => {
           <Link to="/careers">Careers</Link>
         </li>
         <li>
-          <Link to="/contact">Contact</Link>
+          <Link to="/contato">Contato</Link>
         </li>
 
         {user ? (
@@ -118,7 +122,7 @@ const NavBar = () => {
             <Link to="/profile">Bem-Vindo, {user.nome}! </Link>
           </li>
         ) : (
-          <li>
+          <li className={`login ${user ? "" : "logged"}`}>
             <Link to="/login">Login</Link>
           </li>
         )}

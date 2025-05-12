@@ -12,6 +12,14 @@
   --transition-speed: 0.3s;
 }
 
+.login {
+  margin-left: -35px;
+}
+
+.login .logged {
+  margin-left: 0;
+}
+
 /* Navbar */
 .navbar {
   width: 100%;
@@ -96,7 +104,7 @@
 }
 
 .navbar__list a::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 0;
   height: 2px;
@@ -264,7 +272,7 @@
   .navbar {
     padding: 0 2em;
   }
-  
+
   .navbar__list {
     display: none;
     /* Esconde a navegação desktop */
@@ -274,7 +282,7 @@
     display: block;
     /* Exibe o botão de abrir menu */
   }
-  
+
   .navbar__brand {
     font-size: 32px;
   }
@@ -284,7 +292,7 @@
   .navbar {
     padding: 0 1em;
   }
-  
+
   .navbar__brand {
     font-size: 28px;
   }
