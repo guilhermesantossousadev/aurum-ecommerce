@@ -61,34 +61,31 @@
 }
 
 .clip-container {
-  position: relative;
-  overflow: hidden;
-  /* garante que nada vaze */
   height: 100vh;
   width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   animation: clipDisappear 1.5s ease forwards;
-  margin-left: -600px;
-
-  margin-bottom: -250px;
+  overflow: hidden;
+  position: relative;
 }
 
 .a__Aurun {
-  text-align: center;
   font-size: 12rem;
   position: relative;
+  text-align: center;
+  line-height: 1;
+  margin-left: -1000px;
 }
 
 .a__Aurun.lumine::after {
   content: "®";
   position: absolute;
   font-size: 5rem;
-  bottom: 10px;
-  right: -120px;
-}
-
-.a__Aurun__icon {
-  font-size: 1rem;
-  margin-bottom: -100px;
+  bottom: -1rem;
+  right: -3rem;
 }
 
 .Banner {
@@ -495,61 +492,48 @@ a.Home__Echo__container__item {
   }
 }
 
-/* Media queries para responsividade do logo Aurun */
-@media (max-width: 1024px) {
+@media (max-width: 1600px) {
   .a__Aurun {
     font-size: 8rem;
   }
 
   .a__Aurun.lumine::after {
     font-size: 3rem;
-    right: -80px;
+    right: -2rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .a__Aurun {
+    font-size: 6rem;
+    margin-left: -300px;
   }
 
-  .clip-container {
-    margin-left: -300px;
-    margin-bottom: -200px;
+  .a__Aurun.lumine::after {
+    font-size: 2.5rem;
+    right: -1.5rem;
   }
 }
 
 @media (max-width: 768px) {
   .a__Aurun {
-    font-size: 5rem;
+    font-size: 4rem;
+    margin-left: 0;
   }
 
   .a__Aurun.lumine::after {
-    font-size: 2rem;
-    right: -50px;
-  }
-
-  .clip-container {
-    margin-left: -150px;
-    margin-bottom: -150px;
-  }
-
-  .title {
-    font-size: 2rem;
-    text-align: center;
-    padding: 0 1rem;
+    font-size: 1.5rem;
+    right: -1rem;
   }
 }
 
 @media (max-width: 480px) {
   .a__Aurun {
-    font-size: 3rem;
+    font-size: 2.5rem;
   }
 
   .a__Aurun.lumine::after {
-    font-size: 1.5rem;
-    right: -30px;
-  }
-
-  .clip-container {
-    margin-left: -50px;
-    margin-bottom: -100px;
-  }
-
-  .title {
-    font-size: 1.5rem;
+    font-size: 1rem;
+    right: -0.8rem;
   }
 }

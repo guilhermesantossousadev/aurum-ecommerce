@@ -1,0 +1,64 @@
+  return (
+    <section className="profile-container">
+      <img src={user?.fotoPerfilURL} alt="Foto de perfil" className="Profile__photo" />
+      <h1 className="profile-title">{user?.nome || "Usuário Desconhecido"}</h1>
+
+      {message && <div className="profile-message profile-success">{message}</div>}
+      {error && <div className="profile-message profile-error">{error}</div>}
+
+      {editing ? (
+        <form className="profile-form">
+          <input className="profile-input" name="nome" value={formData.nome} onChange={handleInputChange} placeholder="Nome" />
+          <input className="profile-input" name="idade" value={formData.idade} onChange={handleInputChange} placeholder="Idade" />
+          <input className="profile-input" name="email" value={formData.email} onChange={handleInputChange} placeholder="Email" />
+          <input className="profile-input" name="cpf" value={formData.cpf} onChange={handleInputChange} placeholder="CPF" />
+          <input className="profile-input" name="cep" value={formData.cep} onChange={handleInputChange} placeholder="CEP" />
+          <input className="profile-input" name="numero" value={formData.numero} onChange={handleInputChange} placeholder="Número" />
+          <input className="profile-input" name="endereco" value={formData.endereco} onChange={handleInputChange} placeholder="Endereço" />
+          <button type="button" onClick={handleEditProfile} className="profile-button" disabled={loading}>
+            {loading ? "Salvando..." : "Salvar Alterações"}
+          </button>
+        </form>
+      ) : (
+        <ul className="profile-section">
+          <li><FaIdCard /> CPF: {user?.cpf}</li>
+          <li><FaCalendarAlt /> Idade: {user?.idade}</li>
+          <li><FaEnvelope /> Email: {user?.email}</li>
+          <li><FaMapMarkerAlt /> CEP: {user?.cep}</li>
+          <li><FaHome /> Nº: {user?.numero}</li>
+          <li><FaMapMarkerAlt /> Endereço: {user?.endereco}</li>
+        </ul>
+      )}
+
+      {changingPassword && (
+        <div className="profile-form">
+          {step === 1 && <button className="profile-button" onClick={handleRequestToken}>Solicitar Token</button>}
+          {step === 2 && (
+            <>
+              <input name="token" className="profile-input" placeholder="Token" onChange={handlePasswordChange} />
+              <button className="profile-button" onClick={handleVerifyToken}>Verificar Token</button>
+            </>
+          )}
+          {step === 3 && (
+            <>
+              <input name="newPassword" type="password" className="profile-input" placeholder="Nova Senha" onChange={handlePasswordChange} />
+              <input name="confirmPassword" type="password" className="profile-input" placeholder="Confirmar Senha" onChange={handlePasswordChange} />
+              <button className="profile-button" onClick={handleResetPassword}>Redefinir Senha</button>
+            </>
+          )}
+        </div>
+      )}
+
+      <div className="profile-section">
+        <button className="profile-toggle-btn" onClick={() => setEditing((prev) => !prev)}>
+          <FaUserEdit /> {editing ? "Cancelar" : "Editar Perfil"}
+        </button>
+        <button className="profile-toggle-btn" onClick={() => setChangingPassword((prev) => !prev)}>
+          <FaKey /> Redefinir Senha
+        </button>
+        <button className="profile-toggle-btn logout" onClick={handleLogout}>
+          <FaSignOutAlt /> Sair
+        </button>
+      </div>
+    </section>
+  );

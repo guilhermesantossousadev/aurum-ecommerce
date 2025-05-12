@@ -1,54 +1,105 @@
+:root {
+  --primary-color: #f9cdcd;
+  --secondary-color: #fff;
+  --accent-color: #ebb3b3;
+  --text-dark: #000;
+}
+
 .Profile {
   width: 100%;
   height: 100vh;
-  color: aliceblue;
-  background-color: rgb(41, 40, 38);
-  padding-top: 10rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.Profile__top {
+  flex: 0 0 40%;
+  background-color: var(--primary-color);
+}
+
+.Profile__bottom {
+  flex: 1;
+  background-color: var(--secondary-color);
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  padding-top: 150px;
+  position: relative;
 }
 
-.Profile__box {
-  margin-top: -100px;
-  margin-right: -500px;
+.Profile__itens {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.Profile__img {
   width: 400px;
   height: 400px;
-  color: #000;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
+  position: absolute;
+  top: -180px;
+  transform: translateX(-50%, -50%);
 }
 
-.Profile__box ul {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.Profile__box li {
-  text-decoration: none;
-  color: #fff;
-}
-
-.Profile__box button {
-  padding: 1em;
-  border: 1px solid #fff;
-  background-color: transparent;
-  border-radius: 7px;
-  color: #fff;
-  font-size: 1rem;
-  transition: 0.3s ease;
-}
-
-.Profile__box button:hover {
-  cursor: pointer;
-  transform: scale(1.05);
-}
-
-.fotoperfil {
-  height: 300px;
-  width: 300px;
+.Profile__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   border-radius: 50%;
+  border: 5px solid var(--accent-color);
+}
+
+.Profile__name h1 {
+  font-size: 2.5rem;
+  color: var(--text-dark);
+  margin: 0.5rem 0;
+}
+
+.Profile__location h3 {
+  font-size: 1.2rem;
+  color: #333;
+  font-weight: 400;
+}
+
+.profile__edit,
+.profile__logout {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: var(--primary-color);
+  transition: background-color 0.3s ease;
+}
+
+.profile__edit:hover,
+.profile__logout:hover {
+  background-color: var(--accent-color);
+}
+
+.Profile__details {
+  margin-top: 1rem;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  color: var(--text-dark);
+}
+
+.Profile__details ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.Profile__details li {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
