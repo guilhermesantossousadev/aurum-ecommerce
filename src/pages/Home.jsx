@@ -20,8 +20,8 @@ function Home() {
 
   // Controla as animações de fade-out do título e overlay
   useEffect(() => {
-    const titleTimer = setTimeout(() => setHideTitle(true), 1500); // Esconde o título após 1.5s
-    const overlayTimer = setTimeout(() => setHideOverlay(true), 1700); // Remove a cortina após 1.7s
+    const titleTimer = setTimeout(() => setHideTitle(true), 1000); // Esconde o título após 1s
+    const overlayTimer = setTimeout(() => setHideOverlay(true), 1300); // Remove a cortina após 1.3s
 
     // Limpeza dos timers quando o componente for desmontado
     return () => {
