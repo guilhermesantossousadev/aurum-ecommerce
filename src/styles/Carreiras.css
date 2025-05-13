@@ -88,3 +88,72 @@
     justify-content: end;
     color: #f9cdcd;
 }
+
+@media (max-width: 1024px) {
+    .Carreiras {
+        height: auto;
+        padding-top: 5rem;
+        flex-direction: column;
+    }
+
+    .Carreiras__container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .Carreiras__container__item {
+        width: 100%;
+        padding: 2rem;
+        height: auto;
+    }
+
+    .Carreiras__container__item.left h1 {
+        font-size: 6rem;
+        padding-top: 2rem;
+    }
+
+    .Carreiras__container__item.left h4 {
+        font-size: 0.8rem;
+        padding-top: 5rem;
+    }
+
+    .Carreiras__container__item__top {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .Carreiras__container__item__bottom {
+        flex-direction: column;
+        height: auto;
+        margin-top: 5rem;
+    }
+
+    .Carreiras__container__item__bottom__left,
+    .Carreiras__container__item__bottom__right {
+        width: 100%;
+    }
+
+    .Carreiras__container__item__bottom__right {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 1rem;
+    }
+
+    .Carreiras__container__item__bottom__right p {
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .Carreiras__container__item.left h1 {
+        font-size: 4rem;
+    }
+
+    .Carreiras__container__item__bottom__left h2 {
+        font-size: 1.5rem;
+    }
+
+    .Carreiras__container__item__bottom__right p {
+        font-size: 2.5rem;
+    }
+}
