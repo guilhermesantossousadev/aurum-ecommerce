@@ -86,9 +86,8 @@ const NavBar = () => {
 
   return (
     <nav
-      className={`navbar ${
-        isScrolled ? "scrolled" : ""
-      } ${getTextClass()} ${getPageClass()}`}
+      className={`navbar ${isScrolled ? "scrolled" : ""
+        } ${getTextClass()} ${getPageClass()}`}
     >
       <div className="Nav__item">
         <Link to="/" className="navbar__brand">
@@ -108,7 +107,7 @@ const NavBar = () => {
           <Link to="/catalogo">Catálogo</Link>
         </li>
         <li>
-          <Link to="/careers">Careers</Link>
+          <Link to="/carreiras">Carreiras</Link>
         </li>
         <li>
           <Link to="/contato">Contato</Link>
@@ -179,8 +178,8 @@ const NavBar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/careers" onClick={() => setIsMenuOpen(false)}>
-              Careers
+            <Link to="/carreiras" onClick={() => setIsMenuOpen(false)}>
+              Carreiras
             </Link>
           </li>
           <li>

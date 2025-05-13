@@ -8,10 +8,9 @@ function Footer() {
 
   const getFooterColorClass = () => {
     const path = location.pathname;
-    if (path === "/") return "white-text";
-    if (path === "/sobre") return "pink-text";
-    if (["/servicos", "/contact", "/careers", "/carrinho", "/profile", "/contato"].includes(path))
-      return "black-text";
+    if (["/", "/contato"].includes(path)) return "white-text";
+    //if (path === "/sobre") return "pink-text";
+    if (["/servicos", "/carreiras", "/carrinho", "/profile", "/contato", "/sobre"].includes(path)) return "black-text";
     return "pink-text";
   };
 
@@ -19,7 +18,7 @@ function Footer() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Adicione a lógica para envio de e-mail aqui
+    // lógica de envio de email
   };
 
   return (
@@ -52,7 +51,6 @@ function Footer() {
           </div>
 
           <div className="footer__item__bottom">
-            {/*Ul 1*/}
             <ul className={`footer__item__bottom__ul ${footerColorClass}`}>
               <h1>● SOCIAL</h1>
               <li><a href="#">Instagram</a></li>
@@ -61,7 +59,6 @@ function Footer() {
               <li><a href="#">Facebook</a></li>
             </ul>
 
-            {/*Ul 2*/}
             <ul className={`footer__item__bottom__ul ${footerColorClass}`}>
               <h1>● INICIATIVAS</h1>
               <li><a href="#">Applied</a></li>
@@ -70,9 +67,8 @@ function Footer() {
               <li><a href="#">B/Good</a></li>
             </ul>
 
-            {/*Ul 3*/}
             <ul className={`footer__item__bottom__ul ${footerColorClass}`}>
-              <h1>● ESCRITORIOS</h1>
+              <h1>● ESCRITÓRIOS</h1>
               <li><a href="#">San Diego - CA</a></li>
               <li><a href="#">New York - NY</a></li>
               <li><a href="#">Bay Area - CA</a></li>
@@ -88,8 +84,8 @@ function Footer() {
 
       <div className="footer__bottom">
         <div className="footer__bottom__item">AURUM/LUMINE®, Inc 10 - 25©</div>
-        <div className="footer__bottom__item">Facil de enteder, impossivel de ignorar.™</div>
-        <div className="footer__bottom__item">Termos, Politica de Privacidade</div>
+        <div className="footer__bottom__item">Fácil de entender, impossível de ignorar.™</div>
+        <div className="footer__bottom__item">Termos, Política de Privacidade</div>
       </div>
     </footer>
   );

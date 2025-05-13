@@ -37,6 +37,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import "./App.css";
+import Carreiras from "./pages/Carreiras";
 
 function App() {
   const usuario = useSelector((state) => state.user);
@@ -66,6 +67,7 @@ function App() {
         <Route path="/catalogoRelogio" element={<CatalogoRelogio />} />
 
         <Route path="/sobre" element={<Sobre />} />
+        <Route path="/carreiras" element={<Carreiras />} />
         <Route path="/contato" element={<Contato />} />
         <Route path="/servicos" element={<Servicos />} />
         <Route path="/carrinho" element={<Carrinho />} />
