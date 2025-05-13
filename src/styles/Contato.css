@@ -1,5 +1,5 @@
 .Contato {
-  height: 200vh;
+  height: auto;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -133,7 +133,7 @@
 .Contato__end {
   width: 100%;
   height: auto;
-  padding-top: 5rem;
+  padding-top: 10rem;
 }
 
 .Contato__end__bottom {
@@ -162,8 +162,6 @@
   gap: 20px;
 }
 
-
-
 .Contato__end__bottom__item.right ul {
   list-style: none;
   display: flex;
@@ -182,6 +180,13 @@
 }
 
 @media (max-width: 1024px) {
+
+  .Contato__end {
+    width: 100%;
+    height: auto;
+    padding-top: 5rem;
+  }
+  
   .Contato__end__bottom {
     flex-direction: column;
     gap: 2rem;
