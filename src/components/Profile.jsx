@@ -55,13 +55,15 @@ const Profile = () => {
         </div>
 
 
-        <button className="profile__edit">
-          <FaEdit /> Editar Perfil
-        </button>
+        <div className="Profile__btn__container">
+          <button className="profile__edit">
+            <FaEdit /> Editar Perfil
+          </button>
 
-        <button className="profile__logout" onClick={handleLogout}>
-          <FaSignOutAlt /> Sair
-        </button>
+          <button className="profile__logout" onClick={handleLogout}>
+            <FaSignOutAlt /> Sair
+          </button>
+        </div>
       </div>
 
 
