@@ -67,6 +67,76 @@ const Sobre = () => {
       <div className="Sobre__bottom__part bottom">
         <div className="Sobre__bottom__part__inside"></div>
       </div>
+
+      <div className="Sobre__hero">
+        <div className="Sobre__hero__item__left">
+          <h1>Agency Snapshot</h1>
+        </div>
+        <div className="Sobre__hero__item__right">
+          <div className="Sobre__hero__item__right__top">
+            <div className="Sobre__hero__item__right__top__left">
+              <h1>People</h1>
+              <span>120+</span>
+              <p>
+                We're a world-class team of diverse individuals who are here to
+                do great work as well as be great to work with.
+              </p>
+            </div>
+            <div className="Sobre__hero__item__right__top__right">
+              <h1>Global Reach</h1>
+              <span>28</span>
+              <p>
+                As part of Dept, we have 28 offices and 1,500+ people across the
+                world dedicated to delivering the best design, strategy, and
+                technology services to our client partners.
+              </p>
+            </div>
+          </div>
+
+          <div className="Sobre__hero__item__right__mid">
+            <div className="Sobre__hero__item__right__mid__left">
+              <h1>Years</h1>
+              <span>10</span>
+              <p>
+                While we’re proud of our history and our accomplishments, we’re
+                loyal to our future and not our past.
+              </p>
+            </div>
+            <div className="Sobre__hero__item__right__mid__right">
+              <h1>Growth</h1>
+              <span>168%</span>
+              <p>
+                As Adweek’s 18th fastest growing agency, we’ve strengthened our
+                company with new leadership, talent, and clients the past two
+                years. We’re hiring btw.
+              </p>
+            </div>
+          </div>
+
+          <div className="Sobre__hero__item__right__bottom">
+            <div className="Sobre__hero__item__right__bottom__left">
+              <h1>Services</h1>
+              <span>05</span>
+              <p>
+                Strategy. Brand Experience. Digital Experience. Content.
+                Technology. We’re uniquely built to build brands that matter in
+                culture.
+              </p>
+            </div>
+            <div className="Sobre__hero__item__right__bottom__right">
+              <h1>Ranking</h1>
+              <span>01</span>
+              <p>
+                Within the mobile and website related categories, no other
+                agency has been recognized by the Webby Awards more than us the
+                past four years. Explore our work.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
     </div>
   );
 };

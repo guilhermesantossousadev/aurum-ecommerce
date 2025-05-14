@@ -14,7 +14,9 @@ function Servicos() {
 
           <div className="Servicos__container__item right">
             <h3 className="Servicos__container__item__right h3">
-              O trabalho que criamos vive na intersecção entre clareza e surpresa e posiciona marcas na cultura por meio de valores e ideais compartilhados.
+              O trabalho que criamos vive na intersecção entre clareza e
+              surpresa e posiciona joias na cultura por meio de valores e ideais
+              compartilhados.
             </h3>
           </div>
         </div>
@@ -28,7 +30,9 @@ function Servicos() {
           <div className="Box__item first">
             <h1>Branded eCommerce </h1>
             <h4>
-              Nós vamos além das melhores práticas e criamos os melhores canais D2C que impulsionam o comércio, moldam a cultura e definem categorias.
+              Nós vamos além das melhores práticas e criamos os melhores canais
+              D2C que impulsionam o comércio, moldam a cultura e definem
+              categorias.
             </h4>
             <button>Learn More</button>
           </div>
