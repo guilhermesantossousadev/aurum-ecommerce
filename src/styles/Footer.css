@@ -22,7 +22,7 @@
   color: #fff;
 }
 
-.footer__item__top.white-text{
+.footer__item__top.white-text {
   color: #fff;
 }
 
@@ -84,6 +84,10 @@
   font-size: 1.7rem;
   padding-inline: 2.5rem;
   text-transform: uppercase;
+}
+
+.footer__item__top.left {
+  margin-top: -200px;
 }
 
 .footer__item__bottom__title {
@@ -206,6 +210,10 @@
     padding-bottom: 80px;
     padding-top: 80px;
     height: auto;
+  }
+
+  .footer__item__top.left {
+    margin-top: 0;
   }
 
   .footer__top {

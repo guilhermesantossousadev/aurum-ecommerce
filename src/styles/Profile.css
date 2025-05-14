@@ -1,20 +1,20 @@
 :root {
   --primary-color: #f9cdcd;
   --secondary-color: #fff;
-  --accent-color: #ebb3b3;
+  --accent-color: #262523;
   --text-dark: #000;
 }
 
 .Profile {
   width: 100%;
-  height: 100vh;
+  height: 150vh;
   display: flex;
   flex-direction: column;
 }
 
 .Profile__top {
   flex: 0 0 40%;
-  background-color: var(--primary-color);
+  background-color: var(--accent-color);
 }
 
 .Profile__bottom {
@@ -24,7 +24,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-top: 150px;
+  padding-top: 250px;
   position: relative;
 }
 
@@ -66,6 +66,8 @@
 .Profile__btn__container {
   display: flex;
   gap: 20px;
+  width: 350px;
+  height: 70px;
 }
 
 .profile__edit {
@@ -97,9 +99,14 @@
   transition: background-color 0.3s ease;
 }
 
-.profile__edit:hover,
+.profile__edit:hover {
+  background-color: white;
+  border: 1px solid #f9cdcd;
+}
+
 .profile__logout:hover {
-  background-color: var(--accent-color);
+  background-color: #f9cdcd;
+  border: 1px solid #f9cdcd;
 }
 
 .Profile__details {

@@ -71,7 +71,7 @@ const NavBar = () => {
     if (isCarrinhoPage) return "black-text";
     if (isCatalogosPage) return "black-text";
     if (isContatoPage) return "black-text";
-    if (isProfilePage) return "black-text";
+    if (isProfilePage) return "pink-text";
     if (isTokenAuthenticationPage) return "black-text";
     if (isSobrePage) return "pink-text";
     return "pink-text";
@@ -86,8 +86,9 @@ const NavBar = () => {
 
   return (
     <nav
-      className={`navbar ${isScrolled ? "scrolled" : ""
-        } ${getTextClass()} ${getPageClass()}`}
+      className={`navbar ${
+        isScrolled ? "scrolled" : ""
+      } ${getTextClass()} ${getPageClass()}`}
     >
       <div className="Nav__item">
         <Link to="/" className="navbar__brand">

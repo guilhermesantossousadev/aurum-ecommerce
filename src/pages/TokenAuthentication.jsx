@@ -8,7 +8,7 @@ const TokenAuthentication = () => {
     email: "",
     token: "",
     newPassword: "",
-    confirmPassword: ""
+    confirmPassword: "",
   });
   const [step, setStep] = useState(1);
   const [error, setError] = useState("");
@@ -17,9 +17,9 @@ const TokenAuthentication = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -30,12 +30,15 @@ const TokenAuthentication = () => {
     setSuccess("");
 
     try {
-      const response = await fetch(`https://localhost:7081/api/Suport/RequestToken?email=${formData.email}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        `https://localhost:7081/api/Suport/RequestToken?email=${formData.email}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-      });
+      );
 
       if (!response.ok) {
         throw new Error("Erro ao solicitar token");
@@ -44,7 +47,9 @@ const TokenAuthentication = () => {
       setSuccess("Token enviado para seu email!");
       setStep(2);
     } catch (error) {
-      setError("Não foi possível enviar o token. Verifique o email e tente novamente.");
+      setError(
+        "Não foi possível enviar o token. Verifique o email e tente novamente."
+      );
     } finally {
       setIsLoading(false);
     }
@@ -57,16 +62,19 @@ const TokenAuthentication = () => {
     setSuccess("");
 
     try {
-      const response = await fetch("https://localhost:7081/api/Usuario/VerifyToken", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: formData.email,
-          token: formData.token
-        }),
-      });
+      const response = await fetch(
+        "https://localhost:7081/api/Usuario/VerifyToken",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: formData.email,
+            token: formData.token,
+          }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Token inválido");
@@ -94,24 +102,27 @@ const TokenAuthentication = () => {
     }
 
     try {
-      const response = await fetch("https://localhost:7081/api/Usuario/ResetPassword", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: formData.email,
-          token: formData.token,
-          newPassword: formData.newPassword
-        }),
-      });
+      const response = await fetch(
+        "https://localhost:7081/api/Usuario/ResetPassword",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: formData.email,
+            token: formData.token,
+            newPassword: formData.newPassword,
+          }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Erro ao redefinir senha");
       }
 
       setSuccess("Senha redefinida com sucesso!");
-      
+
       setTimeout(() => {
         navigate("/login");
       }, 1500);
@@ -126,14 +137,14 @@ const TokenAuthentication = () => {
     <div className="TokenAuth">
       <div className="TokenAuth__container">
         <h1 className="TokenAuth__title">Redefinição de Senha</h1>
-        
+
         {error && <div className="TokenAuth__error">{error}</div>}
         {success && <div className="TokenAuth__success">{success}</div>}
 
         <div className="TokenAuth__step">
-          {step === 1 && "Passo 1: Solicite o token de redefinição"}
-          {step === 2 && "Passo 2: Digite o token recebido"}
-          {step === 3 && "Passo 3: Crie sua nova senha"}
+          {step === 1 && "Solicite o token de redefinição"}
+          {step === 2 && "Digite o token recebido"}
+          {step === 3 && "Crie sua nova senha"}
         </div>
 
         {step === 1 && (
@@ -147,9 +158,9 @@ const TokenAuthentication = () => {
               onChange={handleChange}
               required
             />
-            <button 
-              className="TokenAuth__button" 
-              type="submit" 
+            <button
+              className="TokenAuth__button"
+              type="submit"
               disabled={isLoading}
             >
               {isLoading ? "Enviando..." : "Solicitar Token"}
@@ -168,9 +179,9 @@ const TokenAuthentication = () => {
               onChange={handleChange}
               required
             />
-            <button 
-              className="TokenAuth__button" 
-              type="submit" 
+            <button
+              className="TokenAuth__button"
+              type="submit"
               disabled={isLoading}
             >
               {isLoading ? "Verificando..." : "Verificar Token"}
@@ -198,9 +209,9 @@ const TokenAuthentication = () => {
               onChange={handleChange}
               required
             />
-            <button 
-              className="TokenAuth__button" 
-              type="submit" 
+            <button
+              className="TokenAuth__button"
+              type="submit"
               disabled={isLoading}
             >
               {isLoading ? "Redefinindo..." : "Redefinir Senha"}
@@ -218,4 +229,4 @@ const TokenAuthentication = () => {
   );
 };
 
-export default TokenAuthentication; 
+export default TokenAuthentication;

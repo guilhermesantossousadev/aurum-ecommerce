@@ -1,159 +1,160 @@
 .Carreiras {
-    width: 100%;
-    height: 180vh;
-    display: flex;
-    background-color: #262523;
-    padding-top: 10rem;
+  width: 100%;
+  height: 180vh;
+  display: flex;
+  background-color: #262523;
+  padding-top: 10rem;
 }
 
 .Carreiras__container {
-    width: 100%;
-    height: 150vh;
-    display: flex;
+  width: 100%;
+  height: 150vh;
+  display: flex;
 }
 
 .Carreiras__container__item {
-    width: 50%;
-    height: 100%;
-    padding: 5rem;
-    display: flex;
-    flex-direction: column;
+  width: 50%;
+  height: 100%;
+  padding: 5rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .Carreiras__container__item.left h1 {
-    color: #f9cdcd;
-    font-size: 10rem;
-    max-width: 1000px;
-    line-height: 1;
-    text-transform: uppercase;
-    padding-top: 5rem;
+  color: #f9cdcd;
+  font-size: 7rem;
+  max-width: 1000px;
+  line-height: 1;
+  text-transform: uppercase;
+  padding-top: 5rem;
 }
 
 .Carreiras__container__item.left h4 {
-    color: #f9cdcd;
-    font-size: 0.7rem;
-    max-width: 200px;
-    line-height: 1;
-    text-transform: uppercase;
-    padding-top: 10rem;
+  color: #f9cdcd;
+  font-size: 0.7rem;
+  max-width: 200px;
+  line-height: 1;
+  text-transform: uppercase;
+  padding-top: 10rem;
 }
 
 .Carreiras__container__item.right {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .Carreiras__container__item__top {
-    width: 100%;
-    height: 70%;
-    display: flex;
+  width: 100%;
+  height: 70%;
+  display: flex;
 }
 
 .Carreiras__container__item__top__img {
-    width: 100%;
-    height: auto;
+  width: 100%;
+  height: auto;
 }
 
 .Carreiras__container__item__top__img img {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .Carreiras__container__item__bottom {
-    width: 100%;
-    height: 30%;
-    display: flex;
-    margin-top: 200px;
+  width: 100%;
+  height: 30%;
+  display: flex;
+  margin-top: 200px;
 }
 
 .Carreiras__container__item__bottom__left {
-    width: 90%;
-    height: 100%;
+  width: 90%;
+  height: 100%;
 }
 
 .Carreiras__container__item__bottom__left h2 {
-    max-width: 800px;
-    font-size: 2.5rem;
-    color: #f9cdcd;
+  max-width: 800px;
+  font-size: 2.5rem;
+  color: #f9cdcd;
 }
 
 .Carreiras__container__item__bottom__right {
-    width: 10%;
-    height: 100%;
+  width: 10%;
+  height: 100%;
 }
 
 .Carreiras__container__item__bottom__right p {
-    font-size: 5rem;
-    display: flex;
-    justify-content: end;
-    color: #f9cdcd;
+  font-size: 5rem;
+  display: flex;
+  justify-content: end;
+  color: #f9cdcd;
 }
 
 @media (max-width: 1024px) {
-    .Carreiras {
-        height: auto;
-        padding-top: 5rem;
-        flex-direction: column;
-    }
+  .Carreiras {
+    height: auto;
+    padding-top: 5rem;
+    flex-direction: column;
+  }
 
-    .Carreiras__container {
-        flex-direction: column;
-        height: auto;
-    }
+  .Carreiras__container {
+    flex-direction: column;
+    height: auto;
+  }
 
-    .Carreiras__container__item {
-        width: 100%;
-        padding: 2rem;
-        height: auto;
-    }
+  .Carreiras__container__item {
+    width: 100%;
+    padding: 2rem;
+    height: auto;
+  }
 
-    .Carreiras__container__item.left h1 {
-        font-size: 6rem;
-        padding-top: 2rem;
-    }
+  .Carreiras__container__item.left h1 {
+    font-size: 6rem;
+    padding-top: 2rem;
+    max-width: 500px;
+  }
 
-    .Carreiras__container__item.left h4 {
-        font-size: 0.8rem;
-        padding-top: 5rem;
-    }
+  .Carreiras__container__item.left h4 {
+    font-size: 0.8rem;
+    padding-top: 5rem;
+  }
 
-    .Carreiras__container__item__top {
-        flex-direction: column;
-        height: auto;
-    }
+  .Carreiras__container__item__top {
+    flex-direction: column;
+    height: auto;
+  }
 
-    .Carreiras__container__item__bottom {
-        flex-direction: column;
-        height: auto;
-        margin-top: 5rem;
-    }
+  .Carreiras__container__item__bottom {
+    flex-direction: column;
+    height: auto;
+    margin-top: 5rem;
+  }
 
-    .Carreiras__container__item__bottom__left,
-    .Carreiras__container__item__bottom__right {
-        width: 100%;
-    }
+  .Carreiras__container__item__bottom__left,
+  .Carreiras__container__item__bottom__right {
+    width: 100%;
+  }
 
-    .Carreiras__container__item__bottom__right {
-        display: flex;
-        justify-content: flex-end;
-        margin-top: 1rem;
-    }
+  .Carreiras__container__item__bottom__right {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+  }
 
-    .Carreiras__container__item__bottom__right p {
-        font-size: 3rem;
-    }
+  .Carreiras__container__item__bottom__right p {
+    font-size: 3rem;
+  }
 }
 
 @media (max-width: 600px) {
-    .Carreiras__container__item.left h1 {
-        font-size: 4rem;
-    }
+  .Carreiras__container__item.left h1 {
+    font-size: 4rem;
+  }
 
-    .Carreiras__container__item__bottom__left h2 {
-        font-size: 1.5rem;
-    }
+  .Carreiras__container__item__bottom__left h2 {
+    font-size: 1.5rem;
+  }
 
-    .Carreiras__container__item__bottom__right p {
-        font-size: 2.5rem;
-    }
+  .Carreiras__container__item__bottom__right p {
+    font-size: 2.5rem;
+  }
 }

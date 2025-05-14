@@ -7,6 +7,7 @@
 .Sobre {
   width: 100%;
   height: auto;
+  min-height: 350vh;
   background-color: var(--background-color);
   padding-top: 10rem;
   overflow: hidden;
@@ -44,7 +45,7 @@
 }
 
 .Sobre__container__item__right_h3 {
-  font-size: 2.4rem;
+  font-size: 1.5rem;
   font-weight: 400;
   color: var(--text-color);
   margin-top: 50px;
@@ -165,7 +166,7 @@
   width: 100%;
   height: 1px;
   padding-inline: 5rem;
-  margin-top: 50vh;
+  margin-top: 80vh;
 }
 
 .Sobre__bottom__part.bottom {
@@ -211,7 +212,6 @@
     color: #f9cdcd;
     font-size: 8rem;
   }
-
 }
 
 @media screen and (max-width: 1200px) {
@@ -235,8 +235,6 @@
   .image-stack-text {
     display: none;
   }
-
-
 
   .Aurum h1 {
     color: #f9cdcd;
@@ -266,8 +264,6 @@
     width: 400px;
     height: 400px;
   }
-
-
 }
 
 @media screen and (max-width: 768px) {
