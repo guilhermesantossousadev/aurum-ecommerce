@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #fff;
+  background-color: #262523;
 }
 
 .Admin form {
@@ -13,7 +13,8 @@
   gap: 20px;
   width: 600px;
   height: auto;
-  box-shadow: 2px 3px 10px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 2pxs;
+  border: 1px solid #f9cdcd;
   padding: 2rem;
   background-color: #262523;
 }
