@@ -18,9 +18,12 @@ const NavBar = () => {
   const isHomePage = location.pathname === "/";
 
   // Determina se estamos em uma página que deve ter texto preto
-  const isBlackTextPage = ["/Servicos", "/contact", "/careers"].includes(
-    location.pathname
-  );
+  const isBlackTextPage = [
+    "/Servicos",
+    "/contact",
+    "/careers",
+    "/adminPage",
+  ].includes(location.pathname);
 
   // Determina se estamos na página de catálogo
   const isCatalogoPage = location.pathname === "/catalogo";

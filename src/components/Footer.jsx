@@ -2,9 +2,11 @@ import "../styles/Footer.css";
 import setadireitabranca from "../images/seta-direita-branca.png";
 import setadireitapreta from "../images/seta-direita.png";
 import { useLocation } from "react-router-dom";
+import { useState } from "react";
 
 function Footer() {
   const location = useLocation();
+  const [email, setEmail] = useState("");
 
   const getFooterColorClass = () => {
     const path = location.pathname;
@@ -15,10 +17,10 @@ function Footer() {
         "/login",
         "/register",
         "/token-authentication",
+        "/adminPage"
       ].includes(path)
     )
       return "white-text";
-    //if (path === "/sobre") return "pink-text";
     if (
       [
         "/servicos",
@@ -35,9 +37,26 @@ function Footer() {
 
   const footerColorClass = getFooterColorClass();
 
-  const handleSubmit = (e) => {
+  const sendNewsLetter = async (e) => {
     e.preventDefault();
-    // lógica de envio de email
+
+    try {
+      const response = await fetch(
+        `https://localhost:7081/api/Newsletter/PostNewsletter?usuarioEmail=${email}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      if (!response.ok) throw new Error("Erro ao enviar newsletter");
+
+      alert("Email cadastrado com sucesso!");
+      setEmail("");
+    } catch (error) {
+      console.error(error);
+      alert("Ocorreu um erro ao cadastrar o email.");
+    }
   };
 
   return (
@@ -49,13 +68,15 @@ function Footer() {
           </div>
 
           <div className="footer__item__bottom">
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={sendNewsLetter}>
               <h1 className={`footer__item__bottom__title ${footerColorClass}`}>
                 ● ESTEJA POR DENTRO.
               </h1>
               <input
                 type="email"
                 placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className={`input__footer ${footerColorClass}`}
               />
               <button type="submit">

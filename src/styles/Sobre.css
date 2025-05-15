@@ -7,7 +7,7 @@
 .Sobre {
   width: 100%;
   height: auto;
-  min-height: 430vh;
+  min-height: 500vh;
   background-color: var(--background-color);
   padding-top: 10rem;
   overflow: hidden;

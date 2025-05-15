@@ -1,0 +1,54 @@
+.Admin {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+}
+
+.Admin form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 600px;
+  height: auto;
+  box-shadow: 2px 3px 10px 5px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  background-color: #f4f4f4;
+}
+
+.Admin form h1 {
+  color: #000;
+  font-size: 1.2rem;
+}
+
+.Admin form label {
+  color: #000;
+  font-size: 0.9rem;
+}
+
+.Admin form input {
+  padding: 0.6rem;
+  border: none;
+  border-radius: 0;
+  background-color: transparent;
+  border-bottom: 1px solid #333;
+  color: #000;
+}
+
+.Admin form button {
+  padding: 0.7rem 0.9rem;
+  background-color: #000;
+  border: 1px solid #000; /* já define a borda aqui */
+  color: #fff;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  max-height: 50px;
+}
+
+.Admin form button:hover {
+  cursor: pointer;
+  background-color: transparent;
+  color: #000;
+}
