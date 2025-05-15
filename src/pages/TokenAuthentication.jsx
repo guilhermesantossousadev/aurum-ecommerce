@@ -63,16 +63,9 @@ const TokenAuthentication = () => {
 
     try {
       const response = await fetch(
-        "https://localhost:7081/api/Usuario/VerifyToken",
+        `https://localhost:7081/api/Suport/AuthenticateToken?codigoToken=${formData.token}`,
         {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: formData.email,
-            token: formData.token,
-          }),
+          method: "GET",
         }
       );
 
