@@ -96,17 +96,12 @@ const TokenAuthentication = () => {
 
     try {
       const response = await fetch(
-        "https://localhost:7081/api/Usuario/ResetPassword",
+        `https://localhost:7081/api/Usuario/ResetPassword?email=${formData.email}&password=${formData.newPassword}`,
         {
-          method: "POST",
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            email: formData.email,
-            token: formData.token,
-            newPassword: formData.newPassword,
-          }),
         }
       );
 
