@@ -15,33 +15,49 @@
   height: auto;
   box-shadow: 2px 3px 10px 5px rgba(0, 0, 0, 0.1);
   padding: 2rem;
-  background-color: #f4f4f4;
+  background-color: #262523;
 }
 
 .Admin form h1 {
-  color: #000;
+  color: #f9cdcd;
   font-size: 1.2rem;
 }
 
 .Admin form label {
-  color: #000;
+  color: #f9cdcd;
   font-size: 0.9rem;
 }
 
 .Admin form input {
-  padding: 0.6rem;
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: #262523;
+  color: #fff;
   border: none;
-  border-radius: 0;
-  background-color: transparent;
-  border-bottom: 1px solid #333;
-  color: #000;
+  border-bottom: 1px solid #f9cdcd;
+  padding: 0.6rem;
+}
+
+.Admin form input:focus {
+  outline: none; /* tira a borda padrão do navegador */
+}
+
+.Admin form textarea {
+  background-color: #262523;
+  border: 1px solid #f9cdcd;
+  padding: 1rem;
+}
+
+.Admin form textarea:focus {
+  outline: none; /* tira a borda padrão do navegador */
 }
 
 .Admin form button {
   padding: 0.7rem 0.9rem;
-  background-color: #000;
-  border: 1px solid #000; /* já define a borda aqui */
-  color: #fff;
+  background-color: #f9cdcd;
+  border: 1px solid #f9cdcd; /* já define a borda aqui */
+  color: #000;
+  font-weight: bold;
   text-transform: uppercase;
   transition: all 0.3s ease;
   max-height: 50px;
@@ -50,5 +66,5 @@
 .Admin form button:hover {
   cursor: pointer;
   background-color: transparent;
-  color: #000;
+  color: #f9cdcd;
 }

@@ -17,7 +17,6 @@ function Footer() {
         "/login",
         "/register",
         "/token-authentication",
-        "/adminPage"
       ].includes(path)
     )
       return "white-text";
@@ -94,9 +93,11 @@ function Footer() {
         </div>
 
         <div className="footer__item">
-          <div className={`footer__item__top ${footerColorClass}`}>
-            NOS COLABORAMOS COM MARCAS E PESSOAS AMBICIOSAS. VAMOS COLABORAR.
-            AURUMLUMINE@GMAIL.COM
+          <div className={`footer__item__top ${footerColorClass} right`}>
+            <h1>
+              NOS COLABORAMOS COM MARCAS E PESSOAS AMBICIOSAS. VAMOS COLABORAR.
+              AURUMLUMINE@GMAIL.COM
+            </h1>
           </div>
 
           <div className="footer__item__bottom">

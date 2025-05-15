@@ -13,35 +13,23 @@ const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const [isScrolled, setIsScrolled] = useState(false);
-
-  // Determina se estamos na página principal
-  const isHomePage = location.pathname === "/";
-
-  // Determina se estamos em uma página que deve ter texto preto
+  
   const isBlackTextPage = [
-    "/Servicos",
-    "/contact",
-    "/careers",
-    "/adminPage",
+    "/servicos",
+    "/carrinho",
+    "/contato",
+    "/token-authentication",
   ].includes(location.pathname);
 
-  // Determina se estamos na página de catálogo
-  const isCatalogoPage = location.pathname === "/catalogo";
+  const isWhiteTextPage = ["/", "/contact", "/careers"].includes(
+    location.pathname
+  );
 
-  // Determina se estamos na página Profile
-  const isProfilePage = location.pathname === "/profile";
+  const isPinkTextPage = ["/profile", "/sobre", "/adminPage"].includes(
+    location.pathname
+  );
 
-  // Determina se estamos na página Sobre
-  const isSobrePage = location.pathname === "/sobre";
-
-  // Determina se estamos na página Contato
-  const isContatoPage = location.pathname === "/contato";
-
-  // Determina se estamos na página Carrinho
-  const isCarrinhoPage = location.pathname === "/carrinho";
-
-  // Determina se estamos na página Carrinho
-  const isCatalogosPage = [
+  const isCatalogoPage = [
     "/catalogoAnel",
     "/catalogoBrinco",
     "/catalogoPiercing",
@@ -50,12 +38,15 @@ const NavBar = () => {
     "/catalogoRelogio",
   ].includes(location.pathname);
 
-  // Determina se estamos na página token authentication
-  const isTokenAuthenticationPage =
-    location.pathname === "/token-authentication";
-
-  // Determina se estamos em uma página de autenticação
   const isAuthPage = ["/login", "/register"].includes(location.pathname);
+
+  const getTextClass = () => {
+    if (isWhiteTextPage) return "white-text";
+    if (isBlackTextPage) return "black-text";
+    if (isAuthPage) return "black-text";
+    if (isPinkTextPage) return "pink-text";
+    return "pink-text";
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -66,20 +57,6 @@ const NavBar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  // Determina a classe de texto com base na página atual
-  const getTextClass = () => {
-    if (isHomePage) return "white-text";
-    if (isBlackTextPage) return "black-text";
-    if (isCarrinhoPage) return "black-text";
-    if (isCatalogosPage) return "black-text";
-    if (isContatoPage) return "black-text";
-    if (isProfilePage) return "pink-text";
-    if (isTokenAuthenticationPage) return "black-text";
-    if (isSobrePage) return "pink-text";
-    return "pink-text";
-  };
-
   // Determina a classe específica da página
   const getPageClass = () => {
     if (isCatalogoPage) return "catalogo-nav";

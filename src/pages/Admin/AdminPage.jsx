@@ -48,7 +48,7 @@ function AdminPage() {
           id="titulo"
           value={titulo}
           onChange={(e) => setTitulo(e.target.value)}
-          placeholder="Digite o Titulo"
+          placeholder="Digite o Título"
           required
         />
 
@@ -56,6 +56,7 @@ function AdminPage() {
         <textarea
           id="mensagem"
           value={mensagem}
+          placeholder="Digite a Mensagem"
           onChange={(e) => setMensagem(e.target.value)}
           rows={4}
           required
