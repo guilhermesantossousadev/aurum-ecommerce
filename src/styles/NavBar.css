@@ -91,14 +91,14 @@
 
 /* Estilo para menu desktop */
 .navbar__list.logged {
-  list-style: none;
-  display: flex;
-  gap: 2rem;
-  margin-left: -50px;
 }
 
 .navbar__list {
   margin-left: 0;
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  margin-left: -50px;
 }
 
 .navbar__list a {
