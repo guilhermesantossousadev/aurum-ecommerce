@@ -1,3 +1,38 @@
+/*.navbar.scrolled.white-text a,
+.navbar.scrolled.pink-text a,
+.navbar.scrolled.gray-text a {
+  color: #000;
+}
+
+.navbar.white-text a,
+.navbar.white-text .navbar__toggle {
+  color: #fff !important;
+}
+
+.navbar.black-text a,
+.navbar.black-text .navbar__toggle {
+  color: #000 !important;
+}
+
+.navbar.pink-text a,
+.navbar.pink-text .navbar__toggle {
+  color: var(--pink-color) !important;
+}
+
+.navbar.gray-text a,
+.navbar.gray-text .navbar__toggle {
+  color: #666 !important;
+}
+.navbar.auth-nav.white-text a,
+.navbar.catalogo-nav.white-text a {
+  color: #fff !important;
+}
+
+.navbar.auth-nav.black-text a,
+.navbar.catalogo-nav.black-text a {
+  color: #000 !important;
+}
+*/
 /*Variaveis*/
 
 :root {

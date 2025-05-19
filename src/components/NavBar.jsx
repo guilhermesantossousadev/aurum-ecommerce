@@ -50,14 +50,23 @@ const NavBar = () => {
   };
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      setIsScrolled(scrollTop > window.innerHeight * 0.9); // se passou de 90vh
-    };
+    if (location.pathname === "/") {
+      const handleScroll = () => {
+        const scrollTop = window.scrollY;
+        setIsScrolled(scrollTop > window.innerHeight * 0.9);
+      };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+      window.addEventListener("scroll", handleScroll);
+      // Checagem inicial ao carregar a home
+      handleScroll();
+
+      return () => window.removeEventListener("scroll", handleScroll);
+    } else {
+      // Para outras páginas, sempre considera como scrolled
+      setIsScrolled(true);
+    }
+  }, [location.pathname]);
+
   // Determina a classe específica da página
   const getPageClass = () => {
     if (isCatalogoPage) return "catalogo-nav";

@@ -11,7 +11,7 @@ function Contato() {
           </div>
           <div className="Contato__init__item right">
             <div className="Contato__init__item__top">
-              <h1>A/L® Contato</h1>
+              <h1>A/L® CONTATO</h1>
               <p>
                 Fácil de entender. Impossível de ignorar.™ BASIC/DEPT®, Inc 10 -
                 25©
