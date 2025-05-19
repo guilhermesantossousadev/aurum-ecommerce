@@ -101,6 +101,48 @@ function Catalogo() {
         Colar
       </label>
 
+      <label>
+        <input
+          type="checkbox"
+          checked={tempFilter.tipo === "piercing"}
+          onChange={() =>
+            setTempFilter({
+              ...tempFilter,
+              tipo: tempFilter.tipo === "piercing" ? "todos" : "piercing",
+            })
+          }
+        />
+        Piercing
+      </label>
+
+      <label>
+        <input
+          type="checkbox"
+          checked={tempFilter.tipo === "pingente"}
+          onChange={() =>
+            setTempFilter({
+              ...tempFilter,
+              tipo: tempFilter.tipo === "pingente" ? "todos" : "pingente",
+            })
+          }
+        />
+        Pingente
+      </label>
+
+      <label>
+        <input
+          type="checkbox"
+          checked={tempFilter.tipo === "pulseira"}
+          onChange={() =>
+            setTempFilter({
+              ...tempFilter,
+              tipo: tempFilter.tipo === "pulseira" ? "todos" : "pulseira",
+            })
+          }
+        />
+        Pulseira
+      </label>
+
       {/* Repita para os outros tipos */}
 
       <div className="filtersButtons">
@@ -234,18 +276,12 @@ function Catalogo() {
       </div>
 
       {/* Modal de Filtros */}
-      {showFilters &&
-        (isMobile ? (
-          <div className="fullScreenFilters">
-            {/* Modal */}
-            {renderFilters()}
-          </div>
-        ) : (
-          <div className="dropdownFilters">
-            {/* Dropdown */}
-            {renderFilters()}
-          </div>
-        ))}
+      {showFilters && (
+        <div className="dropdownFilters">
+          {/* Dropdown */}
+          {renderFilters()}
+        </div>
+      )}
 
       {/* Anúncios */}
       <div className="anuncios__container">

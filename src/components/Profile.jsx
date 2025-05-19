@@ -1,7 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../store/userSlice";
+
+import fotodeperfilpadrao from "../images/fotodeperfil.png";
 import "../styles/Profile.css";
+
 import {
   FaEnvelope,
   FaCalendarAlt,
@@ -23,20 +26,23 @@ const Profile = () => {
 
   return (
     <section className="Profile">
-
       <div className="Profile__top"></div>
 
-
       <div className="Profile__bottom">
-
         <div className="Profile__itens">
           <div className="Profile__img">
-            <img src={user.fotoPerfilURL} alt="foto de perfil" className="fotoperfil" />
+            <img
+              src={
+                user.fotoPerfilURL !== null
+                  ? user.fotoPerfilURL
+                  : fotodeperfilpadrao
+              }
+              alt="foto de perfil"
+              className="fotoperfil"
+            />
           </div>
           <div className="Profile__name">
-            <h1 >
-              {user ? user.nome : "Usuário Desconhecido"}
-            </h1>
+            <h1>{user ? user.nome : "Usuário Desconhecido"}</h1>
           </div>
           <div className="Profile__location">
             <h3>{user.endereco}</h3>
@@ -44,16 +50,20 @@ const Profile = () => {
 
           <div className="Profile__details">
             <ul>
-              <li><FaIdCard /> CPF: {user.cpf}</li>
-              <li><FaCalendarAlt /> Idade: {user.idade}</li>
-              <li><FaEnvelope /> Email: {user.email}</li>
+              <li>
+                <FaIdCard /> CPF: {user.cpf}
+              </li>
+              <li>
+                <FaCalendarAlt /> Idade: {user.idade}
+              </li>
+              <li>
+                <FaEnvelope /> Email: {user.email}
+              </li>
               <li>CEP: {user.cep}</li>
               <li>Número: {user.numero}</li>
             </ul>
           </div>
-
         </div>
-
 
         <div className="Profile__btn__container">
           <button className="profile__edit">
@@ -65,15 +75,13 @@ const Profile = () => {
           </button>
         </div>
       </div>
-
-
     </section>
-
   );
 };
 
 export default Profile;
-{/*
+{
+  /*
       <div className="Profile__box">
 
 
@@ -91,4 +99,5 @@ export default Profile;
       </div >
   );
   
-      */}
+      */
+}

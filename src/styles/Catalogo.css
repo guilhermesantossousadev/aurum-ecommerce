@@ -1,3 +1,21 @@
+/* =================== VARIÁVEIS =================== */
+:root {
+  --text-color: #252422;
+  --secondary-text-color: #f4f4f4;
+  --text-hover-color: #181716;
+  --background-color: #f4f4f4;
+  --text-transform: uppercase;
+  --radio-size: 18px;
+  --radio-border: 2px;
+  --radio-color: #252422;
+  --radio-checked-color: #252422;
+  --radio-hover-color: #252422;
+  --filter-gap: 20px;
+  --filter-padding: 5px 10px;
+  --filter-radius: 20px;
+  --filter-transition: all 0.3s ease;
+}
+
 /* =================== FILTROS =================== */
 
 .Catalogo__filters__button {
@@ -21,20 +39,6 @@
   background-color: #000;
   border: 1px solid #000;
   color: #fff;
-}
-
-/* Modal - telas menores */
-.fullScreenFilters {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #fff;
-  color: #000;
-  z-index: 1000;
-  padding: 2rem;
-  overflow-y: auto;
 }
 
 /* Dropdown - telas maiores */
@@ -89,24 +93,6 @@
 .filtersButtons button:hover {
   background-color: #000;
   color: #fff;
-}
-
-/* =================== VARIÁVEIS =================== */
-:root {
-  --text-color: #252422;
-  --secondary-text-color: #f4f4f4;
-  --text-hover-color: #181716;
-  --background-color: #f4f4f4;
-  --text-transform: uppercase;
-  --radio-size: 18px;
-  --radio-border: 2px;
-  --radio-color: #252422;
-  --radio-checked-color: #252422;
-  --radio-hover-color: #252422;
-  --filter-gap: 20px;
-  --filter-padding: 5px 10px;
-  --filter-radius: 20px;
-  --filter-transition: all 0.3s ease;
 }
 
 /* =================== ESTRUTURA PRINCIPAL =================== */

@@ -169,7 +169,7 @@ function Home() {
                   <div className="Home__Echo__container__item__img">
                     <img src={anel} alt="anel" />
                   </div>
-                  <div className="Home__Echo__container__item__text">Aneis</div>
+                  <div className="Home__Echo__container__item__text">Anéis</div>
                 </Link>
                 <Link
                   to="/catalogoPingente"
@@ -179,7 +179,7 @@ function Home() {
                     <img src={pingente} alt="pingente" />
                   </div>
                   <div className="Home__Echo__container__item__text">
-                    Pingente
+                    Pingentes
                   </div>
                 </Link>
                 <Link
