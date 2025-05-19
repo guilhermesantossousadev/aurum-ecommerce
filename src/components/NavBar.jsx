@@ -36,6 +36,7 @@ const NavBar = () => {
     "/catalogoPingente",
     "/catalogoPulseira",
     "/catalogoRelogio",
+    "/catalogo"
   ].includes(location.pathname);
 
   const isAuthPage = ["/login", "/register"].includes(location.pathname);
@@ -79,7 +80,7 @@ const NavBar = () => {
       {/* Menu para telas grandes */}
       <ul className="navbar__list">
         <li>
-          <Link to="/Servicos">Servicos</Link>
+          <Link to="/servicos">Servicos</Link>
         </li>
         <li>
           <Link to="/sobre">Sobre</Link>
@@ -139,7 +140,7 @@ const NavBar = () => {
         </div>
         <ul className="navbar__mobile__ul">
           <li>
-            <Link to="/Servicos" onClick={() => setIsMenuOpen(false)}>
+            <Link to="/servicos" onClick={() => setIsMenuOpen(false)}>
               Servicos
             </Link>
           </li>

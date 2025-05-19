@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Catalogo.css";
-import lupabranca from "../images/lupa-branca.png";
+import lupabranca from "../images/lupa-branca.png"; // Certifique-se de que a imagem está corretamente importada
 
 function Catalogo() {
   const [selectedFilter, setSelectedFilter] = useState("todos");
@@ -9,16 +9,17 @@ function Catalogo() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [isSearchExpanded, setIsSearchExpanded] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const anunciosPerPage = 7;
   const navigate = useNavigate();
 
+  // Função para lidar com a troca do filtro de tipo
   const handleFilterChange = (e) => {
     setSelectedFilter(e.target.value);
     setCurrentPage(1); // Resetar para a primeira página ao mudar o filtro
   };
 
+  // Função para carregar os anúncios
   const getAnuncios = async () => {
     setLoading(true);
     setError(null);
@@ -88,6 +89,7 @@ function Catalogo() {
     window.scrollTo(0, 0); // Rolar para o topo da página
   };
 
+  // Função para navegar ao clicar no anúncio
   const handleAnuncioClick = (anuncioId) => {
     const fetchTipoJoia = async () => {
       try {
@@ -102,24 +104,17 @@ function Catalogo() {
         const data = await response.json();
         const tipoJoia = data.tipoPeca.toLowerCase();
 
-        if (tipoJoia === "anel") {
-          navigate(`/detalhesAnel/${anuncioId}`);
-        } else if (tipoJoia === "relogio") {
-          navigate(`/detalhesRelogio/${anuncioId}`);
-        } else if (tipoJoia === "colar") {
-          navigate(`/detalhesColar/${anuncioId}`);
-        } else if (tipoJoia === "brinco") {
-          navigate(`/detalhesBrinco/${anuncioId}`);
-        } else if (tipoJoia === "pulseira") {
-          navigate(`/detalhesPulseira/${anuncioId}`);
-        } else if (tipoJoia === "pingente") {
-          navigate(`/detalhesPingente/${anuncioId}`);
-        } else if (tipoJoia === "piercing") {
-          navigate(`/detalhesPiercing/${anuncioId}`);
-        } else {
-          // Redirecionamento genérico (opcional)
-          navigate(`/DetalhesAnuncio/${anuncioId}`);
-        }
+        const tipoParaUrl = {
+          anel: `/detalhesAnel/${anuncioId}`,
+          relogio: `/detalhesRelogio/${anuncioId}`,
+          colar: `/detalhesColar/${anuncioId}`,
+          brinco: `/detalhesBrinco/${anuncioId}`,
+          pulseira: `/detalhesPulseira/${anuncioId}`,
+          pingente: `/detalhesPingente/${anuncioId}`,
+          piercing: `/detalhesPiercing/${anuncioId}`,
+        };
+
+        navigate(tipoParaUrl[tipoJoia] || `/DetalhesAnuncio/${anuncioId}`);
       } catch (error) {
         console.error("Erro ao carregar dados:", error);
       }
@@ -132,154 +127,59 @@ function Catalogo() {
     <>
       <div className="Catalogo">
         <div className="Catalogo__Header__container">
-          <div className="Header__container__item__left">
-            <h1>Catálogo</h1>
-          </div>
-          <div className="Header__container__item__right">
-            <div
-              className={`search-container ${
-                isSearchExpanded ? "expanded" : ""
-              }`}
-            >
+          <div className="Search__header">
+            <div className="Search__header__container">
+              <img src={lupabranca} alt="searchicon" className="search__lupe" />
               <input
                 type="text"
-                className="search-input"
-                placeholder="Pesquisar..."
+                placeholder="O que você está procurando?"
+                className="Search__header__container__input"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
-              <button
-                className="search-button"
-                onClick={() => setIsSearchExpanded(!isSearchExpanded)}
-              >
-                <img
-                  src={lupabranca}
-                  alt="Lupa"
-                  style={{ width: "30px", height: "30px" }}
-                />
-              </button>
             </div>
           </div>
         </div>
-        <div className="Filter__elements_container">
-          <div className="Filter__elements__item"></div>
-          <div className="Filter__elements__item">
-            <div className="Filter__elements">
-              <ul className="Ul__elements">
-                <div className="Ul__elements__inside">
-                  <li className="Li__element">
-                    <input
-                      type="radio"
-                      id="filter-todos"
-                      name="filter"
-                      value="todos"
-                      checked={selectedFilter === "todos"}
-                      onChange={handleFilterChange}
-                    />
-                    <label htmlFor="filter-todos">Todos</label>
-                  </li>
-                  <li className="Li__element">
-                    <input
-                      type="radio"
-                      id="filter-anel"
-                      name="filter"
-                      value="anel"
-                      checked={selectedFilter === "anel"}
-                      onChange={handleFilterChange}
-                    />
-                    <label htmlFor="filter-anel">Anel</label>
-                  </li>
-                  <li className="Li__element">
-                    <input
-                      type="radio"
-                      id="filter-brinco"
-                      name="filter"
-                      value="brinco"
-                      checked={selectedFilter === "brinco"}
-                      onChange={handleFilterChange}
-                    />
-                    <label htmlFor="filter-brinco">Brinco</label>
-                  </li>
-                </div>
-                <div className="Ul__elements__inside">
-                  <li className="Li__element">
-                    <input
-                      type="radio"
-                      id="filter-colar"
-                      name="filter"
-                      value="colar"
-                      checked={selectedFilter === "colar"}
-                      onChange={handleFilterChange}
-                    />
-                    <label htmlFor="filter-colar">Colar</label>
-                  </li>
-                  <li className="Li__element">
-                    <input
-                      type="radio"
-                      id="filter-piercing"
-                      name="filter"
-                      value="piercing"
-                      checked={selectedFilter === "piercing"}
-                      onChange={handleFilterChange}
-                    />
-                    <label htmlFor="filter-piercing">Piercing</label>
-                  </li>
-                  <li className="Li__element">
-                    <input
-                      type="radio"
-                      id="filter-pingente"
-                      name="filter"
-                      value="pingente"
-                      checked={selectedFilter === "pingente"}
-                      onChange={handleFilterChange}
-                    />
-                    <label htmlFor="filter-pingente">Pingente</label>
-                  </li>
-                </div>
-                <div className="Ul__elements__inside">
-                  <li className="Li__element">
-                    <input
-                      type="radio"
-                      id="filter-relogio"
-                      name="filter"
-                      value="relogio"
-                      checked={selectedFilter === "relogio"}
-                      onChange={handleFilterChange}
-                    />
-                    <label htmlFor="filter-relogio">Relogio</label>
-                  </li>
 
-                  <li className="Li__element">
-                    <input
-                      type="radio"
-                      id="filter-pulseira"
-                      name="filter"
-                      value="pulseira"
-                      checked={selectedFilter === "pulseira"}
-                      onChange={handleFilterChange}
-                    />
-                    <label htmlFor="filter-pulseira">Pulseira</label>
-                  </li>
-                </div>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div className="Catalogo__part">
-          <div className="Catalogo__part__inside"></div>
+        {/* Filtro */}
+        <div className="Filter__elements_container">
+          <ul className="Ul__elements">
+            {[
+              "todos",
+              "anel",
+              "brinco",
+              "colar",
+              "piercing",
+              "pingente",
+              "relogio",
+              "pulseira",
+            ].map((tipo) => (
+              <li key={tipo} className="Li__element">
+                <input
+                  type="radio"
+                  id={`filter-${tipo}`}
+                  name="filter"
+                  value={tipo}
+                  checked={selectedFilter === tipo}
+                  onChange={handleFilterChange}
+                />
+                <label htmlFor={`filter-${tipo}`}>
+                  {tipo.charAt(0).toUpperCase() + tipo.slice(1)}
+                </label>
+              </li>
+            ))}
+          </ul>
         </div>
 
         {/* Exibição dos anúncios */}
         <div className="anuncios__container">
           {loading && <p>Carregando anúncios...</p>}
           {error && <p className="error__message">{error}</p>}
-
           {!loading && !error && anunciosFiltrados.length === 0 && (
             <p>Nenhum anúncio encontrado.</p>
           )}
 
           <div className="anuncios__grid">
-            {/*Anuncio Card*/}
             {currentAnuncios.map((anuncio) => (
               <div
                 key={anuncio.id}
@@ -298,9 +198,6 @@ function Catalogo() {
                   </div>
                   <h3>{anuncio.titulo}</h3>
                   <p>{anuncio.descricao}</p>
-                </div>
-                <div className="Catalogo__part">
-                  <div className="Catalogo__part__inside"></div>
                 </div>
               </div>
             ))}

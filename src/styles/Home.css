@@ -219,7 +219,7 @@
 }
 
 .Home__delta__left button {
-  width: 82%;
+  width: 50%;
   padding: 0.5rem 2rem;
   border-radius: 40px;
   color: var(--text-second-color);
@@ -271,12 +271,13 @@
 
 .Home__Echo {
   width: 100%;
-  padding: 10vw 3vw;
+  height: 160vh;
+  padding: 2vw 6vw;
 }
 
 .Home__Echo__container {
   width: 100%;
-  height: 1200px;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -437,6 +438,9 @@ a.Home__Echo__container__item {
 
 /*Home Echo responsividade*/
 @media (max-width: 1024px) {
+  .Home__Echo {
+    height: 320vh;
+  }
   .Home__Echo__container {
     height: auto;
     padding-top: 0;

@@ -80,6 +80,7 @@
   border: none;
   border-radius: 8px;
   cursor: pointer;
+  border: 3px solid var(--primary-color);
   background-color: var(--primary-color);
   transition: background-color 0.3s ease;
 }
@@ -101,12 +102,12 @@
 
 .profile__edit:hover {
   background-color: white;
-  border: 1px solid #f9cdcd;
+  border: 3px solid #f9cdcd;
 }
 
 .profile__logout:hover {
   background-color: #f9cdcd;
-  border: 1px solid #f9cdcd;
+  border: 3px solid #f9cdcd;
 }
 
 .Profile__details {
