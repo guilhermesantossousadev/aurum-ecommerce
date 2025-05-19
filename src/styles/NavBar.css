@@ -67,7 +67,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  background-color: transparent;
+  background-color: #000;
   z-index: 1000;
   transition: background-color 0.45s ease, color 0.4s ease, box-shadow 0.4s ease;
   box-sizing: border-box;
@@ -90,14 +90,14 @@
 }
 
 /* Estilo para menu desktop */
-.navbar__list {
+.navbar__list.logged {
   list-style: none;
   display: flex;
   gap: 2rem;
   margin-left: -50px;
 }
 
-.navbar__list.logged {
+.navbar__list {
   margin-left: 0;
 }
 
