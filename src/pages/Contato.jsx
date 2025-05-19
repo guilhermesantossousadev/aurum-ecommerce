@@ -1,5 +1,5 @@
 import "../styles/Contato.css";
-import contatoimg from "../images/contatoimg.png";
+import contatoimg from "../images/contatoimg.jpeg";
 
 function Contato() {
   return (

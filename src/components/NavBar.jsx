@@ -13,7 +13,7 @@ const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const [isScrolled, setIsScrolled] = useState(false);
-  
+
   const isBlackTextPage = [
     "/servicos",
     "/carrinho",
@@ -36,7 +36,7 @@ const NavBar = () => {
     "/catalogoPingente",
     "/catalogoPulseira",
     "/catalogoRelogio",
-    "/catalogo"
+    "/catalogo",
   ].includes(location.pathname);
 
   const isAuthPage = ["/login", "/register"].includes(location.pathname);
@@ -78,7 +78,7 @@ const NavBar = () => {
       </div>
 
       {/* Menu para telas grandes */}
-      <ul className="navbar__list">
+      <ul className={`navbar__list ${user ? "" : "logged"}`}>
         <li>
           <Link to="/servicos">Servicos</Link>
         </li>
