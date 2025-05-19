@@ -1,3 +1,96 @@
+/* =================== FILTROS =================== */
+
+.Catalogo__filters__button {
+  width: 100%;
+  height: auto;
+  display: flex;
+  gap: 20px;
+  padding-top: 2rem;
+}
+
+.Catalogo__filters__button button {
+  padding: 0.6rem 2rem;
+  background-color: transparent;
+  border: 1px solid #000;
+  color: #000;
+  transition: 0.3s ease;
+}
+
+.Catalogo__filters__button button:hover {
+  cursor: pointer;
+  background-color: #000;
+  border: 1px solid #000;
+  color: #fff;
+}
+
+/* Modal - telas menores */
+.fullScreenFilters {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  color: #000;
+  z-index: 1000;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+/* Dropdown - telas maiores */
+.dropdownFilters {
+  width: 100%;
+  background-color: transparent;
+  color: #000;
+  padding: 2rem;
+  margin-top: 1rem;
+}
+
+.filtersContent label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: bold;
+  padding-top: 20px;
+}
+
+.filtersContent label input[type="checkbox"] {
+  accent-color: #050505; /* cor da marca */
+  width: 20px; /* opcional: tamanho da caixa */
+  height: 20px; /* opcional: tamanho da caixa */
+  transform: scale(1.2); /* aumenta o tamanho geral */
+}
+
+.filtersContent label input[type="checkbox"]:hover {
+  cursor: pointer;
+}
+
+/* Botões */
+
+.filtersButtons {
+  width: 100%;
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+
+.filtersButtons button {
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #000;
+  padding: 0.75rem 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.filtersButtons button:hover {
+  background-color: #000;
+  color: #fff;
+}
+
 /* =================== VARIÁVEIS =================== */
 :root {
   --text-color: #252422;
@@ -19,7 +112,7 @@
 /* =================== ESTRUTURA PRINCIPAL =================== */
 .Catalogo {
   width: 100%;
-  min-height: 100vh;
+  min-height: auto;
   background-color: #f4f4f4;
   padding: 120px 5vw 5vw 5vw;
   box-sizing: border-box;
@@ -92,116 +185,6 @@
   border-radius: 7px;
 }
 
-/* =================== FILTROS =================== */
-.Filter__elements_container {
-  width: 100%;
-  min-height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--filter-gap);
-  margin-bottom: 20px;
-  padding: 20px 0;
-}
-
-.Filter__elements__item {
-  width: 50%;
-  height: 100%;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding-right: 10px;
-}
-
-.Ul__elements {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: row;
-  gap: var(--filter-gap);
-  list-style: none;
-  justify-content: flex-end;
-}
-
-.Ul__elements__inside {
-  width: 100%;
-  height: 100%;
-  display: flex;
-}
-
-.Li__element {
-  color: var(--text-color);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  padding: var(--filter-padding);
-  border-radius: var(--filter-radius);
-  transition: var(--filter-transition);
-}
-
-.Li__element:hover {
-  color: var(--radio-hover-color);
-  background-color: rgba(37, 36, 34, 0.05);
-}
-
-.Li__element input[type="radio"] {
-  appearance: none;
-  -webkit-appearance: none;
-  width: var(--radio-size);
-  height: var(--radio-size);
-  border: var(--radio-border) solid var(--radio-color);
-  border-radius: 50%;
-  margin: 0;
-  position: relative;
-  cursor: pointer;
-  transition: var(--filter-transition);
-}
-
-.Li__element input[type="radio"]:hover {
-  border-color: var(--radio-hover-color);
-}
-
-.Li__element input[type="radio"]:hover::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: calc(var(--radio-size) / 2);
-  height: calc(var(--radio-size) / 2);
-  background-color: var(--radio-hover-color);
-  border-radius: 50%;
-  opacity: 0.5;
-}
-
-.Li__element input[type="radio"]:checked:hover::after {
-  content: none;
-}
-
-.Li__element input[type="radio"]:checked {
-  border-color: var(--radio-checked-color);
-}
-
-.Li__element input[type="radio"]:checked::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: calc(var(--radio-size) / 2);
-  height: calc(var(--radio-size) / 2);
-  background-color: var(--radio-checked-color);
-  border-radius: 50%;
-}
-
-.Li__element label {
-  cursor: pointer;
-  user-select: none;
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-
 /* =================== MENSAGEM DE ERRO =================== */
 .error__message {
   color: #e74c3c;
@@ -223,7 +206,7 @@
   height: auto;
   min-height: 420px;
   overflow: hidden;
-  padding-top: 20px;
+  padding-top: 50px;
   display: flex;
   flex-direction: column;
 }
@@ -429,47 +412,8 @@
     font-size: 3rem;
   }
 
-  .Catalogo__Header__container {
-    gap: 2rem;
-    min-height: 20vh;
-  }
-
   .Header__container__item {
     width: 100%;
-  }
-
-  .Filter__elements_container {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 20px 0;
-  }
-
-  .Filter__elements__item {
-    width: 100%;
-    justify-content: center;
-    padding-right: 0;
-    padding-top: 10px;
-  }
-
-  .Ul__elements {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: row;
-    gap: var(--filter-gap);
-    list-style: none;
-    justify-content: flex-end;
-  }
-
-  .Ul__elements__inside {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .Li__element {
-    padding: 4px 8px;
   }
 
   .anuncio__card {
@@ -512,12 +456,6 @@
   .Catalogo h1 {
     font-size: 2.5rem;
   }
-
-  .Catalogo__Header__container {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
   .Header__container__item,
   .Header__container__item__left,
   .Header__container__item__right {
