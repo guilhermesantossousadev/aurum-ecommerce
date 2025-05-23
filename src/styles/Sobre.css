@@ -6,8 +6,10 @@
 
 .Sobre {
   width: 100%;
-  height: auto;
-  min-height: 500vh;
+  min-height: 100vh;
+  /* Garante que pelo menos ocupe a altura total da viewport */
+  height: auto !important;
+  /* Sobrescreve qualquer altura fixa */
   background-color: var(--background-color);
   padding-top: 10rem;
   overflow: hidden;
@@ -162,11 +164,16 @@
   color: var(--text-color);
 }
 
+.Sobre__Aurum{
+  min-height: 20vh;
+  height: auto;
+  width: 100%;
+}
 .Sobre__bottom__part {
   width: 100%;
   height: 1px;
   padding-inline: 5rem;
-  margin-top: 80vh;
+  margin-top: 20vh;
 }
 
 .Sobre__bottom__part.bottom {
@@ -198,9 +205,11 @@
 }
 
 .Sobre__hero {
-  height: 100vh;
+  min-height: 100vh;
+  height: auto;
   padding-inline: 5rem;
   display: flex;
+  padding-bottom: 5rem;
   gap: 3rem;
   margin-top: 20vh;
 }
@@ -246,12 +255,10 @@
 .Sobre__hero__item__right__mid__right,
 .Sobre__hero__item__right__bottom__left,
 .Sobre__hero__item__right__bottom__right {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
-  padding-inline: 2rem;
+  text-align: left;
+  /* Alinha o conteúdo à esquerda */
+  align-items: flex-start;
+  /* Alinha os itens à esquerda na vertical */
 }
 
 .Sobre__hero__item__right h1 {
@@ -345,10 +352,6 @@
 }
 
 @media screen and (max-width: 768px) {
-  .Sobre {
-    min-height: 120vh;
-    padding-top: 8rem;
-  }
 
   .Sobre__container {
     flex-direction: column;
@@ -427,5 +430,76 @@
 
   .Sobre__container__item {
     padding: 1vw 3vw;
+  }
+}
+
+
+@media (max-width: 1024px) {
+  .Sobre__hero {
+    flex-direction: column;
+    padding-inline: 2rem;
+    height: auto;
+    margin-top: 10vh;
+  }
+
+  .Sobre__hero__item__left {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .Sobre__hero__item__right {
+    width: 100%;
+    padding-left: 0;
+  }
+
+  .Sobre__hero__item__right__top,
+  .Sobre__hero__item__right__mid,
+  .Sobre__hero__item__right__bottom {
+    flex-direction: column;
+    padding-inline: 0;
+    gap: 2rem;
+  }
+
+  .Sobre__hero__item__right__top__left,
+  .Sobre__hero__item__right__top__right,
+  .Sobre__hero__item__right__mid__left,
+  .Sobre__hero__item__right__mid__right,
+  .Sobre__hero__item__right__bottom__left,
+  .Sobre__hero__item__right__bottom__right {
+    width: 100%;
+    padding-inline: 1rem;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .Sobre__hero__item__left h1 {
+    font-size: 3rem;
+  }
+
+  .Sobre__hero__item__right h1 {
+    font-size: 1.75rem;
+  }
+
+  .Sobre__hero__item__right span,
+  .Sobre__hero__item__right p {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .Sobre__hero__item__left h1 {
+    font-size: 2.5rem;
+  }
+
+  .Sobre__hero__item__right h1 {
+    font-size: 1.5rem;
+  }
+
+  .Sobre__hero__item__right span,
+  .Sobre__hero__item__right p {
+    font-size: 1rem;
   }
 }

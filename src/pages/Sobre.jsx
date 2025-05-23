@@ -57,15 +57,18 @@ const Sobre = () => {
         </div>
       </div>
 
-      <div className="Sobre__bottom__part">
-        <div className="Sobre__bottom__part__inside"></div>
-      </div>
+      <div className="Sobre__Aurum">
+        <div className="Sobre__bottom__part">
+          <div className="Sobre__bottom__part__inside"></div>
+        </div>
 
-      <div className="Aurum">
-        <h1>AURUM/LUMINE®</h1>
-      </div>
-      <div className="Sobre__bottom__part bottom">
-        <div className="Sobre__bottom__part__inside"></div>
+        <div className="Aurum">
+          <h1>AURUM/LUMINE®</h1>
+        </div>
+
+        <div className="Sobre__bottom__part bottom">
+          <div className="Sobre__bottom__part__inside"></div>
+        </div>
       </div>
 
       <div className="Sobre__hero">
@@ -136,7 +139,7 @@ const Sobre = () => {
         </div>
       </div>
 
-      
+
     </div>
   );
 };
