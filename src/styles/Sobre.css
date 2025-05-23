@@ -164,46 +164,6 @@
   color: var(--text-color);
 }
 
-.Sobre__Aurum{
-  min-height: 20vh;
-  height: auto;
-  width: 100%;
-}
-.Sobre__bottom__part {
-  width: 100%;
-  height: 1px;
-  padding-inline: 5rem;
-  margin-top: 20vh;
-}
-
-.Sobre__bottom__part.bottom {
-  width: 100%;
-  height: 1px;
-  padding-inline: 5rem;
-  margin-top: -4vh;
-}
-
-.Sobre__bottom__part__inside {
-  width: 100%;
-  height: 100%;
-  background-color: #f9cdcd;
-  border-radius: 7px;
-}
-
-.Aurum {
-  height: 300px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  padding-inline: 5rem;
-  margin-top: -50px;
-}
-
-.Aurum h1 {
-  color: #f9cdcd;
-  font-size: 10rem;
-}
-
 .Sobre__hero {
   min-height: 100vh;
   height: auto;
@@ -211,7 +171,7 @@
   display: flex;
   padding-bottom: 5rem;
   gap: 3rem;
-  margin-top: 20vh;
+  margin-top: 25rem;
 }
 
 .Sobre__hero__item__left {
@@ -439,7 +399,7 @@
     flex-direction: column;
     padding-inline: 2rem;
     height: auto;
-    margin-top: 10vh;
+    margin-top: 25rem;
   }
 
   .Sobre__hero__item__left {
@@ -492,6 +452,10 @@
 @media (max-width: 600px) {
   .Sobre__hero__item__left h1 {
     font-size: 2.5rem;
+  }
+
+  .Sobre__hero {
+    margin-top: 15rem;
   }
 
   .Sobre__hero__item__right h1 {
