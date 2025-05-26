@@ -9,13 +9,13 @@ const Sobre = () => {
     <div className="Sobre">
       <div className="Sobre__container">
         <div className="Sobre__container__item">
-          <h1 className="Sobre__container__item__h1__left">
+          <h1 className="Sobre__container__item__h1__left fade-in-up">
             We turn cultural values
           </h1>
         </div>
 
         <div className="Sobre__container__item">
-          <h1 className="Sobre__container__item__right">
+          <h1 className="Sobre__container__item__right fade-in-up">
             ● into company value
           </h1>
           <h3 className="Sobre__container__item__right_h3">
@@ -124,8 +124,6 @@ const Sobre = () => {
           </div>
         </div>
       </div>
-
-
     </div>
   );
 };

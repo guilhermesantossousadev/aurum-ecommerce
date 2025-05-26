@@ -1,5 +1,6 @@
 import "../styles/Carreiras.css";
-import carreirasimg from "../images/carreirasimg.jpeg";
+
+import Carreirasimg from "../images/Carreiras.jpeg";
 
 function Carreiras() {
   return (
@@ -15,7 +16,7 @@ function Carreiras() {
           <div className="Carreiras__container__item right">
             <div className="Carreiras__container__item__top">
               <div className="Carreiras__container__item__top__img">
-                <img src={carreirasimg} alt="carreirasimg" />
+                <img src={Carreirasimg} alt="Carreirasimg" />
               </div>
             </div>
 

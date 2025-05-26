@@ -4,6 +4,21 @@
   --text-transform: uppercase;
 }
 
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px); /* começa mais abaixo */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0); /* termina na posição original */
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 400ms ease-out forwards;
+}
+
 .Sobre {
   width: 100%;
   min-height: 100vh;
@@ -171,7 +186,7 @@
   display: flex;
   padding-bottom: 5rem;
   gap: 3rem;
-  margin-top: 25rem;
+  margin-top: 30rem;
 }
 
 .Sobre__hero__item__left {
@@ -219,6 +234,7 @@
   /* Alinha o conteúdo à esquerda */
   align-items: flex-start;
   /* Alinha os itens à esquerda na vertical */
+  width: 50%;
 }
 
 .Sobre__hero__item__right h1 {
@@ -312,7 +328,6 @@
 }
 
 @media screen and (max-width: 768px) {
-
   .Sobre__container {
     flex-direction: column;
   }
@@ -392,7 +407,6 @@
     padding: 1vw 3vw;
   }
 }
-
 
 @media (max-width: 1024px) {
   .Sobre__hero {

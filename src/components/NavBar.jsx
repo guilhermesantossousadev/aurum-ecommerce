@@ -9,6 +9,8 @@ import { li } from "framer-motion/client";
 const NavBar = () => {
   const location = useLocation();
 
+  const [open, setOpen] = useState(false);
+
   const user = useSelector((state) => state.user);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -42,27 +44,32 @@ const NavBar = () => {
   const isAuthPage = ["/login", "/register"].includes(location.pathname);
 
   const getTextClass = () => {
+    if (isAuthPage) return "black-text";
     if (isWhiteTextPage) return "white-text";
     if (isBlackTextPage) return "black-text";
-    if (isAuthPage) return "black-text";
     if (isPinkTextPage) return "pink-text";
-    return "pink-text";
+    if (isCatalogoPage) return "black-text";
+    return "pink-text"; // fallback
   };
-
   useEffect(() => {
-    if (location.pathname === "/") {
-      const handleScroll = () => {
+    const handleScroll = () => {
+      if (location.pathname === "/") {
         const scrollTop = window.scrollY;
+        // Só ativa o scrolled se o usuário rolar mais de 90% da altura da tela
         setIsScrolled(scrollTop > window.innerHeight * 0.9);
-      };
+      } else {
+        // Em qualquer rota diferente de "/", considera como já scrolled (navbar preta)
+        setIsScrolled(true);
+      }
+    };
 
+    // Se for a home, escuta scroll. Se não, apenas define como true
+    if (location.pathname === "/") {
       window.addEventListener("scroll", handleScroll);
-      // Checagem inicial ao carregar a home
-      handleScroll();
+      handleScroll(); // chama para estado inicial
 
       return () => window.removeEventListener("scroll", handleScroll);
     } else {
-      // Para outras páginas, sempre considera como scrolled
       setIsScrolled(true);
     }
   }, [location.pathname]);
@@ -111,17 +118,42 @@ const NavBar = () => {
         ) : (
           <li></li>
         )}
+
         {user ? (
-          <li>
-            <Link to="/profile">Bem-Vindo, {user.nome}! </Link>
-          </li>
+          <>
+            {user.isAdmin === true && (
+              <div className="dropdown">
+                <button
+                  className="dropdown-toggle"
+                  onClick={() => setOpen(!open)}
+                >
+                  Menu ▼
+                </button>
+                {open && (
+                  <ul className="dropdown-menu">
+                    <li>
+                      <a href="#opcao1">Opção 1</a>
+                    </li>
+                    <li>
+                      <a href="#opcao2">Opção 2</a>
+                    </li>
+                    <li>
+                      <a href="#opcao3">Opção 3</a>
+                    </li>
+                  </ul>
+                )}
+              </div>
+            )}
+            <li>
+              <Link to="/profile">Bem-vindo, {user.nome}!</Link>
+            </li>
+          </>
         ) : (
           <li className={`login ${user ? "" : "logged"}`}>
             <Link to="/login">Login</Link>
           </li>
         )}
       </ul>
-
       {/* Botão de abrir menu mobile */}
       <button
         onClick={() => setIsMenuOpen(true)}

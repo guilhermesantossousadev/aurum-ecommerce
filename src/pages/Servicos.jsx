@@ -1,6 +1,15 @@
 import "../styles/Servicos.css";
 import anel from "../images/AnelHome.jpg";
 
+import Assinatura from "../images/AssinaturaEstética.jpg";
+import Presenca from "../images/PresençaSensorial.jpg";
+import Simbolos from "../images/SímbolosVivos.jpg";
+import Tiara from "../images/TiaraVladimir.jpg";
+import Estilo from "../images/EstilocomSignificado.jpg";
+import Hope from "../images/Hope.jpg";
+import Vinculo from "../images/VínculoSingular.png";
+import Essencia from "../images/Essencia.jpeg";
+
 function Servicos() {
   return (
     <>
@@ -8,7 +17,7 @@ function Servicos() {
         <div className="Servicos__container">
           <div className="Servicos__container__item">
             <h1 className="Servicos__container__item__h1__left">
-              Facil de entender. ●Impossivel de ignorar.
+              Fácil de entender. ●Impossível de ignorar.
             </h1>
           </div>
 
@@ -28,25 +37,24 @@ function Servicos() {
         {/*Box Container 1*/}
         <div className="Box__container">
           <div className="Box__item first">
-            <h1>Branded eCommerce </h1>
+            <h1>Ourivesaria Cravação</h1>
             <h4>
-              Nós vamos além das melhores práticas e criamos os melhores canais
-              D2C que impulsionam o comércio, moldam a cultura e definem
-              categorias.
+              Nós vamos além das melhores práticas e criamos as melhores joias
+              que impulsionam o comércio, moldam a cultura e definem categorias.
             </h4>
-            <button>Learn More</button>
+            <button>Saiba Mais</button>
           </div>
           <div className="Box__item">
             <div className="Box__item__top">
               <div className="Box__item__top__img">
-                <img src={anel} alt="anel" />
+                <img src={Hope} alt="Hope" />
               </div>
             </div>
             <div className="Box__item__bottom">
-              <h1>WHOOP</h1>
+              <h1>HOPE</h1>
               <p>
-                WHOOP.com — Building a sophisticated digital experience for a
-                one-of-a-kind product.
+                Joia icônica com Diamante Azul de 45,52 quilates, raro e
+                extremamente valioso.
               </p>
             </div>
           </div>
@@ -54,14 +62,14 @@ function Servicos() {
             {" "}
             <div className="Box__item__top">
               <div className="Box__item__top__img">
-                <img src={anel} alt="anel" />
+                <img src={Tiara} alt="Tiara" />
               </div>
             </div>
             <div className="Box__item__bottom">
-              <h1>WHOOP</h1>
+              <h1>TIARA VLADIMIR</h1>
               <p>
-                WHOOP.com — Building a sophisticated digital experience for a
-                one-of-a-kind product.
+                Luxuosa tiara cravejada de diamantes, usada pela realeza
+                britânica e famosa por seus pingentes de pérolas ou esmeraldas.
               </p>
             </div>
           </div>
@@ -74,24 +82,24 @@ function Servicos() {
         {/*Box Container 2*/}
         <div className="Box__container">
           <div className="Box__item first">
-            <h1>Websites + Platforms </h1>
+            <h1>Personalidade Experiência </h1>
             <h4>
-              We conceive and create experiences that immerse consumers in the
-              brand through a combination of utility and creativity.
+              Nós concebemos e criamos experiências que envolvem os consumidores
+              por meio de uma combinação de personalidade e expressão.
             </h4>
-            <button>Learn More</button>
+            <button>Saiba Mais</button>
           </div>
           <div className="Box__item">
             <div className="Box__item__top">
               <div className="Box__item__top__img">
-                <img src={anel} alt="anel" />
+                <img src={Assinatura} alt="Assinatura" />
               </div>
             </div>
             <div className="Box__item__bottom">
-              <h1>WHOOP</h1>
+              <h1>ASSINATURA ESTÉTICA</h1>
               <p>
-                WHOOP.com — Building a sophisticated digital experience for a
-                one-of-a-kind product.
+                Designs que refletem a personalidade por meio de formas, cores e
+                detalhes únicos.
               </p>
             </div>
           </div>
@@ -99,14 +107,14 @@ function Servicos() {
             {" "}
             <div className="Box__item__top">
               <div className="Box__item__top__img">
-                <img src={anel} alt="anel" />
+                <img src={Presenca} alt="Presença" />
               </div>
             </div>
             <div className="Box__item__bottom">
-              <h1>WHOOP</h1>
+              <h1>PRESENÇA SENSORIAL</h1>
               <p>
-                WHOOP.com — Building a sophisticated digital experience for a
-                one-of-a-kind product.
+                Joias que despertam emoções através do toque, brilho e interação
+                com a luz.
               </p>
             </div>
           </div>
@@ -119,38 +127,40 @@ function Servicos() {
         {/*Box Container 3*/}
         <div className="Box__container">
           <div className="Box__item first">
-            <h1>Branding + Advertising </h1>
+            <h1>Identidade Cultura </h1>
             <h4>
-              We create identities, platforms, and activations that
-              differentiate brands and position them to matter in culture.
+              Criamos identidades, formas e personalidades que diferenciam joias
+              e as posicionam para serem relevantes na cultura.
             </h4>
-            <button>Learn More</button>
+            <button>Saiba Mais</button>
           </div>
           <div className="Box__item">
             <div className="Box__item__top">
               <div className="Box__item__top__img">
-                <img src={anel} alt="anel" />
+                <img src={Simbolos} alt="Simbolos" />
               </div>
             </div>
             <div className="Box__item__bottom">
-              <h1>WHOOP</h1>
+              <h1>SÍMBOLOS VIVOS</h1>
               <p>
-                WHOOP.com — Building a sophisticated digital experience for a
-                one-of-a-kind product.
+                Cada joia carrega mais que beleza — representa narrativas,
+                crenças e estilos que conectam o passado ao presente. São
+                artefatos contemporâneos com alma cultural.
               </p>
             </div>
           </div>
           <div className="Box__item">
             <div className="Box__item__top">
               <div className="Box__item__top__img">
-                <img src={anel} alt="anel" />
+                <img src={Estilo} alt="Estilo" />
               </div>
             </div>
             <div className="Box__item__bottom">
-              <h1>WHOOP</h1>
+              <h1>ESTILO COM SIGNIFICADO</h1>
               <p>
-                WHOOP.com — Building a sophisticated digital experience for a
-                one-of-a-kind product.
+                Mais do que tendência, criamos peças que se alinham com
+                identidades autênticas e refletem relevância dentro de contextos
+                sociais e criativos.
               </p>
             </div>
           </div>
@@ -163,24 +173,26 @@ function Servicos() {
         {/*Box Container 4*/}
         <div className="Box__container">
           <div className="Box__item first">
-            <h1>Digital Products + Services </h1>
+            <h1>Conexão Autênticidade</h1>
             <h4>
-              We identify and create digital products and services that create
-              revenue channels and help brands thrive in the new economy.
+              Identificamos e criamos joias que criam conexão provedor /
+              consumidor e ajudam os clientes a encontrar sua personalidade,
+              cultura e estilo.
             </h4>
-            <button>Learn More</button>
+            <button>Saiba Mais</button>
           </div>
           <div className="Box__item">
             <div className="Box__item__top">
               <div className="Box__item__top__img">
-                <img src={anel} alt="anel" />
+                <img src={Vinculo} alt="Vinculo" />
               </div>
             </div>
             <div className="Box__item__bottom">
-              <h1>WHOOP</h1>
+              <h1>VÍNCULO SINGULAR</h1>
               <p>
-                WHOOP.com — Building a sophisticated digital experience for a
-                one-of-a-kind product.
+                Joias que transcendem a estética, criando uma ligação verdadeira
+                entre o criador e o usuário, conectando histórias e valores
+                pessoais.
               </p>
             </div>
           </div>
@@ -188,14 +200,15 @@ function Servicos() {
             {" "}
             <div className="Box__item__top">
               <div className="Box__item__top__img">
-                <img src={anel} alt="anel" />
+                <img src={Essencia} alt="Essencia" />
               </div>
             </div>
             <div className="Box__item__bottom">
-              <h1>WHOOP</h1>
+              <h1>ESSÊNCIA</h1>
               <p>
-                WHOOP.com — Building a sophisticated digital experience for a
-                one-of-a-kind product.
+                Designs que ajudam cada cliente a revelar sua identidade
+                cultural e personalidade, tornando a joia uma extensão autêntica
+                de quem é.
               </p>
             </div>
           </div>

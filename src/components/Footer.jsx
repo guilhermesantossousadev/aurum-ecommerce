@@ -165,6 +165,7 @@ function Footer() {
       </div>
 
       <div className="footer__bottom">
+        {/*
         <div className="footer__bottom__item">AURUM/LUMINE®, Inc 10 - 25©</div>
         <div className="footer__bottom__item">
           Fácil de entender, impossível de ignorar.™
@@ -172,6 +173,7 @@ function Footer() {
         <div className="footer__bottom__item">
           Termos, Política de Privacidade
         </div>
+        */} 
       </div>
     </footer>
   );
