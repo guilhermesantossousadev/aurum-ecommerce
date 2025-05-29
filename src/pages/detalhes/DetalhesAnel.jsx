@@ -12,12 +12,115 @@ import "../../styles/detalhes/DetalhesComum.css";
 function DetalhesAnel() {
   const user = useSelector((state) => state.user);
 
+  const [cep, setCep] = useState("");
+  const [frete, setFrete] = useState(null);
+  const [valorTotal, setValorTotal] = useState(null);
+  const [opcoesFrete, setOpcoesFrete] = useState([]);
+
   const [anuncio, setAnuncio] = useState(null);
   const [anel, setAnel] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
+
+  // Tabela de frete base por estado
+  const tabelaFrete = {
+    SP: 22,
+    RJ: 25,
+    MG: 20,
+  };
+
+  // Função auxiliar para formatar datas (Exemplo simples)
+  const formatarData = (data) => {
+    return data.toLocaleDateString("pt-BR", {
+      weekday: "long",
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    });
+  };
+
+  // Função que simula opções de frete com prazo e preço
+  const calcularFrete = async () => {
+    if (!cep || cep.length !== 8) {
+      toast.error("CEP inválido.");
+      return;
+    }
+
+    try {
+      // Buscar estado pelo CEP
+      const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+      const data = await response.json();
+
+      if (data.erro) {
+        toast.error("CEP não encontrado.");
+        return;
+      }
+
+      const uf = data.uf;
+      if (!uf) {
+        toast.error("Estado não encontrado para esse CEP.");
+        return;
+      }
+
+      // Base do frete
+      const freteBase = tabelaFrete[uf] ?? 30;
+
+      // Data de hoje
+      const hoje = new Date();
+
+      // Simular várias opções de frete com prazos diferentes
+      const opcoes = [
+        {
+          tipo: "Retire em loja",
+          preco: 0,
+          prazo: new Date(
+            hoje.getFullYear(),
+            hoje.getMonth(),
+            hoje.getDate() + ((5 - hoje.getDay() + 7) % 7) + 1
+          ), // próxima sexta-feira
+          descricao: "Retire em uma loja a partir de sexta-feira",
+        },
+        {
+          tipo: "Entrega expressa",
+          preco: freteBase + 5,
+          prazo: new Date(
+            hoje.getFullYear(),
+            hoje.getMonth(),
+            hoje.getDate() + 4
+          ), // 4 dias depois
+          descricao:
+            "Chegará " +
+            formatarData(
+              new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate() + 4)
+            ),
+        },
+        {
+          tipo: "Entrega econômica",
+          preco: freteBase,
+          prazo: new Date(
+            hoje.getFullYear(),
+            hoje.getMonth(),
+            hoje.getDate() + 7
+          ), // 7 dias depois
+          descricao:
+            "Chegará " +
+            formatarData(
+              new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate() + 7)
+            ),
+        },
+      ];
+
+      setOpcoesFrete(opcoes);
+
+      // Atualizar valor total com o frete mais barato (economica)
+      setValorTotal((anel?.valor || 0) + freteBase);
+    } catch (error) {
+      console.error("Erro ao calcular frete:", error);
+      toast.error("Erro ao calcular o frete.");
+    }
+  };
 
   const adicionarAoCarrinho = async () => {
     try {
@@ -66,7 +169,7 @@ function DetalhesAnel() {
         anunciosId: {
           anunciosId: anunciosAtuais,
         },
-        valorTotal: 0
+        valorTotal: 0,
       };
 
       console.log(JSON.stringify(carrinhoAtualizado));
@@ -96,11 +199,9 @@ function DetalhesAnel() {
       }
 
       toast.success("Produto adicionado ao carrinho com sucesso!");
-
     } catch (err) {
       console.error("Erro ao adicionar ao carrinho:", err);
       toast.error("Erro ao adicionar ao carrinho");
-
     }
   };
 
@@ -211,16 +312,68 @@ function DetalhesAnel() {
           <img src={setaesquerdabranca} alt="Voltar" />
         </button>
 
-        <div className="detalhes__container__imagem">
-          {anuncio.urLs && anuncio.urLs.length > 0 ? (
-            <ImageCarousel images={anuncio.urLs} />
-          ) : (
-            <img src={anuncio.url} alt="Imagem do anel" />
-          )}
+        <div className="detalhes__container__internal">
+          <div className="detalhes__container__internal__left">
+            <div className="detalhes__container__imagem">
+              {anuncio.urLs && anuncio.urLs.length > 0 ? (
+                <ImageCarousel images={anuncio.urLs} />
+              ) : (
+                <img src={anuncio.url} alt="Imagem do anel" />
+              )}
+            </div>
+          </div>
+
+          <div className="detalhes__container__internal__right">
+            <p className="detalhes__info__titulo">{anuncio.titulo}</p>
+            <p className="detalhes__info__item__p">
+              <div className="detalhes__venda__container">
+                <span>4x sem juros de {formatarPreco(anel?.valor / 4)}</span>
+                <p className="detalhes__valor">
+                  {formatarPreco(anel?.valor) || "Valor não disponível"}
+                </p>
+                <BotaoPrimario
+                  texto="Adicionar ao carrinho"
+                  onClick={adicionarAoCarrinho}
+                />
+              </div>
+            </p>
+
+            <div className="frete__container">
+              <div className="Frete__item__container">
+                <input
+                  type="text"
+                  placeholder="Digite seu CEP"
+                  value={cep}
+                  onChange={(e) => setCep(e.target.value.replace(/\D/g, ""))}
+                  maxLength={8}
+                  className="frete__input"
+                />
+                <button className="frete__botao" onClick={calcularFrete}>
+                  Calcular Frete
+                </button>
+              </div>
+
+              {/* Mostrar todas opções de frete */}
+              {opcoesFrete.length > 0 && (
+                <div className="frete__resultado">
+                  {opcoesFrete.map((opcao, idx) => (
+                    <div key={idx} className="frete__opcao">
+                      <span>{opcao.tipo}:</span>
+                      {opcao.preco === 0 ? (
+                        <span> Grátis</span>
+                      ) : (
+                        <span> {formatarPreco(opcao.preco)}</span>
+                      )}{" "}
+                      - <span>{opcao.descricao}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
         </div>
 
         {/* Detalhes do Anúncio */}
-        <p className="detalhes__info__titulo">{anuncio.titulo}</p>
         <div className="detalhes__info">
           <div className="detalhes__info__item">
             {/* Detalhes do Anel */}
@@ -253,18 +406,6 @@ function DetalhesAnel() {
                 Material
               </strong>{" "}
               {anel?.material || "Material não disponível"}
-            </p>
-            <p className="detalhes__info__item__p">
-              <strong className="detalhes__info__item__p__strong">Valor</strong>{" "}
-              <div className="detalhes__venda__container">
-                <p className="detalhes__valor">
-                  {formatarPreco(anel?.valor) || "Valor não disponível"}
-                </p>
-                <BotaoPrimario
-                  texto="Adicionar ao carrinho"
-                  onClick={adicionarAoCarrinho}
-                />
-              </div>
             </p>
             {anel?.isStudded && (
               <p className="detalhes__info__item__p">

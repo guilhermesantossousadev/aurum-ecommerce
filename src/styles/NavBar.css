@@ -263,9 +263,15 @@
 /* Navbar com scroll */
 .navbar.scrolled {
   background-color: var(--light-bg);
+}
+
+.navbar.scrolled.white-text {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
+.navbar.scrolled.pink-text {
+  background-color: #262523;
+}
 /* Scroll + white text: mantém branco */
 .navbar.scrolled.white-text a,
 .navbar.scrolled.white-text .navbar__toggle {

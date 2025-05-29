@@ -1,11 +1,10 @@
 .carousel {
   width: 100%;
-  max-width: 1200px;
+  height: 100%;
   margin: 0 auto;
   position: relative;
   overflow: hidden;
   background-color: var(--background-color);
-  border-radius: 8px;
 }
 
 .carousel__container {
@@ -124,4 +123,4 @@
   .carousel__button.next {
     right: 10px;
   }
-} 
+}

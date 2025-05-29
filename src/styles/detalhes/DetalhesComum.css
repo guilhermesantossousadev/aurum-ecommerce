@@ -28,9 +28,12 @@
   background-color: var(--background-color);
   margin-top: 0;
 }
+
 .detalhes__info__titulo {
   color: var(--text-color);
+  font-size: 2.6rem;
 }
+
 .loading__message {
   text-align: center;
   font-size: 1.2rem;
@@ -54,7 +57,7 @@
 }
 
 .voltar__button img {
-  width: 50px;
+  width: 35px;
 }
 
 .error__message {
@@ -68,11 +71,87 @@
 
 .detalhes__container {
   width: 100%;
-  max-width: 1600px;
   margin: 0 auto;
   padding: 2rem;
   background-color: var(--background-color);
-  padding-top: 200px;
+  padding-top: 100px;
+}
+
+.detalhes__container__imagem {
+  width: 100%;
+  height: 100%;
+  padding-top: 2.6rem;
+}
+
+.detalhes__container__internal {
+  width: 100%;
+  height: 60vh;
+  display: flex;
+  padding-inline: 5rem;
+}
+
+.detalhes__container__internal__left {
+  width: 60%;
+  height: 100%;
+}
+
+.detalhes__container__internal__right {
+  width: 40%;
+  height: 100%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  color: #000;
+}
+
+.detalhes__container__internal__right span {
+  color: var(--text-color);
+}
+
+.frete__container {
+  margin-top: 1rem;
+  width: 100%;
+  height: 15%;
+}
+
+.Frete__item__container {
+  width: 100%;
+  height: 80px;
+}
+
+.frete__input {
+  padding: 1rem;
+  margin-right: 0.5rem;
+  width: 50%;
+  height: 50%;
+}
+
+.frete__botao {
+  width: 40%;
+  height: 50%;
+  background-color: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.frete__resultado {
+  width: 100%;
+  height: 100%;
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-top: 2rem;
+}
+
+.frete__resultado strong,
+span {
+  color: var(--text-color);
+}
+
+.frete__valorTotal {
+  color: var(--text-color);
 }
 
 .detalhes__info {
@@ -149,5 +228,28 @@
 
   .detalhes__info__item__p__strong {
     font-size: 1.2rem;
+  }
+}
+@media (max-width: 1024px) {
+  .detalhes__container__internal {
+    flex-direction: column;
+    padding-inline: 2rem;
+    height: auto;
+    gap: 2rem;
+  }
+
+  .detalhes__container__internal__left,
+  .detalhes__container__internal__right {
+    width: 100%;
+    height: auto;
+  }
+
+  .detalhes__container__internal__right {
+    padding: 1rem 0;
+  }
+
+  .Frete__item__container {
+    width: 100%;
+    height: 100px;
   }
 }
