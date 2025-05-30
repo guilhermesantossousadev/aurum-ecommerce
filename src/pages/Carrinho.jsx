@@ -22,12 +22,13 @@ function Carrinho() {
     setTimeout(() => setNotificacao(""), 3000); // limpa após 3 segundos
   };
 
-
   const buscarDetalhesAnuncios = async (anunciosIds) => {
     try {
       const detalhesAnuncios = await Promise.all(
         anunciosIds.map(async (id) => {
-          const response = await fetch(`https://localhost:7081/api/Anuncio/GetByIdAnuncio?id=${id}`);
+          const response = await fetch(
+            `https://localhost:7081/api/Anuncio/GetByIdAnuncio?id=${id}`
+          );
           if (!response.ok) throw new Error(`Erro ao buscar anúncio ${id}`);
           return response.json();
         })
@@ -46,7 +47,9 @@ function Carrinho() {
     try {
       const detalhesJoias = await Promise.all(
         joiasIds.map(async (id) => {
-          const response = await fetch(`https://localhost:7081/api/Joia/GetByIdJoia?id=${id}`);
+          const response = await fetch(
+            `https://localhost:7081/api/Joia/GetByIdJoia?id=${id}`
+          );
           if (!response.ok) throw new Error(`Erro ao buscar joia ${id}`);
           return response.json();
         })
@@ -63,12 +66,17 @@ function Carrinho() {
       setLoading(true);
       setError(null);
 
-      await fetch(`https://localhost:7081/api/Carrinho/CompileValue?usuarioId=${user.id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-      });
+      await fetch(
+        `https://localhost:7081/api/Carrinho/CompileValue?usuarioId=${user.id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
 
-      const response = await fetch(`https://localhost:7081/api/Carrinho/GetByUsuarioIdCarrinho?usuarioId=${user.id}`);
+      const response = await fetch(
+        `https://localhost:7081/api/Carrinho/GetByUsuarioIdCarrinho?usuarioId=${user.id}`
+      );
       if (!response.ok) throw new Error("Erro ao buscar carrinho");
 
       const data = await response.json();
@@ -96,7 +104,9 @@ function Carrinho() {
         return;
       }
 
-      const carrinhoResponse = await fetch(`https://localhost:7081/api/Carrinho/GetByUsuarioIdCarrinho?usuarioId=${usuarioId}`);
+      const carrinhoResponse = await fetch(
+        `https://localhost:7081/api/Carrinho/GetByUsuarioIdCarrinho?usuarioId=${usuarioId}`
+      );
       if (!carrinhoResponse.ok) throw new Error("Erro ao buscar carrinho");
 
       const carrinhoData = await carrinhoResponse.json();
@@ -128,31 +138,35 @@ function Carrinho() {
         valorTotal: carrinhoData.valorTotal ?? 0,
       };
 
-      const updateResponse = await fetch(`https://localhost:7081/api/Carrinho/PutCarrinho`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(carrinhoAtualizado),
-      });
+      const updateResponse = await fetch(
+        `https://localhost:7081/api/Carrinho/PutCarrinho`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(carrinhoAtualizado),
+        }
+      );
 
       if (!updateResponse.ok) throw new Error("Erro ao atualizar carrinho");
 
       // Atualiza o valor do carrinho após remoção
-      await fetch(`https://localhost:7081/api/Carrinho/CompileValue?usuarioId=${usuarioId}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-      });
+      await fetch(
+        `https://localhost:7081/api/Carrinho/CompileValue?usuarioId=${usuarioId}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
 
       // ✅ Toast correto
       toast.success("Produto removido do carrinho com sucesso!");
 
       await fetchCarrinho();
-
     } catch (err) {
       console.error("Erro ao remover do carrinho:", err);
       toast.error("Erro ao remover do carrinho");
     }
   };
-
 
   useEffect(() => {
     if (user?.id) {
@@ -188,14 +202,15 @@ function Carrinho() {
   }
 
   return (
-
     <div className="Carrinho">
       <div className="carrinho-container">
         {!carrinho?.anunciosId?.anunciosId?.length ? (
           <div className="carrinho-vazio">
             <h2>Seu carrinho está vazio</h2>
             <p>Explore nossa coleção de joias exclusivas</p>
-            <a href="/" className="btn-continuar-comprando">Continuar Comprando</a>
+            <a href="/" className="btn-continuar-comprando">
+              Continuar Comprando
+            </a>
           </div>
         ) : (
           <div className="carrinho-content">
@@ -212,7 +227,9 @@ function Carrinho() {
                     <div className="item-detalhes">
                       <h3>{anuncio.titulo}</h3>
                       <p className="item-tipo">Tipo: {joia?.tipoPeca}</p>
-                      <p className="item-material">Material: {joia?.material}</p>
+                      <p className="item-material">
+                        Material: {joia?.material}
+                      </p>
                       {joia?.isStudded && (
                         <p className="item-cravejado">
                           Material Cravejado: {joia.materialCravejado}
@@ -226,14 +243,14 @@ function Carrinho() {
                       </button>
                     </div>
                     <div className="item-valor">
-                      R$ {joia?.valor?.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
+                      R${" "}
+                      {joia?.valor?.toLocaleString("pt-BR", {
+                        minimumFractionDigits: 2,
+                      })}
                     </div>
                   </div>
                 );
               })}
-              <a href="/catalogo" className="btn-continuar-comprando">
-                Continuar comprando
-              </a>
             </div>
 
             <div className="carrinho-resumo">
@@ -241,7 +258,10 @@ function Carrinho() {
               <div className="resumo-item">
                 <span>Subtotal do pedido</span>
                 <span>
-                  R$ {carrinho.valorTotal?.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
+                  R${" "}
+                  {carrinho.valorTotal?.toLocaleString("pt-BR", {
+                    minimumFractionDigits: 2,
+                  })}
                 </span>
               </div>
               <div className="resumo-item">
@@ -251,7 +271,10 @@ function Carrinho() {
               <div className="resumo-total">
                 <span>Total:</span>
                 <span>
-                  R$ {carrinho.valorTotal?.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
+                  R${" "}
+                  {carrinho.valorTotal?.toLocaleString("pt-BR", {
+                    minimumFractionDigits: 2,
+                  })}
                 </span>
               </div>
               <button className="btn-finalizar-compra">FINALIZAR PEDIDO</button>
@@ -262,7 +285,8 @@ function Carrinho() {
                 })}
               </p>
               <p className="pix-discount">
-                Pix: R$ {(carrinho.valorTotal * 0.95).toLocaleString("pt-BR", {
+                Pix: R${" "}
+                {(carrinho.valorTotal * 0.95).toLocaleString("pt-BR", {
                   minimumFractionDigits: 2,
                 })}{" "}
                 (5% nos produtos)

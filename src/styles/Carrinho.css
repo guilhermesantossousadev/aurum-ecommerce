@@ -2,12 +2,11 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #f8f9fa;
+  background-color: rgb(255 255 255 / 95%);
   padding-top: 5rem;
 }
 
 .carrinho-container {
-  max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
   flex: 1;
@@ -30,19 +29,22 @@
 }
 
 .carrinho-items {
-  background: white;
   border-radius: 12px;
   padding: 1.5rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .carrinho-item {
+  position: relative;
   display: grid;
   grid-template-columns: auto 1fr auto;
   gap: 1.5rem;
   padding: 1.5rem;
   border-bottom: 1px solid #eee;
   transition: background-color 0.2s;
+  border: 1px solid #33333311;
 }
 
 .carrinho-item:hover {
@@ -107,6 +109,8 @@
 }
 
 .btn-remover {
+  position: absolute;
+  right: 20px;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -127,12 +131,15 @@
 
 .carrinho-resumo {
   background: white;
-  border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   height: fit-content;
   position: sticky;
   top: 100px;
+}
+
+.carrinho-resumo span {
+  color: #333;
 }
 
 .carrinho-resumo h3 {
@@ -167,7 +174,6 @@
   background-color: #000000;
   color: white;
   border: none;
-  border-radius: 8px;
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;

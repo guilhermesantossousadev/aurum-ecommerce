@@ -1,3 +1,18 @@
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px); /* começa mais abaixo */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0); /* termina na posição original */
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 400ms ease-out forwards;
+}
+
 .Contato {
   height: auto;
   width: 100%;
@@ -101,10 +116,12 @@
 
 .Contato__init__item__bottom__right__top__item span {
   text-decoration: underline;
+  color: rgb(69 72 67);
 }
 
 .Contato__init__item__bottom__right__bottom__item span {
   text-decoration: underline;
+  color: rgb(69 72 67);
 }
 
 .Contato__init__item__bottom__right__top__item span:hover {
@@ -139,7 +156,6 @@
 .Contato__end__bottom {
   width: 100%;
   display: flex;
-  flex-wrap: wrap;
   gap: 2rem;
 }
 
@@ -180,13 +196,12 @@
 }
 
 @media (max-width: 1024px) {
-
   .Contato__end {
     width: 100%;
     height: auto;
     padding-top: 5rem;
   }
-  
+
   .Contato__end__bottom {
     flex-direction: column;
     gap: 2rem;
@@ -216,7 +231,6 @@
   .Contato__end__bottom__item.right li {
     font-size: 0.95rem;
   }
-
 }
 
 @media (max-width: 1024px) {
@@ -258,7 +272,6 @@
   .Contato__init__item__bottom__right__bottom__item {
     width: 100%;
   }
-
 }
 
 @media (max-width: 600px) {

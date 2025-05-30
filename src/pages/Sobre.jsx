@@ -18,7 +18,7 @@ const Sobre = () => {
           <h1 className="Sobre__container__item__right fade-in-up">
             ● into company value
           </h1>
-          <h3 className="Sobre__container__item__right_h3">
+          <h3 className="Sobre__container__item__right_h3 fade-in-up">
             AURUM/LUMINE® is a global agency that thrives at the intersection of
             design, data, and technology. Together, we're focused on
             transforming brands and culture — across the world.
@@ -64,17 +64,19 @@ const Sobre = () => {
         <div className="Sobre__hero__item__right">
           <div className="Sobre__hero__item__right__top">
             <div className="Sobre__hero__item__right__top__left">
-              <h1>People</h1>
-              <span>120+</span>
-              <p>
+              <h1 className="Sobre__hero__item__right__top__left">People</h1>
+              <span className="Sobre__hero__item__right__top__left">120+</span>
+              <p className="Sobre__hero__item__right__top__left">
                 We're a world-class team of diverse individuals who are here to
                 do great work as well as be great to work with.
               </p>
             </div>
             <div className="Sobre__hero__item__right__top__right">
-              <h1>Global Reach</h1>
-              <span>28</span>
-              <p>
+              <h1 className="Sobre__hero__item__right__top__right">
+                Global Reach
+              </h1>
+              <span className="Sobre__hero__item__right__top__right">28</span>
+              <p className="Sobre__hero__item__right__top__right">
                 As part of Dept, we have 28 offices and 1,500+ people across the
                 world dedicated to delivering the best design, strategy, and
                 technology services to our client partners.

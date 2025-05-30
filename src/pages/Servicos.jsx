@@ -16,13 +16,13 @@ function Servicos() {
       <div className="Servicos">
         <div className="Servicos__container">
           <div className="Servicos__container__item">
-            <h1 className="Servicos__container__item__h1__left">
+            <h1 className="Servicos__container__item__h1__left fade-in-up ">
               Fácil de entender. ●Impossível de ignorar.
             </h1>
           </div>
 
           <div className="Servicos__container__item right">
-            <h3 className="Servicos__container__item__right h3">
+            <h3 className="Servicos__container__item__right h3 fade-in-up ">
               O trabalho que criamos vive na intersecção entre clareza e
               surpresa e posiciona joias na cultura por meio de valores e ideais
               compartilhados.

@@ -6,13 +6,13 @@ function Contato() {
     <>
       <div className="Contato">
         <div className="Contato__init">
-          <div className="Contato__init__item">
+          <div className="Contato__init__item fade-in-up">
             <img src={contatoimg} alt="contatoimg" width="200px" />
           </div>
           <div className="Contato__init__item right">
             <div className="Contato__init__item__top">
-              <h1>A/L® CONTATO</h1>
-              <p>
+              <h1 className="fade-in-up">A/L® CONTATO</h1>
+              <p className="fade-in-up">
                 Fácil de entender. Impossível de ignorar.™ BASIC/DEPT®, Inc 10 -
                 25©
               </p>
