@@ -38,6 +38,7 @@ const NavBar = () => {
     "/catalogoPingente",
     "/catalogoPulseira",
     "/catalogoRelogio",
+    "/catalogoColar",
     "/catalogo",
   ].includes(location.pathname);
 

@@ -85,7 +85,7 @@
 
 .detalhes__container__internal {
   width: 100%;
-  height: 60vh;
+  height: 80vh;
   display: flex;
   padding-inline: 5rem;
 }
@@ -158,7 +158,7 @@ span {
   display: flex;
   flex-direction: row;
   gap: 4rem;
-  margin-top: 2rem;
+  margin-top: 6rem;
 }
 
 .detalhes__info__item {

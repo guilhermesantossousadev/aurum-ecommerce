@@ -232,6 +232,7 @@ function Catalogo() {
 
   return (
     <div className="Catalogo">
+      
       <div className="Catalogo__Header__container">
         <div className="Search__header">
           <div className="Search__header__container">

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { logout } from "../store/userSlice";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import fotodeperfilpadrao from "../images/fotodeperfil.png";
 import "../styles/Profile.css";
@@ -66,6 +66,8 @@ const Profile = () => {
         </div>
 
         <div className="Profile__btn__container">
+          <Link to="/cadastroJoia">cadastrar um joia</Link>
+
           <button className="profile__edit">
             <FaEdit /> Editar Perfil
           </button>

@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import "../../styles/Catalogo.css";
 import lupabranca from "../../images/lupa-branca.png";
 
+import searchicon from "../../images/searchicon.png";
+import xpng from "../../images/x.png";
+
 function CatalogoPiercing() {
   const [selectedFilter, setSelectedFilter] = useState("todos");
   const [anuncios, setAnuncios] = useState([]);
@@ -14,11 +17,146 @@ function CatalogoPiercing() {
   const anunciosPerPage = 7;
   const navigate = useNavigate();
 
-  const handleFilterChange = (e) => {
-    setSelectedFilter(e.target.value);
-    setCurrentPage(1); // Resetar para a primeira página ao mudar o filtro
+  const [showFilters, setShowFilters] = useState(false);
+  const [tempFilter, setTempFilter] = useState({
+    tipo: "todos",
+    material: "",
+    genero: "",
+    precoMin: "",
+    precoMax: "",
+  });
+
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 1024);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 1024);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    getAnuncios();
+  }, []);
+
+  const ClearSearch = () => {
+    setSearchTerm("");
   };
 
+  const renderFilters = () => (
+    <div className="filtersContent">
+      <h2>Filtros</h2>
+
+      <label>
+        <input
+          type="checkbox"
+          checked={tempFilter.tipo === "anel"}
+          onChange={() =>
+            setTempFilter({
+              ...tempFilter,
+              tipo: tempFilter.tipo === "anel" ? "todos" : "anel",
+            })
+          }
+        />
+        Anel
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          checked={tempFilter.tipo === "brinco"}
+          onChange={() =>
+            setTempFilter({
+              ...tempFilter,
+              tipo: tempFilter.tipo === "brinco" ? "todos" : "brinco",
+            })
+          }
+        />
+        Brinco
+      </label>
+
+      <label>
+        <input
+          type="checkbox"
+          checked={tempFilter.tipo === "relogio"}
+          onChange={() =>
+            setTempFilter({
+              ...tempFilter,
+              tipo: tempFilter.tipo === "relogio" ? "todos" : "relogio",
+            })
+          }
+        />
+        Relogio
+      </label>
+
+      <label>
+        <input
+          type="checkbox"
+          checked={tempFilter.tipo === "colar"}
+          onChange={() =>
+            setTempFilter({
+              ...tempFilter,
+              tipo: tempFilter.tipo === "colar" ? "todos" : "colar",
+            })
+          }
+        />
+        Colar
+      </label>
+
+      <label>
+        <input
+          type="checkbox"
+          checked={tempFilter.tipo === "piercing"}
+          onChange={() =>
+            setTempFilter({
+              ...tempFilter,
+              tipo: tempFilter.tipo === "piercing" ? "todos" : "piercing",
+            })
+          }
+        />
+        Piercing
+      </label>
+
+      <label>
+        <input
+          type="checkbox"
+          checked={tempFilter.tipo === "pingente"}
+          onChange={() =>
+            setTempFilter({
+              ...tempFilter,
+              tipo: tempFilter.tipo === "pingente" ? "todos" : "pingente",
+            })
+          }
+        />
+        Pingente
+      </label>
+
+      <label>
+        <input
+          type="checkbox"
+          checked={tempFilter.tipo === "pulseira"}
+          onChange={() =>
+            setTempFilter({
+              ...tempFilter,
+              tipo: tempFilter.tipo === "pulseira" ? "todos" : "pulseira",
+            })
+          }
+        />
+        Pulseira
+      </label>
+
+      {/* Repita para os outros tipos */}
+
+      <div className="filtersButtons">
+        <button
+          onClick={() => {
+            setSelectedFilter(tempFilter.tipo);
+            setShowFilters(false); // Fecha o modal ou dropdown
+          }}
+        >
+          Aplicar
+        </button>
+      </div>
+    </div>
+  );
   const getAnuncios = async () => {
     setLoading(true);
     setError(null);
@@ -128,39 +266,55 @@ function CatalogoPiercing() {
     <>
       <div className="Catalogo">
         <div className="Catalogo__Header__container">
-          <div className="Header__container__item__left">
-            <h1>Catálogo</h1>
-          </div>
-          <div className="Header__container__item__right">
-            <div
-              className={`search-container ${
-                isSearchExpanded ? "expanded" : ""
-              }`}
-            >
+          <div className="Search__header">
+            <div className="Search__header__container">
+              <img src={searchicon} alt="searchicon" className="search__lupe" />
+              <img
+                src={xpng}
+                alt="xpng"
+                className="search__x"
+                onClick={ClearSearch}
+              />
               <input
                 type="text"
-                className="search-input"
-                placeholder="Pesquisar..."
+                placeholder="O que você está procurando?"
+                className="Search__header__container__input"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
-              <button
-                className="search-button"
-                onClick={() => setIsSearchExpanded(!isSearchExpanded)}
-              >
-                <img
-                  src={lupabranca}
-                  alt="Lupa"
-                  style={{ width: "30px", height: "30px" }}
-                />
-              </button>
             </div>
           </div>
         </div>
 
-        <div className="Catalogo__part">
-          <div className="Catalogo__part__inside"></div>
+        {/* Botão de Filtro */}
+        <div className="Catalogo__filters__button">
+          <button
+            onClick={() => {
+              const reset = {
+                tipo: "todos",
+                material: "",
+                genero: "",
+                precoMin: "",
+                precoMax: "",
+              };
+              setTempFilter(reset);
+              setSelectedFilter("todos");
+              setShowFilters(false); // Fecha o modal/dropdown ao limpar
+            }}
+          >
+            Limpar
+          </button>
+
+          <button onClick={() => setShowFilters(true)}>Filtros</button>
         </div>
+
+        {/* Modal de Filtros */}
+        {showFilters && (
+          <div className="dropdownFilters">
+            {/* Dropdown */}
+            {renderFilters()}
+          </div>
+        )}
 
         {/* Exibição dos anúncios */}
         <div className="anuncios__container">

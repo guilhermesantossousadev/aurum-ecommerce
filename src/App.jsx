@@ -38,6 +38,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import "./App.css";
 import Carreiras from "./pages/Carreiras";
+import CadastroJoia from "./components/CadastroJoia";
 
 function App() {
   const usuario = useSelector((state) => state.user);
@@ -49,6 +50,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/catalogo" element={<Catalogo />} />
+
+        <Route path="/cadastroJoia" element={<CadastroJoia />} />
 
         <Route path="/detalhesAnel/:id" element={<DetalhesAnel />} />
         <Route path="/detalhesBrinco/:id" element={<DetalhesBrinco />} />

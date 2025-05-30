@@ -74,7 +74,7 @@ function Home() {
                   <img src={adage} alt="imagem" />
                 </div>
                 <div className="Home__Hero__item__text">
-                  <p>Design and Branding Agency of the Year</p>
+                  <p>Loja de Joias Premiada do Ano</p>
                 </div>
               </div>
               <div className="Home__Hero__item">
@@ -82,7 +82,7 @@ function Home() {
                   <img src={webby} alt="imagem" />
                 </div>
                 <div className="Home__Hero__item__text">
-                  <p>Agency of the Year</p>
+                  <p>Melhor Atendimento ao Cliente</p>
                 </div>
               </div>
               <div className="Home__Hero__item">
@@ -90,7 +90,7 @@ function Home() {
                   <img src={campaing} alt="imagem" />
                 </div>
                 <div className="Home__Hero__item__text">
-                  <p> Digital Innovation Agency of the Year Finalist</p>
+                  <p>Finalista em Design de Joias Exclusivas</p>
                 </div>
               </div>
             </div>
