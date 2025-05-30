@@ -271,7 +271,8 @@
 
 .Home__Echo {
   width: 100%;
-  height: 160vh;
+  height: auto;
+  min-height: 100vh;
   padding: 2vw 6vw;
 }
 
@@ -439,7 +440,7 @@ a.Home__Echo__container__item {
 /*Home Echo responsividade*/
 @media (max-width: 1024px) {
   .Home__Echo {
-    height: 320vh;
+    height: 250vh;
   }
   .Home__Echo__container {
     height: auto;
