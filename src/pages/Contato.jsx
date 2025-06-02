@@ -45,27 +45,22 @@ function Contato() {
                     <h3>(Várias Aberturas)</h3>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="Contato__end">
-          <div className="Contato__part">
-            <div className="Contato__part__inside"></div>
-          </div>
 
-          <div className="Contato__end__bottom">
-            <div className="Contato__end__bottom__item left">
-              <h1 className="Contato__end__bottom__item__h1">Follow</h1>
-            </div>
-            <div className="Contato__end__bottom__item right">
-              <h2 className="Contato__end__bottom__item__h2">Social</h2>
-              <ul>
-                <li>Instagram</li>
-                <li>Twitter</li>
-                <li>Linkedin</li>
-                <li>Facebook</li>
-              </ul>
+                <div className="Contato__init__item__bottom__right__bottom">
+                  <div className="Contato__init__item__bottom__right__bottom__item">
+                    <h1>Follow</h1>
+                  </div>
+                  <div className="Contato__init__item__bottom__right__bottom__item">
+                    <h1>Social</h1>
+                    <ul>
+                      <li>Instagram</li>
+                      <li>Twitter</li>
+                      <li>Linkedin</li>
+                      <li>Facebook</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

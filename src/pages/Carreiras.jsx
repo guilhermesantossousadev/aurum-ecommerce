@@ -8,7 +8,7 @@ function Carreiras() {
       <div className="Carreiras">
         <div className="Carreiras__container">
           <div className="Carreiras__container__item left">
-            <h1 className="fade-in-up">Faça DopeSh*t. ● Seja pago.</h1>
+            <h1 className="fade-in-up">Faça Coisas incríveis. ● Seja pago.</h1>
             <h4>
               Faça um ótimo trabalho. Trabalhe com pessoas excelentes.
               BASIC/DEPT®, Inc 10 - 25©

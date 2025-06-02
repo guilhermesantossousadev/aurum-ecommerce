@@ -1,0 +1,148 @@
+import { useState } from "react";
+import "../../styles/Admin/AdminPage.css";
+
+function AdminPage() {
+  const [titulo, setTitulo] = useState("");
+  const [mensagem, setMensagem] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [feedback, setFeedback] = useState("");
+  const [error, setError] = useState("");
+
+  const postNewsLetter = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setFeedback("");
+    setError("");
+
+    try {
+      const response = await fetch(
+        "https://localhost:7081/api/Newsletter/PostMessageNewsletter",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ titulo, mensagem }),
+        }
+      );
+
+      if (!response.ok) throw new Error("Erro ao cadastrar uma newsletter");
+
+      setFeedback("Newsletter cadastrada com sucesso!");
+      setTitulo("");
+      setMensagem("");
+    } catch (err) {
+      console.error(err);
+      setError("Ocorreu um erro ao cadastrar a newsletter.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="Admin">
+      <div className="Admin__form">
+        <form onSubmit={postNewsLetter}>
+          <h1>Adicionar uma newsletter</h1>
+
+          <label htmlFor="titulo">Título</label>
+          <input
+            type="text"
+            id="titulo"
+            value={titulo}
+            onChange={(e) => setTitulo(e.target.value)}
+            placeholder="Digite o Título"
+            required
+          />
+
+          <label htmlFor="mensagem">Mensagem</label>
+          <textarea
+            id="mensagem"
+            value={mensagem}
+            placeholder="Digite a Mensagem"
+            onChange={(e) => setMensagem(e.target.value)}
+            rows={4}
+            required
+          />
+
+          <button type="submit" disabled={loading}>
+            {loading ? "Enviando..." : "Enviar"}
+          </button>
+
+          {feedback && <p className="feedback">{feedback}</p>}
+          {error && <p className="error">{error}</p>}
+        </form>
+      </div>
+    </div>
+  );
+}
+
+export default AdminPage;
+
+
+
+
+
+
+
+
+.Admin form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 600px;
+  height: auto;
+  border-radius: 2pxs;
+  border: 1px solid #f9cdcd;
+  padding: 2rem;
+  background-color: #262523;
+}
+
+.Admin form h1 {
+  color: #f9cdcd;
+  font-size: 1.2rem;
+}
+
+.Admin form label {
+  color: #f9cdcd;
+  font-size: 0.9rem;
+}
+
+.Admin form input {
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: #262523;
+  color: #fff;
+  border: none;
+  border-bottom: 1px solid #f9cdcd;
+  padding: 0.6rem;
+}
+
+.Admin form input:focus {
+  outline: none; /* tira a borda padrão do navegador */
+}
+
+.Admin form textarea {
+  background-color: #262523;
+  border: 1px solid #f9cdcd;
+  padding: 1rem;
+}
+
+.Admin form textarea:focus {
+  outline: none; /* tira a borda padrão do navegador */
+}
+
+.Admin form button {
+  padding: 0.7rem 0.9rem;
+  background-color: #f9cdcd;
+  border: 1px solid #f9cdcd; /* já define a borda aqui */
+  color: #000;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  max-height: 50px;
+}
+
+.Admin form button:hover {
+  cursor: pointer;
+  background-color: transparent;
+  color: #f9cdcd;
+}

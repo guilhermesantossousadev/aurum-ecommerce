@@ -27,7 +27,7 @@ function Footer() {
         "/carrinho",
         "/profile",
         "/contato",
-        "/sobre",
+        "/adminPage",
       ].includes(path)
     )
       return "black-text";
@@ -173,7 +173,7 @@ function Footer() {
         <div className="footer__bottom__item">
           Termos, Política de Privacidade
         </div>
-        */} 
+        */}
       </div>
     </footer>
   );

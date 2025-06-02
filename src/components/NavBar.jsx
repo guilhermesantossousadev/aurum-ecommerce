@@ -23,7 +23,7 @@ const NavBar = () => {
     "/token-authentication",
   ].includes(location.pathname);
 
-  const isWhiteTextPage = ["/", "/contact", "/careers"].includes(
+  const isWhiteTextPage = ["/", "/contact", "/careers", "/adminPage"].includes(
     location.pathname
   );
 
@@ -122,32 +122,15 @@ const NavBar = () => {
 
         {user ? (
           <>
-            {user.isAdmin === true && (
-              <div className="dropdown">
-                <button
-                  className="dropdown-toggle"
-                  onClick={() => setOpen(!open)}
-                >
-                  Menu ▼
-                </button>
-                {open && (
-                  <ul className="dropdown-menu">
-                    <li>
-                      <a href="#opcao1">Opção 1</a>
-                    </li>
-                    <li>
-                      <a href="#opcao2">Opção 2</a>
-                    </li>
-                    <li>
-                      <a href="#opcao3">Opção 3</a>
-                    </li>
-                  </ul>
-                )}
-              </div>
+            {user.isAdmin ? (
+              <li>
+                <Link to="/adminPage">Dashboard</Link>
+              </li>
+            ) : (
+              <li>
+                <Link to="/profile">Bem-vindo, {user.nome}!</Link>
+              </li>
             )}
-            <li>
-              <Link to="/profile">Bem-vindo, {user.nome}!</Link>
-            </li>
           </>
         ) : (
           <li className={`login ${user ? "" : "logged"}`}>
@@ -155,6 +138,7 @@ const NavBar = () => {
           </li>
         )}
       </ul>
+
       {/* Botão de abrir menu mobile */}
       <button
         onClick={() => setIsMenuOpen(true)}

@@ -19,6 +19,7 @@
   display: flex;
   flex-direction: column;
   padding-top: 10rem;
+  min-height: 1600px;
 }
 
 .Contato__init {
@@ -114,6 +115,22 @@
   gap: 20px;
 }
 
+.Contato__init__item__bottom__right__bottom__item ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  list-style: none;
+}
+
+.Contato__init__item__bottom__right__bottom__item ul li {
+  text-decoration: underline;
+}
+
+.Contato__init__item__bottom__right__bottom__item ul li:hover {
+  text-decoration: none;
+  cursor: pointer;
+}
+
 .Contato__init__item__bottom__right__top__item span {
   text-decoration: underline;
   color: rgb(69 72 67);
@@ -145,92 +162,6 @@
   height: 100%;
   background-color: #000;
   border-radius: 7px;
-}
-
-.Contato__end {
-  width: 100%;
-  height: auto;
-  padding-top: 10rem;
-}
-
-.Contato__end__bottom {
-  width: 100%;
-  display: flex;
-  gap: 2rem;
-}
-
-.Contato__end__bottom__item {
-  height: auto;
-}
-
-.Contato__end__bottom__item.left {
-  padding: 2rem;
-  width: 100%;
-  padding-inline: 3.8rem;
-}
-
-.Contato__end__bottom__item.right {
-  width: 100%;
-  padding: 2rem;
-  padding-inline: 3.8rem;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.Contato__end__bottom__item.right ul {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.Contato__end__bottom__item.right li {
-  font-size: 1.2rem;
-  text-decoration: underline;
-}
-
-.Contato__end__bottom__item.right li:hover {
-  text-decoration: none;
-  cursor: pointer;
-}
-
-@media (max-width: 1024px) {
-  .Contato__end {
-    width: 100%;
-    height: auto;
-    padding-top: 5rem;
-  }
-
-  .Contato__end__bottom {
-    flex-direction: column;
-    gap: 2rem;
-    padding-inline: 3.8rem;
-  }
-
-  .Contato__end__bottom__item.left,
-  .Contato__end__bottom__item.right {
-    width: 100%;
-    padding-inline: 2rem;
-  }
-
-  .Contato__end__bottom__item.right {
-    padding-inline: 2rem;
-  }
-}
-
-@media (max-width: 600px) {
-  .Contato__end__bottom__item__h1 {
-    font-size: 1.8rem;
-  }
-
-  .Contato__end__bottom__item__h2 {
-    font-size: 1.1rem;
-  }
-
-  .Contato__end__bottom__item.right li {
-    font-size: 0.95rem;
-  }
 }
 
 @media (max-width: 1024px) {

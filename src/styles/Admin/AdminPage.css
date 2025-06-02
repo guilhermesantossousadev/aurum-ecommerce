@@ -1,71 +1,24 @@
 .Admin {
   height: 100vh;
   width: 100%;
+  background-color: rgb(244 244 244);
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #262523;
 }
 
-.Admin form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 600px;
-  height: auto;
-  border-radius: 2pxs;
-  border: 1px solid #f9cdcd;
-  padding: 2rem;
-  background-color: #262523;
+.Admin__menu {
+  width: 20%;
+  height: 100%;
+  border-right: 1px solid black;
+  padding-top: 5rem;
 }
 
-.Admin form h1 {
-  color: #f9cdcd;
-  font-size: 1.2rem;
+.Admin__menu ul {
+  width: 100%;
+  height: 100%;
+  background-color: black;
 }
 
-.Admin form label {
-  color: #f9cdcd;
-  font-size: 0.9rem;
-}
-
-.Admin form input {
-  appearance: none;
-  -webkit-appearance: none;
-  background-color: #262523;
-  color: #fff;
-  border: none;
-  border-bottom: 1px solid #f9cdcd;
-  padding: 0.6rem;
-}
-
-.Admin form input:focus {
-  outline: none; /* tira a borda padrão do navegador */
-}
-
-.Admin form textarea {
-  background-color: #262523;
-  border: 1px solid #f9cdcd;
-  padding: 1rem;
-}
-
-.Admin form textarea:focus {
-  outline: none; /* tira a borda padrão do navegador */
-}
-
-.Admin form button {
-  padding: 0.7rem 0.9rem;
-  background-color: #f9cdcd;
-  border: 1px solid #f9cdcd; /* já define a borda aqui */
-  color: #000;
-  font-weight: bold;
-  text-transform: uppercase;
-  transition: all 0.3s ease;
-  max-height: 50px;
-}
-
-.Admin form button:hover {
-  cursor: pointer;
-  background-color: transparent;
-  color: #f9cdcd;
+.Admin__all {
+  width: 80%;
+  height: 100%;
 }

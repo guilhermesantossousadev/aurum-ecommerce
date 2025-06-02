@@ -10,18 +10,18 @@ const Sobre = () => {
       <div className="Sobre__container">
         <div className="Sobre__container__item">
           <h1 className="Sobre__container__item__h1__left fade-in-up">
-            We turn cultural values
+            Nos transformamos valores culturais
           </h1>
         </div>
 
         <div className="Sobre__container__item">
           <h1 className="Sobre__container__item__right fade-in-up">
-            ● into company value
+            ● em valor empresarial
           </h1>
           <h3 className="Sobre__container__item__right_h3 fade-in-up">
-            AURUM/LUMINE® is a global agency that thrives at the intersection of
-            design, data, and technology. Together, we're focused on
-            transforming brands and culture — across the world.
+            A AURUM/LUMINE® é uma agência global que prospera na intersecção
+            entre design, dados e tecnologia. Juntos, estamos focados em
+            transformar marcas e culturas — em todo o mundo.
           </h3>
         </div>
       </div>
@@ -59,68 +59,69 @@ const Sobre = () => {
 
       <div className="Sobre__hero">
         <div className="Sobre__hero__item__left">
-          <h1>Agency Snapshot</h1>
+          <h1>Instantâneo da agência</h1>
         </div>
         <div className="Sobre__hero__item__right">
           <div className="Sobre__hero__item__right__top">
             <div className="Sobre__hero__item__right__top__left">
-              <h1 className="Sobre__hero__item__right__top__left">People</h1>
+              <h1 className="Sobre__hero__item__right__top__left">Pessoas</h1>
               <span className="Sobre__hero__item__right__top__left">120+</span>
               <p className="Sobre__hero__item__right__top__left">
-                We're a world-class team of diverse individuals who are here to
-                do great work as well as be great to work with.
+                Somos uma equipe de alto nível, composta por pessoas diversas
+                que estão aqui para fazer um ótimo trabalho e ser uma ótima
+                companhia para trabalhar.
               </p>
             </div>
             <div className="Sobre__hero__item__right__top__right">
               <h1 className="Sobre__hero__item__right__top__right">
-                Global Reach
+                Alcance global
               </h1>
               <span className="Sobre__hero__item__right__top__right">28</span>
               <p className="Sobre__hero__item__right__top__right">
-                As part of Dept, we have 28 offices and 1,500+ people across the
-                world dedicated to delivering the best design, strategy, and
-                technology services to our client partners.
+                Como parte do Dept, temos 28 escritórios e mais de 1.500 pessoas
+                em todo o mundo dedicadas a fornecer os melhores serviços de
+                design, estratégia e tecnologia aos nossos clientes parceiros.
               </p>
             </div>
           </div>
 
           <div className="Sobre__hero__item__right__mid">
             <div className="Sobre__hero__item__right__mid__left">
-              <h1>Years</h1>
+              <h1>Anos</h1>
               <span>10</span>
               <p>
-                While we’re proud of our history and our accomplishments, we’re
-                loyal to our future and not our past.
+                Embora tenhamos orgulho da nossa história e das nossas
+                realizações, somos leais ao nosso futuro e não ao nosso passado.
               </p>
             </div>
             <div className="Sobre__hero__item__right__mid__right">
-              <h1>Growth</h1>
+              <h1>Crescimento</h1>
               <span>168%</span>
               <p>
-                As Adweek’s 18th fastest growing agency, we’ve strengthened our
-                company with new leadership, talent, and clients the past two
-                years. We’re hiring btw.
+                Como a 18ª agência de crescimento mais rápido da Adweek,
+                fortalecemos nossa empresa com novas lideranças, talentos e
+                clientes nos últimos dois anos. Aliás, estamos contratando.
               </p>
             </div>
           </div>
 
           <div className="Sobre__hero__item__right__bottom">
             <div className="Sobre__hero__item__right__bottom__left">
-              <h1>Services</h1>
+              <h1>Serviços</h1>
               <span>05</span>
               <p>
-                Strategy. Brand Experience. Digital Experience. Content.
-                Technology. We’re uniquely built to build brands that matter in
-                culture.
+                Estratégia. Experiência de Marca. Experiência Digital. Conteúdo.
+                Tecnologia. Somos exclusivamente criados para construir marcas
+                que importam na cultura.
               </p>
             </div>
             <div className="Sobre__hero__item__right__bottom__right">
-              <h1>Ranking</h1>
+              <h1>Classificação</h1>
               <span>01</span>
               <p>
-                Within the mobile and website related categories, no other
-                agency has been recognized by the Webby Awards more than us the
-                past four years. Explore our work.
+                Nas categorias relacionadas a dispositivos móveis e sites,
+                nenhuma outra agência foi reconhecida pelo Webby Awards mais do
+                que nós nos últimos quatro anos. Explore nosso trabalho.
               </p>
             </div>
           </div>
