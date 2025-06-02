@@ -5,7 +5,6 @@ function CrudAnuncios() {
   const [urLs, setUrLs] = useState([]);
   const [usuarioId, setUsuarioId] = useState("");
 
-  // Estado completo para a joia
   const [joiaData, setJoiaData] = useState({
     tipoPeca: "",
     valor: 0,
@@ -52,7 +51,6 @@ function CrudAnuncios() {
       const result = await response.json();
       console.log("Joia criada:", result);
 
-      // Ajuste conforme o campo que a API retorna
       return result.id || result.joiaId;
     } catch (error) {
       console.error("Erro ao postar joia:", error);
@@ -60,7 +58,6 @@ function CrudAnuncios() {
     }
   }
 
-  // Função para postar o anúncio
   async function PostAnuncio(e) {
     e.preventDefault();
 
@@ -95,7 +92,7 @@ function CrudAnuncios() {
       const result = await response.json();
       console.log("Anúncio criado:", result);
 
-      // Limpa os campos após o sucesso
+      // Resetar formulário
       setTitulo("");
       setUrLs([]);
       setUsuarioId("");
@@ -135,13 +132,97 @@ function CrudAnuncios() {
     }
   }
 
-  // Função auxiliar para campos booleanos
+  // Campos específicos por tipo
+  const camposPorTipo = {
+    Anel: ["tamanho", "formato"],
+    Brinco: ["tipoFecho", "modelo", "altura", "pesoIndividual"],
+    Colar: [
+      "comprimento",
+      "espessura",
+      "havePendant",
+      "modelo",
+      "tipoCorrente",
+    ],
+    Piercing: ["regiao", "fechamento", "tamanho", "isAntiallergic"],
+    Pingente: ["formato"],
+    Pulseira: [
+      "tipoFecho",
+      "comprimento",
+      "espessura",
+      "haveCharms",
+      "flexibilidade",
+    ],
+    Relogio: [
+      "tipoMovimento",
+      "haveWaterResistance",
+      "diametroCaixa",
+      "materialPulseira",
+      "fonteEnergia",
+    ],
+  };
+
+  const camposComuns = [
+    "tipoPeca",
+    "valor",
+    "descricao",
+    "peso",
+    "material",
+    "isStudded",
+    "materialCravejado",
+  ];
+
   const handleBooleanChange = (e, field) => {
     setJoiaData({
       ...joiaData,
       [field]: e.target.checked,
     });
   };
+
+  const renderInput = (field) => {
+    const label = field
+      .replace(/([A-Z])/g, " $1")
+      .replace(/^./, (str) => str.toUpperCase());
+    if (typeof joiaData[field] === "boolean") {
+      return (
+        <label key={field}>
+          <input
+            type="checkbox"
+            checked={joiaData[field]}
+            onChange={(e) => handleBooleanChange(e, field)}
+          />
+          {label}
+        </label>
+      );
+    }
+    return (
+      <input
+        key={field}
+        type={typeof joiaData[field] === "number" ? "number" : "text"}
+        placeholder={label}
+        value={joiaData[field]}
+        onChange={(e) =>
+          setJoiaData({
+            ...joiaData,
+            [field]:
+              typeof joiaData[field] === "number"
+                ? Number(e.target.value)
+                : e.target.value,
+          })
+        }
+        required={
+          field === "tipoPeca" ||
+          field === "valor" ||
+          field === "descricao" ||
+          field === "peso" ||
+          field === "material"
+        }
+      />
+    );
+  };
+
+  const camposAtuais = camposComuns.concat(
+    camposPorTipo[joiaData.tipoPeca] || []
+  );
 
   return (
     <div className="CrudAnuncios">
@@ -173,218 +254,28 @@ function CrudAnuncios() {
         />
 
         <h2>Dados da Joia</h2>
-        <input
-          type="text"
-          placeholder="Tipo da peça"
+
+        {/* TipoPeca deve vir primeiro para decidir os campos */}
+        <select
           value={joiaData.tipoPeca}
           onChange={(e) =>
             setJoiaData({ ...joiaData, tipoPeca: e.target.value })
           }
           required
-        />
+        >
+          <option value="">Selecione o tipo de peça</option>
+          <option value="Anel">Anel</option>
+          <option value="Brinco">Brinco</option>
+          <option value="Colar">Colar</option>
+          <option value="Piercing">Piercing</option>
+          <option value="Pingente">Pingente</option>
+          <option value="Pulseira">Pulseira</option>
+          <option value="Relogio">Relógio</option>
+        </select>
 
-        <input
-          type="number"
-          placeholder="Valor"
-          value={joiaData.valor}
-          onChange={(e) =>
-            setJoiaData({ ...joiaData, valor: Number(e.target.value) })
-          }
-          required
-        />
-
-        <input
-          type="text"
-          placeholder="Descrição"
-          value={joiaData.descricao}
-          onChange={(e) =>
-            setJoiaData({ ...joiaData, descricao: e.target.value })
-          }
-          required
-        />
-
-        <input
-          type="number"
-          placeholder="Peso"
-          value={joiaData.peso}
-          onChange={(e) =>
-            setJoiaData({ ...joiaData, peso: Number(e.target.value) })
-          }
-          required
-        />
-
-        <input
-          type="text"
-          placeholder="Material"
-          value={joiaData.material}
-          onChange={(e) =>
-            setJoiaData({ ...joiaData, material: e.target.value })
-          }
-          required
-        />
-
-        {/* Campos booleanos */}
-        <label>
-          <input
-            type="checkbox"
-            checked={joiaData.isStudded}
-            onChange={(e) => handleBooleanChange(e, "isStudded")}
-          />
-          Possui pedras?
-        </label>
-
-        <label>
-          <input
-            type="checkbox"
-            checked={joiaData.havePendant}
-            onChange={(e) => handleBooleanChange(e, "havePendant")}
-          />
-          Tem pingente?
-        </label>
-
-        <label>
-          <input
-            type="checkbox"
-            checked={joiaData.isAntiallergic}
-            onChange={(e) => handleBooleanChange(e, "isAntiallergic")}
-          />
-          É antialérgica?
-        </label>
-
-        <label>
-          <input
-            type="checkbox"
-            checked={joiaData.haveCharms}
-            onChange={(e) => handleBooleanChange(e, "haveCharms")}
-          />
-          Tem charms?
-        </label>
-
-        <label>
-          <input
-            type="checkbox"
-            checked={joiaData.haveWaterResistance}
-            onChange={(e) => handleBooleanChange(e, "haveWaterResistance")}
-          />
-          Resistente à água?
-        </label>
-
-        {/* Outros campos numéricos e textuais (opcional ou obrigatórios) */}
-        <input
-          type="text"
-          placeholder="Material cravejado"
-          value={joiaData.materialCravejado}
-          onChange={(e) =>
-            setJoiaData({ ...joiaData, materialCravejado: e.target.value })
-          }
-        />
-
-        <input
-          type="number"
-          placeholder="Tamanho"
-          value={joiaData.tamanho}
-          onChange={(e) =>
-            setJoiaData({ ...joiaData, tamanho: Number(e.target.value) })
-          }
-        />
-
-        <input
-          type="text"
-          placeholder="Formato"
-          value={joiaData.formato}
-          onChange={(e) =>
-            setJoiaData({ ...joiaData, formato: e.target.value })
-          }
-        />
-
-        <input
-          type="text"
-          placeholder="Tipo de fecho"
-          value={joiaData.tipoFecho}
-          onChange={(e) =>
-            setJoiaData({ ...joiaData, tipoFecho: e.target.value })
-          }
-        />
-
-        <input
-          type="text"
-          placeholder="Modelo"
-          value={joiaData.modelo}
-          onChange={(e) => setJoiaData({ ...joiaData, modelo: e.target.value })}
-        />
-
-        <input
-          type="number"
-          placeholder="Altura"
-          value={joiaData.altura}
-          onChange={(e) =>
-            setJoiaData({ ...joiaData, altura: Number(e.target.value) })
-          }
-        />
-
-        {/* Adicione outros campos numéricos da mesma forma */}
-        {/* pesoIndividual, comprimento, espessura, diametroCaixa, etc. */}
-
-        <input
-          type="text"
-          placeholder="Tipo de corrente"
-          value={joiaData.tipoCorrente}
-          onChange={(e) =>
-            setJoiaData({ ...joiaData, tipoCorrente: e.target.value })
-          }
-        />
-
-        <input
-          type="text"
-          placeholder="Região"
-          value={joiaData.regiao}
-          onChange={(e) => setJoiaData({ ...joiaData, regiao: e.target.value })}
-        />
-
-        <input
-          type="text"
-          placeholder="Fechamento"
-          value={joiaData.fechamento}
-          onChange={(e) =>
-            setJoiaData({ ...joiaData, fechamento: e.target.value })
-          }
-        />
-
-        <input
-          type="text"
-          placeholder="Flexibilidade"
-          value={joiaData.flexibilidade}
-          onChange={(e) =>
-            setJoiaData({ ...joiaData, flexibilidade: e.target.value })
-          }
-        />
-
-        <input
-          type="text"
-          placeholder="Tipo de movimento"
-          value={joiaData.tipoMovimento}
-          onChange={(e) =>
-            setJoiaData({ ...joiaData, tipoMovimento: e.target.value })
-          }
-        />
-
-        <input
-          type="text"
-          placeholder="Material da pulseira"
-          value={joiaData.materialPulseira}
-          onChange={(e) =>
-            setJoiaData({ ...joiaData, materialPulseira: e.target.value })
-          }
-        />
-
-        <input
-          type="text"
-          placeholder="Fonte de energia"
-          value={joiaData.fonteEnergia}
-          onChange={(e) =>
-            setJoiaData({ ...joiaData, fonteEnergia: e.target.value })
-          }
-        />
+        {camposAtuais
+          .filter((field) => field !== "tipoPeca") // já renderizamos TipoPeca acima
+          .map((field) => renderInput(field))}
 
         <button type="submit">Criar Anúncio e Joia</button>
       </form>
