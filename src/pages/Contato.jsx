@@ -4,14 +4,14 @@ import contatoimg from "../images/contatoimg.jpeg";
 import anel from "../images/AnelHome.jpg";
 import { Link } from "react-router-dom";
 
-import Assinatura from "../images/AssinaturaEstética.jpg";
-import Presenca from "../images/PresençaSensorial.jpg";
-import Simbolos from "../images/SímbolosVivos.jpg";
-import Tiara from "../images/TiaraVladimir.jpg";
-import Estilo from "../images/EstilocomSignificado.jpg";
-import Hope from "../images/Hope.jpg";
-import Vinculo from "../images/VínculoSingular.png";
-import Essencia from "../images/Essencia.jpeg";
+import sandiego from "../images/offices/sandiego.webp";
+import newyork from "../images/offices/newyork.webp";
+import bayarea from "../images/offices/bayarea.webp";
+import stlouis from "../images/offices/stlouis.webp";
+import amsterdam from "../images/offices/amsterdam.webp";
+import london from "../images/offices/london.webp";
+import berlin from "../images/offices/berlin.webp";
+import argentina from "../images/offices/argentina.webp";
 
 function Contato() {
   return (
@@ -89,7 +89,7 @@ function Contato() {
             <div className="Contato__Box__item">
               <div className="Contato__Box__item__top">
                 <div className="Contato__Box__item__top__img">
-                  <img src={Hope} alt="Hope" />
+                  <img src={sandiego} alt="sandiego" />
                 </div>
               </div>
               <div className="Contato__Box__item__bottom">
@@ -101,7 +101,7 @@ function Contato() {
               {" "}
               <div className="Contato__Box__item__top">
                 <div className="Contato__Box__item__top__img">
-                  <img src={Tiara} alt="Tiara" />
+                  <img src={newyork} alt="newyork" />
                 </div>
               </div>
               <div className="Contato__Box__item__bottom">
@@ -121,7 +121,7 @@ function Contato() {
             <div className="Contato__Box__item">
               <div className="Contato__Box__item__top">
                 <div className="Contato__Box__item__top__img">
-                  <img src={Assinatura} alt="Assinatura" />
+                  <img src={bayarea} alt="bayarea" />
                 </div>
               </div>
               <div className="Contato__Box__item__bottom">
@@ -133,7 +133,7 @@ function Contato() {
               {" "}
               <div className="Box__item__top">
                 <div className="Box__item__top__img">
-                  <img src={Presenca} alt="Presença" />
+                  <img src={stlouis} alt="stlouis" />
                 </div>
               </div>
               <div className="Contato__Box__item__bottom">
@@ -153,7 +153,7 @@ function Contato() {
             <div className="Contato__Box__item">
               <div className="Contato__Box__item__top">
                 <div className="Contato__Box__item__top__img">
-                  <img src={Simbolos} alt="Simbolos" />
+                  <img src={amsterdam} alt="amsterdam" />
                 </div>
               </div>
               <div className="Contato__Box__item__bottom">
@@ -164,7 +164,7 @@ function Contato() {
             <div className="Contato__Box__item">
               <div className="Contato__Box__item__top">
                 <div className="Contato__Box__item__top__img">
-                  <img src={Estilo} alt="Estilo" />
+                  <img src={london} alt="london" />
                 </div>
               </div>
               <div className="Contato__Box__item__bottom">
@@ -187,7 +187,7 @@ function Contato() {
             <div className="Contato__Box__item">
               <div className="Contato__Box__item__top">
                 <div className="Contato__Box__item__top__img">
-                  <img src={Vinculo} alt="Vinculo" />
+                  <img src={berlin} alt="berlin" />
                 </div>
               </div>
               <div className="Contato__Box__item__bottom">
@@ -199,7 +199,7 @@ function Contato() {
               {" "}
               <div className="Contato__Box__item__top">
                 <div className="Contato__Box__item__top__img">
-                  <img src={Essencia} alt="Essencia" />
+                  <img src={argentina} alt="argentina" />
                 </div>
               </div>
               <div className="Contato__Box__item__bottom">
