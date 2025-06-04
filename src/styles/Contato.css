@@ -31,7 +31,6 @@
   min-height: 1600px;
 }
 
-
 .Contato__init {
   width: 100%;
   height: 1200px;
@@ -412,6 +411,8 @@
   height: 100%;
   max-height: 50px;
   width: 100%;
+  text-transform: uppercase;
+  font-weight: bold;
 }
 
 .Contato__Box__item__bottom p {
@@ -420,6 +421,7 @@
   width: 100%;
   max-height: 50px;
   height: 100%;
+  text-transform: uppercase;
 }
 
 @media (max-width: 1024px) {
