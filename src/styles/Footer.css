@@ -58,6 +58,36 @@
 
 .footer.pink-text {
   color: var(--pink-color);
+  background-color: #252422;
+}
+.input__footer.white-text {
+  color: #fff;
+  border-bottom: 2px solid #fff;
+  background-color: transparent;
+}
+
+.input__footer.white-text::placeholder {
+  color: #fff;
+}
+
+.input__footer.black-text {
+  color: #000;
+  border-bottom: 2px solid #000;
+  background-color: transparent;
+}
+
+.input__footer.black-text::placeholder {
+  color: #555;
+}
+
+.input__footer.pink-text {
+  color: var(--pink-color);
+  border-bottom: 2px solid var(--pink-color);
+  background-color: transparent;
+}
+
+.input__footer.pink-text::placeholder {
+  color: var(--pink-color);
 }
 
 .footer.pink-text a,
@@ -163,6 +193,12 @@
 
 .footer__item input::placeholder {
   color: #f4f4f4;
+}
+
+.footer__item input:focus {
+  outline: none; /* tira a borda padrão do navegador */
+  color: #fff;
+  border-radius: 0;
 }
 
 .footer__item button {

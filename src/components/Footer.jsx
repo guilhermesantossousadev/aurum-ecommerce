@@ -17,13 +17,12 @@ function Footer() {
         "/login",
         "/register",
         "/token-authentication",
+        "/servicos",
       ].includes(path)
     )
       return "white-text";
     if (
       [
-        "/servicos",
-        "/carreiras",
         "/carrinho",
         "/profile",
         "/contato",

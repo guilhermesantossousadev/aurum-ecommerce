@@ -1,5 +1,6 @@
 import "../styles/Servicos.css";
 import anel from "../images/AnelHome.jpg";
+import { Link } from "react-router-dom";
 
 import Assinatura from "../images/AssinaturaEstética.jpg";
 import Presenca from "../images/PresençaSensorial.jpg";
@@ -42,7 +43,9 @@ function Servicos() {
               Nós vamos além das melhores práticas e criamos as melhores joias
               que impulsionam o comércio, moldam a cultura e definem categorias.
             </h4>
-            <button>Saiba Mais</button>
+            <Link to="/sobre">
+              <button>Saiba Mais</button>
+            </Link>
           </div>
           <div className="Box__item">
             <div className="Box__item__top">
@@ -87,7 +90,10 @@ function Servicos() {
               Nós concebemos e criamos experiências que envolvem os consumidores
               por meio de uma combinação de personalidade e expressão.
             </h4>
-            <button>Saiba Mais</button>
+
+            <Link to="/sobre">
+              <button>Saiba Mais</button>
+            </Link>
           </div>
           <div className="Box__item">
             <div className="Box__item__top">
@@ -132,7 +138,9 @@ function Servicos() {
               Criamos identidades, formas e personalidades que diferenciam joias
               e as posicionam para serem relevantes na cultura.
             </h4>
-            <button>Saiba Mais</button>
+            <Link to="/sobre">
+              <button>Saiba Mais</button>
+            </Link>
           </div>
           <div className="Box__item">
             <div className="Box__item__top">
@@ -179,7 +187,9 @@ function Servicos() {
               consumidor e ajudam os clientes a encontrar sua personalidade,
               cultura e estilo.
             </h4>
-            <button>Saiba Mais</button>
+            <Link to="/sobre">
+              <button>Saiba Mais</button>
+            </Link>
           </div>
           <div className="Box__item">
             <div className="Box__item__top">

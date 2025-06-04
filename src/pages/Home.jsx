@@ -110,7 +110,9 @@ function Home() {
                   valor cultural em peças que refletem sofisticação e
                   autenticidade.
                 </h2>
-                <button>Veja nossos Servicos</button>
+                <Link to="/servicos">
+                  <button>Veja nossos Serviços</button>
+                </Link>
               </div>
               <div className="Home__delta__right">
                 <h1> A/L®</h1>

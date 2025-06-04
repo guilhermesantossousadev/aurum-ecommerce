@@ -97,7 +97,7 @@ const NavBar = () => {
       {/* Menu para telas grandes */}
       <ul className={`navbar__list ${user ? "" : "logged"}`}>
         <li>
-          <Link to="/servicos">Servicos</Link>
+          <Link to="/servicos">Serviços</Link>
         </li>
         <li>
           <Link to="/sobre">Sobre</Link>
@@ -167,7 +167,7 @@ const NavBar = () => {
         <ul className="navbar__mobile__ul">
           <li>
             <Link to="/servicos" onClick={() => setIsMenuOpen(false)}>
-              Servicos
+              Serviços
             </Link>
           </li>
           <li>
@@ -181,11 +181,15 @@ const NavBar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/carrinho" onClick={() => setIsMenuOpen(false)}>
-              Carrinho
-            </Link>
-          </li>
-          <li>
+            {user ? (
+              <li>
+                <Link to="/carrinho" onClick={() => setIsMenuOpen(false)}>
+                  Carrinho
+                </Link>
+              </li>
+            ) : (
+              <li></li>
+            )}
             <Link to="/carreiras" onClick={() => setIsMenuOpen(false)}>
               Carreiras
             </Link>
