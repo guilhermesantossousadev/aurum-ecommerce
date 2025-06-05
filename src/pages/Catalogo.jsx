@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import "../styles/Catalogo.css";
 import lupabranca from "../images/lupa-branca.png";
 
+import seta from "../images/seta-direita.png";
+
 import searchicon from "../images/searchicon.png";
 import xpng from "../images/x.png";
 
@@ -293,28 +295,32 @@ function Catalogo() {
         )}
         <div className="anuncios__grid">
           {currentAnuncios.map((anuncio) => (
-            <div
-              key={anuncio.id}
-              className="anuncio__card"
-              onClick={() => handleAnuncioClick(anuncio.id)}
-            >
-              <div className="Catalogo__part">
-                <div className="Catalogo__part__inside"></div>
-              </div>
-              <div className="anuncio__card__container">
-                <div className="anuncio__card__img">
-                  {anuncio.urLs?.[0] && (
-                    <img
-                      src={anuncio.urLs[0]}
-                      alt="Imagem do anúncio"
-                      className="anuncio__image"
-                    />
-                  )}
+              <div
+                key={anuncio.id}
+                className="anuncio__card"
+                onClick={() => handleAnuncioClick(anuncio.id)}
+              >
+                <div className="Catalogo__part">
+                  <div className="Catalogo__part__inside"></div>
                 </div>
-                <h3>{anuncio.titulo}</h3>
-                <p>{anuncio.descricao}</p>
+                <div className="anuncio__card__container">
+                  <div className="anuncio__card__img">
+                    {anuncio.urLs?.[0] && (
+                      <img
+                        src={anuncio.urLs[0]}
+                        alt="Imagem do anúncio"
+                        className="anuncio__image"
+                      />
+                    )}
+                  </div>
+                  <h3>{anuncio.titulo}</h3>
+                  <p>{anuncio.descricao}</p>
+
+                  <div className="anuncio__card__seta">
+                    <img src={seta} alt="seta" width="10px" />
+                  </div>
+                </div>
               </div>
-            </div>
           ))}
         </div>
 
