@@ -298,6 +298,9 @@ function Catalogo() {
               className="anuncio__card"
               onClick={() => handleAnuncioClick(anuncio.id)}
             >
+              <div className="Catalogo__part">
+                <div className="Catalogo__part__inside"></div>
+              </div>
               <div className="anuncio__card__container">
                 <div className="anuncio__card__img">
                   {anuncio.urLs?.[0] && (
@@ -310,10 +313,6 @@ function Catalogo() {
                 </div>
                 <h3>{anuncio.titulo}</h3>
                 <p>{anuncio.descricao}</p>
-              </div>
-
-              <div className="Catalogo__part">
-                <div className="Catalogo__part__inside"></div>
               </div>
             </div>
           ))}
