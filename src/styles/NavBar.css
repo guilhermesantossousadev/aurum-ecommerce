@@ -159,7 +159,7 @@
 }
 
 .navbar__list a:hover {
-  color: var(--text-hover-color);
+  color: #fff;
 }
 
 /* Botão abrir menu mobile */
