@@ -155,13 +155,13 @@
 
 .Search__header__container__input:hover {
   outline: none; /* tira a borda padrão do navegador */
-  border-bottom: 1px solid #3333339a;
+  border-bottom: 1px solid #252422;
   border-radius: 0;
 }
 
 .Search__header__container__input:focus {
   outline: none; /* tira a borda padrão do navegador */
-  border-bottom: 1px solid #3333339a;
+  border-bottom: 1px solid #252422;
   border-radius: 0;
 }
 
