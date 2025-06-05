@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import ImageCarousel from "../../components/ImageCarousel";
-import setaesquerdabranca from "../../images/seta-esquerda-branca.png";
+import setaesquerdabranca from "../../images/SetaBrancaEsquerda.png";
 
 import BotaoPrimario from "../../components/BotaoPrimario";
 import { toast } from "react-toastify";

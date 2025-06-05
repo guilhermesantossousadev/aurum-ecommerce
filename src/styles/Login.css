@@ -1,5 +1,5 @@
 .Login {
-  min-height: 100vh;
+  min-height: 110vh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -7,50 +7,109 @@
   justify-content: center;
   background-color: #f5f5f5;
   padding: 2rem;
+  box-sizing: border-box;
 }
 
 .Login__container {
   width: 100%;
-  max-width: 400px;
-  background-color: #ffffff;
-  padding: 2rem;
-  border-radius: 8px;
+  max-width: 1400px;
+  height: 800px;
+  border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+/* Left and Right container */
+.Login__container__left {
+  flex: 1 1 50%;
+  height: 100%;
+  min-width: 300px;
+}
+
+.Login__container__right {
+  flex: 1 1 50%;
+  height: 100%;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.Login__container__right__top {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Login__container__right__middle {
+  width: 100%;
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.Login__container__right__bottom {
+  width: 100%;
+  height: 20%;
+}
+
+.Login__container__left img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
 }
 
 .Login__title {
-  text-align: center;
   color: #333;
   margin-bottom: 2rem;
   font-size: 1.8rem;
+  text-align: center;
 }
 
 .Login__form {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  width: 100%;
+}
+
+.Login__form label {
+  font-weight: bold;
 }
 
 .Login__input {
   width: 100%;
   padding: 0.8rem;
-  border: 1px solid #ddd;
+  border: 1px solid rgba(221, 221, 221, 0.5);
   border-radius: 4px;
   font-size: 1rem;
   transition: border-color 0.3s ease;
-  color: #000000 !important;
+  color: #000 !important;
+  box-sizing: border-box;
 }
 
 .Login__input:focus {
   outline: none;
-  border-color: #007bff;
+  border-color: #000;
 }
 
 .Login__button {
   width: 100%;
   padding: 0.8rem;
-  background-color: #000000;
-  color: white;
+  background-color: #000;
+  color: #fff;
   border: none;
   border-radius: 4px;
   font-size: 1rem;
@@ -68,15 +127,16 @@
 }
 
 .Login__links {
-  margin-top: 1.5rem;
+  margin-top: 2rem;
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
   gap: 1rem;
 }
 
 .Login__link {
-  color: #000000;
+  color: #000;
   text-decoration: none;
   font-size: 0.9rem;
   transition: color 0.3s ease;
@@ -87,34 +147,98 @@
   text-decoration: underline;
 }
 
-.Login__error {
-  background-color: #f8d7da;
-  color: #721c24;
+.Login__error,
+.Login__success {
+  width: 100%;
   padding: 0.8rem;
   border-radius: 4px;
   margin-bottom: 1rem;
   text-align: center;
+  box-sizing: border-box;
+}
+
+.Login__error {
+  background-color: #f8d7da;
+  color: #721c24;
 }
 
 .Login__success {
   background-color: #d4edda;
   color: #155724;
-  padding: 0.8rem;
-  border-radius: 4px;
-  margin-bottom: 1rem;
-  text-align: center;
 }
 
+/* Responsivo */
+
+/* Tablets e telas médias */
+@media (max-width: 1024px) {
+  .Login__container {
+    height: auto;
+    flex-wrap: wrap;
+  }
+
+  .Login__container__left,
+  .Login__container__right {
+    flex: 1 1 100%;
+    height: 400px;
+    min-width: auto;
+  }
+
+  .Login__container__right {
+    padding: 2.5rem 2rem;
+  }
+
+  .Login__title {
+    font-size: 1.6rem;
+  }
+
+  .Login__container__left img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
+  }
+}
+
+/* Smartphones e telas pequenas */
+@media (max-width: 768px) {
+  .Login__container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .Login__container__left,
+  .Login__container__right {
+    flex: 1 1 100%;
+    width: 100%;
+    height: 300px;
+  }
+
+  .Login__container__right {
+    height: auto;
+    padding: 2rem;
+  }
+
+  .Login__title {
+    font-size: 1.5rem;
+  }
+}
+
+/* Smartphones muito pequenos */
 @media (max-width: 480px) {
   .Login {
     padding: 1rem;
   }
 
-  .Login__container {
+  .Login__container__right {
     padding: 1.5rem;
   }
 
   .Login__title {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
+  }
+
+  .Login__input,
+  .Login__button {
+    font-size: 0.9rem;
   }
 }

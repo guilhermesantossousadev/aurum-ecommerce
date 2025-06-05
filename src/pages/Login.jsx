@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
-import { login } from "../store/userSlice"; // Certo agora
+import { login } from "../store/userSlice";
 import "../styles/Login.css";
+import testimg from "../images/AnelHome.jpg";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -35,24 +36,17 @@ const Login = () => {
 
       const user = await response.json();
 
-      dispatch(login(user)); // Atualiza o Redux e localStorage
+      dispatch(login(user));
 
       if (user.isAdmin) {
-        setSuccess(
-          `Login realizado com sucesso! Bem-vindo Admin, ${user.nome}`
-        );
-        setTimeout(() => {
-          navigate("/adminPage");
-        }, 1500);
+        setSuccess(`Login realizado com sucesso! Bem-vindo Admin, ${user.nome}`);
+        setTimeout(() => navigate("/adminPage"), 1500);
       } else {
         setSuccess(`Login realizado com sucesso! Bem-vindo, ${user.nome}`);
-        setTimeout(() => {
-          navigate("/");
-        }, 1500);
+        setTimeout(() => navigate("/"), 1500);
       }
     } catch (error) {
       console.error("Erro no login:", error);
-
       setError("Email ou senha incorretos. Por favor, tente novamente.");
     } finally {
       setIsLoading(false);
@@ -62,40 +56,58 @@ const Login = () => {
   return (
     <div className="Login">
       <div className="Login__container">
-        <h1 className="Login__title">Login</h1>
+        <div className="Login__container__left">
+          <img src={testimg} alt="Login" />
+        </div>
 
-        {error && <div className="Login__error">{error}</div>}
-        {success && <div className="Login__success">{success}</div>}
+        <div className="Login__container__right">
 
-        <form className="Login__form" onSubmit={handleSubmit}>
-          <input
-            className="Login__input"
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <input
-            className="Login__input"
-            type="password"
-            placeholder="Senha"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <button className="Login__button" type="submit" disabled={isLoading}>
-            {isLoading ? "Entrando..." : "Entrar"}
-          </button>
-        </form>
+          <div className="Login__container__right__top">
 
-        <div className="Login__links">
-          <Link to="/register" className="Login__link">
-            Não tem uma conta? Cadastre-se
-          </Link>
-          <Link to="/token-authentication" className="Login__link">
-            Esqueceu sua senha? Redefina aqui
-          </Link>
+            <h1 className="Login__title">Login</h1>
+
+            {error && <div className="Login__error">{error}</div>}
+            {success && <div className="Login__success">{success}</div>}
+
+
+          </div>
+          <div className="Login__container__right__middle">
+            <form className="Login__form" onSubmit={handleSubmit}>
+              <label htmlFor="email">Email</label>
+              <input
+                className="Login__input"
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+
+              <label htmlFor="password">Senha</label>
+              <input
+                className="Login__input"
+                type="password"
+                placeholder="Senha"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+
+              <button className="Login__button" type="submit" disabled={isLoading}>
+                {isLoading ? "Entrando..." : "Entrar"}
+              </button>
+            </form>
+          </div>
+          <div className="Login__container__right__bottom">
+            <div className="Login__links">
+              <Link to="/register" className="Login__link">
+                Não tem uma conta? Cadastre-se
+              </Link>
+              <Link to="/token-authentication" className="Login__link">
+                Redefina sua senha
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </div>

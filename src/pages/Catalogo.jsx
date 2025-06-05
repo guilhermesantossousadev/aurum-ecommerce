@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "../styles/Catalogo.css";
 import lupabranca from "../images/lupa-branca.png";
 
-import seta from "../images/seta-direita.png";
+import SetaPretaDireita from "../images/SetaPretaDireita.png";
 
 import searchicon from "../images/searchicon.png";
 import xpng from "../images/x.png";
@@ -316,7 +316,7 @@ function Catalogo() {
                 <p>{anuncio.descricao}</p>
 
                 <div className="anuncio__card__seta">
-                  <img src={seta} alt="seta" width="10px" />
+                  <img src={SetaPretaDireita} alt="SetaPretaDireita" width="10px" />
                 </div>
               </div>
             </div>
