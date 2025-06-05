@@ -44,7 +44,7 @@ function Catalogo() {
 
   const renderFilters = () => (
     <div className="filtersContent">
-      <h2>Filtros</h2>
+      <h2>Tipos</h2>
 
       <label>
         <input
@@ -232,7 +232,6 @@ function Catalogo() {
 
   return (
     <div className="Catalogo">
-      
       <div className="Catalogo__Header__container">
         <div className="Search__header">
           <div className="Search__header__container">
@@ -268,6 +267,7 @@ function Catalogo() {
             setTempFilter(reset);
             setSelectedFilter("todos");
             setShowFilters(false); // Fecha o modal/dropdown ao limpar
+            ClearSearch();
           }}
         >
           Limpar

@@ -67,7 +67,8 @@
 
 .Carreiras__container__item__top__img {
   width: 100%;
-  height: 110vh;
+  min-height: 110vh;
+  height: auto;
 }
 
 .Carreiras__container__item__top__img img {
@@ -106,6 +107,12 @@
 }
 
 @media (max-width: 1024px) {
+  .Carreiras__container__item__top__img {
+    width: 100%;
+    min-height: 50vh;
+    height: auto;
+  }
+  
   .Carreiras {
     height: auto;
     padding-top: 5rem;

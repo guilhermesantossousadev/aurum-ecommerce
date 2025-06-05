@@ -28,8 +28,8 @@ function Contato() {
     <>
       <div className="Contato">
         {/* Seção inicial */}{" "}
-        <div className="Contato__init">
-          <div className="Contato__init__item fade-in-up">
+        <div className="Contato__init fade-in-up">
+          <div className="Contato__init__item ">
             <img src={contatoimg} alt="contatoimg" width="200px" />
           </div>
           <div className="Contato__init__item right">

@@ -16,7 +16,7 @@ const Sobre = () => {
 
         <div className="Sobre__container__item">
           <h1 className="Sobre__container__item__right fade-in-up">
-            ● em valor empresarial
+            ● <span> em valor empresarial</span>
           </h1>
           <h3 className="Sobre__container__item__right_h3 fade-in-up">
             A AURUM/LUMINE® é uma agência global que prospera na intersecção
