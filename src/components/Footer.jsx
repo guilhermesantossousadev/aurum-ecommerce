@@ -3,6 +3,7 @@ import setadireitabranca from "../images/seta-direita-branca.png";
 import setadireitapreta from "../images/seta-direita.png";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Footer() {
   const location = useLocation();
@@ -21,14 +22,7 @@ function Footer() {
       ].includes(path)
     )
       return "white-text";
-    if (
-      [
-        "/carrinho",
-        "/profile",
-        "/contato",
-        "/adminPage",
-      ].includes(path)
-    )
+    if (["/carrinho", "/profile", "/contato", "/adminPage"].includes(path))
       return "black-text";
     return "pink-text";
   };
@@ -37,7 +31,6 @@ function Footer() {
 
   const sendNewsLetter = async (e) => {
     e.preventDefault();
-
     try {
       const response = await fetch(
         `https://localhost:7081/api/Newsletter/PostNewsletter?usuarioEmail=${email}`,
@@ -46,9 +39,7 @@ function Footer() {
           headers: { "Content-Type": "application/json" },
         }
       );
-
       if (!response.ok) throw new Error("Erro ao enviar newsletter");
-
       alert("Email cadastrado com sucesso!");
       setEmail("");
     } catch (error) {
@@ -57,6 +48,17 @@ function Footer() {
     }
   };
 
+  const offices = [
+    { name: "San Diego", id: "sandiego" },
+    { name: "New York", id: "newyork" },
+    { name: "Bay Area", id: "bayarea" },
+    { name: "St. Louis", id: "stlouis" },
+    { name: "Amsterdam", id: "amsterdam" },
+    { name: "London", id: "london" },
+    { name: "Berlin", id: "berlin" },
+    { name: "Argentina", id: "argentina" },
+  ];
+
   return (
     <footer className={`footer ${footerColorClass}`}>
       <div className="footer__top">
@@ -64,7 +66,6 @@ function Footer() {
           <div className={`footer__item__top ${footerColorClass} left`}>
             <h1>A/L®</h1>
           </div>
-
           <div className="footer__item__bottom">
             <form onSubmit={sendNewsLetter}>
               <h1 className={`footer__item__bottom__title ${footerColorClass}`}>
@@ -134,46 +135,17 @@ function Footer() {
 
             <ul className={`footer__item__bottom__ul ${footerColorClass}`}>
               <h1>● ESCRITÓRIOS</h1>
-              <li>
-                <a href="#">San Diego - CA</a>
-              </li>
-              <li>
-                <a href="#">New York - NY</a>
-              </li>
-              <li>
-                <a href="#">Bay Area - CA</a>
-              </li>
-              <li>
-                <a href="#">ST.Louis - MO</a>
-              </li>
-              <li>
-                <a href="#">Amsterdan - NL</a>
-              </li>
-              <li>
-                <a href="#">London - EN</a>
-              </li>
-              <li>
-                <a href="#">Berlin - GE</a>
-              </li>
-              <li>
-                <a href="#">Argentina - AR</a>
-              </li>
+              {offices.map((office) => (
+                <li key={office.id}>
+                  <Link to={`/contato#${office.id}`}>{office.name}</Link>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
       </div>
 
-      <div className="footer__bottom">
-        {/*
-        <div className="footer__bottom__item">AURUM/LUMINE®, Inc 10 - 25©</div>
-        <div className="footer__bottom__item">
-          Fácil de entender, impossível de ignorar.™
-        </div>
-        <div className="footer__bottom__item">
-          Termos, Política de Privacidade
-        </div>
-        */}
-      </div>
+      <div className="footer__bottom"></div>
     </footer>
   );
 }
