@@ -327,7 +327,7 @@
 }
 
 .anuncio__card:hover .anuncio__card__seta img {
-  animation: setaanimation 1.6s ease infinite;
+  animation: setaanimation 0.9s ease infinite;
 }
 
 /* =================== PAGINAÇÃO =================== */
