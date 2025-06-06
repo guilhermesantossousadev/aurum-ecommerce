@@ -12,8 +12,8 @@
 
 .Login__container {
   width: 100%;
-  max-width: 1400px;
-  height: 800px;
+  max-width: 1000px;
+  height: 500px;
   border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -171,9 +171,18 @@
 
 /* Tablets e telas médias */
 @media (max-width: 1024px) {
+  .Login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    padding-top: 4rem;
+  }
+  
   .Login__container {
     height: auto;
     flex-wrap: wrap;
+    width: 90%;
   }
 
   .Login__container__left,

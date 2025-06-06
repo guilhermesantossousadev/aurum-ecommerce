@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Catalogo.css";
 import lupabranca from "../images/lupa-branca.png";
+import { Link } from "react-router-dom";
 
 import SetaPretaDireita from "../images/SetaPretaDireita.png";
 
@@ -275,6 +276,12 @@ function Catalogo() {
           Limpar
         </button>
         <button onClick={() => setShowFilters((prev) => !prev)}>Filtros</button>
+
+        <div className="Anuncie__btn">
+          <Link to="/cadastroJoia" className="anuncie-button">
+            Anuncie agora
+          </Link>
+        </div>
       </div>
 
       {/* Modal de Filtros */}
@@ -316,7 +323,11 @@ function Catalogo() {
                 <p>{anuncio.descricao}</p>
 
                 <div className="anuncio__card__seta">
-                  <img src={SetaPretaDireita} alt="SetaPretaDireita" width="10px" />
+                  <img
+                    src={SetaPretaDireita}
+                    alt="SetaPretaDireita"
+                    width="10px"
+                  />
                 </div>
               </div>
             </div>

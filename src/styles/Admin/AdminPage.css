@@ -9,7 +9,7 @@
 .Admin__menu {
   width: 20%;
   height: 100%;
-  border-right: 1px solid black;
+  border-right: 1px solid #3333333b;
 }
 
 .Admin__menu ul {

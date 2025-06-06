@@ -63,6 +63,7 @@
 .Contato__init__item__top h1 {
   font-size: 7rem;
   max-width: 100px;
+  text-align: center;
 }
 
 .Contato__init__item__top p {
@@ -197,7 +198,10 @@
     height: auto;
   }
 
-  .Contato__init__item__bottom__left,
+  .Contato__init__item__bottom__left {
+    display: none;
+  }
+
   .Contato__init__item__bottom__right {
     width: 100%;
     height: auto;

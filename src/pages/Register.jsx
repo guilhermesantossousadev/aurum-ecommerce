@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { login } from "../store/userSlice";
 import "../styles/Register.css";
+import { toast } from "react-toastify";
 
 import testimg from "../images/AnelHome.jpg";
 
@@ -107,11 +108,14 @@ const Register = () => {
     };
 
     try {
-      const response = await fetch("https://localhost:7081/api/Usuario/PostUsuario", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        "https://localhost:7081/api/Usuario/PostUsuario",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        }
+      );
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -119,11 +123,11 @@ const Register = () => {
       }
 
       const user = await response.json();
-      setSuccess("Conta criada com sucesso!");
+      toast.success("Conta criada com sucesso!");
       dispatch(login(user));
       setTimeout(() => navigate("/"), 1500);
     } catch (error) {
-      setError(error.message || "Não foi possível criar sua conta.");
+      toast.error(error.message || "Não foi possível criar sua conta.");
     } finally {
       setIsLoading(false);
     }
@@ -134,16 +138,13 @@ const Register = () => {
       <div className="Register__container">
         <div className="Register__container__left">
           <div className="Register__container__left__top">
-
             <h1 className="Register__title">Cadastro</h1>
 
             {error && <div className="Register__error">{error}</div>}
             {success && <div className="Register__success">{success}</div>}
             {cpfError && <div className="Register__error">{cpfError}</div>}
-
           </div>
           <div className="Register__container__left__middle">
-
             <form className="Register__form" onSubmit={handleSubmit}>
               <div className="Register__grid">
                 <div className="Register__form-group">
@@ -254,14 +255,12 @@ const Register = () => {
           </div>
 
           <div className="Register__container__left__bottom">
-
             <div className="Register__links">
               <Link to="/login" className="Register__link">
                 Já tem uma conta? Faça login
               </Link>
             </div>
           </div>
-
         </div>
         <div className="Register__container__rigth">
           <img src={testimg} alt="Cadastro" className="Register__image" />

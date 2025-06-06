@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "../styles/TokenAuthentication.css";
+import { toast } from "react-toastify";
 
 const TokenAuthentication = () => {
   const navigate = useNavigate();
@@ -43,11 +44,10 @@ const TokenAuthentication = () => {
       if (!response.ok) {
         throw new Error("Erro ao solicitar token");
       }
-
-      setSuccess("Token enviado para seu email!");
+      toast.success("Token enviado para seu email!");
       setStep(2);
     } catch (error) {
-      setError(
+      toast.error(
         "Não foi possível enviar o token. Verifique o email e tente novamente."
       );
     } finally {
@@ -73,10 +73,10 @@ const TokenAuthentication = () => {
         throw new Error("Token inválido");
       }
 
-      setSuccess("Token verificado com sucesso!");
+      toast.success("Token verificado com sucesso!");
       setStep(3);
     } catch (error) {
-      setError("Token inválido ou expirado. Tente novamente.");
+      toast.error("Token inválido ou expirado. Tente novamente.");
     } finally {
       setIsLoading(false);
     }
@@ -109,13 +109,13 @@ const TokenAuthentication = () => {
         throw new Error("Erro ao redefinir senha");
       }
 
-      setSuccess("Senha redefinida com sucesso!");
+      toast.success("Senha redefinida com sucesso!");
 
       setTimeout(() => {
         navigate("/login");
       }, 1500);
     } catch (error) {
-      setError("Não foi possível redefinir a senha. Tente novamente.");
+      toast.error("Não foi possível redefinir a senha. Tente novamente.");
     } finally {
       setIsLoading(false);
     }

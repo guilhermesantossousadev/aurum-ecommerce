@@ -8,7 +8,7 @@
 .Profile {
   width: 100%;
   height: auto;
-  min-height: 200vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
@@ -24,16 +24,23 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   padding-top: 150px;
   position: relative;
 }
 
-.Profile__box {
-  margin-top: 80px;
+/* Novo container para as boxes */
+.Profile__boxes {
+  display: flex;
+  gap: 50px; /* Espaço entre as caixas */
+  flex-wrap: wrap; /* Ajuste se precisar empilhar em telas menores */
+  justify-content: center;
+}
+
+.Profile__box__first,
+.Profile__box__second {
+  margin-top: -240px;
   height: 600px;
   width: 500px;
-  position: absolute;
   background-color: #fff;
   padding: 2rem;
   border-radius: 12px;
@@ -48,6 +55,8 @@
   height: 35%;
   display: flex;
   flex-direction: row;
+  padding-bottom: 2rem;
+  position: relative;
 }
 
 .Profile__box__img__container__left {
@@ -66,9 +75,18 @@
   justify-content: center;
 }
 
+.camera__img {
+  background-color: transparent !important;
+  border: none !important;
+}
+
+.camera__img:hover {
+  background-color: #d6d6d6 !important;
+}
+
 .Profile__img {
-  width: 150px;
-  height: 150px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   overflow: hidden;
   display: flex;
@@ -77,10 +95,9 @@
 }
 
 .Profile__img img {
-  width: 150px;
+  width: 100%;
   border-radius: 50%;
 }
-
 
 .Profile__box__img__container__right button {
   padding: 0.7rem 1.7rem;
@@ -88,7 +105,7 @@
   border: 1px solid #33333365;
   font-size: 16px;
   background-color: #fff;
-  transition: .3s ease;
+  transition: 0.3s ease;
 }
 
 .Profile__box__img__container__right button:hover {
@@ -153,4 +170,39 @@
 
 .Profile__item__bottom__button button:hover {
   color: var(--accent-color);
+}
+
+.Profile__box__img__container__right .xbutton {
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  top: -20px;
+  right: 0;
+}
+
+.Profile__box__img__container__right .xbutton:hover {
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.Profile__btn__container {
+  width: 100%;
+  height: 100%;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.profile__logout {
+  background-color: transparent;
+  border: none;
+  padding: 0.9rem;
+  transition: 0.3s ease;
+}
+
+.profile__logout:hover {
+  background-color: #22222238;
+  cursor: pointer;
+  border-radius: 5px;
 }

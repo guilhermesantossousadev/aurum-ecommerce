@@ -4,6 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { login } from "../store/userSlice";
 import "../styles/Login.css";
 import testimg from "../images/AnelHome.jpg";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -18,8 +19,6 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    setError("");
-    setSuccess("");
 
     try {
       const response = await fetch(
@@ -39,15 +38,17 @@ const Login = () => {
       dispatch(login(user));
 
       if (user.isAdmin) {
-        setSuccess(`Login realizado com sucesso! Bem-vindo Admin, ${user.nome}`);
+        toast.success(
+          `Login realizado com sucesso! Bem-vindo Admin, ${user.nome}`
+        );
         setTimeout(() => navigate("/adminPage"), 1500);
       } else {
-        setSuccess(`Login realizado com sucesso! Bem-vindo, ${user.nome}`);
+        toast.success(`Login realizado com sucesso! Bem-vindo, ${user.nome}`);
         setTimeout(() => navigate("/"), 1500);
       }
     } catch (error) {
       console.error("Erro no login:", error);
-      setError("Email ou senha incorretos. Por favor, tente novamente.");
+      toast.error("Email ou senha incorretos. Por favor, tente novamente.");
     } finally {
       setIsLoading(false);
     }
@@ -61,15 +62,11 @@ const Login = () => {
         </div>
 
         <div className="Login__container__right">
-
           <div className="Login__container__right__top">
-
             <h1 className="Login__title">Login</h1>
 
             {error && <div className="Login__error">{error}</div>}
             {success && <div className="Login__success">{success}</div>}
-
-
           </div>
           <div className="Login__container__right__middle">
             <form className="Login__form" onSubmit={handleSubmit}>
@@ -93,7 +90,11 @@ const Login = () => {
                 required
               />
 
-              <button className="Login__button" type="submit" disabled={isLoading}>
+              <button
+                className="Login__button"
+                type="submit"
+                disabled={isLoading}
+              >
                 {isLoading ? "Entrando..." : "Entrar"}
               </button>
             </form>

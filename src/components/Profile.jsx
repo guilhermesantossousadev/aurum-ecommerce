@@ -2,8 +2,13 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/userSlice";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import fotodeperfilpadrao from "../images/fotodeperfil.png";
+import ximg from "../images/x.png";
+
+import camerapng from "../images/camera.png";
+
 import "../styles/Profile.css";
 
 import {
@@ -34,6 +39,9 @@ const Profile = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploading, setUploading] = useState(false);
 
+  // Novo estado para controlar se o usuário quer editar a foto
+  const [isEditingPhoto, setIsEditingPhoto] = useState(false);
+
   const handleLogout = () => {
     dispatch(logout());
     navigate("/");
@@ -59,8 +67,6 @@ const Profile = () => {
       isAdmin: user.isAdmin || false,
     };
 
-    console.log("Enviando dados:", JSON.stringify(data));
-
     try {
       const response = await fetch(
         "https://localhost:7081/api/Usuario/PutUsuario",
@@ -77,11 +83,11 @@ const Profile = () => {
         throw new Error("Erro ao atualizar o perfil. Tente novamente.");
       }
 
-      alert("Dados atualizados com sucesso!");
+      toast.success("Dados atualizados com sucesso!");
       setEditField(null);
     } catch (error) {
       console.error(error);
-      alert("Erro na atualização: " + error.message);
+      toast.error("Erro na atualização: " + error.message);
     }
   };
 
@@ -120,12 +126,10 @@ const Profile = () => {
     }
   };
 
-  // Quando o usuário escolhe um arquivo no input file
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setSelectedFile(file);
-      // Atualiza a imagem localmente para pré-visualizar
       const reader = new FileReader();
       reader.onloadend = () => {
         setProfileImage(reader.result);
@@ -134,7 +138,6 @@ const Profile = () => {
     }
   };
 
-  // Envia a imagem para a API
   const handleUploadImage = async () => {
     if (!selectedFile) {
       alert("Por favor, selecione uma imagem antes de enviar.");
@@ -145,7 +148,6 @@ const Profile = () => {
 
     const formData = new FormData();
     formData.append("file", selectedFile);
-    // Usuário tem o id no user.id
     formData.append("usuarioId", user.id);
 
     try {
@@ -162,10 +164,8 @@ const Profile = () => {
       }
 
       alert("Imagem atualizada com sucesso!");
-      // Aqui, idealmente você atualizaria o Redux com a nova URL da foto,
-      // ou então recarregaria os dados do usuário para atualizar o estado global.
-      // Como não temos isso, vamos manter a imagem local atualizada.
       setSelectedFile(null);
+      setIsEditingPhoto(false); // fecha a seção de edição de foto
     } catch (error) {
       alert("Erro ao enviar imagem: " + error.message);
     } finally {
@@ -176,180 +176,212 @@ const Profile = () => {
   return (
     <section className="Profile">
       <div className="Profile__top"></div>
-      <div className="Profile__bottom">
-        <div className="Profile__box">
-          <div className="Profile__box__img__container">
-            <div className="Profile__box__img__container__left">
-              <div className="Profile__img">
-                <img
-                  src={profileImage}
-                  alt="foto de perfil"
-                  className="fotoperfil"
-                />
+      <div class="Profile__bottom">
+        <div class="Profile__boxes">
+          <div class="Profile__box__first">
+            <div className="Profile__box__img__container">
+              <div className="Profile__box__img__container__left">
+                <div className="Profile__img">
+                  <img
+                    src={profileImage}
+                    alt="foto de perfil"
+                    className="fotoperfil"
+                  />
+                </div>
+              </div>
+              <div className="Profile__box__img__container__right">
+                {!isEditingPhoto ? (
+                  <button
+                    onClick={() => setIsEditingPhoto(true)}
+                    className="camera__img"
+                  >
+                    Editar
+                  </button>
+                ) : (
+                  <>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      id="fileInput"
+                      style={{ display: "none" }}
+                      onChange={handleFileChange}
+                    />
+                    <button
+                      onClick={() =>
+                        document.getElementById("fileInput").click()
+                      }
+                    >
+                      Selecionar Foto
+                    </button>
+                    <button
+                      onClick={handleUploadImage}
+                      disabled={uploading || !selectedFile}
+                      style={{ marginLeft: "10px" }}
+                    >
+                      {uploading ? "Enviando..." : "Enviar Foto"}
+                    </button>
+                    <button
+                      className="xbutton"
+                      onClick={() => {
+                        setIsEditingPhoto(false);
+                        setSelectedFile(null);
+                        setProfileImage(
+                          user.fotoPerfilURL !== null
+                            ? user.fotoPerfilURL
+                            : fotodeperfilpadrao
+                        );
+                      }}
+                      style={{ marginLeft: "10px" }}
+                    >
+                      <img src={ximg} alt="ximg" width="10px" />
+                    </button>
+                  </>
+                )}
               </div>
             </div>
-            <div className="Profile__box__img__container__right">
-              <input
-                type="file"
-                accept="image/*"
-                id="fileInput"
-                style={{ display: "none" }}
-                onChange={handleFileChange}
-              />
-              <button onClick={() => document.getElementById("fileInput").click()}>
-                Selecionar Foto
+
+            <div className="Profile__itens">
+              {/* Nome */}
+              <div className="Profile__item">
+                <strong>Nome:</strong>
+                <div className="Profile__item__bottom">
+                  {editField === "nome" ? (
+                    <>
+                      <div className="Profile__item__bottom__input">
+                        <input
+                          type="text"
+                          value={nome}
+                          onChange={(e) => setNome(e.target.value)}
+                        />
+                      </div>
+                      <div className="Profile__item__bottom__button">
+                        <button onClick={() => handleSave("nome")}>
+                          <FaSave /> Salvar
+                        </button>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="Profile__item__bottom__input">{nome}</div>
+                      <div className="Profile__item__bottom__button">
+                        <button onClick={() => handleEditClick("nome")}>
+                          Editar
+                        </button>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
+
+              {/* CPF */}
+              <div className="Profile__item">
+                <strong>CPF:</strong>
+                <div className="Profile__item__bottom">
+                  {editField === "cpf" ? (
+                    <>
+                      <div className="Profile__item__bottom__input">
+                        <input
+                          type="text"
+                          value={cpf}
+                          onChange={(e) => setCpf(e.target.value)}
+                        />
+                      </div>
+                      <div className="Profile__item__bottom__button">
+                        <button onClick={() => handleSave("cpf")}>
+                          <FaSave /> Salvar
+                        </button>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="Profile__item__bottom__input">{cpf}</div>
+                      <div className="Profile__item__bottom__button">
+                        <button onClick={() => handleEditClick("cpf")}>
+                          Editar
+                        </button>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
+
+              {/* Idade */}
+              <div className="Profile__item">
+                <strong>Idade:</strong>
+                <div className="Profile__item__bottom">
+                  {editField === "idade" ? (
+                    <>
+                      <div className="Profile__item__bottom__input">
+                        <input
+                          type="number"
+                          value={idade}
+                          onChange={(e) => setIdade(e.target.value)}
+                        />
+                      </div>
+                      <div className="Profile__item__bottom__button">
+                        <button onClick={() => handleSave("idade")}>
+                          <FaSave /> Salvar
+                        </button>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="Profile__item__bottom__input">
+                        {idade}
+                      </div>
+                      <div className="Profile__item__bottom__button">
+                        <button onClick={() => handleEditClick("idade")}>
+                          Editar
+                        </button>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
+
+              {/* Email */}
+              <div className="Profile__item">
+                <strong>Email:</strong>
+                <div className="Profile__item__bottom">
+                  {editField === "email" ? (
+                    <>
+                      <div className="Profile__item__bottom__input">
+                        <input
+                          type="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                        />
+                      </div>
+                      <div className="Profile__item__bottom__button">
+                        <button onClick={() => handleSave("email")}>
+                          <FaSave /> Salvar
+                        </button>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="Profile__item__bottom__input">
+                        {email}
+                      </div>
+                      <div className="Profile__item__bottom__button">
+                        <button onClick={() => handleEditClick("email")}>
+                          Editar
+                        </button>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="Profile__btn__container">
+              <Link to="/cadastroJoia">Cadastrar uma joia</Link>
+              <button className="profile__logout" onClick={handleLogout}>
+                <FaSignOutAlt /> Sair
               </button>
-              <button
-                onClick={handleUploadImage}
-                disabled={uploading || !selectedFile}
-                style={{ marginLeft: "10px" }}
-              >
-                {uploading ? "Enviando..." : "Enviar Foto"}
-              </button>
             </div>
           </div>
-
-          <div className="Profile__itens">
-            {/* Nome */}
-            <div className="Profile__item">
-              <strong>Nome:</strong>
-              <div className="Profile__item__bottom">
-                {editField === "nome" ? (
-                  <>
-                    <div className="Profile__item__bottom__input">
-                      <input
-                        type="text"
-                        value={nome}
-                        onChange={(e) => setNome(e.target.value)}
-                      />
-                    </div>
-                    <div className="Profile__item__bottom__button">
-                      <button onClick={() => handleSave("nome")}>
-                        <FaSave /> Salvar
-                      </button>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div className="Profile__item__bottom__input">{nome}</div>
-                    <div className="Profile__item__bottom__button">
-                      <button onClick={() => handleEditClick("nome")}>
-                        Editar
-                      </button>
-                    </div>
-                  </>
-                )}
-              </div>
-            </div>
-
-            {/* CPF */}
-            <div className="Profile__item">
-              <strong>CPF:</strong>
-              <div className="Profile__item__bottom">
-                {editField === "cpf" ? (
-                  <>
-                    <div className="Profile__item__bottom__input">
-                      <input
-                        type="text"
-                        value={cpf}
-                        onChange={(e) => setCpf(e.target.value)}
-                      />
-                    </div>
-                    <div className="Profile__item__bottom__button">
-                      <button onClick={() => handleSave("cpf")}>
-                        <FaSave /> Salvar
-                      </button>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div className="Profile__item__bottom__input">{cpf}</div>
-                    <div className="Profile__item__bottom__button">
-                      <button onClick={() => handleEditClick("cpf")}>
-                        Editar
-                      </button>
-                    </div>
-                  </>
-                )}
-              </div>
-            </div>
-
-            {/* Idade */}
-            <div className="Profile__item">
-              <strong>Idade:</strong>
-              <div className="Profile__item__bottom">
-                {editField === "idade" ? (
-                  <>
-                    <div className="Profile__item__bottom__input">
-                      <input
-                        type="number"
-                        value={idade}
-                        onChange={(e) => setIdade(e.target.value)}
-                      />
-                    </div>
-                    <div className="Profile__item__bottom__button">
-                      <button onClick={() => handleSave("idade")}>
-                        <FaSave /> Salvar
-                      </button>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div className="Profile__item__bottom__input">{idade}</div>
-                    <div className="Profile__item__bottom__button">
-                      <button onClick={() => handleEditClick("idade")}>
-                        Editar
-                      </button>
-                    </div>
-                  </>
-                )}
-              </div>
-            </div>
-
-            {/* Email */}
-            <div className="Profile__item">
-              <strong>Email:</strong>
-              <div className="Profile__item__bottom">
-                {editField === "email" ? (
-                  <>
-                    <div className="Profile__item__bottom__input">
-                      <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                      />
-                    </div>
-                    <div className="Profile__item__bottom__button">
-                      <button onClick={() => handleSave("email")}>
-                        <FaSave /> Salvar
-                      </button>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div className="Profile__item__bottom__input">{email}</div>
-                    <div className="Profile__item__bottom__button">
-                      <button onClick={() => handleEditClick("email")}>
-                        Editar
-                      </button>
-                    </div>
-                  </>
-                )}
-              </div>
-            </div>
-          </div>
-
-          <div className="Profile__btn__container">
-            <Link to="/cadastroJoia">Cadastrar uma joia</Link>
-
-            <button className="profile__edit">
-              <FaEdit /> Editar Perfil
-            </button>
-
-            <button className="profile__logout" onClick={handleLogout}>
-              <FaSignOutAlt /> Sair
-            </button>
-          </div>
+          <div class="Profile__box__second"></div>
         </div>
       </div>
     </section>

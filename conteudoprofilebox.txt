@@ -1,0 +1,199 @@
+
+          <div className="Profile__box__img__container">
+            <div className="Profile__box__img__container__left">
+              <div className="Profile__img">
+                <img
+                  src={profileImage}
+                  alt="foto de perfil"
+                  className="fotoperfil"
+                />
+              </div>
+            </div>
+            <div className="Profile__box__img__container__right">
+              {!isEditingPhoto ? (
+                <button
+                  onClick={() => setIsEditingPhoto(true)}
+                  className="camera__img"
+                >
+                  Editar
+                </button>
+              ) : (
+                <>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    id="fileInput"
+                    style={{ display: "none" }}
+                    onChange={handleFileChange}
+                  />
+                  <button
+                    onClick={() => document.getElementById("fileInput").click()}
+                  >
+                    Selecionar Foto
+                  </button>
+                  <button
+                    onClick={handleUploadImage}
+                    disabled={uploading || !selectedFile}
+                    style={{ marginLeft: "10px" }}
+                  >
+                    {uploading ? "Enviando..." : "Enviar Foto"}
+                  </button>
+                  <button
+                    className="xbutton"
+                    onClick={() => {
+                      setIsEditingPhoto(false);
+                      setSelectedFile(null);
+                      setProfileImage(
+                        user.fotoPerfilURL !== null
+                          ? user.fotoPerfilURL
+                          : fotodeperfilpadrao
+                      );
+                    }}
+                    style={{ marginLeft: "10px" }}
+                  >
+                    <img src={ximg} alt="ximg" width="10px" />
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
+
+          <div className="Profile__itens">
+            {/* Nome */}
+            <div className="Profile__item">
+              <strong>Nome:</strong>
+              <div className="Profile__item__bottom">
+                {editField === "nome" ? (
+                  <>
+                    <div className="Profile__item__bottom__input">
+                      <input
+                        type="text"
+                        value={nome}
+                        onChange={(e) => setNome(e.target.value)}
+                      />
+                    </div>
+                    <div className="Profile__item__bottom__button">
+                      <button onClick={() => handleSave("nome")}>
+                        <FaSave /> Salvar
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="Profile__item__bottom__input">{nome}</div>
+                    <div className="Profile__item__bottom__button">
+                      <button onClick={() => handleEditClick("nome")}>
+                        Editar
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+
+            {/* CPF */}
+            <div className="Profile__item">
+              <strong>CPF:</strong>
+              <div className="Profile__item__bottom">
+                {editField === "cpf" ? (
+                  <>
+                    <div className="Profile__item__bottom__input">
+                      <input
+                        type="text"
+                        value={cpf}
+                        onChange={(e) => setCpf(e.target.value)}
+                      />
+                    </div>
+                    <div className="Profile__item__bottom__button">
+                      <button onClick={() => handleSave("cpf")}>
+                        <FaSave /> Salvar
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="Profile__item__bottom__input">{cpf}</div>
+                    <div className="Profile__item__bottom__button">
+                      <button onClick={() => handleEditClick("cpf")}>
+                        Editar
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+
+            {/* Idade */}
+            <div className="Profile__item">
+              <strong>Idade:</strong>
+              <div className="Profile__item__bottom">
+                {editField === "idade" ? (
+                  <>
+                    <div className="Profile__item__bottom__input">
+                      <input
+                        type="number"
+                        value={idade}
+                        onChange={(e) => setIdade(e.target.value)}
+                      />
+                    </div>
+                    <div className="Profile__item__bottom__button">
+                      <button onClick={() => handleSave("idade")}>
+                        <FaSave /> Salvar
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="Profile__item__bottom__input">{idade}</div>
+                    <div className="Profile__item__bottom__button">
+                      <button onClick={() => handleEditClick("idade")}>
+                        Editar
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+
+            {/* Email */}
+            <div className="Profile__item">
+              <strong>Email:</strong>
+              <div className="Profile__item__bottom">
+                {editField === "email" ? (
+                  <>
+                    <div className="Profile__item__bottom__input">
+                      <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                    </div>
+                    <div className="Profile__item__bottom__button">
+                      <button onClick={() => handleSave("email")}>
+                        <FaSave /> Salvar
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="Profile__item__bottom__input">{email}</div>
+                    <div className="Profile__item__bottom__button">
+                      <button onClick={() => handleEditClick("email")}>
+                        Editar
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div className="Profile__btn__container">
+            <Link to="/cadastroJoia">Cadastrar uma joia</Link>
+            <button className="profile__edit">
+              <FaEdit /> Editar Perfil
+            </button>
+            <button className="profile__logout" onClick={handleLogout}>
+              <FaSignOutAlt /> Sair
+            </button>
+          </div>

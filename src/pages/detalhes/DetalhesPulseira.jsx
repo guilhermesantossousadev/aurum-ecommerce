@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import ImageCarousel from "../../components/ImageCarousel";
-import setaesquerdabranca from "../../images/SetaBrancaEsquerda.png";
+import SetaRosaEsquerda from "../../images/SetaRosaEsquerda.png";
 
 import BotaoPrimario from "../../components/BotaoPrimario";
 import { toast } from "react-toastify";
@@ -289,7 +289,7 @@ function DetalhesPulseira() {
     return (
       <div className="detalhes__container">
         <button className="voltar__button" onClick={() => navigate(-1)}>
-          <img src={setaesquerdabranca} alt="Voltar" />
+          <img src={SetaRosaEsquerda} alt="Voltar" />
         </button>
         <div className="error__message">Pulseira não encontrada</div>
       </div>
@@ -311,7 +311,7 @@ function DetalhesPulseira() {
     <div className="detalhes">
       <div className="detalhes__container">
         <button className="voltar__button" onClick={() => navigate(-1)}>
-          <img src={setaesquerdabranca} alt="Voltar" />
+          <img src={SetaRosaEsquerda} alt="Voltar" />
         </button>
 
         <div className="detalhes__container__internal">
@@ -326,7 +326,6 @@ function DetalhesPulseira() {
           </div>
 
           <div className="detalhes__container__internal__right">
-            <p className="detalhes__info__titulo">{anuncio.titulo}</p>
             <p className="detalhes__info__item__p">
               <div className="detalhes__venda__container">
                 <span>

@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 
 import "../../styles/detalhes/DetalhesComum.css";
 
+
 function DetalhesAnel() {
   const user = useSelector((state) => state.user);
 

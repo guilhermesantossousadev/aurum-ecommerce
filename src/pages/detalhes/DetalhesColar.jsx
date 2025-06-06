@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import ImageCarousel from "../../components/ImageCarousel";
-import setaesquerdabranca from "../../images/SetaBrancaEsquerda.png";
+import SetaRosaEsquerda from "../../images/SetaRosaEsquerda.png";
 
 import BotaoPrimario from "../../components/BotaoPrimario";
 import { toast } from "react-toastify";
@@ -287,7 +287,7 @@ function DetalhesColar() {
     return (
       <div className="detalhes__container">
         <button className="voltar__button" onClick={() => navigate(-1)}>
-          <img src={setaesquerdabranca} alt="Voltar" />
+          <img src={SetaRosaEsquerda} alt="Voltar" />
         </button>
         <div className="error__message">Colar não encontrado</div>
       </div>
@@ -309,7 +309,7 @@ function DetalhesColar() {
     <div className="detalhes">
       <div className="detalhes__container">
         <button className="voltar__button" onClick={() => navigate(-1)}>
-          <img src={setaesquerdabranca} alt="Voltar" />
+          <img src={SetaRosaEsquerda} alt="Voltar" />
         </button>
 
         <div className="detalhes__container__internal">
