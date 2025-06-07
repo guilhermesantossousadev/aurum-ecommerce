@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Catalogo.css";
@@ -211,7 +212,8 @@ function Catalogo() {
     const fetchTipoJoia = async () => {
       try {
         const response = await fetch(
-          `https://localhost:7081/api/Anuncio/GetByIdAnuncio?id=${anuncioId}`
+          `quest URL
+https://marketplacejoias-api-latest.onrender.com/api/Joia/GetByIdJoia?id=${anuncioId}`
         );
         if (!response.ok) throw new Error("Erro ao buscar detalhes.");
         const data = await response.json();
