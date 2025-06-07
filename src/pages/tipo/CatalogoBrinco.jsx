@@ -163,7 +163,7 @@ function CatalogoBrinco() {
 
     try {
       const response = await fetch(
-        "https://localhost:7081/api/Anuncio/GetByTipoJoia?tipoPeca=Brinco",
+        "https://marketplacejoias-api-latest.onrender.com/api/Anuncio/GetByTipoJoia?tipoPeca=Brinco",
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },

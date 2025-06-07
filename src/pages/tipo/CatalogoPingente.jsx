@@ -164,7 +164,7 @@ function CatalogoPingente() {
 
     try {
       const response = await fetch(
-        "https://localhost:7081/api/Anuncio/GetByTipoJoia?tipoPeca=Pingente",
+        "https://marketplacejoias-api-latest.onrender.com/api/Anuncio/GetByTipoJoia?tipoPeca=Pingente",
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },

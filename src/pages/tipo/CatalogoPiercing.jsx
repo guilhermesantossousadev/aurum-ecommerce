@@ -163,7 +163,7 @@ function CatalogoPiercing() {
 
     try {
       const response = await fetch(
-        "https://localhost:7081/api/Anuncio/GetByTipoJoia?tipoPeca=Piercing",
+        "https://marketplacejoias-api-latest.onrender.com/api/Anuncio/GetByTipoJoia?tipoPeca=Piercing",
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },

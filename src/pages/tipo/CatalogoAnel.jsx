@@ -164,7 +164,7 @@ function CatalogoAnel() {
 
     try {
       const response = await fetch(
-        "https://localhost:7081/api/Anuncio/GetByTipoJoia?tipoPeca=Anel",
+        "https://marketplacejoias-api-latest.onrender.com/api/Anuncio/GetByTipoJoia?tipoPeca=Anel",
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },

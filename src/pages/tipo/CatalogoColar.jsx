@@ -164,7 +164,7 @@ function CatalogoColar() {
 
     try {
       const response = await fetch(
-        "https://localhost:7081/api/Anuncio/GetByTipoJoia?tipoPeca=Colar",
+        "https://marketplacejoias-api-latest.onrender.com/api/Anuncio/GetByTipoJoia?tipoPeca=Colar",
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },
