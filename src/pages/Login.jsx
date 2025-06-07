@@ -22,7 +22,7 @@ const Login = () => {
 
     try {
       const response = await fetch(
-        `https://localhost:7081/api/Usuario/LoginUsuario?email=${email}&password=${password}`,
+        `https://marketplacejoias-api-latest.onrender.com/api/Usuario/LoginUsuario?email=${email}&password=${password}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

@@ -133,7 +133,7 @@ function DetalhesAnel() {
 
       // 1. Buscar carrinho atual do usuário
       const carrinhoResponse = await fetch(
-        `https://localhost:7081/api/Carrinho/GetByUsuarioIdCarrinho?usuarioId=${usuarioId}`
+        `https://marketplacejoias-api-latest.onrender.com/api/Carrinho/GetByUsuarioIdCarrinho?usuarioId=${usuarioId}`
       );
 
       if (!carrinhoResponse.ok) {
@@ -177,7 +177,7 @@ function DetalhesAnel() {
 
       // 4. Requisição PUT
       const updateResponse = await fetch(
-        `https://localhost:7081/api/Carrinho/PutCarrinho`,
+        `https://marketplacejoias-api-latest.onrender.com/api/Carrinho/PutCarrinho`,
         {
           method: "PUT",
           headers: {
@@ -213,7 +213,7 @@ function DetalhesAnel() {
         setError(null);
 
         const anuncioResponse = await fetch(
-          `https://localhost:7081/api/Anuncio/GetByIdAnuncio?id=${id}`
+          `https://marketplacejoias-api-latest.onrender.com/api/Anuncio/GetByIdAnuncio?id=${id}`
         );
 
         if (!anuncioResponse.ok) {
@@ -238,12 +238,11 @@ function DetalhesAnel() {
       fetchData();
     }
   }, [id]);
-
   useEffect(() => {
     const fetchAnel = async () => {
       try {
         const anelResponse = await fetch(
-          `https://localhost:7081/api/Joia/GetByIdJoia?id=${anuncio.joiaId}`
+          `https://marketplacejoias-api-latest.onrender.com/api/Joia/GetByIdJoia?id=${anuncio.joiaId}`
         );
 
         if (!anelResponse.ok) {

@@ -208,15 +208,18 @@ function Catalogo() {
     window.scrollTo(0, 0);
   };
 
-  const handleAnuncioClick = (anuncioId) => {
+  const handleAnuncioClick = (anuncioId, joiaId) => {
     const fetchTipoJoia = async () => {
       try {
+        console.log("Buscando dados da Joia para ID:", joiaId);
         const response = await fetch(
-          `https://marketplacejoias-api-latest.onrender.com/api/Joia/GetByIdJoia?id=${anuncioId}`
+          `https://marketplacejoias-api-latest.onrender.com/api/Joia/GetByIdJoia?id=${joiaId}`
         );
         if (!response.ok) throw new Error("Erro ao buscar detalhes.");
         const data = await response.json();
-        const tipo = data.tipoPeca.toLowerCase();
+        console.log("Resposta da API:", data);
+        const tipo = data.tipoPeca?.toLowerCase();
+        console.log("Tipo de Joia:", tipo);
         const tipoParaUrl = {
           anel: `/detalhesAnel/${anuncioId}`,
           relogio: `/detalhesRelogio/${anuncioId}`,
@@ -226,13 +229,16 @@ function Catalogo() {
           pingente: `/detalhesPingente/${anuncioId}`,
           piercing: `/detalhesPiercing/${anuncioId}`,
         };
-        navigate(tipoParaUrl[tipo] || `/DetalhesAnuncio/${anuncioId}`);
+        const rota = tipoParaUrl[tipo] || `/DetalhesAnuncio/${anuncioId}`;
+        console.log("Navegando para:", rota);
+        navigate(rota);
       } catch (error) {
         console.error("Erro:", error);
       }
     };
     fetchTipoJoia();
   };
+
 
   return (
     <div className="Catalogo">
@@ -305,7 +311,7 @@ function Catalogo() {
             <div
               key={anuncio.id}
               className="anuncio__card"
-              onClick={() => handleAnuncioClick(anuncio.id)}
+              onClick={() => handleAnuncioClick(anuncio.id, anuncio.joiaId)}
             >
               <div className="Catalogo__part">
                 <div className="Catalogo__part__inside"></div>
@@ -347,9 +353,8 @@ function Catalogo() {
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
               <button
                 key={num}
-                className={`pagination__number ${
-                  currentPage === num ? "active" : ""
-                }`}
+                className={`pagination__number ${currentPage === num ? "active" : ""
+                  }`}
                 onClick={() => paginate(num)}
               >
                 {num}

@@ -32,7 +32,7 @@ const TokenAuthentication = () => {
 
     try {
       const response = await fetch(
-        `https://localhost:7081/api/Suport/RequestToken?email=${formData.email}`,
+        `https://marketplacejoias-api-latest.onrender.com/api/Suport/RequestToken?email=${formData.email}`,
         {
           method: "POST",
           headers: {
@@ -63,7 +63,7 @@ const TokenAuthentication = () => {
 
     try {
       const response = await fetch(
-        `https://localhost:7081/api/Suport/AuthenticateToken?codigoToken=${formData.token}`,
+        `https://marketplacejoias-api-latest.onrender.com/api/Suport/AuthenticateToken?codigoToken=${formData.token}`,
         {
           method: "GET",
         }
@@ -96,7 +96,7 @@ const TokenAuthentication = () => {
 
     try {
       const response = await fetch(
-        `https://localhost:7081/api/Usuario/ResetPassword?email=${formData.email}&password=${formData.newPassword}`,
+        `https://marketplacejoias-api-latest.onrender.com/api/Usuario/ResetPassword?email=${formData.email}.com&password=${formData.newPassword}`,
         {
           method: "PUT",
           headers: {

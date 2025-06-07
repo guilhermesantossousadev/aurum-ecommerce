@@ -109,7 +109,7 @@ const Register = () => {
 
     try {
       const response = await fetch(
-        "https://localhost:7081/api/Usuario/PostUsuario",
+        "https://marketplacejoias-api-latest.onrender.com/api/Usuario/PostUsuario",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

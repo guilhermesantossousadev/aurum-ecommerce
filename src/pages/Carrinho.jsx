@@ -27,7 +27,7 @@ function Carrinho() {
       const detalhesAnuncios = await Promise.all(
         anunciosIds.map(async (id) => {
           const response = await fetch(
-            `https://localhost:7081/api/Anuncio/GetByIdAnuncio?id=${id}`
+            `https://marketplacejoias-api-latest.onrender.com/api/Anuncio/GetByIdAnuncio?id=${id}`
           );
           if (!response.ok) throw new Error(`Erro ao buscar anúncio ${id}`);
           return response.json();
@@ -48,7 +48,7 @@ function Carrinho() {
       const detalhesJoias = await Promise.all(
         joiasIds.map(async (id) => {
           const response = await fetch(
-            `https://localhost:7081/api/Joia/GetByIdJoia?id=${id}`
+            `https://marketplacejoias-api-latest.onrender.com/api/Joia/GetByIdJoia?id=${id}`
           );
           if (!response.ok) throw new Error(`Erro ao buscar joia ${id}`);
           return response.json();
@@ -75,7 +75,7 @@ function Carrinho() {
       );
 
       const response = await fetch(
-        `https://localhost:7081/api/Carrinho/GetByUsuarioIdCarrinho?usuarioId=${user.id}`
+        `https://marketplacejoias-api-latest.onrender.com/api/Carrinho/GetByUsuarioIdCarrinho?usuarioId=${user.id}`
       );
       if (!response.ok) throw new Error("Erro ao buscar carrinho");
 
@@ -105,7 +105,7 @@ function Carrinho() {
       }
 
       const carrinhoResponse = await fetch(
-        `https://localhost:7081/api/Carrinho/GetByUsuarioIdCarrinho?usuarioId=${usuarioId}`
+        `https://marketplacejoias-api-latest.onrender.com/api/Carrinho/GetByUsuarioIdCarrinho?usuarioId=${usuarioId}`
       );
       if (!carrinhoResponse.ok) throw new Error("Erro ao buscar carrinho");
 
@@ -139,7 +139,7 @@ function Carrinho() {
       };
 
       const updateResponse = await fetch(
-        `https://localhost:7081/api/Carrinho/PutCarrinho`,
+        `https://marketplacejoias-api-latest.onrender.com/api/Carrinho/PutCarrinho`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

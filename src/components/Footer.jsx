@@ -35,7 +35,7 @@ function Footer() {
     e.preventDefault();
     try {
       const response = await fetch(
-        `https://localhost:7081/api/Newsletter/PostNewsletter?usuarioEmail=${email}`,
+        `https://marketplacejoias-api-latest.onrender.com/api/Newsletter/PostNewsletter?usuarioEmail=${email}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

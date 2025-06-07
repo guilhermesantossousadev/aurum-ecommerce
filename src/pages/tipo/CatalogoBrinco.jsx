@@ -226,7 +226,7 @@ function CatalogoBrinco() {
     const fetchTipoJoia = async () => {
       try {
         const response = await fetch(
-          `https://localhost:7081/api/Anuncio/GetByIdAnuncio?id=${anuncioId}`
+          `https://marketplacejoias-api-latest.onrender.com/api/Anuncio/GetByIdAnuncio?id=${anuncioId}`
         );
 
         if (!response.ok) {
