@@ -212,8 +212,7 @@ function Catalogo() {
     const fetchTipoJoia = async () => {
       try {
         const response = await fetch(
-          `quest URL
-https://marketplacejoias-api-latest.onrender.com/api/Joia/GetByIdJoia?id=${anuncioId}`
+          `https://marketplacejoias-api-latest.onrender.com/api/Joia/GetByIdJoia?id=${anuncioId}`
         );
         if (!response.ok) throw new Error("Erro ao buscar detalhes.");
         const data = await response.json();
