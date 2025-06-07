@@ -187,7 +187,7 @@ function DetalhesRelogio() {
       );
 
       const valorValue = await fetch(
-        `https://localhost:7081/api/Carrinho/CompileValue?usuarioId=${user.id}`,
+        `https://marketplacejoias-api-latest.onrender.com/api/Carrinho/CompileValue?usuarioId=${user.id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

@@ -67,7 +67,7 @@ function Carrinho() {
       setError(null);
 
       await fetch(
-        `https://localhost:7081/api/Carrinho/CompileValue?usuarioId=${user.id}`,
+        `https://marketplacejoias-api-latest.onrender.com/api/Carrinho/CompileValue?usuarioId=${user.id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -151,7 +151,7 @@ function Carrinho() {
 
       // Atualiza o valor do carrinho após remoção
       await fetch(
-        `https://localhost:7081/api/Carrinho/CompileValue?usuarioId=${usuarioId}`,
+        `https://marketplacejoias-api-latest.onrender.com/api/Carrinho/CompileValue?usuarioId=${usuarioId}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
