@@ -166,7 +166,7 @@ function Catalogo() {
     setError(null);
     try {
       const response = await fetch(
-        "https://localhost:7081/api/Anuncio/GetAnuncio"
+        "https://marketplacejoias-api-latest.onrender.com/api/Anuncio/GetAnuncio"
       );
       if (!response.ok) throw new Error("Falha na busca de anúncios.");
       const data = await response.json();
