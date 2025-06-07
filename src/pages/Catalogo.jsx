@@ -265,26 +265,27 @@ function Catalogo() {
 
       {/* Botão de Filtro */}
       <div className="Catalogo__filters__button">
-        <button
-          onClick={() => {
-            const reset = {
-              tipo: "todos",
-              material: "",
-              genero: "",
-              precoMin: "",
-              precoMax: "",
-            };
-            setTempFilter(reset);
-            setSelectedFilter("todos");
-            setShowFilters(false); // Fecha o modal/dropdown ao limpar
-            ClearSearch();
-          }}
-        >
-          Limpar
-        </button>
-        <button onClick={() => setShowFilters((prev) => !prev)}>Filtros</button>
-
-        <div className="Anuncie__btn">
+        <div className="Catalogo__filters__button__item">
+          <button
+            onClick={() => {
+              const reset = {
+                tipo: "todos",
+                material: "",
+                genero: "",
+                precoMin: "",
+                precoMax: "",
+              };
+              setTempFilter(reset);
+              setSelectedFilter("todos");
+              setShowFilters(false); // Fecha o modal/dropdown ao limpar
+              ClearSearch();
+            }}
+          >
+            Limpar
+          </button>
+          <button onClick={() => setShowFilters((prev) => !prev)}>Filtros</button>
+        </div>
+        <div className="Catalogo__filters__button__item right">
           <Link to="/cadastroJoia" className="anuncie-button">
             Anuncie agora
           </Link>
