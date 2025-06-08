@@ -152,7 +152,7 @@ const Profile = () => {
 
     try {
       const response = await fetch(
-        `https://localhost:7081/api/Usuario/UploadImageUsuario?usuarioId=${user.id}`,
+        `$https://marketplacejoias-api-latest.onrender.com/api/Usuario/UploadImageUsuario?usuarioId={user.id}`,
         {
           method: "POST",
           body: formData,
