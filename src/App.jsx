@@ -40,10 +40,12 @@ import "./App.css";
 import Carreiras from "./pages/Carreiras";
 import CadastroJoia from "./components/CadastroJoia";
 
+import store from "./store/store"
+
 function App() {
   const usuario = useSelector((state) => state.user);
 
-  return (
+  return (<Provider store={store}>
     <Router>
       <NavBar />
       <ScrollToTop />
@@ -85,6 +87,7 @@ function App() {
       <ToastContainer position="top-right" autoClose={3000} />
       <Footer />
     </Router>
+  </Provider>
   );
 }
 
