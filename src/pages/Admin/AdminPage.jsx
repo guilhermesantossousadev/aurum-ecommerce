@@ -6,6 +6,9 @@ import { FaSignOutAlt } from "react-icons/fa";
 import "../../styles/Admin/AdminPage.css";
 import CrudAnuncios from "../../components/Cruds/CrudAnuncios";
 import CrudUsuarios from "../../components/Cruds/CrudUsuarios";
+import CrudVendas from "../../components/Cruds/CrudVendas";
+import CrudNewsletter from "../../components/Cruds/CrudNewsletter";
+import CrudJoias from "../../components/Cruds/CrudJoias";
 
 function AdminPage() {
   const [step, setStep] = useState(1);
@@ -71,10 +74,10 @@ function AdminPage() {
 
       <div className="Admin__all">
         {step === 1 && <CrudAnuncios />}
-        {step === 2 && <div>Joias Component</div>}
+        {step === 2 && <CrudJoias />}
         {step === 3 && <CrudUsuarios />}
-        {step === 4 && <div>Newsletter Component</div>}
-        {step === 5 && <div>Vendas Component</div>}
+        {step === 4 && <CrudNewsletter />}
+        {step === 5 && <CrudVendas />}
       </div>
     </div>
   );

@@ -4,7 +4,6 @@ import { useNavigate, Link } from "react-router-dom";
 import { login } from "../store/userSlice";
 import "../styles/Register.css";
 import { toast } from "react-toastify";
-
 import testimg from "../images/AnelHome.jpg";
 
 const Register = () => {
@@ -102,7 +101,7 @@ const Register = () => {
       email,
       password,
       cep: cep.replace(/[^\d]/g, ""),
-      numero: parseInt(numero) || 0,
+      numero: numero,
       complemento: "",
       endereco: enderecoFormatado,
     };
@@ -139,11 +138,12 @@ const Register = () => {
         <div className="Register__container__left">
           <div className="Register__container__left__top">
             <h1 className="Register__title">Cadastro</h1>
-
-            {error && <div className="Register__error">{error}</div>}
-            {success && <div className="Register__success">{success}</div>}
-            {cpfError && <div className="Register__error">{cpfError}</div>}
           </div>
+
+          {error && <div className="Register__error">{error}</div>}
+          {success && <div className="Register__success">{success}</div>}
+          {cpfError && <div className="Register__error">{cpfError}</div>}
+
           <div className="Register__container__left__middle">
             <form className="Register__form" onSubmit={handleSubmit}>
               <div className="Register__grid">
@@ -227,6 +227,7 @@ const Register = () => {
                     name="cep"
                     value={cep}
                     onChange={(e) => setCep(e.target.value)}
+                    maxLength={9}
                     required
                   />
                 </div>

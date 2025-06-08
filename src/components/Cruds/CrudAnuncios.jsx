@@ -73,7 +73,7 @@ function CrudAnuncios() {
       case "Anel":
         return (
           <>
-            <div style={{ marginBottom: 12 }}>
+            <div>
               <label>Tamanho</label>
               <input
                 type="number"
@@ -85,7 +85,7 @@ function CrudAnuncios() {
                 required
               />
             </div>
-            <div style={{ marginBottom: 12 }}>
+            <div>
               <label>Formato</label>
               <input
                 type="text"
@@ -99,7 +99,7 @@ function CrudAnuncios() {
       case "Brinco":
         return (
           <>
-            <div style={{ marginBottom: 12 }}>
+            <div>
               <label>Tipo de Fecho</label>
               <input
                 type="text"
@@ -108,7 +108,7 @@ function CrudAnuncios() {
                 required
               />
             </div>
-            <div style={{ marginBottom: 12 }}>
+            <div>
               <label>Modelo</label>
               <input
                 type="text"
@@ -117,7 +117,7 @@ function CrudAnuncios() {
                 required
               />
             </div>
-            <div style={{ marginBottom: 12 }}>
+            <div>
               <label>Altura</label>
               <input
                 type="number"
@@ -129,7 +129,7 @@ function CrudAnuncios() {
                 required
               />
             </div>
-            <div style={{ marginBottom: 12 }}>
+            <div>
               <label>Peso Individual</label>
               <input
                 type="number"
@@ -146,7 +146,7 @@ function CrudAnuncios() {
       case "Colar":
         return (
           <>
-            <div style={{ marginBottom: 12 }}>
+            <div>
               <label>Comprimento</label>
               <input
                 type="number"
@@ -158,7 +158,7 @@ function CrudAnuncios() {
                 required
               />
             </div>
-            <div style={{ marginBottom: 12 }}>
+            <div >
               <label>Espessura</label>
               <input
                 type="number"
@@ -170,7 +170,7 @@ function CrudAnuncios() {
                 required
               />
             </div>
-            <div style={{ marginBottom: 12 }}>
+            <div >
               <label>
                 <input
                   type="checkbox"
@@ -182,7 +182,7 @@ function CrudAnuncios() {
                 Possui Pingente
               </label>
             </div>
-            <div style={{ marginBottom: 12 }}>
+            <div >
               <label>Tipo Corrente</label>
               <input
                 type="text"
@@ -196,7 +196,7 @@ function CrudAnuncios() {
       case "Piercing":
         return (
           <>
-            <div style={{ marginBottom: 12 }}>
+            <div >
               <label>Região</label>
               <input
                 type="text"
@@ -205,7 +205,7 @@ function CrudAnuncios() {
                 required
               />
             </div>
-            <div style={{ marginBottom: 12 }}>
+            <div >
               <label>Fechamento</label>
               <input
                 type="text"
@@ -214,7 +214,7 @@ function CrudAnuncios() {
                 required
               />
             </div>
-            <div style={{ marginBottom: 12 }}>
+            <div >
               <label>
                 <input
                   type="checkbox"
@@ -230,7 +230,7 @@ function CrudAnuncios() {
         );
       case "Pingente":
         return (
-          <div style={{ marginBottom: 12 }}>
+          <div >
             <label>Formato</label>
             <input
               type="text"
@@ -243,7 +243,7 @@ function CrudAnuncios() {
       case "Pulseira":
         return (
           <>
-            <div style={{ marginBottom: 12 }}>
+            <div >
               <label>
                 <input
                   type="checkbox"
@@ -255,7 +255,7 @@ function CrudAnuncios() {
                 Possui Pingentes
               </label>
             </div>
-            <div style={{ marginBottom: 12 }}>
+            <div >
               <label>Flexibilidade</label>
               <input
                 type="text"
@@ -264,7 +264,7 @@ function CrudAnuncios() {
                 required
               />
             </div>
-            <div style={{ marginBottom: 12 }}>
+            <div >
               <label>Material Pulseira</label>
               <input
                 type="text"
@@ -280,7 +280,7 @@ function CrudAnuncios() {
       case "Relogio":
         return (
           <>
-            <div style={{ marginBottom: 12 }}>
+            <div >
               <label>Tipo Movimento</label>
               <input
                 type="text"
@@ -289,7 +289,7 @@ function CrudAnuncios() {
                 required
               />
             </div>
-            <div style={{ marginBottom: 12 }}>
+            <div >
               <label>
                 <input
                   type="checkbox"
@@ -301,7 +301,7 @@ function CrudAnuncios() {
                 Resistente à Água
               </label>
             </div>
-            <div style={{ marginBottom: 12 }}>
+            <div >
               <label>Diâmetro Caixa</label>
               <input
                 type="number"
@@ -313,7 +313,7 @@ function CrudAnuncios() {
                 required
               />
             </div>
-            <div style={{ marginBottom: 12 }}>
+            <div >
               <label>Material Pulseira</label>
               <input
                 type="text"
@@ -324,7 +324,7 @@ function CrudAnuncios() {
                 required
               />
             </div>
-            <div style={{ marginBottom: 12 }}>
+            <div >
               <label>Fonte Energia</label>
               <input
                 type="text"
@@ -429,7 +429,7 @@ function CrudAnuncios() {
     <div style={{ maxWidth: 600, margin: "auto", padding: 16 }}>
       <h2>Cadastrar Anúncio</h2>
       <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: 12 }}>
+        <div >
           <label>Título do anúncio</label>
           <input
             type="text"
@@ -439,7 +439,7 @@ function CrudAnuncios() {
           />
         </div>
 
-        <div style={{ marginBottom: 12 }}>
+        <div >
           <label>ID do Usuário</label>
           <input
             type="number"
@@ -450,7 +450,7 @@ function CrudAnuncios() {
           />
         </div>
 
-        <div style={{ marginBottom: 12 }}>
+        <div >
           <label>URLs das imagens</label>
           {urLs.map((url, idx) => (
             <div key={idx} style={{ display: "flex", gap: 8, marginBottom: 8 }}>
@@ -484,7 +484,7 @@ function CrudAnuncios() {
           </button>
         </div>
 
-        <div style={{ marginBottom: 12 }}>
+        <div >
           <label>Tipo da peça</label>
           <select
             value={joiaData.tipoPeca}
@@ -502,7 +502,7 @@ function CrudAnuncios() {
           </select>
         </div>
 
-        <div style={{ marginBottom: 12 }}>
+        <div >
           <label>Valor</label>
           <input
             type="number"
@@ -514,7 +514,7 @@ function CrudAnuncios() {
           />
         </div>
 
-        <div style={{ marginBottom: 12 }}>
+        <div >
           <label>Descrição</label>
           <textarea
             value={joiaData.descricao}
@@ -523,7 +523,7 @@ function CrudAnuncios() {
           />
         </div>
 
-        <div style={{ marginBottom: 12 }}>
+        <div >
           <label>Peso</label>
           <input
             type="number"
@@ -535,7 +535,7 @@ function CrudAnuncios() {
           />
         </div>
 
-        <div style={{ marginBottom: 12 }}>
+        <div >
           <label>Material</label>
           <input
             type="text"
@@ -545,7 +545,7 @@ function CrudAnuncios() {
           />
         </div>
 
-        <div style={{ marginBottom: 12 }}>
+        <div >
           <label>
             <input
               type="checkbox"
@@ -558,7 +558,7 @@ function CrudAnuncios() {
           </label>
         </div>
 
-        <div style={{ marginBottom: 12 }}>
+        <div >
           <label>Material Cravejado</label>
           <input
             type="text"

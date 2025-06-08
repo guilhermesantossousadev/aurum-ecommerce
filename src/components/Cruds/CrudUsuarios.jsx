@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const apiBaseUrl = "https://localhost:7081/api/Usuario"; // ajuste conforme seu backend
+const apiBaseUrl = "https://marketplacejoias-api-latest.onrender.com/api/Usuario"; // ajuste conforme seu backend
 
 const initialFormState = {
   nome: "",
@@ -197,7 +197,6 @@ function CrudUsuarios() {
         ))}
       </div>
 
-      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 }
