@@ -10,8 +10,6 @@ import CrudVendas from "../../components/Cruds/CrudVendas";
 import CrudNewsletter from "../../components/Cruds/CrudNewsletter";
 import CrudJoias from "../../components/Cruds/CrudJoias";
 
-
-import { logout } from "../../store/userSlice"
 function AdminPage() {
   const [step, setStep] = useState(1);
   const dispatch = useDispatch();
