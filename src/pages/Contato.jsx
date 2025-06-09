@@ -92,7 +92,7 @@ function Contato() {
           {/* Box Container 1 */}
           <div className="Contato__Box__container">
             <div className="Contato__Box__item first">
-              <h1>OFFICES</h1>
+              <h1>ESCRITORIOS</h1>
             </div>
             <div className="Contato__Box__item" id="sandiego">
               <div className="Contato__Box__item__top">

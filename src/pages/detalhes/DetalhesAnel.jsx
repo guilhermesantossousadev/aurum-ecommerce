@@ -205,7 +205,7 @@ function DetalhesAnel() {
       toast.error("Erro ao adicionar ao carrinho");
     }
   };
-
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
