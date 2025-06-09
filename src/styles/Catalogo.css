@@ -583,7 +583,7 @@
     min-width: unset;
     max-width: 100%;
     min-height: auto;
-    max-height: 300px;
+    max-height: 400px;
   }
 
   .anuncio__card h3,
@@ -591,6 +591,7 @@
     text-align: left;
     margin-left: auto;
     margin-right: auto;
+    font-size: 2rem;
   }
 
 }
