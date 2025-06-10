@@ -7,6 +7,7 @@
   background-color: var(--background-color);
 }
 
+/* Container da imagem principal */
 .carousel__container {
   position: relative;
   width: 100%;
@@ -15,9 +16,10 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
-  /* menor espaçamento para thumbnails */
+  /* Espaçamento para thumbnails */
 }
 
+/* Imagem principal */
 .carousel__image-container {
   width: 100%;
   height: 100%;
@@ -43,18 +45,20 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: scale(1.1);
+  transform: scale(1);
   transition: transform 0.5s ease;
 }
 
-.carousel__slide.active img {
-  transform: scale(1);
+/* Wrapper das miniaturas e botões */
+.carousel__thumbnails-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
+/* Botões de navegação */
 .carousel__button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
   background: rgba(37, 36, 34, 0.5);
   color: white;
   border: none;
@@ -74,24 +78,19 @@
   background: rgba(37, 36, 34, 0.8);
 }
 
-.carousel__button.prev {
-  left: 20px;
-}
-
+/* Remover posição absoluta das setas */
+.carousel__button.prev,
 .carousel__button.next {
-  right: 20px;
+  position: static;
+  transform: none;
 }
 
-/* Miniaturas quadradas */
-
+/* Miniaturas */
 .carousel__thumbnails {
   display: flex;
   justify-content: center;
   gap: 10px;
-  margin-top: 10px;
-  flex-wrap: nowrap;
   overflow-x: auto;
-  /* para rolar se muitas imagens */
   padding-bottom: 10px;
 }
 
@@ -107,12 +106,11 @@
 }
 
 .carousel__thumbnail.active {
-  border-color: var(--dabe57, #dabe57);
-  /* cor destaque */
+  border-color: var(--dabe57, #f9cdcd);
+  /* Cor de destaque */
 }
 
 /* Responsivo */
-
 @media (max-width: 768px) {
   .carousel__container {
     height: 300px;
@@ -122,14 +120,6 @@
     width: 30px;
     height: 30px;
     font-size: 16px;
-  }
-
-  .carousel__button.prev {
-    left: 10px;
-  }
-
-  .carousel__button.next {
-    right: 10px;
   }
 
   .carousel__thumbnail {

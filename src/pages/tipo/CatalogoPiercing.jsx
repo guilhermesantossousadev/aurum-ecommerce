@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/Catalogo.css";
-import lupabranca from "../../images/lupa-branca.png";
+
 
 import searchicon from "../../images/searchicon.png";
 import xpng from "../../images/x.png";
+
+import { Link } from "react-router-dom";
+import SetaPretaDireita from "../../images/SetaPretaDireita.png";
 
 function CatalogoPiercing() {
   const [selectedFilter, setSelectedFilter] = useState("todos");
@@ -264,30 +267,31 @@ function CatalogoPiercing() {
 
   return (
     <>
-      <div className="Catalogo">
-        <div className="Catalogo__Header__container">
-          <div className="Search__header">
-            <div className="Search__header__container">
-              <img src={searchicon} alt="searchicon" className="search__lupe" />
-              <img
-                src={xpng}
-                alt="xpng"
-                className="search__x"
-                onClick={ClearSearch}
-              />
-              <input
-                type="text"
-                placeholder="O que você está procurando?"
-                className="Search__header__container__input"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-            </div>
+<div className="Catalogo">
+      <div className="Catalogo__Header__container">
+        <div className="Search__header">
+          <div className="Search__header__container">
+            <img src={searchicon} alt="searchicon" className="search__lupe" />
+            <img
+              src={xpng}
+              alt="xpng"
+              className="search__x"
+              onClick={ClearSearch}
+            />
+            <input
+              type="text"
+              placeholder="O que você está procurando?"
+              className="Search__header__container__input"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
           </div>
         </div>
+      </div>
 
-        {/* Botão de Filtro */}
-        <div className="Catalogo__filters__button">
+      {/* Botão de Filtro */}
+      <div className="Catalogo__filters__button">
+        <div className="Catalogo__filters__button__item">
           <button
             onClick={() => {
               const reset = {
@@ -300,97 +304,99 @@ function CatalogoPiercing() {
               setTempFilter(reset);
               setSelectedFilter("todos");
               setShowFilters(false); // Fecha o modal/dropdown ao limpar
+              ClearSearch();
             }}
           >
             Limpar
           </button>
-
-          <button onClick={() => setShowFilters(true)}>Filtros</button>
+          <button onClick={() => setShowFilters((prev) => !prev)}>Filtros</button>
         </div>
-
-        {/* Modal de Filtros */}
-        {showFilters && (
-          <div className="dropdownFilters">
-            {/* Dropdown */}
-            {renderFilters()}
-          </div>
-        )}
-
-        {/* Exibição dos anúncios */}
-        <div className="anuncios__container">
-          {loading && <p>Carregando anúncios...</p>}
-          {error && <p className="error__message">{error}</p>}
-
-          {!loading && !error && anunciosFiltrados.length === 0 && (
-            <p>Nenhum anúncio encontrado.</p>
-          )}
-
-          <div className="anuncios__grid">
-            {/*Anuncio Card*/}
-            {currentAnuncios.map((anuncio) => (
-              <div
-                key={anuncio.id}
-                className="anuncio__card"
-                onClick={() => handleAnuncioClick(anuncio.id)}
-              >
-                <div className="anuncio__card__container">
-                  <div className="anuncio__card__img">
-                    {anuncio.urLs && anuncio.urLs.length > 0 && (
-                      <img
-                        src={anuncio.urLs[0]}
-                        alt="Imagem do anúncio"
-                        className="anuncio__image"
-                      />
-                    )}
-                  </div>
-                  <h3>{anuncio.titulo}</h3>
-                  <p>{anuncio.descricao}</p>
-                </div>
-                <div className="Catalogo__part">
-                  <div className="Catalogo__part__inside"></div>
-                </div>{" "}
-              </div>
-            ))}
-          </div>
-
-          {/* Paginação */}
-          {totalPages > 1 && (
-            <div className="pagination">
-              <button
-                className="pagination__button"
-                onClick={() => paginate(currentPage - 1)}
-                disabled={currentPage === 1}
-              >
-                Anterior
-              </button>
-
-              <div className="pagination__numbers">
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                  (number) => (
-                    <button
-                      key={number}
-                      className={`pagination__number ${
-                        currentPage === number ? "active" : ""
-                      }`}
-                      onClick={() => paginate(number)}
-                    >
-                      {number}
-                    </button>
-                  )
-                )}
-              </div>
-
-              <button
-                className="pagination__button"
-                onClick={() => paginate(currentPage + 1)}
-                disabled={currentPage === totalPages}
-              >
-                Próximo
-              </button>
-            </div>
-          )}
+        <div className="Catalogo__filters__button__item right">
+          <Link to="/cadastroJoia" className="anuncie-button">
+            Anuncie agora
+          </Link>
         </div>
       </div>
+
+      {/* Modal de Filtros */}
+      {showFilters && (
+        <div className="dropdownFilters">
+          {/* Dropdown */}
+          {renderFilters()}
+        </div>
+      )}
+
+      {/* Anúncios */}
+      <div className="anuncios__container">
+        {loading && <p>Carregando anúncios...</p>}
+        {error && <p className="error__message">{error}</p>}
+        {!loading && !error && anunciosFiltrados.length === 0 && (
+          <p>Nenhum anúncio encontrado.</p>
+        )}
+        <div className="anuncios__grid">
+          {currentAnuncios.map((anuncio) => (
+            <div
+              key={anuncio.id}
+              className="anuncio__card"
+              onClick={() => handleAnuncioClick(anuncio.id, anuncio.joiaId)}
+            >
+              <div className="Catalogo__part">
+                <div className="Catalogo__part__inside"></div>
+              </div>
+              <div className="anuncio__card__container">
+                <div className="anuncio__card__img">
+                  {anuncio.urLs?.[0] && (
+                    <img
+                      src={anuncio.urLs[0]}
+                      alt="Imagem do anúncio"
+                      className="anuncio__image"
+                    />
+                  )}
+                </div>
+                <h3>{anuncio.titulo}</h3>
+                <p>{anuncio.descricao}</p>
+
+                <div className="anuncio__card__seta">
+                  <img
+                    src={SetaPretaDireita}
+                    alt="SetaPretaDireita"
+                    width="10px"
+                  />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Paginação */}
+        {totalPages > 1 && (
+          <div className="pagination">
+            <button
+              onClick={() => paginate(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              Anterior
+            </button>
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
+              <button
+                key={num}
+                className={`pagination__number ${currentPage === num ? "active" : ""
+                  }`}
+                onClick={() => paginate(num)}
+              >
+                {num}
+              </button>
+            ))}
+            <button
+              onClick={() => paginate(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            >
+              Próximo
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
     </>
   );
 }

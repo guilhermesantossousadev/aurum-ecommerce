@@ -326,6 +326,7 @@ function DetalhesPulseira() {
           </div>
 
           <div className="detalhes__container__internal__right">
+          <p className="detalhes__info__titulo">{anuncio.titulo}</p>
             <p className="detalhes__info__item__p">
               <div className="detalhes__venda__container">
                 <span>
@@ -376,7 +377,6 @@ function DetalhesPulseira() {
           </div>
         </div>
         {/* Detalhes do Anúncio */}
-        <p className="detalhes__info__titulo">{anuncio.titulo}</p>
         <div className="detalhes__info">
           <div className="detalhes__info__item">
             {/* Detalhes da Pulseira */}
@@ -417,18 +417,6 @@ function DetalhesPulseira() {
                 Material
               </strong>{" "}
               {pulseira?.material || "Material não disponível"}
-            </p>
-            <p className="detalhes__info__item__p">
-              <strong className="detalhes__info__item__p__strong">Valor</strong>{" "}
-              <div className="detalhes__venda__container">
-                <p className="detalhes__valor">
-                  {formatarPreco(pulseira?.valor) || "Valor não disponível"}
-                </p>
-                <BotaoPrimario
-                  texto="Adicionar ao carrinho"
-                  onClick={adicionarAoCarrinho}
-                />
-              </div>
             </p>
             {pulseira?.isStudded && (
               <p className="detalhes__info__item__p">

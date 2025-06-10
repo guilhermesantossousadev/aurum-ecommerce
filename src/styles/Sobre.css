@@ -41,7 +41,7 @@
   height: auto;
   display: flex;
   flex-direction: column;
-  padding: 5vw;
+  padding: 5vw 3.5rem;
 }
 
 .Sobre__container__item h1 {
@@ -182,7 +182,7 @@
 .Sobre__hero {
   min-height: 100vh;
   height: auto;
-  padding-inline: 5rem;
+  padding-inline: 3.8rem;
   display: flex;
   padding-bottom: 5rem;
   gap: 3rem;

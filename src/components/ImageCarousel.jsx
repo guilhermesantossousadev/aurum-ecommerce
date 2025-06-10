@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/ImageCarousel.css';
 
+import SetaRosaEsquerda from "../images/SetaRosaEsquerda.png"
+import SetaRosaDireita from "../images/SetaRosaDireita.png"
+
 const ImageCarousel = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -24,18 +27,15 @@ const ImageCarousel = ({ images }) => {
   useEffect(() => {
     const timer = setInterval(() => {
       nextSlide();
-    }, 5000); // Muda a cada 5 segundos
+    }, 5000);
 
     return () => clearInterval(timer);
   }, []);
 
   return (
     <div className="carousel">
+      {/* Imagem principal */}
       <div className="carousel__container">
-        <button className="carousel__button prev" onClick={prevSlide}>
-          &#10094;
-        </button>
-
         <div className="carousel__image-container">
           {images.map((image, index) => (
             <div
@@ -46,23 +46,27 @@ const ImageCarousel = ({ images }) => {
             </div>
           ))}
         </div>
-
-        <button className="carousel__button next" onClick={nextSlide}>
-          &#10095;
-        </button>
       </div>
 
-      {/* Miniaturas abaixo */}
-      <div className="carousel__thumbnails">
-        {images.map((image, index) => (
-          <img
-            key={index}
-            src={image}
-            alt={`Thumbnail ${index + 1}`}
-            className={`carousel__thumbnail ${index === currentIndex ? 'active' : ''}`}
-            onClick={() => goToSlide(index)}
-          />
-        ))}
+      {/* Miniaturas com setas laterais */}
+      <div className="carousel__thumbnails-wrapper">
+        <button className="carousel__button prev" onClick={prevSlide}>
+          <img src={SetaRosaEsquerda} alt="seta" width="30px" />
+        </button>
+        <div className="carousel__thumbnails">
+          {images.map((image, index) => (
+            <img
+              key={index}
+              src={image}
+              alt={`Thumbnail ${index + 1}`}
+              className={`carousel__thumbnail ${index === currentIndex ? 'active' : ''}`}
+              onClick={() => goToSlide(index)}
+            />
+          ))}
+        </div>
+        <button className="carousel__button next" onClick={nextSlide}>
+          <img src={SetaRosaDireita} alt="seta" width="30px" />
+        </button>
       </div>
     </div>
   );

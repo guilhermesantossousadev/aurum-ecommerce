@@ -162,6 +162,10 @@
   transform: scale(1.1);
 }
 
+.Home__Hero__item:hover .Home__Hero__item__text {
+  text-decoration: underline;
+}
+
 .Home__Hero__item img {
   width: 100%;
   max-width: 230px;
@@ -215,7 +219,6 @@
 .Home__delta__left h2 {
   font-size: 2rem;
   color: var(--text-second-color);
-  text-align: justify;
   max-width: 550px;
 }
 
