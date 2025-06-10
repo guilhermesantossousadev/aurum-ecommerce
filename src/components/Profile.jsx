@@ -381,7 +381,7 @@ const Profile = () => {
               </button>
             </div>
           </div>
-          <div class="Profile__box__second"></div>
+          <div class="Profile__box__second">opa</div>
         </div>
       </div>
     </section>

@@ -193,11 +193,11 @@ const NavBar = () => {
             <>
               {user.isAdmin ? (
                 <li>
-                  <Link to="/adminPage">Dashboard</Link>
+                  <Link to="/adminPage" onClick={() => setIsMenuOpen(false)}>Dashboard</Link>
                 </li>
               ) : (
                 <li>
-                  <Link to="/profile">Bem-vindo, {user.nome}!</Link>
+                  <Link to="/profile" onClick={() => setIsMenuOpen(false)}>Bem-vindo, {user.nome}!</Link>
                 </li>
               )}
             </>

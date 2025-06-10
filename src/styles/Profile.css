@@ -26,21 +26,24 @@
   align-items: center;
   padding-top: 150px;
   position: relative;
+  height: auto;
 }
 
 /* Novo container para as boxes */
 .Profile__boxes {
   display: flex;
-  gap: 50px; /* Espaço entre as caixas */
-  flex-wrap: wrap; /* Ajuste se precisar empilhar em telas menores */
+  gap: 50px;
+  /* Espaço entre as caixas */
+  flex-wrap: wrap;
+  /* Ajuste se precisar empilhar em telas menores */
   justify-content: center;
 }
 
 .Profile__box__first,
 .Profile__box__second {
   margin-top: -240px;
-  height: 600px;
-  width: 500px;
+  min-height: 600px;
+  min-width: 500px;
   background-color: #fff;
   padding: 2rem;
   border-radius: 12px;
@@ -205,4 +208,81 @@
   background-color: #22222238;
   cursor: pointer;
   border-radius: 5px;
+}
+
+@media (max-width: 1200px) {
+
+  .Profile__box__first,
+  .Profile__box__second {
+    width: 90vw;
+    /* Caixa ocupa quase toda a largura da tela menor */
+    height: auto;
+    /* Altura automática para ajustar ao conteúdo */
+    /* Ajusta a margem para não ficar tão grande */
+    padding: 1.5rem;
+    width: 100%;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    padding: 1rem;
+  }
+
+  .Profile__boxes {
+    gap: 500px;
+    /* Menos espaço entre as caixas */
+  }
+}
+
+@media (max-width: 768px) {
+
+  .Profile__box__first,
+  .Profile__box__second {
+    width: 100vw;
+    margin-top: -150px;
+    padding: 1rem;
+    height: auto;
+  }
+
+  .Profile__boxes {
+    flex-direction: column;
+    /* Empilha as caixas verticalmente */
+    gap: 20px;
+  }
+
+  .Profile__box__img__container {
+    flex-direction: column;
+    /* Ajusta container da imagem para coluna */
+    height: auto;
+    padding-bottom: 1rem;
+  }
+
+  .Profile__box__img__container__left,
+  .Profile__box__img__container__right {
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+
+  .Profile__img {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .Profile__bottom {
+    padding-top: 100px;
+    /* Menos espaçamento no topo */
+  }
+
+  .Profile__box__first,
+  .Profile__box__second {
+    margin-top: -100px;
+    padding: 4rem;
+    width: 100vw;
+  }
+
+  .Profile__btn__container {
+    flex-direction: column;
+    gap: 10px;
+  }
 }
