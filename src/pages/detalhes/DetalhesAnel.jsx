@@ -127,7 +127,7 @@ function DetalhesAnel() {
     try {
       const usuarioId = user?.id;
       if (!usuarioId) {
-        alert("Usuário não está logado.");
+        toast("Usuário não está logado.");
         return;
       }
 
@@ -205,7 +205,7 @@ function DetalhesAnel() {
       toast.error("Erro ao adicionar ao carrinho");
     }
   };
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {

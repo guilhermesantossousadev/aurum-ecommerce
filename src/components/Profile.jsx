@@ -95,28 +95,28 @@ const Profile = () => {
     switch (field) {
       case "nome":
         if (!nome.trim()) {
-          alert("Por favor, insira um nome válido.");
+          toast("Por favor, insira um nome válido.");
           return;
         }
         await updateUserData({ nome });
         break;
       case "cpf":
         if (!cpf.trim()) {
-          alert("Por favor, insira um CPF válido.");
+          toast("Por favor, insira um CPF válido.");
           return;
         }
         await updateUserData({ cpf });
         break;
       case "idade":
         if (!idade || isNaN(idade) || parseInt(idade) <= 0) {
-          alert("Por favor, insira uma idade válida.");
+          toast("Por favor, insira uma idade válida.");
           return;
         }
         await updateUserData({ idade });
         break;
       case "email":
         if (!email || !/\S+@\S+\.\S+/.test(email)) {
-          alert("Por favor, insira um e-mail válido.");
+          toast("Por favor, insira um e-mail válido.");
           return;
         }
         await updateUserData({ email });
@@ -140,7 +140,7 @@ const Profile = () => {
 
   const handleUploadImage = async () => {
     if (!selectedFile) {
-      alert("Por favor, selecione uma imagem antes de enviar.");
+      toast("Por favor, selecione uma imagem antes de enviar.");
       return;
     }
 
@@ -163,11 +163,12 @@ const Profile = () => {
         throw new Error("Falha no upload da imagem.");
       }
 
-      alert("Imagem atualizada com sucesso!");
+      toast.success("Imagem atualizada com sucesso!");
       setSelectedFile(null);
       setIsEditingPhoto(false); // fecha a seção de edição de foto
     } catch (error) {
-      alert("Erro ao enviar imagem: " + error.message);
+      console.log("Erro ao enviar imagem: " + error.message)
+      toast.error("Erro ao enviar imagem");
     } finally {
       setUploading(false);
     }

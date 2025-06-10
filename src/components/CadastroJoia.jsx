@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import "../styles/components/cadastroJoia.css";
+import { toast } from "react-toastify";
 
 const CadastroJoia = () => {
   const tiposJoia = [
@@ -101,7 +102,7 @@ const CadastroJoia = () => {
     e.preventDefault();
 
     if (!tipoSelecionado) {
-      alert("Selecione o tipo de joia!");
+      toast("Selecione o tipo de joia!");
       return;
     }
 
@@ -125,7 +126,7 @@ const CadastroJoia = () => {
         throw new Error(`Erro na requisição: ${response.status}`);
       }
 
-      alert(`${tipoSelecionado} cadastrado com sucesso!`);
+      toast.success(`${tipoSelecionado} cadastrado com sucesso!`);
 
       // Resetar o formData com campos específicos
       setFormData({
@@ -140,7 +141,7 @@ const CadastroJoia = () => {
       });
     } catch (error) {
       console.error(error);
-      alert(`Erro ao cadastrar ${tipoSelecionado}!`);
+      toast.error(`Erro ao cadastrar ${tipoSelecionado}!`);
     }
   };
 

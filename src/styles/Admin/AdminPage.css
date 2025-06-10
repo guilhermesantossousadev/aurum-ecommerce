@@ -49,3 +49,24 @@
   overflow-y: auto;
   padding-top: 10rem;
 }
+
+@media(max-width: 1024px) {
+  .Admin {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .Admin__menu {
+    width: 100%;
+  }
+
+  .Admin__all {
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+    padding: 2rem;
+    overflow-y: auto;
+    justify-content: start;
+    align-items: start;
+  }
+}

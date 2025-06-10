@@ -5,6 +5,7 @@ import SetaRosaDireita from "../images/SetaRosaDireita.png";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Footer() {
   const location = useLocation();
@@ -42,11 +43,11 @@ function Footer() {
         }
       );
       if (!response.ok) throw new Error("Erro ao enviar newsletter");
-      alert("Email cadastrado com sucesso!");
+      toast.success("Email cadastrado com sucesso!");
       setEmail("");
     } catch (error) {
       console.error(error);
-      alert("Ocorreu um erro ao cadastrar o email.");
+      toast.error("Ocorreu um erro ao cadastrar o email.");
     }
   };
 

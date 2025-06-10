@@ -126,7 +126,7 @@ function DetalhesPulseira() {
     try {
       const usuarioId = user?.id;
       if (!usuarioId) {
-        alert("Usuário não está logado.");
+        toast.error("Usuário não está logado.");
         return;
       }
 
