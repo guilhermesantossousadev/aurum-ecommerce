@@ -11,7 +11,7 @@ function Carreiras() {
             <h1 className="fade-in-up">Faça Coisas incríveis. ● Seja pago.</h1>
             <h4>
               Faça um ótimo trabalho. Trabalhe com pessoas excelentes.
-              BASIC/DEPT®, Inc 10 - 25©
+              AURUM/LUMINE®, Inc 10 - 25©
             </h4>
           </div>
           <div className="Carreiras__container__item right">

@@ -18,9 +18,6 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [cep, setCep] = useState("");
   const [numero, setNumero] = useState("");
-  const [cpfError, setCpfError] = useState("");
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const searchCEP = async () => {
@@ -68,23 +65,19 @@ const Register = () => {
 
     if (formattedCpf.length === 14) {
       if (!validarCPF(formattedCpf)) {
-        setCpfError("CPF inválido");
+        toast.error("CPF inválido");
       } else {
-        setCpfError("");
       }
     } else {
-      setCpfError("");
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    setError("");
-    setSuccess("");
 
     if (password !== confirmPassword) {
-      setError("As senhas não coincidem");
+      toast.error("As senhas não coincidem");
       setIsLoading(false);
       return;
     }
@@ -139,10 +132,6 @@ const Register = () => {
           <div className="Register__container__left__top">
             <h1 className="Register__title">Cadastro</h1>
           </div>
-
-          {error && <div className="Register__error">{error}</div>}
-          {success && <div className="Register__success">{success}</div>}
-          {cpfError && <div className="Register__error">{cpfError}</div>}
 
           <div className="Register__container__left__middle">
             <form className="Register__form" onSubmit={handleSubmit}>

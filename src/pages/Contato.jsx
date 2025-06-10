@@ -36,7 +36,7 @@ function Contato() {
             <div className="Contato__init__item__top">
               <h1 className="fade-in-up">A/L® CONTATO</h1>
               <p className="fade-in-up">
-                Fácil de entender. Impossível de ignorar.™ BASIC/DEPT®, Inc 10 -
+                Fácil de entender. Impossível de ignorar.™ AURUM/LUMINE®, Inc 10 -
                 25©
               </p>
             </div>
@@ -69,30 +69,39 @@ function Contato() {
                   </div>
                 </div>
 
-                <div className="Contato__init__item__bottom__right__bottom">
-                  <div className="Contato__init__item__bottom__right__bottom__item">
-                    <h1>Follow</h1>
-                  </div>
-                  <div className="Contato__init__item__bottom__right__bottom__item">
-                    <h1>Social</h1>
-                    <ul>
-                      <li>Instagram</li>
-                      <li>Twitter</li>
-                      <li>Linkedin</li>
-                      <li>Facebook</li>
-                    </ul>
-                  </div>
-                </div>
+
               </div>
             </div>
           </div>
         </div>
+
+
+        <div className="Contato__part">
+          <div className="Contato__part__inside"></div>
+        </div>
+
+
+        <div className="Contato__follow">
+          <div className="Contato__follow__left">
+            <h1>Follow</h1></div>
+          <div className="Contato__follow__right">
+            <h1>Social</h1>
+            <ul>
+              <li>Instagram</li>
+              <li>Twitter</li>
+              <li>Linkedin</li>
+              <li>Facebook</li>
+            </ul></div>
+        </div>
+
+
+
         {/* Seção de escritórios */}
         <div className="Contato__offices">
           {/* Box Container 1 */}
           <div className="Contato__Box__container">
             <div className="Contato__Box__item first">
-              <h1>ESCRITORIOS</h1>
+              <h1>ESCRITÓRIOS</h1>
             </div>
             <div className="Contato__Box__item" id="sandiego">
               <div className="Contato__Box__item__top">
