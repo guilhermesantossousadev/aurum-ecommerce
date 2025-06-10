@@ -5,13 +5,13 @@ const ImageCarousel = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextSlide = () => {
-    setCurrentIndex((prevIndex) => 
+    setCurrentIndex((prevIndex) =>
       prevIndex === images.length - 1 ? 0 : prevIndex + 1
     );
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prevIndex) => 
+    setCurrentIndex((prevIndex) =>
       prevIndex === 0 ? images.length - 1 : prevIndex - 1
     );
   };
@@ -35,7 +35,7 @@ const ImageCarousel = ({ images }) => {
         <button className="carousel__button prev" onClick={prevSlide}>
           &#10094;
         </button>
-        
+
         <div className="carousel__image-container">
           {images.map((image, index) => (
             <div
@@ -52,13 +52,15 @@ const ImageCarousel = ({ images }) => {
         </button>
       </div>
 
-      <div className="carousel__indicators">
-        {images.map((_, index) => (
-          <button
+      {/* Miniaturas abaixo */}
+      <div className="carousel__thumbnails">
+        {images.map((image, index) => (
+          <img
             key={index}
-            className={`carousel__indicator ${index === currentIndex ? 'active' : ''}`}
+            src={image}
+            alt={`Thumbnail ${index + 1}`}
+            className={`carousel__thumbnail ${index === currentIndex ? 'active' : ''}`}
             onClick={() => goToSlide(index)}
-            aria-label={`Ir para slide ${index + 1}`}
           />
         ))}
       </div>
@@ -66,4 +68,4 @@ const ImageCarousel = ({ images }) => {
   );
 };
 
-export default ImageCarousel; 
+export default ImageCarousel;

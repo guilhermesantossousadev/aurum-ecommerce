@@ -85,9 +85,8 @@
 
 .detalhes__container__internal {
   width: 100%;
-  height: 80vh;
+  height: 90vh;
   display: flex;
-  padding-inline: 5rem;
 }
 
 .detalhes__container__internal__left {
@@ -205,6 +204,10 @@ span {
   .detalhes__info__item {
     width: 100%;
   }
+
+  .detalhes {
+    padding: 0;
+  }
 }
 
 @media (max-width: 768px) {
@@ -230,10 +233,10 @@ span {
     font-size: 1.2rem;
   }
 }
+
 @media (max-width: 1024px) {
   .detalhes__container__internal {
     flex-direction: column;
-    padding-inline: 2rem;
     height: auto;
     gap: 2rem;
   }
