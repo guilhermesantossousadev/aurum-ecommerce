@@ -110,14 +110,9 @@ const NavBar = () => {
         <li>
           <Link to="/contato">Contato</Link>
         </li>
-
-        {user ? (
-          <li>
-            <Link to="/carrinho">Carrinho</Link>
-          </li>
-        ) : (
-          <li></li>
-        )}
+        <li>
+          <Link to="/carrinho">Carrinho</Link>
+        </li>
 
         {user ? (
           <>
@@ -180,15 +175,11 @@ const NavBar = () => {
             </Link>
           </li>
           <li>
-            {user ? (
-              <li>
-                <Link to="/carrinho" onClick={() => setIsMenuOpen(false)}>
-                  Carrinho
-                </Link>
-              </li>
-            ) : (
-              <li></li>
-            )}
+            <li>
+              <Link to="/carrinho" onClick={() => setIsMenuOpen(false)}>
+                Carrinho
+              </Link>
+            </li>
             <Link to="/carreiras" onClick={() => setIsMenuOpen(false)}>
               Carreiras
             </Link>

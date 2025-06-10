@@ -384,23 +384,7 @@ function DetalhesPingente() {
               <strong className="detalhes__info__item__p__strong">
                 Tipo de Pingente
               </strong>{" "}
-              {pingente?.tipoPingente || "Tipo de pingente não disponível"}
-            </p>
-            <p className="detalhes__info__item__p">
-              <strong className="detalhes__info__item__p__strong">
-                Tamanho
-              </strong>{" "}
-              {pingente?.tamanho
-                ? `${pingente.tamanho} cm`
-                : "Tamanho não disponível"}
-            </p>
-            <p className="detalhes__info__item__p">
-              <strong className="detalhes__info__item__p__strong">
-                Espessura
-              </strong>{" "}
-              {pingente?.espessura
-                ? `${pingente.espessura} mm`
-                : "Espessura não disponível"}
+              {pingente?.tipoPeca || "Tipo de pingente não disponível"}
             </p>
             <p className="detalhes__info__item__p">
               <strong className="detalhes__info__item__p__strong">Peso</strong>{" "}

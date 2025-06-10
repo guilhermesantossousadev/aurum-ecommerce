@@ -17,6 +17,23 @@ function Carrinho() {
 
   const [loading, setLoading] = useState(true);
 
+  // Tratamento para usuário não logado
+  if (!user?.id) {
+    return (
+      <div className="Carrinho">
+        <div className="carrinho-container">
+          <div className="carrinho-error">
+            <h2>Você não está logado</h2>
+            <p>Por favor, faça login para acessar o carrinho.</p>
+            <a href="/login" className="btn-login">
+              Ir para Login
+            </a>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const mostrarNotificacao = (mensagem) => {
     setNotificacao(mensagem);
     setTimeout(() => setNotificacao(""), 3000); // limpa após 3 segundos
@@ -158,7 +175,6 @@ function Carrinho() {
         }
       );
 
-      // ✅ Toast correto
       toast.success("Produto removido do carrinho com sucesso!");
 
       await fetchCarrinho();
