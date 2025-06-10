@@ -21,7 +21,7 @@ function Home() {
   // Controla as animações de fade-out do título e overlay
   useEffect(() => {
     const titleTimer = setTimeout(() => setHideTitle(true), 1000); // Esconde o título após 1s
-    const overlayTimer = setTimeout(() => setHideOverlay(true), 1300); // Remove a cortina após 1.3s
+    const overlayTimer = setTimeout(() => setHideOverlay(true), 5000); // Remove a cortina após 1.3s
 
     // Limpeza dos timers quando o componente for desmontado
     return () => {
@@ -39,7 +39,7 @@ function Home() {
             className="overlay"
             initial={{ y: 0 }} // Inicializa a cortina em sua posição original
             animate={{ y: hideTitle ? "-100%" : 0 }} // Animação da cortina subindo
-            transition={{ duration: 0.3, ease: "easeInOut" }} // Duração aumentada
+            transition={{ duration: 0.5, ease: "easeInOut" }} // Duração aumentada
           >
             {!hideTitle && (
               <motion.h1
@@ -51,7 +51,7 @@ function Home() {
               >
                 <div className="clip-container">
                   <div className="a__Aurun">AURUM</div>
-                  <p className="a__Aurun lumine">/Lumine</p>
+                  <p className="a__Aurun lumine">/LUMINE</p>
                 </div>
               </motion.h1>
             )}

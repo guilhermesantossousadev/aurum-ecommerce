@@ -67,7 +67,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  animation: clipDisappear 1.5s ease forwards;
+  animation: clipDisappear 3s ease forwards;
   overflow: hidden;
   position: absolute;
   top: 0;
@@ -158,7 +158,6 @@
 }
 
 .Home__Hero__item:hover {
-  cursor: pointer;
   transform: scale(1.1);
 }
 
