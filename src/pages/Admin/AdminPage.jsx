@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { FaSignOutAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 import "../../styles/Admin/AdminPage.css";
 import CrudAnuncios from "../../components/Cruds/CrudAnuncios";
@@ -65,6 +66,9 @@ function AdminPage() {
             >
               Vendas
             </button>
+          </li>
+          <li>
+            <button onClick={() => navigate("/profile")}>Perfil</button>
           </li>
           <li>
             <button className="profile__logout" onClick={handleLogout}>

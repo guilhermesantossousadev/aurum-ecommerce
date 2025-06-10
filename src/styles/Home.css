@@ -441,8 +441,9 @@ a.Home__Echo__container__item {
 /*Home Echo responsividade*/
 @media (max-width: 1024px) {
   .Home__Echo {
-    height: 250vh;
+    height: 280vh;
   }
+
   .Home__Echo__container {
     height: auto;
     padding-top: 0;
@@ -502,6 +503,7 @@ a.Home__Echo__container__item {
     font-size: 0.85rem;
   }
 }
+
 @media (max-width: 1600px) {
   .a__Aurun {
     font-size: 8rem;
