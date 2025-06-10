@@ -125,7 +125,7 @@
   list-style: none;
   display: flex;
   gap: 2rem;
-  margin-left: -50px;
+  margin-left: -90px;
 }
 
 .navbar__list a {

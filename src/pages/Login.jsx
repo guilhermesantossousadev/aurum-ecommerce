@@ -63,8 +63,6 @@ const Login = () => {
           <div className="Login__container__right__top">
             <h1 className="Login__title">Login</h1>
 
-            {error && <div className="Login__error">{error}</div>}
-            {success && <div className="Login__success">{success}</div>}
           </div>
           <div className="Login__container__right__middle">
             <form className="Login__form" onSubmit={handleSubmit}>
