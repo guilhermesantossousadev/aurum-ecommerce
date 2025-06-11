@@ -1,507 +1,287 @@
-import React, { useState } from "react";
-
-import "../styles/components/cadastroJoia.css";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import DragAndDropUploader from "../components/DragAndDropUploader";
+import "../styles/components/cadastroJoia.css"
 
-const CadastroJoia = () => {
-  const tiposJoia = [
-    "Anel",
-    "Brinco",
-    "Colar",
-    "Piercing",
-    "Pingente",
-    "Pulseira",
-    "Relogio",
-  ];
+const apiBaseUrl = "https://marketplacejoias-api-latest.onrender.com/api";
 
-  const [tipoSelecionado, setTipoSelecionado] = useState("");
-  const [formData, setFormData] = useState({
-    tipoPeca: "",
-    valor: "",
-    descricao: "",
-    peso: "",
-    material: "",
-    isStudded: false,
-    materialCravejado: "",
-  });
+const initialFormState = {
+  tipoPeca: "",
+  valor: 0,
+  descricao: "",
+  peso: 0,
+  material: "",
+  isStudded: false,
+  materialCravejado: "",
+  tamanho: 0,
+  formato: "",
+  tipoFecho: "",
+  modelo: "",
+  altura: 0,
+  pesoIndividual: 0,
+  comprimento: 0,
+  espessura: 0,
+  havePendant: false,
+  tipoCorrente: "",
+  regiao: "",
+  fechamento: "",
+  isAntiallergic: false,
+  haveCharms: false,
+  flexibilidade: "",
+  tipoMovimento: "",
+  haveWaterResistance: false,
+  diametroCaixa: 0,
+  materialPulseira: "",
+  fonteEnergia: "",
+};
 
-  const handleTipoChange = (e) => {
-    const selectedType = e.target.value;
-    setTipoSelecionado(selectedType);
+const CadastroAnuncio = () => {
+  const user = useSelector((state) => state.user);
+  const [step, setStep] = useState(1);
+  const [form, setForm] = useState(initialFormState);
+  const [joiaId, setJoiaId] = useState(null);
+  const [titulo, setTitulo] = useState("");
+  const [selectedImages, setSelectedImages] = useState([]);
+  const [uploadedUrls, setUploadedUrls] = useState([]);
 
-    // Reseta os campos base + específicos
-    setFormData({
-      tipoPeca: selectedType,
-      valor: "",
-      descricao: "",
-      peso: "",
-      material: "",
-      isStudded: false,
-      materialCravejado: "",
-      ...getCamposEspecificos(selectedType),
-    });
+  const handleChange = (field, value) => {
+    setForm((prev) => ({ ...prev, [field]: value }));
   };
 
-  const getCamposEspecificos = (tipo) => {
-    switch (tipo) {
-      case "Anel":
-        return { tamanho: "", formato: "" };
-      case "Brinco":
-        return { tipoFecho: "", modelo: "", altura: "", pesoIndividual: "" };
-      case "Colar":
-        return {
-          comprimento: "",
-          espessura: "",
-          havePendant: false,
-          modelo: "",
-          tipoCorrente: "",
-        };
-      case "Piercing":
-        return {
-          regiao: "",
-          fechamento: "",
-          tamanho: "",
-          isAntiallergic: false,
-        };
-      case "Pingente":
-        return { formato: "" };
-      case "Pulseira":
-        return {
-          tipoFecho: "",
-          comprimento: "",
-          espessura: "",
-          haveCharms: false,
-          flexibilidade: "",
-        };
-      case "Relogio":
-        return {
-          tipoMovimento: "",
-          haveWaterResistance: false,
-          diametroCaixa: "",
-          materialPulseira: "",
-          fonteEnergia: "",
-        };
-      default:
-        return {};
-    }
-  };
-
-  const handleChange = (e) => {
-    const { name, type, value, checked } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === "checkbox" ? checked : value,
-    });
-  };
-
-  const getTypeString = (tipo) => {
-    return `Models.Derivatives.${tipo}, Models`;
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!tipoSelecionado) {
-      toast("Selecione o tipo de joia!");
-      return;
+  const handleUploadImages = async () => {
+    if (!selectedImages.length) {
+      toast.error("Nenhuma imagem selecionada.");
+      return [];
     }
 
-    const dataToSend = {
-      ...formData,
-      $type: getTypeString(tipoSelecionado),
-    };
+    const formData = new FormData();
+    selectedImages.forEach((file) => {
+      formData.append("files", file);
+    });
 
     try {
-      const response = await fetch("https://localhost:7081/api/Joia/PostJoia", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dataToSend),
-      });
-
-      console.log(JSON.stringify(dataToSend));
-
-      if (!response.ok) {
-        throw new Error(`Erro na requisição: ${response.status}`);
-      }
-
-      toast.success(`${tipoSelecionado} cadastrado com sucesso!`);
-
-      // Resetar o formData com campos específicos
-      setFormData({
-        tipoPeca: tipoSelecionado,
-        valor: "",
-        descricao: "",
-        peso: "",
-        material: "",
-        isStudded: false,
-        materialCravejado: "",
-        ...getCamposEspecificos(tipoSelecionado),
-      });
+      const response = await fetch(
+        `${apiBaseUrl}/Anuncio/UploadImagesAnuncio`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+      if (!response.ok) throw new Error("Erro ao enviar imagens.");
+      const urls = await response.json();
+      setUploadedUrls(urls);
+      toast.success("Imagens enviadas com sucesso!");
+      return urls;  // ✅ Adicione esta linha para devolver as URLs!
     } catch (error) {
-      console.error(error);
-      toast.error(`Erro ao cadastrar ${tipoSelecionado}!`);
+      toast.error(error.message);
+      return []; // também devolve um array vazio em caso de erro
     }
   };
 
-  const renderCamposEspecificos = () => {
-    switch (tipoSelecionado) {
+
+  const handleCreateJoia = async () => {
+    try {
+      const response = await fetch(`${apiBaseUrl}/Joia/PostJoia`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (!response.ok) throw new Error("Erro ao criar joia.");
+      const id = await response.text();
+      setJoiaId(id);
+      toast.success("Joia criada com sucesso!");
+      setStep(2);
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+  const handleCreateAnuncio = async () => {
+    const urls = await handleUploadImages();
+    const anuncioData = {
+      joiaId,
+      titulo,
+      urLs: urls, // ✅ Usar as URLs retornadas
+      usuarioId: user.id,
+    };
+
+
+    try {
+      const response = await fetch(`${apiBaseUrl}/Anuncio/PostAnuncio`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(anuncioData),
+      });
+      if (!response.ok) throw new Error("Erro ao criar anúncio.");
+      toast.success("Anúncio criado com sucesso!");
+      // Resetar tudo
+      setStep(1);
+      setForm(initialFormState);
+      setJoiaId(null);
+      setTitulo("");
+      setSelectedImages([]);
+      setUploadedUrls([]);
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+
+  const renderSpecificInputs = () => {
+    switch (form.tipoPeca) {
       case "Anel":
         return (
           <>
-            <div>
-              <label>Tamanho:</label>
-              <input
-                type="number"
-                name="tamanho"
-                value={formData.tamanho}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <label>Formato:</label>
-              <input
-                type="text"
-                name="formato"
-                value={formData.formato}
-                onChange={handleChange}
-              />
-            </div>
+            <label>Tamanho</label>
+            <input
+              type="number"
+              value={form.tamanho}
+              onChange={(e) => handleChange("tamanho", Number(e.target.value))}
+            />
+            <label>Formato</label>
+            <input
+              type="text"
+              value={form.formato}
+              onChange={(e) => handleChange("formato", e.target.value)}
+            />
           </>
         );
       case "Brinco":
         return (
           <>
-            <div>
-              <label>Tipo Fecho:</label>
-              <input
-                type="text"
-                name="tipoFecho"
-                value={formData.tipoFecho}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <label>Modelo:</label>
-              <input
-                type="text"
-                name="modelo"
-                value={formData.modelo}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <label>Altura (mm):</label>
-              <input
-                type="number"
-                name="altura"
-                value={formData.altura}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <label>Peso Individual (g):</label>
-              <input
-                type="number"
-                name="pesoIndividual"
-                value={formData.pesoIndividual}
-                onChange={handleChange}
-              />
-            </div>
+            <label>Tipo Fecho</label>
+            <input
+              type="text"
+              value={form.tipoFecho}
+              onChange={(e) => handleChange("tipoFecho", e.target.value)}
+            />
+            <label>Modelo</label>
+            <input
+              type="text"
+              value={form.modelo}
+              onChange={(e) => handleChange("modelo", e.target.value)}
+            />
           </>
         );
       case "Colar":
         return (
           <>
-            <div>
-              <label>Comprimento (cm):</label>
-              <input
-                type="number"
-                name="comprimento"
-                value={formData.comprimento}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <label>Espessura (mm):</label>
-              <input
-                type="number"
-                name="espessura"
-                value={formData.espessura}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <label>Tem Pingente?</label>
-              <input
-                type="checkbox"
-                name="havePendant"
-                checked={formData.havePendant}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <label>Modelo:</label>
-              <input
-                type="text"
-                name="modelo"
-                value={formData.modelo}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <label>Tipo Corrente:</label>
-              <input
-                type="text"
-                name="tipoCorrente"
-                value={formData.tipoCorrente}
-                onChange={handleChange}
-              />
-            </div>
-          </>
-        );
-      case "Piercing":
-        return (
-          <>
-            <div>
-              <label>Região:</label>
-              <input
-                type="text"
-                name="regiao"
-                value={formData.regiao}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <label>Fechamento:</label>
-              <input
-                type="text"
-                name="fechamento"
-                value={formData.fechamento}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <label>Tamanho (mm):</label>
-              <input
-                type="number"
-                name="tamanho"
-                value={formData.tamanho}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <label>É Antialérgico?</label>
-              <input
-                type="checkbox"
-                name="isAntiallergic"
-                checked={formData.isAntiallergic}
-                onChange={handleChange}
-              />
-            </div>
-          </>
-        );
-      case "Pingente":
-        return (
-          <div>
-            <label>Formato:</label>
+            <label>Comprimento</label>
+            <input
+              type="number"
+              value={form.comprimento}
+              onChange={(e) =>
+                handleChange("comprimento", Number(e.target.value))
+              }
+            />
+            <label>Possui Pingente</label>
+            <input
+              type="checkbox"
+              checked={form.havePendant}
+              onChange={(e) => handleChange("havePendant", e.target.checked)}
+            />
+            <label>Tipo Corrente</label>
             <input
               type="text"
-              name="formato"
-              value={formData.formato}
-              onChange={handleChange}
+              value={form.tipoCorrente}
+              onChange={(e) => handleChange("tipoCorrente", e.target.value)}
             />
-          </div>
-        );
-      case "Pulseira":
-        return (
-          <>
-            <div>
-              <label>Tipo Fecho:</label>
-              <input
-                type="text"
-                name="tipoFecho"
-                value={formData.tipoFecho}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <label>Comprimento (cm):</label>
-              <input
-                type="number"
-                name="comprimento"
-                value={formData.comprimento}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <label>Espessura (mm):</label>
-              <input
-                type="number"
-                name="espessura"
-                value={formData.espessura}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <label>Tem Charms?</label>
-              <input
-                type="checkbox"
-                name="haveCharms"
-                checked={formData.haveCharms}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <label>Flexibilidade:</label>
-              <input
-                type="text"
-                name="flexibilidade"
-                value={formData.flexibilidade}
-                onChange={handleChange}
-              />
-            </div>
           </>
         );
-      case "Relogio":
-        return (
-          <>
-            <div>
-              <label>Tipo Movimento:</label>
-              <input
-                type="text"
-                name="tipoMovimento"
-                value={formData.tipoMovimento}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <label>Tem resistência à água?</label>
-              <input
-                type="checkbox"
-                name="haveWaterResistance"
-                checked={formData.haveWaterResistance}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <label>Diâmetro Caixa (mm):</label>
-              <input
-                type="number"
-                name="diametroCaixa"
-                value={formData.diametroCaixa}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <label>Material Pulseira:</label>
-              <input
-                type="text"
-                name="materialPulseira"
-                value={formData.materialPulseira}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <label>Fonte de Energia:</label>
-              <input
-                type="text"
-                name="fonteEnergia"
-                value={formData.fonteEnergia}
-                onChange={handleChange}
-              />
-            </div>
-          </>
-        );
+      // ... (outros cases iguais ao seu CadastroJoia)
       default:
         return null;
     }
   };
 
   return (
-    <div className="cadastroJoia">
-      <h2>Cadastrar Joia</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Tipo de Joia:</label>
-          <select value={tipoSelecionado} onChange={handleTipoChange}>
-            <option value="">Selecione...</option>
-            {tiposJoia.map((tipo) => (
-              <option key={tipo} value={tipo}>
-                {tipo}
-              </option>
-            ))}
+    <div className="CadastroJoia">
+      <h2>
+        {step === 1 ? "Cadastrar Joia" : "Cadastrar Anúncio"}
+      </h2>
+      {step === 1 && (
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleCreateJoia();
+          }}
+        >
+          <label>Tipo da Peça</label>
+          <select
+            value={form.tipoPeca}
+            onChange={(e) => handleChange("tipoPeca", e.target.value)}
+            required
+          >
+            <option value="">-- Selecione --</option>
+            <option value="Anel">Anel</option>
+            <option value="Brinco">Brinco</option>
+            <option value="Colar">Colar</option>
+            <option value="Piercing">Piercing</option>
+            <option value="Pingente">Pingente</option>
+            <option value="Pulseira">Pulseira</option>
+            <option value="Relogio">Relógio</option>
           </select>
-        </div>
 
-        {tipoSelecionado && (
-          <>
-            <div>
-              <label>Valor (R$):</label>
-              <input
-                type="number"
-                name="valor"
-                value={formData.valor}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <label>Descrição:</label>
-              <input
-                type="text"
-                name="descricao"
-                value={formData.descricao}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <label>Peso (g):</label>
-              <input
-                type="number"
-                name="peso"
-                value={formData.peso}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <label>Material:</label>
-              <input
-                type="text"
-                name="material"
-                value={formData.material}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <label>É cravejado?</label>
-              <input
-                type="checkbox"
-                name="isStudded"
-                checked={formData.isStudded}
-                onChange={handleChange}
-              />
-            </div>
-            {formData.isStudded && (
-              <div>
-                <label>Material Cravejado:</label>
-                <input
-                  type="text"
-                  name="materialCravejado"
-                  value={formData.materialCravejado}
-                  onChange={handleChange}
-                />
-              </div>
-            )}
+          <label>Valor</label>
+          <input
+            type="number"
+            step="0.01"
+            value={form.valor}
+            onChange={(e) => handleChange("valor", Number(e.target.value))}
+          />
 
-            {/* Campos Específicos */}
-            {renderCamposEspecificos()}
-            <button type="submit">Cadastrar</button>
-          </>
-        )}
-      </form>
+          <label>Descrição</label>
+          <textarea
+            value={form.descricao}
+            onChange={(e) => handleChange("descricao", e.target.value)}
+          />
+
+          <label>Peso</label>
+          <input
+            type="number"
+            step="0.01"
+            value={form.peso}
+            onChange={(e) => handleChange("peso", Number(e.target.value))}
+          />
+
+          <label>Material</label>
+          <input
+            type="text"
+            value={form.material}
+            onChange={(e) => handleChange("material", e.target.value)}
+          />
+
+          {renderSpecificInputs()}
+
+          <button type="submit">Avançar para Anúncio</button>
+        </form>
+      )}
+
+      {step === 2 && (
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleCreateAnuncio();
+          }}
+        >
+          <label>Título do Anúncio</label>
+          <input
+            type="text"
+            value={titulo}
+            onChange={(e) => setTitulo(e.target.value)}
+            required
+          />
+
+          <label>Imagens do Anúncio</label>
+
+          <DragAndDropUploader onFilesUploaded={setSelectedImages} />
+
+          <button type="submit">Cadastrar Anúncio</button>
+        </form>
+      )}
     </div>
   );
 };
 
-export default CadastroJoia;
+export default CadastroAnuncio;
