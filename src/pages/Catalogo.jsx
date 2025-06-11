@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Catalogo.css";
@@ -239,7 +238,6 @@ function Catalogo() {
     fetchTipoJoia();
   };
 
-
   return (
     <div className="Catalogo">
       <div className="Catalogo__Header__container">
@@ -283,7 +281,9 @@ function Catalogo() {
           >
             Limpar
           </button>
-          <button onClick={() => setShowFilters((prev) => !prev)}>Filtros</button>
+          <button onClick={() => setShowFilters((prev) => !prev)}>
+            Filtros
+          </button>
         </div>
         <div className="Catalogo__filters__button__item right">
           <Link to="/cadastroJoia" className="anuncie-button">
@@ -348,14 +348,16 @@ function Catalogo() {
             <button
               onClick={() => paginate(currentPage - 1)}
               disabled={currentPage === 1}
+              className="pagination__button"
             >
               Anterior
             </button>
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
               <button
                 key={num}
-                className={`pagination__number ${currentPage === num ? "active" : ""
-                  }`}
+                className={`pagination__number ${
+                  currentPage === num ? "active" : ""
+                }`}
                 onClick={() => paginate(num)}
               >
                 {num}
@@ -364,6 +366,7 @@ function Catalogo() {
             <button
               onClick={() => paginate(currentPage + 1)}
               disabled={currentPage === totalPages}
+              className="pagination__button"
             >
               Próximo
             </button>
