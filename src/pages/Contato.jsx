@@ -76,26 +76,6 @@ function Contato() {
         </div>
 
 
-        <div className="Contato__part">
-          <div className="Contato__part__inside"></div>
-        </div>
-
-
-        <div className="Contato__follow">
-          <div className="Contato__follow__left">
-            <h1>Follow</h1></div>
-          <div className="Contato__follow__right">
-            <h1>Social</h1>
-            <ul>
-              <li>Instagram</li>
-              <li>Twitter</li>
-              <li>Linkedin</li>
-              <li>Facebook</li>
-            </ul></div>
-        </div>
-
-
-
         {/* Seção de escritórios */}
         <div className="Contato__offices">
           {/* Box Container 1 */}
@@ -223,6 +203,26 @@ function Contato() {
             </div>
           </div>
         </div>
+
+
+        <div className="Contato__part">
+          <div className="Contato__part__inside"></div>
+        </div>
+
+
+        <div className="Contato__follow">
+          <div className="Contato__follow__left">
+            <h1>Follow</h1></div>
+          <div className="Contato__follow__right">
+            <h1>Social</h1>
+            <ul>
+              <li>Instagram</li>
+              <li>Twitter</li>
+              <li>Linkedin</li>
+              <li>Facebook</li>
+            </ul></div>
+        </div>
+
       </div>
     </>
   );
