@@ -25,7 +25,7 @@ function Footer() {
       ].includes(path)
     )
       return "white-text";
-    if (["/carrinho", "/profile", "/contato", "/adminPage"].includes(path))
+    if (["/carrinho", "/contato", "/adminPage"].includes(path))
       return "black-text";
     return "pink-text";
   };

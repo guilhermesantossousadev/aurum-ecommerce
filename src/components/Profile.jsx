@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/userSlice";
 import { Link, useNavigate } from "react-router-dom";
@@ -6,8 +6,6 @@ import { toast } from "react-toastify";
 
 import fotodeperfilpadrao from "../images/fotodeperfil.png";
 import ximg from "../images/x.png";
-
-import camerapng from "../images/camera.png";
 
 import "../styles/Profile.css";
 
@@ -31,6 +29,9 @@ const Profile = () => {
   const [cpf, setCpf] = useState(user.cpf);
   const [idade, setIdade] = useState(user.idade);
   const [nome, setNome] = useState(user.nome);
+
+  const [anuncios, setAnuncios] = useState([]);
+  const [joias, setJoias] = useState({}); // objeto com idAnuncio -> joia
 
   // Estado para controlar a imagem local e o arquivo selecionado
   const [profileImage, setProfileImage] = useState(
@@ -69,7 +70,7 @@ const Profile = () => {
 
     try {
       const response = await fetch(
-        "https://localhost:7081/api/Usuario/PutUsuario",
+        "https://marketplacejoias-api-latest.onrender.com/api/Usuario/PutUsuario",
         {
           method: "PUT",
           headers: {
@@ -152,7 +153,8 @@ const Profile = () => {
 
     try {
       const response = await fetch(
-        `$https://marketplacejoias-api-latest.onrender.com/api/Usuario/UploadImageUsuario?usuarioId={user.id}`,
+        `https://marketplacejoias-api-latest.onrender.com/api/Usuario/UploadImageUsuario?usuarioId=${user.id}`,
+
         {
           method: "POST",
           body: formData,
@@ -167,19 +169,90 @@ const Profile = () => {
       setSelectedFile(null);
       setIsEditingPhoto(false); // fecha a seção de edição de foto
     } catch (error) {
-      console.log("Erro ao enviar imagem: " + error.message)
+      console.log("Erro ao enviar imagem: " + error.message);
       toast.error("Erro ao enviar imagem");
     } finally {
       setUploading(false);
     }
   };
 
+  const fetchAnunciosUsuario = async () => {
+    try {
+      const response = await fetch(
+        `https://marketplacejoias-api-latest.onrender.com/api/Anuncio/GetByUsuarioIdAnuncio?usuarioId=${user.id}`,
+        { method: "GET", headers: { "Content-Type": "application/json" } }
+      );
+
+      if (!response.ok) throw new Error("Erro ao carregar anúncios");
+
+      const anunciosUsuario = await response.json();
+      setAnuncios(anunciosUsuario);
+
+      // Agora busca as joias relacionadas a cada anúncio
+      const joiasMap = {};
+      await Promise.all(
+        anunciosUsuario.map(async (anuncio) => {
+          try {
+            const anelResponse = await fetch(
+              `https://marketplacejoias-api-latest.onrender.com/api/Joia/GetByIdJoia?id=${anuncio.joiaId}`
+            );
+            if (!anelResponse.ok) throw new Error("Erro ao carregar anel");
+
+            const anelData = await anelResponse.json();
+            joiasMap[anuncio.id] = anelData;
+          } catch (err) {
+            console.error("Erro carregando anel do anúncio", anuncio.id, err);
+          }
+        })
+      );
+
+      setJoias(joiasMap);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchAnunciosUsuario();
+  }, []);
+
+  const handleVerDetalhesClick = (anuncioId, joiaId) => {
+    const fetchTipoJoia = async () => {
+      try {
+        const response = await fetch(
+          `https://marketplacejoias-api-latest.onrender.com/api/Joia/GetByIdJoia?id=${joiaId}`
+        );
+        if (!response.ok) throw new Error("Erro ao buscar detalhes.");
+
+        const data = await response.json();
+        const tipo = data.tipoPeca?.toLowerCase();
+
+        const tipoParaUrl = {
+          anel: `/detalhesAnel/${anuncioId}`,
+          relogio: `/detalhesRelogio/${anuncioId}`,
+          colar: `/detalhesColar/${anuncioId}`,
+          brinco: `/detalhesBrinco/${anuncioId}`,
+          pulseira: `/detalhesPulseira/${anuncioId}`,
+          pingente: `/detalhesPingente/${anuncioId}`,
+          piercing: `/detalhesPiercing/${anuncioId}`,
+        };
+
+        const rota = tipoParaUrl[tipo] || `/DetalhesAnuncio/${anuncioId}`;
+        navigate(rota);
+      } catch (error) {
+        console.error("Erro:", error);
+        toast.error("Erro ao carregar detalhes da joia.");
+      }
+    };
+    fetchTipoJoia();
+  };
+
   return (
     <section className="Profile">
       <div className="Profile__top"></div>
-      <div class="Profile__bottom">
-        <div class="Profile__boxes">
-          <div class="Profile__box__first">
+      <div className="Profile__bottom">
+        <div className="Profile__boxes">
+          <div className="Profile__box__first first">
             <div className="Profile__box__img__container">
               <div className="Profile__box__img__container__left">
                 <div className="Profile__img">
@@ -382,7 +455,40 @@ const Profile = () => {
               </button>
             </div>
           </div>
-          <div class="Profile__box__second">opa</div>
+          <div className="Profile__box__second second">
+            <h2>Meus Anúncios</h2>
+            {anuncios.length === 0 ? (
+              <p>Você ainda não cadastrou nenhuma joia.</p>
+            ) : (
+              anuncios.map((anuncio) => {
+                const joia = joias[anuncio.joiaId];
+                return (
+                  <div key={anuncio.id} className="anuncio__card__profile">
+                    <img
+                      src={anuncio.urLs[0]} // primeira imagem
+                      alt={anuncio.nome || anuncio.titulo}
+                      width="30px"
+                    />
+                    <h3>{anuncio.titulo}</h3>
+                    <p>Preço: R$ {joia?.valor}</p>
+                    {joia && (
+                      <>
+                        <p>Descrição da joia: {joia.descricao}</p>
+                        {/* Outros detalhes da joia que quiser mostrar */}
+                      </>
+                    )}
+                    <button
+                      onClick={() =>
+                        handleVerDetalhesClick(anuncio.id, anuncio.joiaId)
+                      }
+                    >
+                      Ver detalhes
+                    </button>
+                  </div>
+                );
+              })
+            )}
+          </div>
         </div>
       </div>
     </section>

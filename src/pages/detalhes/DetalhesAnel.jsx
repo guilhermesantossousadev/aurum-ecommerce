@@ -2,13 +2,12 @@ import { useSelector } from "react-redux";
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import ImageCarousel from "../../components/ImageCarousel";
-import setaesquerdabranca from "../../images/SetaBrancaEsquerda.png";
+import SetaRosaEsquerda from "../../images/SetaRosaEsquerda.png";
 
 import BotaoPrimario from "../../components/BotaoPrimario";
 import { toast } from "react-toastify";
 
 import "../../styles/detalhes/DetalhesComum.css";
-
 
 function DetalhesAnel() {
   const user = useSelector((state) => state.user);
@@ -287,7 +286,7 @@ function DetalhesAnel() {
     return (
       <div className="detalhes__container">
         <button className="voltar__button" onClick={() => navigate(-1)}>
-          <img src={setaesquerdabranca} alt="Voltar" />
+          <img src={SetaRosaEsquerda} alt="Voltar" />
         </button>
         <div className="error__message">Anel não encontrado</div>
       </div>
@@ -309,7 +308,7 @@ function DetalhesAnel() {
     <div className="detalhes">
       <div className="detalhes__container">
         <button className="voltar__button" onClick={() => navigate(-1)}>
-          <img src={setaesquerdabranca} alt="Voltar" />
+          <img src={SetaRosaEsquerda} alt="Voltar" />
         </button>
 
         <div className="detalhes__container__internal">
