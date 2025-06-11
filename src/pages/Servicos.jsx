@@ -2,10 +2,10 @@ import "../styles/Servicos.css";
 import anel from "../images/AnelHome.jpg";
 import { Link } from "react-router-dom";
 
-import Assinatura from "../images/AssinaturaEstética.jpg";
+import Assinatura from "../images/AssinaturaEstetica.jpeg";
 import Presenca from "../images/PresençaSensorial.jpg";
-import Simbolos from "../images/SímbolosVivos.jpg";
-import Tiara from "../images/TiaraVladimir.jpg";
+import Simbolos from "../images/SimbolosVivos.jpeg";
+import Relogio from "../images/relogioVladmir.jpeg";
 import Estilo from "../images/EstilocomSignificado.jpg";
 import Hope from "../images/Hope.jpg";
 import Vinculo from "../images/VínculoSingular.png";
@@ -62,16 +62,15 @@ function Servicos() {
             </div>
           </div>
           <div className="Box__item">
-            {" "}
             <div className="Box__item__top">
               <div className="Box__item__top__img">
-                <img src={Tiara} alt="Tiara" />
+                <img src={Relogio} alt="Relogio" />
               </div>
             </div>
             <div className="Box__item__bottom">
-              <h1>TIARA VLADIMIR</h1>
+              <h1>AUDEMARS PIGUET</h1>
               <p>
-                Luxuosa tiara cravejada de diamantes, usada pela realeza
+                Luxuoso relogio cravejada de diamantes, usada pela realeza
                 britânica e famosa por seus pingentes de pérolas ou esmeraldas.
               </p>
             </div>
