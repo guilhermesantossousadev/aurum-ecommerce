@@ -6,7 +6,7 @@ import Assinatura from "../images/AssinaturaEstetica.jpeg";
 import Presenca from "../images/PresençaSensorial.jpg";
 import Simbolos from "../images/SimbolosVivos.jpeg";
 import Relogio from "../images/relogioVladmir.jpeg";
-import Estilo from "../images/EstilocomSignificado.jpg";
+import Estilo from "../images/EstilocomSignificado.jpeg";
 import Hope from "../images/Hope.jpg";
 import Vinculo from "../images/VínculoSingular.png";
 import Essencia from "../images/Essencia.jpeg";
@@ -70,8 +70,9 @@ function Servicos() {
             <div className="Box__item__bottom">
               <h1>AUDEMARS PIGUET</h1>
               <p>
-                Luxuoso relogio cravejada de diamantes, usada pela realeza
-                britânica e famosa por seus pingentes de pérolas ou esmeraldas.
+                Relógio Audemars Piguet cravejado, combina a tradição da marca
+                com um design imponente e moderno, luxo absoluto com diamantes e
+                design marcante.
               </p>
             </div>
           </div>

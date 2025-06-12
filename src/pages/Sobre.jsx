@@ -1,10 +1,41 @@
+import React, { useState, useEffect } from "react";
+
 import "../styles/Sobre.css";
 import img1 from "../images/Photo1About.jpg";
 import img2 from "../images/Photo2About.jpg";
 import img3 from "../images/Photo3About.png";
 import img4 from "../images/Photo4About.jpg";
 
+import imgA from "../images/Photo4About.jpg";
+import imgB from "../images/Photo1About.jpg";
+import imgC from "../images/Photo2About.jpg";
+
+const palavras = [
+  { texto: "Webby Awards", imagem: imgA },
+  { texto: "Adweek", imagem: imgB },
+  { texto: "Awwwards", imagem: imgC },
+  { texto: "D&AD", imagem: imgB },
+  { texto: "One Show", imagem: imgC },
+  { texto: "The FWA", imagem: imgC },
+  { texto: "Comm Arts", imagem: imgC },
+];
+
 const Sobre = () => {
+  const [hoverIndex, setHoverIndex] = useState(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    function handleMouseMove(e) {
+      setMousePos({ x: e.clientX, y: e.clientY });
+    }
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
+  // Tamanho da imagem para calcular o centro
+  const imgWidth = 450;
+  const imgHeight = 550;
+
   return (
     <div className="Sobre">
       <div className="Sobre__container">
@@ -126,6 +157,98 @@ const Sobre = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="Sobre__Capabilities">
+        <div className="Sobre__Capabilities__container">
+          <div className="Sobre__Capabilities__container__item">
+            <h1>Capabilities</h1>
+          </div>
+          <div className="Sobre__Capabilities__container__internal">
+            <div className="Sobre__Capabilities__container__item">
+              <h2>CX, Commerce, & Product Design</h2>
+              <ul>
+                <li>Market Analysis & Business Case Development</li>
+                <li>Customer Research, Segmentation & Insights</li>
+                <li>Journey Mapping & Testing</li>
+                <li>Innovation Sprints & Prototyping</li>
+                <li>Experience Strategy & Design</li>
+                <li>Content Strategy & IA</li>
+                <li>Design Systems & Guidelines</li>
+                <li>Website & App Design</li>
+                <li>UI Design</li>
+                <li>Interaction Design</li>
+                <li>Full-Stack Development & CMS Implementation</li>
+                <li>Technical Consultation and Architecture</li>
+              </ul>
+            </div>
+            <div className="Sobre__Capabilities__container__item">
+              <h2>Digital-First Branding</h2>
+              <ul>
+                <li>Brand Ecosystem & Roadmap</li>
+                <li>Business Intelligence</li>
+                <li>Brand Positioning & Architecture</li>
+                <li>Brand Messaging</li>
+                <li>Visual Identity</li>
+                <li>Brand Guidelines & Playbooks</li>
+                <li>Visual Design</li>
+                <li>Graphic Design</li>
+                <li>Art Direction</li>
+                <li>
+                  Asset Production (Video, 3D, Photography, Motion Design)
+                </li>
+                <li>Brand Naming</li>
+                <li>Go-To-Market Strategy</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="Sobre__awards">
+        <div className="Sobre__awards__item">
+          <h1>Awards</h1>
+        </div>
+        <div className="Sobre__awards__item">
+          <h2>
+            While results are what matter most, we believe awards bring value
+            and recognition to organizations as well as individuals.
+          </h2>
+        </div>
+      </div>
+
+      <div className="Sobre__Hoverimgs">
+        <div className="Sobre__Hoverimgs__item">
+          <h1 className="titulo">
+            <ul>
+              {palavras.map((p, i) => (
+                <li
+                  key={i}
+                  className={`palavra ${hoverIndex === i ? "active" : ""}`}
+                  onMouseEnter={() => setHoverIndex(i)}
+                  onMouseLeave={() => setHoverIndex(null)}
+                >
+                  <span>{p.texto}</span>
+                </li>
+              ))}
+            </ul>
+          </h1>
+
+          {hoverIndex !== null && (
+            <img
+              src={palavras[hoverIndex].imagem}
+              alt=""
+              className="imagem-hover"
+              style={{
+                top: mousePos.y - imgHeight / 2,
+                left: mousePos.x - imgWidth / 2,
+                width: `${imgWidth}px`,
+                height: `${imgHeight}px`,
+              }}
+            />
+          )}
+        </div>
+        <div className="Sobre__Hoverimgs__item rigth"></div>
       </div>
     </div>
   );

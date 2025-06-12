@@ -311,25 +311,281 @@
 }
 
 .Sobre__hero__item__right h1 {
-  font-size: 1.2rem;
+  font-size: 1.7rem;
   text-transform: uppercase;
   margin: 0 0 0.5rem;
   color: #f9cdcd;
 }
 
 .Sobre__hero__item__right span {
-  font-size: 4rem;
+  font-size: 5rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
   color: #f9cdcd;
 }
 
 .Sobre__hero__item__right p {
-  font-size: 0.8rem;
+  font-size: 1.2rem;
   line-height: 1;
   margin: 0;
   color: #f9cdcd;
   font-weight: normal;
+}
+
+.Sobre__Capabilities {
+  height: auto;
+  width: 100%;
+  color: #fff;
+  padding: 4rem;
+}
+
+.Sobre__Capabilities__container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.Sobre__Capabilities__container__internal {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.Sobre__Capabilities__container__item {
+  width: 33%;
+  height: 100%;
+  padding: 2rem;
+}
+
+.Sobre__Capabilities__container__item h1 {
+  color: #f9cdcd;
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 3rem;
+}
+
+.Sobre__Capabilities__container__item h2 {
+  color: #f9cdcd;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+.Sobre__Capabilities__container__item ul {
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  list-style: none;
+  line-height: 2;
+}
+
+.Sobre__Capabilities__container__item ul li {
+  color: #f9cdcd;
+  font-size: 1.5rem;
+  transition: 0.3s ease;
+  line-height: 1.1;
+}
+
+.Sobre__Capabilities__container__item ul li:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.titulo {
+  display: flex;
+  gap: 20px;
+  position: relative;
+  flex-wrap: wrap;
+  font-weight: bold;
+  font-size: 1.5rem;
+  user-select: none;
+  color: #000;
+}
+
+.Sobre__awards {
+  height: 60vh;
+  width: 100%;
+  display: flex;
+}
+
+.Sobre__awards__item {
+  width: 50%;
+  height: 100%;
+  padding: 4rem;
+  position: relative;
+}
+
+.Sobre__awards__item h1 {
+  color: #f9cdcd;
+  font-size: 4rem;
+  text-transform: uppercase;
+}
+
+.Sobre__awards__item h2 {
+  color: #f9cdcd;
+  font-size: 3rem;
+  max-width: 500px;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(-50%, -50%);
+}
+
+.Sobre__Hoverimgs {
+  height: 200vh;
+  width: 100%;
+  padding: 2rem;
+  display: flex;
+  position: relative; /* antes inline no div principal */
+}
+
+.Sobre__Hoverimgs__item {
+  width: 70%;
+  height: 100%;
+  overflow-x: visible;
+}
+
+.Sobre__Hoverimgs__item.rigth {
+  width: 10%;
+  height: 100%;
+  overflow-x: visible;
+}
+
+.titulo {
+  position: relative;
+  z-index: 10; /* antes inline no h1 */
+}
+
+.palavra {
+  position: relative;
+  cursor: pointer;
+  padding: 5px 10px;
+  margin-right: 1rem;
+  z-index: 2;
+  border-radius: 5px;
+  font-size: 8rem;
+  opacity: 0.5; /* palavra meio apagada */
+  transition: opacity 0.3s ease;
+}
+
+/* Quando estiver ativa (hover), fica opaca */
+.palavra.active {
+  opacity: 1;
+}
+
+.imagem-hover {
+  position: fixed;
+  pointer-events: auto;
+  z-index: 5;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: top 0.1s ease, left 0.1s ease;
+}
+@media (max-width: 768px) {
+  .Sobre__awards {
+    height: 40vh; /* um pouco maior para compensar espaço */
+    flex-direction: column; /* mantém flex, mas empilha verticalmente */
+  }
+
+  .Sobre__awards__item {
+    width: 100%; /* ocupa toda a largura na vertical */
+    padding: 1rem; /* reduz o padding */
+    height: auto; /* para ajustar a altura conforme conteúdo */
+  }
+
+  .Sobre__awards__item h1 {
+    font-size: 2.5rem; /* reduz a fonte para caber na tela */
+  }
+
+  .Sobre__awards__item h2 {
+    font-size: 1.8rem;
+    max-width: 90%; /* ocupa quase toda a largura */
+    position: static; /* remove posicionamento absoluto para evitar corte */
+    transform: none;
+    margin-top: 1rem;
+  }
+
+  .Sobre__Hoverimgs {
+    height: auto; /* ajusta altura para o conteúdo */
+    flex-direction: column; /* empilha verticalmente */
+    padding: 1rem;
+  }
+
+  .Sobre__Hoverimgs__item {
+    width: 100% !important; /* força 100% para itens */
+    height: auto;
+    overflow-x: visible;
+    margin-bottom: 1rem; /* separa os itens */
+  }
+
+  .Sobre__Hoverimgs__item.rigth {
+    width: 100% !important;
+  }
+
+  .palavra {
+    font-size: 3rem; /* diminui as palavras para caber no mobile */
+    padding: 3px 6px;
+    margin-right: 0.5rem;
+  }
+
+  .imagem-hover {
+    position: fixed;
+    max-width: 80vw; /* limita largura da imagem */
+    max-height: 50vh; /* limita altura */
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .Sobre__Capabilities {
+    padding: 1rem;
+  }
+
+  .Sobre__Capabilities__container {
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .Sobre__Capabilities__container__internal {
+    flex-direction: column;
+    gap: 2rem; /* espaçamento entre os itens */
+    justify-content: flex-start;
+  }
+
+  .Sobre__Capabilities__container__item {
+    width: 100%;
+    padding: 1.5rem 1rem;
+  }
+
+  .Sobre__Capabilities__container__item h1 {
+    font-size: 2rem;
+  }
+
+  .Sobre__Capabilities__container__item h2 {
+    font-size: 1.5rem;
+  }
+
+  .Sobre__Capabilities__container__item ul li {
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .Sobre__Capabilities {
+    padding: 0;
+  }
+
+  .Sobre__Capabilities__container__item h1 {
+    font-size: 1.5rem;
+  }
+
+  .Sobre__Capabilities__container__item h2 {
+    font-size: 1.2rem;
+  }
+
+  .Sobre__Capabilities__container__item ul li {
+    font-size: 1rem;
+  }
 }
 
 /* Responsividade */

@@ -109,16 +109,16 @@ function Footer() {
             <ul className={`footer__item__bottom__ul ${footerColorClass}`}>
               <h1>● SOCIAL</h1>
               <li>
-                <a href="#">Instagram</a>
+                <a href="https://www.instagram.com/">Instagram</a>
               </li>
               <li>
-                <a href="#">Twitter</a>
+                <a href="https://x.com/">Twitter</a>
               </li>
               <li>
-                <a href="#">Linkedin</a>
+                <a href="https://br.linkedin.com/">Linkedin</a>
               </li>
               <li>
-                <a href="#">Facebook</a>
+                <a href="https://www.facebook.com/?locale=pt_BR">Facebook</a>
               </li>
             </ul>
 
