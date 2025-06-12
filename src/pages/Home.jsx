@@ -50,8 +50,12 @@ function Home() {
                 onAnimationComplete={() => setHideTitle(true)}
               >
                 <div className="clip-container">
-                  <div className="a__Aurun">AURUM</div>
-                  <p className="a__Aurun lumine">/LUMINE</p>
+                  <div className="a__Aurun" style={{ color: "#333" }}>
+                    AURUM
+                  </div>
+                  <p className="a__Aurun lumine" style={{ color: "#333" }}>
+                    /LUMINE
+                  </p>
                 </div>
               </motion.h1>
             )}
