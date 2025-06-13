@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import "../styles/NavBar.css";
+import "../styles/components/NavBar.css";
 import { useDispatch, useSelector } from "react-redux";
 
 import { FaShoppingCart } from "react-icons/fa";

@@ -1,4 +1,4 @@
-import "../styles/Footer.css";
+import "../styles/components/Footer.css";
 import setadireitabranca from "../images/setadireitabranca.png";
 import setadireitapreta from "../images/SetaPretaDireita.png";
 import SetaRosaDireita from "../images/SetaRosaDireita.png";
