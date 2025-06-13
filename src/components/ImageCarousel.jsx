@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import '../styles/ImageCarousel.css';
+import React, { useState, useEffect } from "react";
+import "../styles/components/ImageCarousel.css";
 
-import SetaRosaEsquerda from "../images/SetaRosaEsquerda.png"
-import SetaRosaDireita from "../images/SetaRosaDireita.png"
+import SetaRosaEsquerda from "../images/SetaRosaEsquerda.png";
+import SetaRosaDireita from "../images/SetaRosaDireita.png";
 
 const ImageCarousel = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -40,7 +40,9 @@ const ImageCarousel = ({ images }) => {
           {images.map((image, index) => (
             <div
               key={index}
-              className={`carousel__slide ${index === currentIndex ? 'active' : ''}`}
+              className={`carousel__slide ${
+                index === currentIndex ? "active" : ""
+              }`}
             >
               <img src={image} alt={`Slide ${index + 1}`} />
             </div>
@@ -59,7 +61,9 @@ const ImageCarousel = ({ images }) => {
               key={index}
               src={image}
               alt={`Thumbnail ${index + 1}`}
-              className={`carousel__thumbnail ${index === currentIndex ? 'active' : ''}`}
+              className={`carousel__thumbnail ${
+                index === currentIndex ? "active" : ""
+              }`}
               onClick={() => goToSlide(index)}
             />
           ))}
