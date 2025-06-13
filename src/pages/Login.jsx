@@ -5,6 +5,7 @@ import { login } from "../store/userSlice";
 import { toast } from "react-toastify";
 
 import "../styles/pages/Login.css";
+import testimg from "../images/Carreiras/carreirasimg.jpeg";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -54,57 +55,53 @@ const Login = () => {
 
   return (
     <div className="Login">
-      <div className="Login__container">
-        <div className="Login__container__left">
-          <img src={testimg} alt="Login" />
-        </div>
+      <div className="Login__left">
+        <img src={testimg} alt="Login" />
+      </div>
+      <div className="Login__rigth">
+        <div className="Login__container">
+          
+          <h1 className="Login__title">Login</h1>
 
-        <div className="Login__container__right">
-          <div className="Login__container__right__top">
-            <h1 className="Login__title">Login</h1>
+          <form className="Login__form" onSubmit={handleSubmit}>
+            <label htmlFor="email">Email</label>
+            <input
+              className="Login__input"
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
 
+            <label htmlFor="password">Senha</label>
+            <input
+              className="Login__input"
+              type="password"
+              placeholder="Senha"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+
+            <button
+              className="Login__button"
+              type="submit"
+              disabled={isLoading}
+            >
+              {isLoading ? "Entrando..." : "Entrar"}
+            </button>
+          </form>
+
+          <div className="Login__links">
+            <Link to="/register" className="Login__link">
+              Não tem uma conta? Cadastre-se
+            </Link>
+            <Link to="/token-authentication" className="Login__link">
+              Redefina sua senha
+            </Link>
           </div>
-          <div className="Login__container__right__middle">
-            <form className="Login__form" onSubmit={handleSubmit}>
-              <label htmlFor="email">Email</label>
-              <input
-                className="Login__input"
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
 
-              <label htmlFor="password">Senha</label>
-              <input
-                className="Login__input"
-                type="password"
-                placeholder="Senha"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-
-              <button
-                className="Login__button"
-                type="submit"
-                disabled={isLoading}
-              >
-                {isLoading ? "Entrando..." : "Entrar"}
-              </button>
-            </form>
-          </div>
-          <div className="Login__container__right__bottom">
-            <div className="Login__links">
-              <Link to="/register" className="Login__link">
-                Não tem uma conta? Cadastre-se
-              </Link>
-              <Link to="/token-authentication" className="Login__link">
-                Redefina sua senha
-              </Link>
-            </div>
-          </div>
         </div>
       </div>
     </div>

@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 
 import "../styles/pages/Register.css";
 
+import testimg from "../images/Carreiras/carreirasimg.jpeg";
+
 const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -127,15 +129,16 @@ const Register = () => {
 
   return (
     <div className="Register">
-      <div className="Register__container">
-        <div className="Register__container__left">
-          <div className="Register__container__left__top">
-            <h1 className="Register__title">Cadastro</h1>
-          </div>
+      <div className="Register__left">
+        <div className="Register__container">
+          <h1 className="Register__title">Cadastro</h1>
 
-          <div className="Register__container__left__middle">
-            <form className="Register__form" onSubmit={handleSubmit}>
-              <div className="Register__grid">
+          <form className="Register__form" onSubmit={handleSubmit}>
+            
+            <div className="Register__form__item__container">
+
+              <div className="Register__form__item">
+
                 <div className="Register__form-group">
                   <label htmlFor="nome">Nome completo</label>
                   <input
@@ -147,7 +150,6 @@ const Register = () => {
                     required
                   />
                 </div>
-
                 <div className="Register__form-group">
                   <label htmlFor="email">Email</label>
                   <input
@@ -159,7 +161,6 @@ const Register = () => {
                     required
                   />
                 </div>
-
                 <div className="Register__form-group">
                   <label htmlFor="password">Senha</label>
                   <input
@@ -171,7 +172,6 @@ const Register = () => {
                     required
                   />
                 </div>
-
                 <div className="Register__form-group">
                   <label htmlFor="confirmPassword">Confirmar senha</label>
                   <input
@@ -183,7 +183,9 @@ const Register = () => {
                     required
                   />
                 </div>
+              </div>
 
+              <div className="Register__form__item">
                 <div className="Register__form-group">
                   <label htmlFor="cpf">CPF</label>
                   <input
@@ -195,7 +197,6 @@ const Register = () => {
                     required
                   />
                 </div>
-
                 <div className="Register__form-group">
                   <label htmlFor="idade">Idade</label>
                   <input
@@ -207,7 +208,6 @@ const Register = () => {
                     required
                   />
                 </div>
-
                 <div className="Register__form-group">
                   <label htmlFor="cep">CEP</label>
                   <input
@@ -220,7 +220,6 @@ const Register = () => {
                     required
                   />
                 </div>
-
                 <div className="Register__form-group">
                   <label htmlFor="numero">Número</label>
                   <input
@@ -234,27 +233,27 @@ const Register = () => {
                 </div>
               </div>
 
-              <button
-                className="Register__button"
-                type="submit"
-                disabled={isLoading}
-              >
-                {isLoading ? "Criando conta..." : "Criar conta"}
-              </button>
-            </form>
-          </div>
-
-          <div className="Register__container__left__bottom">
-            <div className="Register__links">
-              <Link to="/login" className="Register__link">
-                Já tem uma conta? Faça login
-              </Link>
             </div>
+
+            <button
+              className="Register__button"
+              type="submit"
+              disabled={isLoading}
+            >
+              {isLoading ? "Criando conta..." : "Criar conta"}
+            </button>
+          </form>
+
+          <div className="Register__links">
+            <Link to="/login" className="Register__link">
+              Já tem uma conta? Faça login
+            </Link>
           </div>
         </div>
-        <div className="Register__container__rigth">
-          <img src={testimg} alt="Cadastro" className="Register__image" />
-        </div>
+      </div>
+
+      <div className="Register__rigth">
+        <img src={testimg} alt="Cadastro" className="Register__image" />
       </div>
     </div>
   );

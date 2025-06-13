@@ -2,77 +2,45 @@
   height: 100vh;
   width: 100%;
   display: flex;
-  align-items: center;
-  justify-content: center;
   background-color: #f5f5f5;
-  overflow: auto;
+  margin-top: 80px;
+  flex-direction: row;
 }
 
-.Register__container {
-  display: flex;
-  flex-wrap: wrap;
-  /* Ajusta para telas menores */
-  width: 100%;
-  max-width: 1000px;
-  height: 630px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  position: relative;
-}
-
-.Register__container__left {
+.Register__left {
   width: 50%;
-  min-width: 300px;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  z-index: 2;
-  /* Garante que o formulário fique acima da imagem */
-  background-color: #ffffff;
-}
-
-.Register__container__left__top {
-  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #efefef;
 }
 
-.Register__container__left__middle {
-  width: 100%;
-  flex: 1;
-  overflow-y: auto;
+.Register__rigth {
+  width: 50%;
+  height: 100%;
 }
 
-.Register__container__left__bottom {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.Register__container__rigth {
-  flex: 1;
-  background-color: #eaeaea;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.Register__image {
+.Register__rigth img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   pointer-events: none;
-  /* Impede a imagem de capturar cliques */
   user-select: none;
 }
 
-/* Título */
+.Register__container {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  height: 550px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  position: relative;
+  padding: 2rem;
+}
+
 .Register__title {
   text-align: center;
   color: #333;
@@ -80,11 +48,20 @@
   font-size: 1.8rem;
 }
 
-/* Formulário */
 .Register__form {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+.Register__form__item__container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 20px;
 }
 
 .Register__form label {
@@ -128,10 +105,9 @@
   cursor: not-allowed;
 }
 
-/* Links */
 .Register__links {
-  margin-top: 4rem;
-  text-align: center;
+  padding-top: 2rem;
+  text-align: left;
 }
 
 .Register__link {
@@ -146,26 +122,24 @@
   text-decoration: underline;
 }
 
-/* Mensagens */
-.Register__error {
-  background-color: #f8d7da;
-  color: #721c24;
+.Register__error,
+.Register__success {
   padding: 0.8rem;
   border-radius: 4px;
   margin-bottom: 1rem;
   text-align: center;
+}
+
+.Register__error {
+  background-color: #f8d7da;
+  color: #721c24;
 }
 
 .Register__success {
   background-color: #d4edda;
   color: #155724;
-  padding: 0.8rem;
-  border-radius: 4px;
-  margin-bottom: 1rem;
-  text-align: center;
 }
 
-/* Grid do formulário */
 .Register__grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -177,43 +151,37 @@
   flex-direction: column;
 }
 
-/* Responsivo */
+/* Responsividade para telas menores */
 @media (max-width: 768px) {
   .Register {
+    flex-direction: column;
     height: auto;
-    padding: 2rem 0;
+    margin-top: 60px;
+    padding: 1rem;
+  }
+  
+  .Register__rigth {
+    display: none;
+  }
+
+  .Register__left {
+    width: 100%;
+    height: auto;
+    padding-top: 3rem;
+  }
+
+  .Register__rigth img {
+    height: 250px;
   }
 
   .Register__container {
+    width: 90%;
+    height: auto;
+    padding: 1.5rem;
+  }
+
+  .Register__form__item__container {
     flex-direction: column;
-    height: auto;
-  }
-
-  .Register__container__left,
-  .Register__container__rigth {
-    width: 100%;
-    height: auto;
-  }
-
-  .Register__container__rigth {
-    order: -1;
-    /* Coloca a imagem em cima, se desejar */
-    height: 200px;
-  }
-
-  .Register__image {
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .Register__links {
-    margin-top: 2rem;
-  }
-}
-
-@media (min-width: 768px) {
-  .Register__grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    gap: 10px;
   }
 }
