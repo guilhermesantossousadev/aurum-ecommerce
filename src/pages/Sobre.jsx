@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import "../styles/Sobre.css";
+import "../styles/pages/Sobre.css";
 import img1 from "../images/Photo1About.jpg";
 import img2 from "../images/Photo2About.jpg";
 import img3 from "../images/Photo3About.png";

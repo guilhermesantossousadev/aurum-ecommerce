@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "../../styles/Catalogo.css";
+import "../styles/pages/Catalogo.css";
 
 
 import searchicon from "../../images/searchicon.png";

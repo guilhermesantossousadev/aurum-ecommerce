@@ -1,5 +1,4 @@
-import "../styles/Servicos.css";
-import anel from "../images/AnelHome.jpg";
+import "../styles/pages/Servicos.css";
 import { Link } from "react-router-dom";
 
 import Assinatura from "../images/AssinaturaEstetica.jpeg";

@@ -1,4 +1,4 @@
-import "../styles/Contato.css";
+import "../styles/pages/Contato.css";
 import contatoimg from "../images/contatoimg.jpeg";
 import sandiego from "../images/offices/sandiego.webp";
 import newyork from "../images/offices/newyork.webp";

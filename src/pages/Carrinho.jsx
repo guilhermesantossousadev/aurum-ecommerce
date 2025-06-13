@@ -1,4 +1,4 @@
-import "../styles/Carrinho.css";
+import "../styles/pages/Carrinho.css";
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { FaTrash, FaShoppingBag } from "react-icons/fa";

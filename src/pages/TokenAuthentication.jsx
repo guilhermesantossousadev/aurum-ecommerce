@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import "../styles/TokenAuthentication.css";
+import "../styles/pages/TokenAuthentication.css";
 import { toast } from "react-toastify";
 
 const TokenAuthentication = () => {

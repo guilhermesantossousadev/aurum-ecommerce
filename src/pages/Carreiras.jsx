@@ -1,4 +1,4 @@
-import "../styles/Carreiras.css";
+import "../styles/pages/Carreiras.css";
 
 import Carreirasimg from "../images/Carreiras.jpeg";
 

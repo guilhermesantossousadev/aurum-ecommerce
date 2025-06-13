@@ -98,7 +98,7 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: url("../images/BannerAurumLumine.png") no-repeat center center;
+  background: url("../../images/BannerAurumLumine.png") no-repeat center center;
   background-size: cover;
 }
 
