@@ -1,11 +1,13 @@
 import "../styles/components/Footer.css";
-import setadireitabranca from "../images/setadireitabranca.png";
-import setadireitapreta from "../images/SetaPretaDireita.png";
-import SetaRosaDireita from "../images/SetaRosaDireita.png";
+
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+
+import setadireitabranca from "../images/setadireitabranca.png";
+import setadireitapreta from "../images/SetaPretaDireita.png";
+import SetaRosaDireita from "../images/SetaRosaDireita.png";
 
 function Footer() {
   const location = useLocation();
@@ -20,8 +22,8 @@ function Footer() {
         "/login",
         "/register",
         "/token-authentication",
-        "/servicos", 
-        "/catalogo"
+        "/servicos",
+        "/catalogo",
       ].includes(path)
     )
       return "white-text";
@@ -81,17 +83,17 @@ function Footer() {
                 onChange={(e) => setEmail(e.target.value)}
                 className={`input__footer ${footerColorClass}`}
               />
-              <button type="submit"><img
-                src={
-                  footerColorClass === "black-text"
-                    ? setadireitapreta
-                    : footerColorClass === "pink-text"
+              <button type="submit">
+                <img
+                  src={
+                    footerColorClass === "black-text"
+                      ? setadireitapreta
+                      : footerColorClass === "pink-text"
                       ? SetaRosaDireita
                       : setadireitabranca
-                }
-                alt="seta direita"
-              />
-
+                  }
+                  alt="seta direita"
+                />
               </button>
             </form>
           </div>

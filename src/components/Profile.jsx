@@ -4,10 +4,11 @@ import { logout } from "../store/userSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
+import "../styles/components/Profile.css";
+
 import fotodeperfilpadrao from "../images/fotodeperfil.png";
 import ximg from "../images/x.png";
 
-import "../styles/components/Profile.css";
 
 import {
   FaEnvelope,

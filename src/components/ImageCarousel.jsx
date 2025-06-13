@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+
 import "../styles/components/ImageCarousel.css";
 
 import SetaRosaEsquerda from "../images/SetaRosaEsquerda.png";

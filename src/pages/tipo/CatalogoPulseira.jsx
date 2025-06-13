@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import "../../styles/pages/Catalogo.css";
 
-
+import SetaPretaDireita from "../../images/SetaPretaDireita.png";
 import searchicon from "../../images/searchicon.png";
 import xpng from "../../images/x.png";
 
-import { Link } from "react-router-dom";
-import SetaPretaDireita from "../../images/SetaPretaDireita.png";
 
 function CatalogoPulseira() {
   const [selectedFilter, setSelectedFilter] = useState("todos");

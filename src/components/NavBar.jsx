@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import "../styles/components/NavBar.css";
 import { useDispatch, useSelector } from "react-redux";
 
-import { FaShoppingCart } from "react-icons/fa";
-import { li } from "framer-motion/client";
+import "../styles/components/NavBar.css";
 
 const NavBar = () => {
   const location = useLocation();

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+
+import { toast } from "react-toastify";
 
 const apiBaseUrl = "https://marketplacejoias-api-latest.onrender.com/api/Newsletter";
 
@@ -132,7 +132,6 @@ function CrudNewsletter() {
 
     return (
         <div style={{ padding: "20px" }}>
-            <ToastContainer />
             <h2>CRUD de Newsletter</h2>
 
             {/* Formulário Newsletter */}

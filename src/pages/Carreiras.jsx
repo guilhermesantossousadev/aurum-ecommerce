@@ -1,6 +1,6 @@
 import "../styles/pages/Carreiras.css";
 
-import Carreirasimg from "../images/Carreiras.jpeg";
+import Carreirasimg from "../images/Carreiras/Carreiras.jpeg";
 
 function Carreiras() {
   return (

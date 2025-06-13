@@ -1,4 +1,3 @@
-import React from "react";
 import "../styles/components/BotaoPrimario.css";
 
 function BotaoPrimario({ texto, onClick }) {
