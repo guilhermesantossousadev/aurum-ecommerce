@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 
 import "../styles/pages/Sobre.css";
-import img1 from "../images/Photo1About.jpg";
-import img2 from "../images/Photo2About.jpg";
-import img3 from "../images/Photo3About.png";
-import img4 from "../images/Photo4About.jpg";
+import img1 from "../images/Sobre/Photo1.jpg";
+import img2 from "../images/Sobre/Photo2.jpg";
+import img3 from "../images/Sobre/Photo3.png";
+import img4 from "../images/Sobre/Photo4.jpg";
 
-import imgA from "../images/Photo4About.jpg";
-import imgB from "../images/Photo1About.jpg";
-import imgC from "../images/Photo2About.jpg";
+import imgA from "../images/Sobre/Photo4.jpg";
+import imgB from "../images/Sobre/Photo1.jpg";
+import imgC from "../images/Sobre/Photo2.jpg";
 
 const palavras = [
   { texto: "Webby Awards", imagem: imgA },

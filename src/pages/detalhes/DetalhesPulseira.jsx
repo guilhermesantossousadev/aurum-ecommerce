@@ -1,13 +1,13 @@
-import { useSelector } from "react-redux";
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
-import ImageCarousel from "../../components/ImageCarousel";
-import SetaRosaEsquerda from "../../images/SetaRosaEsquerda.png";
-
 import BotaoPrimario from "../../components/BotaoPrimario";
 import { toast } from "react-toastify";
 
 import "../../styles/detalhes/DetalhesComum.css";
+
+import ImageCarousel from "../../components/ImageCarousel";
+import SetaRosaEsquerda from "../../images/Setas/SetaRosaEsquerda.png";
 
 function DetalhesPulseira() {
   const user = useSelector((state) => state.user);
@@ -326,7 +326,7 @@ function DetalhesPulseira() {
           </div>
 
           <div className="detalhes__container__internal__right">
-          <p className="detalhes__info__titulo">{anuncio.titulo}</p>
+            <p className="detalhes__info__titulo">{anuncio.titulo}</p>
             <p className="detalhes__info__item__p">
               <div className="detalhes__venda__container">
                 <span>

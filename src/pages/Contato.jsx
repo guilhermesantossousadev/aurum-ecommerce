@@ -1,15 +1,17 @@
-import "../styles/pages/Contato.css";
-import contatoimg from "../images/contatoimg.jpeg";
-import sandiego from "../images/offices/sandiego.webp";
-import newyork from "../images/offices/newyork.webp";
-import bayarea from "../images/offices/bayarea.webp";
-import stlouis from "../images/offices/stlouis.webp";
-import amsterdam from "../images/offices/amsterdam.webp";
-import london from "../images/offices/london.webp";
-import berlin from "../images/offices/berlin.webp";
-import argentina from "../images/offices/argentina.webp";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+
+import "../styles/pages/Contato.css";
+
+import contatoimg from "../images/Contato/contatoimg.jpeg";
+import sandiego from "../images/Contato/offices/sandiego.webp";
+import newyork from "../images/Contato/offices/newyork.webp";
+import bayarea from "../images/Contato/offices/bayarea.webp";
+import stlouis from "../images/Contato/offices/stlouis.webp";
+import amsterdam from "../images/Contato/offices/amsterdam.webp";
+import london from "../images/Contato/offices/london.webp";
+import berlin from "../images/Contato/offices/berlin.webp";
+import argentina from "../images/Contato/offices/argentina.webp";
 
 function Contato() {
   const location = useLocation();
@@ -36,8 +38,8 @@ function Contato() {
             <div className="Contato__init__item__top">
               <h1 className="fade-in-up">A/L® CONTATO</h1>
               <p className="fade-in-up">
-                Fácil de entender. Impossível de ignorar.™ AURUM/LUMINE®, Inc 10 -
-                25©
+                Fácil de entender. Impossível de ignorar.™ AURUM/LUMINE®, Inc 10
+                - 25©
               </p>
             </div>
 
@@ -68,14 +70,10 @@ function Contato() {
                     <h3>(Várias Aberturas)</h3>
                   </div>
                 </div>
-
-
               </div>
             </div>
           </div>
         </div>
-
-
         {/* Seção de escritórios */}
         <div className="Contato__offices">
           {/* Box Container 1 */}
@@ -203,16 +201,13 @@ function Contato() {
             </div>
           </div>
         </div>
-
-
         <div className="Contato__part">
           <div className="Contato__part__inside"></div>
         </div>
-
-
         <div className="Contato__follow">
           <div className="Contato__follow__left">
-            <h1>Follow</h1></div>
+            <h1>Follow</h1>
+          </div>
           <div className="Contato__follow__right">
             <h1>Social</h1>
             <ul>
@@ -220,9 +215,9 @@ function Contato() {
               <li>Twitter</li>
               <li>Linkedin</li>
               <li>Facebook</li>
-            </ul></div>
+            </ul>
+          </div>
         </div>
-
       </div>
     </>
   );

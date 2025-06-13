@@ -6,9 +6,7 @@ import { toast } from "react-toastify";
 
 import "../styles/components/Profile.css";
 
-import fotodeperfilpadrao from "../images/fotodeperfil.png";
-import ximg from "../images/x.png";
-
+import ximg from "../images/Common/x.png";
 
 import {
   FaEnvelope,

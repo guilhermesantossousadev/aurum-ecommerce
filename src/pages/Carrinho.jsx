@@ -1,9 +1,9 @@
-import "../styles/pages/Carrinho.css";
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { FaTrash, FaShoppingBag } from "react-icons/fa";
-
 import { toast } from "react-toastify";
+
+import "../styles/pages/Carrinho.css";
 
 function Carrinho() {
   const user = useSelector((state) => state.user);

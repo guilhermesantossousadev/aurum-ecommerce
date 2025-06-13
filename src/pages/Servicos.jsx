@@ -1,14 +1,14 @@
 import "../styles/pages/Servicos.css";
 import { Link } from "react-router-dom";
 
-import Assinatura from "../images/AssinaturaEstetica.jpeg";
-import Presenca from "../images/PresençaSensorial.jpg";
-import Simbolos from "../images/SimbolosVivos.jpeg";
-import Relogio from "../images/relogioVladmir.jpeg";
-import Estilo from "../images/EstilocomSignificado.jpeg";
-import Hope from "../images/Hope.jpg";
-import Vinculo from "../images/VínculoSingular.png";
-import Essencia from "../images/Essencia.jpeg";
+import Assinatura from "../images/Servicos/AssinaturaEstetica.jpeg";
+import Presenca from "../images/Servicos/PresençaSensorial.jpg";
+import Simbolos from "../images/Servicos/SimbolosVivos.jpeg";
+import Relogio from "../images/Servicos/relogioVladmir.jpeg";
+import Estilo from "../images/Servicos/EstilocomSignificado.jpeg";
+import Hope from "../images/Servicos/Hope.jpg";
+import Vinculo from "../images/Servicos/VínculoSingular.png";
+import Essencia from "../images/Servicos/Essencia.jpeg";
 
 function Servicos() {
   return (

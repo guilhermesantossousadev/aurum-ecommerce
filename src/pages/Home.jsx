@@ -2,16 +2,17 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import "../styles/pages/Home.css";
-import adage from "../images/adage.png";
-import campaing from "../images/campaing.png";
-import webby from "../images/webby.png";
 
-import anel from "../images/AnelHome.jpg";
-import corrente from "../images/CorrenteHome.jpg";
-import pulseira from "../images/PulseiraHome.jpg";
-import relogio from "../images/RelogioHome.jpg";
-import brinco from "../images/BrincoHome.jpg";
-import pingente from "../images/PingenteHome.jpg";
+import adage from "../images/Home/adage.png";
+import campaing from "../images/Home/campaing.png";
+import webby from "../images/Home/webby.png";
+
+import anel from "../images/Home/Anel.jpg";
+import corrente from "../images/Home/Corrente.jpg";
+import pulseira from "../images/Home/Pulseira.jpg";
+import relogio from "../images/Home/Relogio.jpg";
+import brinco from "../images/Home/Brinco.jpg";
+import pingente from "../images/Home/Pingente.jpg";
 
 function Home() {
   const [hideTitle, setHideTitle] = useState(false);

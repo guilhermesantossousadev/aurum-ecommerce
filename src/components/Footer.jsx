@@ -5,9 +5,9 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import setadireitabranca from "../images/setadireitabranca.png";
-import setadireitapreta from "../images/SetaPretaDireita.png";
-import SetaRosaDireita from "../images/SetaRosaDireita.png";
+import setadireitabranca from "../images/Setas/setadireitabranca.png";
+import setadireitapreta from "../images/Setas/SetaPretaDireita.png";
+import SetaRosaDireita from "../images/Setas/SetaRosaDireita.png";
 
 function Footer() {
   const location = useLocation();

@@ -4,11 +4,9 @@ import { Link } from "react-router-dom";
 
 import "../../styles/pages/Catalogo.css";
 
-import searchicon from "../../images/searchicon.png";
-import xpng from "../../images/x.png";
-import SetaPretaDireita from "../../images/SetaPretaDireita.png";
-
-
+import searchicon from "../../images/Common/searchicon.png";
+import xpng from "../../images/Common/x.png";
+import SetaPretaDireita from "../../images/Setas/SetaPretaDireita.png";
 
 function CatalogoAnel() {
   const [selectedFilter, setSelectedFilter] = useState("todos");

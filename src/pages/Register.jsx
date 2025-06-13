@@ -2,9 +2,9 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { login } from "../store/userSlice";
-import "../styles/pages/Register.css";
 import { toast } from "react-toastify";
-import testimg from "../images/AnelHome.jpg";
+
+import "../styles/pages/Register.css";
 
 const Register = () => {
   const dispatch = useDispatch();

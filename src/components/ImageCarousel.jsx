@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 
 import "../styles/components/ImageCarousel.css";
 
-import SetaRosaEsquerda from "../images/SetaRosaEsquerda.png";
-import SetaRosaDireita from "../images/SetaRosaDireita.png";
+import SetaRosaEsquerda from "../images/Setas/SetaRosaEsquerda.png";
+import SetaRosaDireita from "../images/Setas/SetaRosaDireita.png";
 
 const ImageCarousel = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
