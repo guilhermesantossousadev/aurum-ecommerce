@@ -82,8 +82,9 @@ const NavBar = () => {
 
   return (
     <nav
-      className={`navbar ${isScrolled ? "scrolled" : ""
-        } ${getTextClass()} ${getPageClass()}`}
+      className={`navbar ${
+        isScrolled ? "scrolled" : ""
+      } ${getTextClass()} ${getPageClass()}`}
     >
       <div className="Nav__item">
         <Link to="/" className="navbar__brand">
@@ -173,11 +174,11 @@ const NavBar = () => {
             </Link>
           </li>
           <li>
-            <li>
-              <Link to="/carrinho" onClick={() => setIsMenuOpen(false)}>
-                Carrinho
-              </Link>
-            </li>
+            <Link to="/carrinho" onClick={() => setIsMenuOpen(false)}>
+              Carrinho
+            </Link>
+          </li>
+          <li>
             <Link to="/carreiras" onClick={() => setIsMenuOpen(false)}>
               Carreiras
             </Link>
@@ -191,11 +192,15 @@ const NavBar = () => {
             <>
               {user.isAdmin ? (
                 <li>
-                  <Link to="/adminPage" onClick={() => setIsMenuOpen(false)}>Dashboard</Link>
+                  <Link to="/adminPage" onClick={() => setIsMenuOpen(false)}>
+                    Dashboard
+                  </Link>
                 </li>
               ) : (
                 <li>
-                  <Link to="/profile" onClick={() => setIsMenuOpen(false)}>Bem-vindo, {user.nome}!</Link>
+                  <Link to="/profile" onClick={() => setIsMenuOpen(false)}>
+                    Bem-vindo, {user.nome}!
+                  </Link>
                 </li>
               )}
             </>

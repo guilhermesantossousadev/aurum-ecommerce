@@ -257,7 +257,7 @@
   .Profile__boxes {
     flex-direction: column;
     /* Empilha as caixas verticalmente */
-    gap: 20px;
+    gap: 200px;
   }
 
   .Profile__box__img__container {
@@ -291,6 +291,7 @@
     margin-top: -100px;
     padding: 4rem;
     width: 100vw;
+    height: auto;
   }
 
   .Profile__btn__container {

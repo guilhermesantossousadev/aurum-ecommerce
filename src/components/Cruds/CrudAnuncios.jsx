@@ -411,7 +411,13 @@ function CrudAnuncios() {
               <h3>{anuncio.titulo}</h3>
               <p>ID Joia: {anuncio.joiaId}</p>
               <div style={{ marginTop: "0.5rem" }}>
-                <button onClick={() => handleEditClick(anuncio)}>Editar</button>
+                {user.isAdmin ? (
+                  <button onClick={() => handleEditClick(anuncio)}>
+                    Editar
+                  </button>
+                ) : (
+                  <span></span>
+                )}
                 <button
                   onClick={() => handleDeleteAnuncio(anuncio.id)}
                   style={{ marginLeft: "0.5rem", color: "red" }}
