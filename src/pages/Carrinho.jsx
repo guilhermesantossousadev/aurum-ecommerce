@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-import { FaTrash, FaShoppingBag } from "react-icons/fa";
+import { FaTrash } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import "../styles/pages/Carrinho.css";
@@ -14,7 +15,6 @@ function Carrinho() {
   const [joias, setJoias] = useState([]);
 
   const [notificacao, setNotificacao] = useState("");
-
   const [loading, setLoading] = useState(true);
 
   // Tratamento para usuário não logado
@@ -36,7 +36,7 @@ function Carrinho() {
 
   const mostrarNotificacao = (mensagem) => {
     setNotificacao(mensagem);
-    setTimeout(() => setNotificacao(""), 3000); // limpa após 3 segundos
+    setTimeout(() => setNotificacao(""), 3000);
   };
 
   const buscarDetalhesAnuncios = async (anunciosIds) => {
@@ -113,6 +113,108 @@ function Carrinho() {
     }
   };
 
+  // Função para agrupar anúncios e contar quantidade
+  const agruparItensComQuantidade = (anunciosIdsArray) => {
+    const map = {};
+    anunciosIdsArray.forEach((id) => {
+      map[id] = (map[id] || 0) + 1;
+    });
+    return map; // ex: { "1": 3, "2": 1 }
+  };
+
+  // Aumentar quantidade de um anúncio no carrinho
+  const aumentarQuantidade = async (anuncioId) => {
+    try {
+      const usuarioId = user?.id;
+      if (!usuarioId) return;
+
+      const response = await fetch(
+        `https://marketplacejoias-api-latest.onrender.com/api/Carrinho/GetByUsuarioIdCarrinho?usuarioId=${usuarioId}`
+      );
+      if (!response.ok) throw new Error("Erro ao buscar carrinho");
+      const data = await response.json();
+
+      const novosAnuncios = [
+        ...data.anunciosId.anunciosId,
+        anuncioId.toString(),
+      ];
+
+      const carrinhoAtualizado = {
+        ...data,
+        anunciosId: { anunciosId: novosAnuncios },
+      };
+
+      const updateResponse = await fetch(
+        `https://marketplacejoias-api-latest.onrender.com/api/Carrinho/PutCarrinho`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(carrinhoAtualizado),
+        }
+      );
+      if (!updateResponse.ok) throw new Error("Erro ao atualizar carrinho");
+
+      await fetch(
+        `https://marketplacejoias-api-latest.onrender.com/api/Carrinho/CompileValue?usuarioId=${usuarioId}`,
+        { method: "PUT", headers: { "Content-Type": "application/json" } }
+      );
+
+      await fetchCarrinho();
+    } catch (error) {
+      console.error(error);
+      toast.error("Erro ao aumentar quantidade");
+    }
+  };
+
+  // Diminuir quantidade de um anúncio no carrinho
+  const diminuirQuantidade = async (anuncioId) => {
+    try {
+      const usuarioId = user?.id;
+      if (!usuarioId) return;
+
+      const response = await fetch(
+        `https://marketplacejoias-api-latest.onrender.com/api/Carrinho/GetByUsuarioIdCarrinho?usuarioId=${usuarioId}`
+      );
+      if (!response.ok) throw new Error("Erro ao buscar carrinho");
+      const data = await response.json();
+
+      const anunciosAtuais = [...data.anunciosId.anunciosId];
+      const index = anunciosAtuais.indexOf(anuncioId.toString());
+      if (index !== -1) {
+        anunciosAtuais.splice(index, 1);
+      } else {
+        toast.error("Produto não encontrado no carrinho");
+        return;
+      }
+
+      const carrinhoAtualizado = {
+        ...data,
+        anunciosId: { anunciosId: anunciosAtuais },
+      };
+
+      const updateResponse = await fetch(
+        `https://marketplacejoias-api-latest.onrender.com/api/Carrinho/PutCarrinho`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(carrinhoAtualizado),
+        }
+      );
+      if (!updateResponse.ok) throw new Error("Erro ao atualizar carrinho");
+
+      await fetch(
+        `https://marketplacejoias-api-latest.onrender.com/api/Carrinho/CompileValue?usuarioId=${usuarioId}`,
+        { method: "PUT", headers: { "Content-Type": "application/json" } }
+      );
+
+      await fetchCarrinho();
+    } catch (error) {
+      console.error(error);
+      toast.error("Erro ao diminuir quantidade");
+    }
+  };
+
+  // Remover totalmente do carrinho (todos os itens desse anúncio)
   const removerDoCarrinho = async (anuncioId) => {
     try {
       const usuarioId = user?.id;
@@ -128,31 +230,15 @@ function Carrinho() {
 
       const carrinhoData = await carrinhoResponse.json();
       const anunciosAtuais = carrinhoData.anunciosId?.anunciosId || [];
-      const indexToRemove = anunciosAtuais.indexOf(anuncioId.toString());
 
-      if (indexToRemove !== -1) {
-        anunciosAtuais.splice(indexToRemove, 1);
-      }
+      // Remove todas as ocorrências do anuncioId
+      const anunciosAtualizados = anunciosAtuais.filter(
+        (id) => id !== anuncioId.toString()
+      );
 
       const carrinhoAtualizado = {
-        baseUrl: "string",
-        requestClientOptions: {
-          schema: "string",
-          headers: {
-            additionalProp1: "string",
-            additionalProp2: "string",
-            additionalProp3: "string",
-          },
-          queryParams: {
-            additionalProp1: "string",
-            additionalProp2: "string",
-            additionalProp3: "string",
-          },
-        },
-        id: carrinhoData.id,
-        usuarioId: usuarioId,
-        anunciosId: { anunciosId: anunciosAtuais },
-        valorTotal: carrinhoData.valorTotal ?? 0,
+        ...carrinhoData,
+        anunciosId: { anunciosId: anunciosAtualizados },
       };
 
       const updateResponse = await fetch(
@@ -166,13 +252,9 @@ function Carrinho() {
 
       if (!updateResponse.ok) throw new Error("Erro ao atualizar carrinho");
 
-      // Atualiza o valor do carrinho após remoção
       await fetch(
         `https://marketplacejoias-api-latest.onrender.com/api/Carrinho/CompileValue?usuarioId=${usuarioId}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-        }
+        { method: "PUT", headers: { "Content-Type": "application/json" } }
       );
 
       toast.success("Produto removido do carrinho com sucesso!");
@@ -217,6 +299,17 @@ function Carrinho() {
     );
   }
 
+  // Objeto com quantidades de cada anuncioId
+  const quantidades = carrinho?.anunciosId?.anunciosId
+    ? agruparItensComQuantidade(carrinho.anunciosId.anunciosId)
+    : {};
+
+  // Garante anúncios únicos (sem repetição)
+  const anunciosUnicos = anuncios.filter(
+    (anuncio, index, self) =>
+      index === self.findIndex((a) => a.id === anuncio.id)
+  );
+
   return (
     <div className="Carrinho">
       <div className="carrinho-container">
@@ -224,17 +317,20 @@ function Carrinho() {
           <div className="carrinho-vazio">
             <h2>Seu carrinho está vazio</h2>
             <p>Explore nossa coleção de joias exclusivas</p>
-            <a href="/" className="btn-continuar-comprando">
-              Continuar Comprando
-            </a>
+
+            <Link to="/catalogo/todos" className="btn-continuar-comprando">
+              Catálogo
+            </Link>
           </div>
         ) : (
           <div className="carrinho-content">
             <div className="carrinho-items">
-              {anuncios.map((anuncio, index) => {
+              {anunciosUnicos.map((anuncio) => {
                 const joia = joias.find((j) => j.id === anuncio.joiaId);
+                const quantidade = quantidades[anuncio.id] || 0;
+
                 return (
-                  <div key={index} className="carrinho-item">
+                  <div key={anuncio.id} className="carrinho-item">
                     <div className="item-imagem">
                       {anuncio.urLs?.length > 0 && (
                         <img src={anuncio.urLs[0]} alt={anuncio.titulo} />
@@ -251,6 +347,18 @@ function Carrinho() {
                           Material Cravejado: {joia.materialCravejado}
                         </p>
                       )}
+                      <div className="item-quantidade">
+                        <button
+                          onClick={() => diminuirQuantidade(anuncio.id)}
+                          disabled={quantidade <= 1}
+                        >
+                          -
+                        </button>
+                        <span>{quantidade}</span>
+                        <button onClick={() => aumentarQuantidade(anuncio.id)}>
+                          +
+                        </button>
+                      </div>
                       <button
                         className="btn-remover"
                         onClick={() => removerDoCarrinho(anuncio.id)}

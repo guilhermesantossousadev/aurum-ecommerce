@@ -100,6 +100,45 @@
   margin: 0;
 }
 
+.item-quantidade {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  user-select: none;
+}
+
+.item-quantidade button {
+  background-color: transparent;
+  border: none;
+  color: #0c0c0c;
+  font-size: 1.2rem;
+  font-weight: bold;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.item-quantidade button:hover:not(:disabled) {
+  background-color: #28282833;
+}
+
+.item-quantidade button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  color: #666;
+}
+
+.item-quantidade span {
+  font-size: 1.1rem;
+  font-weight: 600;
+  min-width: 24px;
+  text-align: center;
+  color: #181818;
+}
+
 .item-valor {
   font-size: 1.2rem;
   font-weight: bold;

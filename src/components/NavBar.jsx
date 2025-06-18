@@ -30,13 +30,6 @@ const NavBar = () => {
   );
 
   const isCatalogoPage = [
-    "/catalogoAnel",
-    "/catalogoBrinco",
-    "/catalogoPiercing",
-    "/catalogoPingente",
-    "/catalogoPulseira",
-    "/catalogoRelogio",
-    "/catalogoColar",
     "/catalogo",
   ].includes(location.pathname);
 
