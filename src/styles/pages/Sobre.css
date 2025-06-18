@@ -679,6 +679,7 @@
   .Sobre__awards {
     height: 40vh; /* um pouco maior para compensar espaço */
     flex-direction: column; /* mantém flex, mas empilha verticalmente */
+    padding-inline: 1rem;
   }
 
   .Sobre__awards__item {
@@ -729,6 +730,60 @@
   }
 }
 
+@media (max-width: 440px) {
+  .Sobre__awards {
+    height: 40vh; /* um pouco maior para compensar espaço */
+    flex-direction: column; /* mantém flex, mas empilha verticalmente */
+    padding-inline: 0;
+  }
+
+  .Sobre__awards__item {
+    width: 100%; /* ocupa toda a largura na vertical */
+    padding: 1rem; /* reduz o padding */
+    height: auto; /* para ajustar a altura conforme conteúdo */
+  }
+
+  .Sobre__awards__item h1 {
+    font-size: 2.5rem; /* reduz a fonte para caber na tela */
+  }
+
+  .Sobre__awards__item h2 {
+    font-size: 1.8rem;
+    max-width: 90%; /* ocupa quase toda a largura */
+    position: static; /* remove posicionamento absoluto para evitar corte */
+    transform: none;
+    margin-top: 1rem;
+  }
+
+  .Sobre__Hoverimgs {
+    height: auto; /* ajusta altura para o conteúdo */
+    flex-direction: column; /* empilha verticalmente */
+    padding: 1rem;
+  }
+
+  .Sobre__Hoverimgs__item {
+    width: 100% !important; /* força 100% para itens */
+    height: auto;
+    overflow-x: visible;
+    margin-bottom: 1rem; /* separa os itens */
+  }
+
+  .Sobre__Hoverimgs__item.rigth {
+    width: 100% !important;
+  }
+
+  .palavra {
+    font-size: 3rem; /* diminui as palavras para caber no mobile */
+    padding: 3px 6px;
+    margin-right: 0.5rem;
+  }
+
+  .imagem-hover {
+    position: fixed;
+    max-width: 80vw; /* limita largura da imagem */
+    max-height: 50vh; /* limita altura */
+  }
+}
 @media screen and (max-width: 992px) {
   .Sobre__Capabilities {
     padding: 1rem;
@@ -911,9 +966,6 @@
   }
 }
 
-/* Ajustes já existentes e adicionados para responsividade do Sobre__hero */
-
-/* Para telas menores que 1024px: layout vertical, centralizado */
 @media (max-width: 1024px) {
   .Sobre__hero {
     flex-direction: column;
@@ -932,7 +984,7 @@
 
   .Sobre__hero__item__right {
     width: 100%;
-    padding-left: 0;
+    padding-inline: 0;
   }
 
   .Sobre__hero__item__right__top,
@@ -989,10 +1041,15 @@
 }
 
 /* Para telas muito pequenas (ex: <400px), ajuste geral para evitar quebras */
-@media (max-width: 400px) {
+@media (max-width: 440px) {
   .Sobre__hero {
-    padding-inline: 0;
+    padding-inline: 1rem;
     margin-top: 10rem;
+  }
+
+  .Sobre__hero__item__right {
+    width: 100%;
+    padding-inline: 0;
   }
 
   .Sobre__hero__item__left h1 {
