@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import BotaoPrimario from "../../components/BotaoPrimario";
 import { toast } from "react-toastify";
 
-import "../../styles/detalhes/DetalhesComum.css";
+import "../../styles/detalhes/Detalhes.css";
 
 import ImageCarousel from "../../components/ImageCarousel";
 import SetaRosaEsquerda from "../../images/Setas/SetaRosaEsquerda.png";
