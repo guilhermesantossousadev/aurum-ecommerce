@@ -127,12 +127,11 @@ function Home() {
           <div className="part">
             <div className="part__inside"></div>
           </div>
-
           <div className="Home__Echo">
             <div className="Home__Echo__container">
               <div className="Home__Echo__container__row">
                 <Link
-                  to="/catalogoRelogio"
+                  to="/catalogo/relogio"
                   className="Home__Echo__container__item"
                 >
                   <div className="Home__Echo__container__item__img">
@@ -144,7 +143,7 @@ function Home() {
                 </Link>
 
                 <Link
-                  to="/catalogoColar"
+                  to="/catalogo/colar"
                   className="Home__Echo__container__item"
                 >
                   <div className="Home__Echo__container__item__img">
@@ -154,8 +153,9 @@ function Home() {
                     correntes
                   </div>
                 </Link>
+
                 <Link
-                  to="/catalogoPulseira"
+                  to="/catalogo/pulseira"
                   className="Home__Echo__container__item"
                 >
                   <div className="Home__Echo__container__item__img">
@@ -169,7 +169,7 @@ function Home() {
 
               <div className="Home__Echo__container__row">
                 <Link
-                  to="/catalogoAnel"
+                  to="/catalogo/anel"
                   className="Home__Echo__container__item"
                 >
                   <div className="Home__Echo__container__item__img">
@@ -177,8 +177,9 @@ function Home() {
                   </div>
                   <div className="Home__Echo__container__item__text">Anéis</div>
                 </Link>
+
                 <Link
-                  to="/catalogoPingente"
+                  to="/catalogo/pingente"
                   className="Home__Echo__container__item"
                 >
                   <div className="Home__Echo__container__item__img">
@@ -188,8 +189,9 @@ function Home() {
                     Pingentes
                   </div>
                 </Link>
+
                 <Link
-                  to="/catalogoBrinco"
+                  to="/catalogo/brinco"
                   className="Home__Echo__container__item"
                 >
                   <div className="Home__Echo__container__item__img">

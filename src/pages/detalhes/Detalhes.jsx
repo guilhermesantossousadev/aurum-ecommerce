@@ -9,20 +9,20 @@ import "../../styles/detalhes/DetalhesComum.css";
 import ImageCarousel from "../../components/ImageCarousel";
 import SetaRosaEsquerda from "../../images/Setas/SetaRosaEsquerda.png";
 
-function DetalhesAnel() {
+function Detalhesjoia() {
   const user = useSelector((state) => state.user);
+
+  const [anuncio, setAnuncio] = useState(null);
+  const [joia, setjoia] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const { id } = useParams();
+  const navigate = useNavigate();
 
   const [cep, setCep] = useState("");
   const [frete, setFrete] = useState(null);
   const [valorTotal, setValorTotal] = useState(null);
   const [opcoesFrete, setOpcoesFrete] = useState([]);
-
-  const [anuncio, setAnuncio] = useState(null);
-  const [anel, setAnel] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const { id } = useParams();
-  const navigate = useNavigate();
 
   // Tabela de frete base por estado
   const tabelaFrete = {
@@ -115,7 +115,7 @@ function DetalhesAnel() {
       setOpcoesFrete(opcoes);
 
       // Atualizar valor total com o frete mais barato (economica)
-      setValorTotal((anel?.valor || 0) + freteBase);
+      setValorTotal((joia?.valor || 0) + freteBase);
     } catch (error) {
       console.error("Erro ao calcular frete:", error);
       toast.error("Erro ao calcular o frete.");
@@ -126,7 +126,7 @@ function DetalhesAnel() {
     try {
       const usuarioId = user?.id;
       if (!usuarioId) {
-        toast("Usuário não está logado.");
+        toast.error("Usuário não está logado.");
         return;
       }
 
@@ -222,7 +222,7 @@ function DetalhesAnel() {
         const anuncioData = await anuncioResponse.json();
 
         if (!anuncioData) {
-          throw new Error("Anel não encontrado");
+          throw new Error("Anúncio não encontrado");
         }
 
         setAnuncio(anuncioData);
@@ -237,36 +237,37 @@ function DetalhesAnel() {
       fetchData();
     }
   }, [id]);
+
   useEffect(() => {
-    const fetchAnel = async () => {
+    const fetchjoia = async () => {
       try {
-        const anelResponse = await fetch(
+        const joiaResponse = await fetch(
           `https://marketplacejoias-api-latest.onrender.com/api/Joia/GetByIdJoia?id=${anuncio.joiaId}`
         );
 
-        if (!anelResponse.ok) {
-          throw new Error("Não foi possível carregar os detalhes do anel");
+        if (!joiaResponse.ok) {
+          throw new Error("Não foi possível carregar os detalhes do joia");
         }
 
-        const anelData = await anelResponse.json();
-        setAnel(anelData);
+        const joiaData = await joiaResponse.json();
+        setjoia(joiaData);
       } catch (err) {
         setError(err.message);
-        console.error("Erro ao carregar dados do anel:", err);
+        console.error("Erro ao carregar dados do joia:", err);
       } finally {
         setLoading(false);
       }
     };
 
     if (anuncio && anuncio.joiaId) {
-      fetchAnel();
+      fetchjoia();
     }
   }, [anuncio]);
 
   if (loading) {
     return (
       <div className="detalhes__container">
-        <div className="loading__message">Carregando detalhes do anel...</div>
+        <div className="loading__message">Carregando detalhes do joia...</div>
       </div>
     );
   }
@@ -288,7 +289,7 @@ function DetalhesAnel() {
         <button className="voltar__button" onClick={() => navigate(-1)}>
           <img src={SetaRosaEsquerda} alt="Voltar" />
         </button>
-        <div className="error__message">Anel não encontrado</div>
+        <div className="error__message">joia não encontrado</div>
       </div>
     );
   }
@@ -317,7 +318,7 @@ function DetalhesAnel() {
               {anuncio.urLs && anuncio.urLs.length > 0 ? (
                 <ImageCarousel images={anuncio.urLs} />
               ) : (
-                <img src={anuncio.url} alt="Imagem do anel" />
+                <img src={anuncio.url} alt="Imagem do joia" />
               )}
             </div>
           </div>
@@ -326,9 +327,9 @@ function DetalhesAnel() {
             <p className="detalhes__info__titulo">{anuncio.titulo}</p>
             <p className="detalhes__info__item__p">
               <div className="detalhes__venda__container">
-                <span>4x sem juros de {formatarPreco(anel?.valor / 4)}</span>
+                <span>4x sem juros de {formatarPreco(joia?.valor / 4)}</span>
                 <p className="detalhes__valor">
-                  {formatarPreco(anel?.valor) || "Valor não disponível"}
+                  {formatarPreco(joia?.valor) || "Valor não disponível"}
                 </p>
                 <BotaoPrimario
                   texto="Adicionar ao carrinho"
@@ -372,56 +373,83 @@ function DetalhesAnel() {
           </div>
         </div>
 
+        <div className="detalhes__part">
+          <div className="detalhes__part__inside"></div>
+        </div>
+
         {/* Detalhes do Anúncio */}
         <div className="detalhes__info">
           <div className="detalhes__info__item">
-            {/* Detalhes do Anel */}
-            <p className="detalhes__info__item__p">
-              <strong className="detalhes__info__item__p__strong">
-                Tipo de Anel
-              </strong>{" "}
-              {anel?.tipoAnel || "Tipo de anel não disponível"}
-            </p>
-            <p className="detalhes__info__item__p">
-              <strong className="detalhes__info__item__p__strong">
-                Número
-              </strong>{" "}
-              {anel?.numero ? `${anel.numero}` : "Número não disponível"}
-            </p>
-            <p className="detalhes__info__item__p">
-              <strong className="detalhes__info__item__p__strong">
-                Espessura
-              </strong>{" "}
-              {anel?.espessura
-                ? `${anel.espessura} mm`
-                : "Espessura não disponível"}
-            </p>
-            <p className="detalhes__info__item__p">
-              <strong className="detalhes__info__item__p__strong">Peso</strong>{" "}
-              {anel?.peso ? `${anel.peso}g` : "Peso não disponível"}
-            </p>
-            <p className="detalhes__info__item__p">
-              <strong className="detalhes__info__item__p__strong">
-                Material
-              </strong>{" "}
-              {anel?.material || "Material não disponível"}
-            </p>
-            {anel?.isStudded && (
-              <p className="detalhes__info__item__p">
-                <strong className="detalhes__info__item__p__strong">
-                  Material Cravejado
-                </strong>{" "}
-                {anel?.materialCravejado || "Não especificado"}
-              </p>
-            )}
-          </div>
-          <div className="detalhes__info__item descricao">
-            <p className="detalhes__info__item__p">{anel?.descricao}</p>
+            {[
+              { key: "modelo", label: "Modelo" },
+              { key: "tipoFecho", label: "Tipo de Fecho" },
+              { key: "altura", label: "Altura", suffix: "mm" },
+              { key: "pesoIndividual", label: "Peso Individual", suffix: "g" },
+              { key: "material", label: "Material" },
+              {
+                key: "materialCravejado",
+                label: "Material Cravejado",
+                condition: joia?.isStudded,
+              },
+              { key: "peso", label: "Peso", suffix: "g" },
+              { key: "tamanho", label: "Tamanho", suffix: "mm" },
+              { key: "formato", label: "Formato" },
+              { key: "comprimento", label: "Comprimento", suffix: "mm" },
+              { key: "espessura", label: "Espessura", suffix: "mm" },
+              { key: "tipoCorrente", label: "Tipo de Corrente" },
+              { key: "regiao", label: "Região" },
+              { key: "fechamento", label: "Fechamento" },
+              { key: "flexibilidade", label: "Flexibilidade" },
+              { key: "tipoMovimento", label: "Tipo de Movimento" },
+              {
+                key: "diametroCaixa",
+                label: "Diâmetro da Caixa",
+                suffix: "mm",
+              },
+              { key: "materialPulseira", label: "Material da Pulseira" },
+              { key: "fonteEnergia", label: "Fonte de Energia" },
+              { key: "havePendant", label: "Possui Pingente", boolean: true },
+              { key: "isAntiallergic", label: "Antialérgico", boolean: true },
+              { key: "haveCharms", label: "Possui Charms", boolean: true },
+              {
+                key: "haveWaterResistance",
+                label: "Resistente à Água",
+                boolean: true,
+              },
+            ]
+              .filter(
+                ({ key, condition }) =>
+                  condition !== false &&
+                  joia?.[key] !== undefined &&
+                  joia?.[key] !== null
+              )
+              .map(({ key, label, suffix = "", boolean }) => (
+                <p key={key} className="detalhes__info__item__p">
+                  <strong className="detalhes__info__item__p__strong">
+                    {label}
+                  </strong>{" "}
+                  {boolean
+                    ? joia[key]
+                      ? "Sim"
+                      : "Não"
+                    : `${joia[key]}${suffix}`}
+                </p>
+              ))}
           </div>
         </div>
+
+        <div className="detalhes__part">
+          <div className="detalhes__part__inside"></div>
+        </div>
+
+        {joia?.descricao && (
+          <div className="detalhes__info__item descricao">
+            <p className="detalhes__info__item__p">{joia.descricao}</p>
+          </div>
+        )}
       </div>
     </div>
   );
 }
 
-export default DetalhesAnel;
+export default Detalhesjoia;

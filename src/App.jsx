@@ -15,23 +15,9 @@ import Profile from "./components/Profile";
 import TokenAuthentication from "./pages/TokenAuthentication";
 import Contato from "./pages/Contato";
 
-import DetalhesAnel from "./pages/detalhes/DetalhesAnel";
-import DetalhesRelogio from "./pages/detalhes/DetalhesRelogio";
-import DetalhesColar from "./pages/detalhes/DetalhesColar";
-import DetalhesBrinco from "./pages/detalhes/DetalhesBrinco";
-import DetalhesPiercing from "./pages/detalhes/DetalhesPiercing";
-import DetalhesPulseira from "./pages/detalhes/DetalhesPulseira";
-import DetalhesPingente from "./pages/detalhes/DetalhesPingente";
+import Detalhes from "./pages/detalhes/Detalhes";
 import AdminPage from "./pages/Admin/AdminPage";
 import Carrinho from "./pages/Carrinho";
-
-import CatalogoAnel from "./pages/tipo/CatalogoAnel";
-import CatalogoBrinco from "./pages/tipo/CatalogoBrinco";
-import CatalogoColar from "./pages/tipo/CatalogoColar";
-import CatalogoPiercing from "./pages/tipo/CatalogoPiercing";
-import CatalogoPingente from "./pages/tipo/CatalogoPingente";
-import CatalogoPulseira from "./pages/tipo/CatalogoPulseira";
-import CatalogoRelogio from "./pages/tipo/CatalogoRelogio";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -49,25 +35,13 @@ function App() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/catalogo" element={<Catalogo />} />
 
         <Route path="/cadastroJoia" element={<CadastroJoia />} />
 
-        <Route path="/detalhesAnel/:id" element={<DetalhesAnel />} />
-        <Route path="/detalhesBrinco/:id" element={<DetalhesBrinco />} />
-        <Route path="/detalhesRelogio/:id" element={<DetalhesRelogio />} />
-        <Route path="/detalhesColar/:id" element={<DetalhesColar />} />
-        <Route path="/detalhesPiercing/:id" element={<DetalhesPiercing />} />
-        <Route path="/detalhesPulseira/:id" element={<DetalhesPulseira />} />
-        <Route path="/detalhesPingente/:id" element={<DetalhesPingente />} />
+        <Route path="/detalhes/:id" element={<Detalhes />} />
 
-        <Route path="/catalogoAnel" element={<CatalogoAnel />} />
-        <Route path="/catalogoBrinco" element={<CatalogoBrinco />} />
-        <Route path="/catalogoColar" element={<CatalogoColar />} />
-        <Route path="/catalogoPiercing" element={<CatalogoPiercing />} />
-        <Route path="/catalogoPingente" element={<CatalogoPingente />} />
-        <Route path="/catalogoPulseira" element={<CatalogoPulseira />} />
-        <Route path="/catalogoRelogio" element={<CatalogoRelogio />} />
+        <Route path="/catalogo" element={<Catalogo />} />
+        <Route path="/catalogo/:tipo" element={<Catalogo />} />
 
         <Route path="/sobre" element={<Sobre />} />
         <Route path="/carreiras" element={<Carreiras />} />

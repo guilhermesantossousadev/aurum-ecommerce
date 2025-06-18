@@ -125,8 +125,7 @@ function CrudVendas() {
     };
 
     return (
-        <div style={{ padding: "20px" }}>
-            <ToastContainer />
+        <div>
             <h2>CRUD de Vendas</h2>
 
             <form onSubmit={handleSubmit}>

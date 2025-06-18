@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import "../styles/pages/Catalogo.css";
@@ -9,7 +10,10 @@ import searchicon from "../images/Common/searchicon.png";
 import xpng from "../images/Common/x.png";
 
 function Catalogo() {
-  const [selectedFilter, setSelectedFilter] = useState("todos");
+  const { tipo } = useParams();
+  const tipoInicial = tipo ? tipo : "Todos";
+  const [selectedFilter, setSelectedFilter] = useState(tipoInicial);
+
   const [anuncios, setAnuncios] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -160,14 +164,22 @@ function Catalogo() {
     </div>
   );
 
+  const capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+
   const getAnuncios = async () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(
-        "https://marketplacejoias-api-latest.onrender.com/api/Anuncio/GetAnuncio"
-      );
-      if (!response.ok) throw new Error("Falha na busca de anúncios.");
+      const tipoFormatado = capitalizeFirstLetter(selectedFilter);
+      const url =
+        selectedFilter !== "todos"
+          ? `https://marketplacejoias-api-latest.onrender.com/api/Anuncio/GetByTipoJoia?tipoPeca=${tipoFormatado}`
+          : `https://marketplacejoias-api-latest.onrender.com/api/Anuncio/GetAnuncio`;
+
+      const response = await fetch(url);
+      if (!response.ok) throw new Error("Erro ao buscar anúncios.");
       const data = await response.json();
       setAnuncios(data);
     } catch (error) {
@@ -176,6 +188,10 @@ function Catalogo() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    getAnuncios();
+  }, [selectedFilter]);
 
   const anunciosFiltrados = anuncios
     .filter((anuncio) =>
@@ -206,35 +222,8 @@ function Catalogo() {
     window.scrollTo(0, 0);
   };
 
-  const handleAnuncioClick = (anuncioId, joiaId) => {
-    const fetchTipoJoia = async () => {
-      try {
-        console.log("Buscando dados da Joia para ID:", joiaId);
-        const response = await fetch(
-          `https://marketplacejoias-api-latest.onrender.com/api/Joia/GetByIdJoia?id=${joiaId}`
-        );
-        if (!response.ok) throw new Error("Erro ao buscar detalhes.");
-        const data = await response.json();
-        console.log("Resposta da API:", data);
-        const tipo = data.tipoPeca?.toLowerCase();
-        console.log("Tipo de Joia:", tipo);
-        const tipoParaUrl = {
-          anel: `/detalhesAnel/${anuncioId}`,
-          relogio: `/detalhesRelogio/${anuncioId}`,
-          colar: `/detalhesColar/${anuncioId}`,
-          brinco: `/detalhesBrinco/${anuncioId}`,
-          pulseira: `/detalhesPulseira/${anuncioId}`,
-          pingente: `/detalhesPingente/${anuncioId}`,
-          piercing: `/detalhesPiercing/${anuncioId}`,
-        };
-        const rota = tipoParaUrl[tipo] || `/DetalhesAnuncio/${anuncioId}`;
-        console.log("Navegando para:", rota);
-        navigate(rota);
-      } catch (error) {
-        console.error("Erro:", error);
-      }
-    };
-    fetchTipoJoia();
+  const handleAnuncioClick = (anuncioId) => {
+    navigate(`/detalhes/${anuncioId}`);
   };
 
   return (
