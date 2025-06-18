@@ -16,6 +16,22 @@
   --filter-transition: all 0.3s ease;
 }
 
+/* =================== ESTRUTURA PRINCIPAL =================== */
+.Catalogo {
+  width: 100%;
+  min-height: auto;
+  background-color: #f4f4f4;
+  padding: 120px 4rem;
+  box-sizing: border-box;
+}
+
+.Catalogo h1 {
+  font-size: 5rem;
+  font-weight: 600;
+  color: #252422 !important;
+  text-transform: var(--text-transform);
+}
+
 /* =================== FILTROS =================== */
 
 .Catalogo__filters__button {
@@ -188,22 +204,6 @@
   color: #fff;
 }
 
-/* =================== ESTRUTURA PRINCIPAL =================== */
-.Catalogo {
-  width: 100%;
-  min-height: auto;
-  background-color: #f4f4f4;
-  padding: 120px 5vw 5vw 5vw;
-  box-sizing: border-box;
-}
-
-.Catalogo h1 {
-  font-size: 5rem;
-  font-weight: 600;
-  color: #252422 !important;
-  text-transform: var(--text-transform);
-}
-
 /* =================== CABEÇALHO =================== */
 
 .Search__header {
@@ -246,7 +246,7 @@
   width: 22px;
   position: absolute;
   top: 32px;
-  left: 20px;
+  left: 5px;
   cursor: pointer;
 }
 
@@ -254,7 +254,7 @@
   position: absolute;
   width: 13px;
   top: 33px;
-  right: 10px;
+  right: 5px;
   cursor: pointer;
 }
 
@@ -648,7 +648,6 @@
   }
 
   .pagination {
-    flex-direction: column;
     gap: 10px;
   }
 }
