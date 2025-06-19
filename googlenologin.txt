@@ -1,0 +1,134 @@
+Integrar o login e cadastro com o **Google** no seu site é possível usando a **autenticação via OAuth 2.0**, geralmente através do **Firebase Authentication**, **Google Identity Services**, ou bibliotecas específicas como `react-oauth/google`, dependendo da stack que você está usando.
+
+Abaixo está um guia completo para integração com **Google Login** usando **React** no frontend e uma **API backend** que recebe o token e cria/loga o usuário:
+
+---
+
+### ✅ **Etapas Gerais:**
+
+---
+
+#### 1. **Crie um projeto no Google Cloud Console**
+
+Acesse: [https://console.cloud.google.com/](https://console.cloud.google.com/)
+
+* Vá para **APIs e serviços > Tela de consentimento OAuth**
+
+  * Escolha "Externo"
+  * Preencha as informações solicitadas
+* Vá em **Credenciais > Criar credenciais > ID do cliente OAuth**
+
+  * Tipo de aplicação: **Aplicativo da Web**
+  * Adicione o domínio do seu site (e.g., `http://localhost:3000` para desenvolvimento)
+  * Pegue o **Client ID**
+
+---
+
+#### 2. **Instale o pacote de login com Google no frontend (React):**
+
+```bash
+npm install @react-oauth/google jwt-decode
+```
+
+---
+
+#### 3. **Configure o login com Google no frontend (exemplo com React):**
+
+```jsx
+// LoginGoogle.jsx
+import { GoogleLogin } from '@react-oauth/google';
+import jwt_decode from 'jwt-decode';
+
+const LoginGoogle = ({ onLoginSuccess }) => {
+  return (
+    <GoogleLogin
+      onSuccess={(credentialResponse) => {
+        const decoded = jwt_decode(credentialResponse.credential);
+        console.log("Dados do Google:", decoded);
+
+        // Envie para sua API para cadastrar ou autenticar
+        fetch("https://sua-api.com/api/auth/google", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            token: credentialResponse.credential
+          })
+        })
+          .then(res => res.json())
+          .then(data => {
+            onLoginSuccess(data); // salva no Redux, etc.
+          });
+      }}
+      onError={() => {
+        console.error("Login com Google falhou");
+      }}
+    />
+  );
+};
+
+export default LoginGoogle;
+```
+
+---
+
+#### 4. **Envolva seu app com o provider do Google:**
+
+```jsx
+// App.jsx
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import LoginGoogle from './components/LoginGoogle';
+
+<GoogleOAuthProvider clientId="SEU_CLIENT_ID_GOOGLE">
+  <LoginGoogle onLoginSuccess={...} />
+</GoogleOAuthProvider>
+```
+
+---
+
+#### 5. **No backend (Node.js, C# etc.):**
+
+Valide o token recebido com a Google API:
+
+**Node.js exemplo:**
+
+```js
+const { OAuth2Client } = require('google-auth-library');
+const client = new OAuth2Client("SEU_CLIENT_ID_GOOGLE");
+
+async function verifyGoogleToken(token) {
+  const ticket = await client.verifyIdToken({
+    idToken: token,
+    audience: "SEU_CLIENT_ID_GOOGLE",
+  });
+  const payload = ticket.getPayload();
+
+  // Aqui você pode criar o usuário no banco ou fazer login
+  return {
+    email: payload.email,
+    nome: payload.name,
+    foto: payload.picture,
+    sub: payload.sub, // id único do Google
+  };
+}
+```
+
+---
+
+### ✅ **Comportamento esperado:**
+
+* Se for a **primeira vez**, o backend cadastra o usuário com o `email`, `sub` (id do Google) e outros dados.
+* Se já existir, o backend apenas autentica.
+
+---
+
+### ✅ **Dicas extras:**
+
+* Combine o login tradicional (e-mail/senha) com o Google.
+* Proteja rotas usando token JWT após login.
+* Armazene no banco o `sub` como identificador único do Google.
+
+---
+
+Se você me disser se seu backend é em **Node.js**, **C#**, **PHP**, etc., posso te dar o código exato para ele também.
+
+Quer isso?
