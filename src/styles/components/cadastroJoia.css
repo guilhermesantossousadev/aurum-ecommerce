@@ -85,17 +85,21 @@
 /* ================== RESPONSIVO ================== */
 @media (max-width: 768px) {
   .CadastroJoia {
+    margin-top: 80px;
+  }
+
+  .CadastroJoia__container {
     margin: 1rem;
     padding: 1.5rem;
   }
 
-  .CadastroJoia h2 {
+  .CadastroJoia__container h2 {
     font-size: 1.5rem;
   }
 
-  .CadastroJoia input,
-  .CadastroJoia select,
-  .CadastroJoia textarea {
+  .CadastroJoia__container input,
+  .CadastroJoia__contsainer select,
+  .CadastroJoia__container textarea {
     font-size: 0.9rem;
   }
 }
