@@ -13,16 +13,23 @@
   align-items: center;
   justify-content: center;
   background-color: #fff;
+  padding: 2rem;
+  /* Para dar um respiro interno */
+  box-sizing: border-box;
 }
 
 .Register__rigth {
   width: 50%;
   height: 100%;
+  position: relative;
+  overflow: hidden;
 }
 
 .Register__rigth video {
   max-height: 100vh;
+  width: 100%;
   object-fit: cover;
+  display: block;
 }
 
 .Register__rigth img {
@@ -31,6 +38,7 @@
   object-fit: cover;
   pointer-events: none;
   user-select: none;
+  display: block;
 }
 
 .Register__container {
@@ -44,6 +52,7 @@
   overflow: hidden;
   position: relative;
   padding: 2rem;
+  box-sizing: border-box;
 }
 
 .Register__title {
@@ -57,6 +66,9 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 100%;
+  max-width: 420px;
+  box-sizing: border-box;
 }
 
 .Register__form__item__container {
@@ -70,6 +82,7 @@
   flex: 1 1 48%;
   display: flex;
   flex-direction: column;
+  min-width: 150px;
 }
 
 .Register__form label {
@@ -83,10 +96,12 @@
   flex-direction: column;
   width: 100%;
   max-width: 400px;
+  box-sizing: border-box;
 }
 
 .Register__input {
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
   padding: 0.8rem;
   border: 1px solid rgba(221, 221, 221, 0.5);
   border-radius: 9px;
@@ -103,7 +118,7 @@
 }
 
 .Register__button {
-  width: 400px;
+  width: 100%;
   max-width: 400px;
   padding: 0.8rem;
   background-color: #000000;
@@ -114,6 +129,7 @@
   cursor: pointer;
   margin-top: 1rem;
   transition: background-color 0.3s ease;
+  box-sizing: border-box;
 }
 
 .Register__button:hover {
@@ -133,7 +149,8 @@
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 1rem;
-  padding-inline: 25rem;
+  justify-content: center;
+  box-sizing: border-box;
 }
 
 .Register__link {
@@ -141,6 +158,8 @@
   text-decoration: none;
   font-size: 0.9rem;
   transition: color 0.3s ease;
+  text-align: center;
+  margin-left: -30px;
 }
 
 .Register__link:hover {
@@ -156,6 +175,7 @@
 /* Barra de progresso */
 .progress-bar {
   height: 6px;
+  width: 95%;
   background-color: #eee;
   border-radius: 5px;
   margin-bottom: 1.5rem;
@@ -169,37 +189,131 @@
   transition: width 0.4s ease-in-out;
 }
 
-/* Responsividade para telas menores */
-@media (max-width: 768px) {
+
+/* Responsividade para tablets e celulares */
+@media (max-width: 1600px) {
   .Register {
     flex-direction: column;
     height: auto;
-    margin-top: 60px;
-    padding: 1rem;
+    padding-top: 5rem;
+  }
+
+  .Register__left,
+  .Register__rigth {
+    width: 100%;
+    height: auto;
+  }
+
+  .Register__left {
+    padding: 2rem 1.5rem;
   }
 
   .Register__rigth {
     display: none;
-  }
-
-  .Register__left {
-    width: 100%;
-    height: auto;
-    padding-top: 3rem;
-  }
-
-  .Register__rigth img {
-    height: 250px;
+    /* Esconder vídeo/imagem para telas menores */
   }
 
   .Register__container {
-    width: 90%;
-    height: auto;
     padding: 1.5rem;
   }
 
   .Register__form__item__container {
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
+  }
+
+  .Register__form__item {
+    flex: 1 1 100%;
+  }
+
+  .Register__input,
+  .Register__button {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .Register__links {
+    position: static;
+    padding: 1rem 1.5rem 3rem;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-inline: 10rem;
+  }
+}
+
+/* Responsividade para tablets e celulares */
+@media (max-width: 1024px) {
+  .Register {
+    flex-direction: column;
+    height: auto;
+    margin-top: 0;
+  }
+
+  .Register__left,
+  .Register__rigth {
+    width: 100%;
+    height: auto;
+  }
+
+  .Register__left {
+    padding: 2rem 1.5rem;
+  }
+
+  .Register__rigth {
+    display: none;
+    /* Esconder vídeo/imagem para telas menores */
+  }
+
+  .Register__container {
+    padding: 1.5rem;
+  }
+
+  .Register__form__item__container {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .Register__form__item {
+    flex: 1 1 100%;
+  }
+
+  .Register__input,
+  .Register__button {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .Register__links {
+    position: static;
+    padding: 1rem 1.5rem 3rem;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-inline: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .Register__title {
+    font-size: 1.5rem;
+  }
+
+  .Register__form {
+    max-width: 100%;
+  }
+
+  .Register__form__item__container {
+    gap: 12px;
+  }
+
+  .Register__button {
+    font-size: 0.9rem;
+    padding: 0.7rem;
+  }
+
+  .Register__links {
+    flex-direction: column;
+    align-items: center;
   }
 }
