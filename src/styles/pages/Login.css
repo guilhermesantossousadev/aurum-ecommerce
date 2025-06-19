@@ -219,3 +219,17 @@
     padding: 0.6rem;
   }
 }
+
+/* Esconder todos os vídeos em telas até 768px (smartphones) */
+@media (max-width: 768px) {
+  video {
+    display: none !important;
+  }
+}
+
+/* Ou se quiser só para iPhones */
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+  video {
+    display: none !important;
+  }
+}
