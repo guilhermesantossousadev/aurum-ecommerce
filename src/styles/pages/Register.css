@@ -27,7 +27,7 @@
   color: #000;
 }
 
-.Register__left span a{
+.Register__left span a {
   color: #000;
 }
 
@@ -341,15 +341,15 @@
   }
 }
 
-/* Esconder todos os vídeos em telas até 768px (smartphones) */
-@media (max-width: 768px) {
+/* Esconder todos os vídeos em telas até 1024px (smartphones) */
+@media (max-width: 1024px) {
   video {
     display: none !important;
   }
 }
 
 /* Ou se quiser só para iPhones */
-@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+@media only screen and (min-device-width : 320px) and (max-device-width : 1024px) {
   video {
     display: none !important;
   }
