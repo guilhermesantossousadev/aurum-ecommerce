@@ -200,89 +200,91 @@ const CadastroAnuncio = () => {
 
   return (
     <div className="CadastroJoia">
-      <h2>
-        {step === 1 ? "Cadastrar Joia" : "Cadastrar Anúncio"}
-      </h2>
-      {step === 1 && (
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleCreateJoia();
-          }}
-        >
-          <label>Tipo da Peça</label>
-          <select
-            value={form.tipoPeca}
-            onChange={(e) => handleChange("tipoPeca", e.target.value)}
-            required
+      <div className="CadastroJoia__container">
+        <h2>
+          {step === 1 ? "Cadastrar Joia" : "Cadastrar Anúncio"}
+        </h2>
+        {step === 1 && (
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleCreateJoia();
+            }}
           >
-            <option value="">-- Selecione --</option>
-            <option value="Anel">Anel</option>
-            <option value="Brinco">Brinco</option>
-            <option value="Colar">Colar</option>
-            <option value="Piercing">Piercing</option>
-            <option value="Pingente">Pingente</option>
-            <option value="Pulseira">Pulseira</option>
-            <option value="Relogio">Relógio</option>
-          </select>
+            <label>Tipo da Peça</label>
+            <select
+              value={form.tipoPeca}
+              onChange={(e) => handleChange("tipoPeca", e.target.value)}
+              required
+            >
+              <option value="">-- Selecione --</option>
+              <option value="Anel">Anel</option>
+              <option value="Brinco">Brinco</option>
+              <option value="Colar">Colar</option>
+              <option value="Piercing">Piercing</option>
+              <option value="Pingente">Pingente</option>
+              <option value="Pulseira">Pulseira</option>
+              <option value="Relogio">Relógio</option>
+            </select>
 
-          <label>Valor</label>
-          <input
-            type="number"
-            step="0.01"
-            value={form.valor}
-            onChange={(e) => handleChange("valor", Number(e.target.value))}
-          />
+            <label>Valor</label>
+            <input
+              type="number"
+              step="0.01"
+              value={form.valor}
+              onChange={(e) => handleChange("valor", Number(e.target.value))}
+            />
 
-          <label>Descrição</label>
-          <textarea
-            value={form.descricao}
-            onChange={(e) => handleChange("descricao", e.target.value)}
-          />
+            <label>Descrição</label>
+            <textarea
+              value={form.descricao}
+              onChange={(e) => handleChange("descricao", e.target.value)}
+            />
 
-          <label>Peso</label>
-          <input
-            type="number"
-            step="0.01"
-            value={form.peso}
-            onChange={(e) => handleChange("peso", Number(e.target.value))}
-          />
+            <label>Peso</label>
+            <input
+              type="number"
+              step="0.01"
+              value={form.peso}
+              onChange={(e) => handleChange("peso", Number(e.target.value))}
+            />
 
-          <label>Material</label>
-          <input
-            type="text"
-            value={form.material}
-            onChange={(e) => handleChange("material", e.target.value)}
-          />
+            <label>Material</label>
+            <input
+              type="text"
+              value={form.material}
+              onChange={(e) => handleChange("material", e.target.value)}
+            />
 
-          {renderSpecificInputs()}
+            {renderSpecificInputs()}
 
-          <button type="submit">Avançar para Anúncio</button>
-        </form>
-      )}
+            <button type="submit">Avançar para Anúncio</button>
+          </form>
+        )}
 
-      {step === 2 && (
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleCreateAnuncio();
-          }}
-        >
-          <label>Título do Anúncio</label>
-          <input
-            type="text"
-            value={titulo}
-            onChange={(e) => setTitulo(e.target.value)}
-            required
-          />
+        {step === 2 && (
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleCreateAnuncio();
+            }}
+          >
+            <label>Título do Anúncio</label>
+            <input
+              type="text"
+              value={titulo}
+              onChange={(e) => setTitulo(e.target.value)}
+              required
+            />
 
-          <label>Imagens do Anúncio</label>
+            <label>Imagens do Anúncio</label>
 
-          <DragAndDropUploader onFilesUploaded={setSelectedImages} />
+            <DragAndDropUploader onFilesUploaded={setSelectedImages} />
 
-          <button type="submit">Cadastrar Anúncio</button>
-        </form>
-      )}
+            <button type="submit">Cadastrar Anúncio</button>
+          </form>
+        )}
+      </div>
     </div>
   );
 };
