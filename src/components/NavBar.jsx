@@ -112,7 +112,7 @@ const NavBar = () => {
               </li>
             ) : (
               <li>
-                <Link to="/profile">Bem-vindo, {user.nome}!</Link>
+                <Link to="/profile">{user.nome}</Link>
               </li>
             )}
           </>
@@ -190,7 +190,7 @@ const NavBar = () => {
               ) : (
                 <li>
                   <Link to="/profile" onClick={() => setIsMenuOpen(false)}>
-                    Bem-vindo, {user.nome}!
+                    {user.nome}
                   </Link>
                 </li>
               )}

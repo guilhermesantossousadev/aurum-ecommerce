@@ -540,10 +540,6 @@
     font-size: 4rem;
   }
 
-  .Ul__elements {
-    gap: 15px;
-  }
-
   .anuncios-grid {
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   }
@@ -564,12 +560,18 @@
 
   .anuncio__card {
     height: auto;
-    padding: 20px;
-    margin-bottom: 20px;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
+  }
+
+  .anuncio__card img {
+    width: 100%;
+    max-width: 100%;
   }
 
   .anuncio__card__container {
@@ -577,13 +579,15 @@
     align-items: center;
     justify-content: center;
     text-align: center;
+    gap: 30px;
+    padding: 0;
   }
 
   .anuncio__card__img {
     min-width: unset;
     max-width: 100%;
+    width: 100%;
     min-height: auto;
-    max-height: 400px;
   }
 
   .anuncio__card h3,
@@ -592,6 +596,8 @@
     margin-left: auto;
     margin-right: auto;
     font-size: 2rem;
+    margin: 0;
+    max-width: unset;
   }
 }
 
@@ -630,23 +636,6 @@
     top: 10px;
   }
 
-  .Ul__elements {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    justify-content: center;
-  }
-
-  .Ul__elements__item {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .Li__element {
-    font-size: 0.9rem;
-    width: 100%;
-  }
-
   .pagination {
     gap: 10px;
   }
@@ -655,16 +644,6 @@
 @media (max-width: 480px) {
   .Catalogo h1 {
     font-size: 2rem;
-  }
-
-  .Ul__elements {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-  }
-
-  .Li__element {
-    width: 100%;
-    padding: 8px 0;
   }
 
   .search-button {
@@ -691,5 +670,75 @@
 @media (max-width: 360px) {
   .Catalogo h1 {
     font-size: 1.8rem;
+  }
+}
+
+/* Telas menores que 768px */
+@media (max-width: 768px) {
+  .anuncio__card {
+    padding-top: 30px;
+    text-align: center;
+  }
+
+  .anuncio__card__img {
+    max-width: 100%;
+    width: 100%;
+    max-height: 300px;
+    margin-bottom: 20px;
+  }
+
+  .anuncio__card__container {
+    gap: 20px;
+  }
+
+  .anuncio__card h3 {
+    font-size: 1.8rem;
+  }
+
+  .anuncio__card p {
+    font-size: 0.95rem;
+  }
+}
+
+/* Telas menores que 480px */
+@media (max-width: 480px) {
+  .anuncio__card {
+    padding: 0 0;
+  }
+
+  .anuncio__card__container {
+    padding-bottom: 15px;
+    gap: 15px;
+  }
+
+  .anuncio__card__img {
+    max-height: 250px;
+  }
+
+  .anuncio__card h3 {
+    font-size: 1.5rem;
+  }
+
+  .anuncio__card p {
+    font-size: 0.85rem;
+  }
+
+  .anuncio__card__seta {
+    display: none;
+  }
+}
+
+/* Telas muito pequenas (< 360px) */
+@media (max-width: 360px) {
+  .anuncio__card h3 {
+    font-size: 1.2rem;
+  }
+
+  .anuncio__card p {
+    font-size: 0.8rem;
+  }
+
+  .anuncio__card__img {
+    max-height: 200px;
   }
 }
