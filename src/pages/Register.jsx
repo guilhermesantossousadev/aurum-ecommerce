@@ -1,19 +1,26 @@
+// Register.jsx
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-
-import { login } from "../store/userSlice";
 import { toast } from "react-toastify";
 
+import { login } from "../store/userSlice";
+import Etapa1 from "../components/EtapasRegister/Etapa1";
+import Etapa2 from "../components/EtapasRegister/Etapa2";
+import Etapa3 from "../components/EtapasRegister/Etapa3";
+import ConfirmacaoToken from "../components/EtapasRegister/ConfirmacaoToken";
+
 import "../styles/pages/Register.css";
-import testimg from "../images/Carreiras/carreirasimg.jpeg";
+import registervideo from "../images/videos/register.mp4";
 
 const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [step, setStep] = useState(1);
+  const [subStep, setSubStep] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [nome, setNome] = useState("");
   const [cpf, setCpf] = useState("");
@@ -25,7 +32,6 @@ const Register = () => {
   const [numero, setNumero] = useState("");
   const [token, setToken] = useState("");
   const [usuario, setUsuario] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
 
   const checkEmailExists = async () => {
     if (!email) return;
@@ -65,21 +71,6 @@ const Register = () => {
     return (resto > 9 ? 0 : resto) === parseInt(cpf.charAt(10));
   };
 
-  const handleCpfChange = (e) => {
-    const value = e.target.value;
-    const formattedCpf = value
-      .replace(/\D/g, "")
-      .replace(/(\d{3})(\d)/, "$1.$2")
-      .replace(/(\d{3})(\d)/, "$1.$2")
-      .replace(/(\d{3})(\d{1,2})/, "$1-$2")
-      .replace(/(-\d{2})\d+?$/, "$1");
-
-    setCpf(formattedCpf);
-    if (formattedCpf.length === 14 && !validarCPF(formattedCpf)) {
-      toast.error("CPF inválido");
-    }
-  };
-
   const handleRequestToken = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -92,9 +83,7 @@ const Register = () => {
 
     const cepData = await searchCEP();
     const enderecoFormatado = cepData
-      ? `${cepData?.logradouro || ""} Nº ${numero}, ${cepData?.bairro || ""}, ${
-          cepData?.localidade || ""
-        }, ${cepData?.uf || ""}, ${cepData?.cep || ""}`
+      ? `${cepData?.logradouro || ""} Nº ${numero}, ${cepData?.bairro || ""}, ${cepData?.localidade || ""}, ${cepData?.uf || ""}, ${cepData?.cep || ""}`
       : "Endereço não encontrado";
 
     const data = {
@@ -177,101 +166,20 @@ const Register = () => {
           <div className="Register__container">
             <h1 className="Register__title">Cadastro</h1>
             <form className="Register__form" onSubmit={handleRequestToken}>
-              <div className="Register__form__item__container">
-                <div className="Register__form__item">
-                  <div className="Register__form-group">
-                    <label>Nome Completo</label>
-                    <input
-                      type="text"
-                      value={nome}
-                      onChange={(e) => setNome(e.target.value)}
-                      required
-                      className="Register__input"
-                    />
-                  </div>
-                  <div className="Register__form-group">
-                    <label>E-mail</label>
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      onBlur={checkEmailExists}
-                      required
-                      className="Register__input"
-                    />
-                  </div>
-                  <div className="Register__form-group">
-                    <label>Senha</label>
-                    <input
-                      type="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      required
-                      className="Register__input"
-                    />
-                  </div>
-                  <div className="Register__form-group">
-                    <label>Confirmar Senha</label>
-                    <input
-                      type="password"
-                      value={confirmPassword}
-                      onChange={(e) => setConfirmPassword(e.target.value)}
-                      required
-                      className="Register__input"
-                    />
-                  </div>
-                </div>
-                <div className="Register__form__item">
-                  <div className="Register__form-group">
-                    <label>CPF</label>
-                    <input
-                      type="text"
-                      value={cpf}
-                      onChange={handleCpfChange}
-                      required
-                      className="Register__input"
-                    />
-                  </div>
-                  <div className="Register__form-group">
-                    <label>Idade</label>
-                    <input
-                      type="number"
-                      value={idade}
-                      onChange={(e) => setIdade(e.target.value)}
-                      required
-                      className="Register__input"
-                    />
-                  </div>
-                  <div className="Register__form-group">
-                    <label>CEP</label>
-                    <input
-                      type="text"
-                      value={cep}
-                      onChange={(e) => setCep(e.target.value)}
-                      maxLength={9}
-                      required
-                      className="Register__input"
-                    />
-                  </div>
-                  <div className="Register__form-group">
-                    <label>Número</label>
-                    <input
-                      type="text"
-                      value={numero}
-                      onChange={(e) => setNumero(e.target.value)}
-                      required
-                      className="Register__input"
-                    />
-                  </div>
-                </div>
-              </div>
-              <button
-                className="Register__button"
-                type="submit"
-                disabled={isLoading}
-              >
-                {isLoading ? "Enviando..." : "Validar Email"}
-              </button>
+              {subStep === 1 && (
+                <Etapa1 style={{ width: "100%", height: "100%" }} nome={nome} setNome={setNome} cpf={cpf} setCpf={setCpf} idade={idade} setIdade={setIdade} validarCPF={validarCPF} next={() => setSubStep(2)} />
+              )}
+              {subStep === 2 && (
+                <Etapa2 email={email} setEmail={setEmail} password={password} setPassword={setPassword} confirmPassword={confirmPassword} setConfirmPassword={setConfirmPassword} checkEmailExists={checkEmailExists} next={() => setSubStep(3)} back={() => setSubStep(1)} />
+              )}
+              {subStep === 3 && (
+                <Etapa3 cep={cep} setCep={setCep} numero={numero} setNumero={setNumero} isLoading={isLoading} back={() => setSubStep(2)} />
+              )}
+              {subStep === 3 && (
+                <button className="Register__button" type="submit" disabled={isLoading}>
+                  {isLoading ? "Enviando..." : "Validar Email"}
+                </button>
+              )}
             </form>
             <div className="Register__links">
               <Link to="/login" className="Register__link">
@@ -283,36 +191,14 @@ const Register = () => {
       )}
 
       {step === 2 && (
-        <div className="Register__left">
-          <div className="Register__container">
-            <h1 className="Register__title">Confirme o Token</h1>
-            <form className="Register__form" onSubmit={handleSubmit}>
-              <div className="Register__form__item__container">
-                <div className="Register__form-group">
-                  <label>Token</label>
-                  <input
-                    type="text"
-                    value={token}
-                    onChange={(e) => setToken(e.target.value)}
-                    required
-                    className="Register__input"
-                  />
-                </div>
-              </div>
-              <button
-                className="Register__button"
-                type="submit"
-                disabled={isLoading}
-              >
-                {isLoading ? "Validando..." : "Validar"}
-              </button>
-            </form>
-          </div>
-        </div>
+        <ConfirmacaoToken token={token} setToken={setToken} handleSubmit={handleSubmit} isLoading={isLoading} />
       )}
 
       <div className="Register__rigth">
-        <img src={testimg} alt="Cadastro" className="Register__image" />
+        <video autoPlay muted loop width="100%">
+          <source src={registervideo} type="video/mp4" />
+          Seu navegador não suporta a tag de vídeo.
+        </video>
       </div>
     </div>
   );

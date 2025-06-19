@@ -117,8 +117,7 @@
 }
 
 /* Estilo para menu desktop */
-.navbar__list.logged {
-}
+.navbar__list.logged {}
 
 .navbar__list {
   margin-left: 0;
@@ -252,6 +251,7 @@
   color: var(--text-hover-color);
   border: 1px solid var(--border-hover-color);
 }
+
 /* Navbar com scroll */
 .navbar.scrolled {
   background-color: var(--light-bg);
@@ -264,6 +264,7 @@
 .navbar.scrolled.pink-text {
   background-color: #262523;
 }
+
 /* Scroll + white text: mantém branco */
 .navbar.scrolled.white-text a,
 .navbar.scrolled.white-text .navbar__toggle {
@@ -300,6 +301,11 @@
 .navbar.auth-nav {
   background-color: rgba(255, 255, 255, 0.9);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.navbar.auth-nav:not(.scrolled) {
+  background-color: transparent;
+  box-shadow: none;
 }
 
 .navbar.auth-nav a {

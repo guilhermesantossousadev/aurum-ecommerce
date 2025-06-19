@@ -45,24 +45,23 @@ const NavBar = () => {
   };
   useEffect(() => {
     const handleScroll = () => {
+      const scrollTop = window.scrollY;
+
       if (location.pathname === "/") {
-        const scrollTop = window.scrollY;
-        // Só ativa o scrolled se o usuário rolar mais de 90% da altura da tela
         setIsScrolled(scrollTop > window.innerHeight * 0.9);
+      } else if (["/login", "/register"].includes(location.pathname)) {
+        setIsScrolled(false); // Mantém transparente nessas rotas
       } else {
-        // Em qualquer rota diferente de "/", considera como já scrolled (navbar preta)
         setIsScrolled(true);
       }
     };
 
-    // Se for a home, escuta scroll. Se não, apenas define como true
     if (location.pathname === "/") {
       window.addEventListener("scroll", handleScroll);
-      handleScroll(); // chama para estado inicial
-
+      handleScroll();
       return () => window.removeEventListener("scroll", handleScroll);
     } else {
-      setIsScrolled(true);
+      handleScroll();
     }
   }, [location.pathname]);
 
@@ -75,9 +74,8 @@ const NavBar = () => {
 
   return (
     <nav
-      className={`navbar ${
-        isScrolled ? "scrolled" : ""
-      } ${getTextClass()} ${getPageClass()}`}
+      className={`navbar ${isScrolled ? "scrolled" : ""
+        } ${getTextClass()} ${getPageClass()}`}
     >
       <div className="Nav__item">
         <Link to="/" className="navbar__brand">

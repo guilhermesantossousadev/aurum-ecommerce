@@ -30,6 +30,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  padding-top: 20rem;
   padding-bottom: 5rem;
   min-height: 1600px;
 }

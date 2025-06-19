@@ -5,7 +5,7 @@ import { login } from "../store/userSlice";
 import { toast } from "react-toastify";
 
 import "../styles/pages/Login.css";
-import testimg from "../images/Carreiras/carreirasimg.jpeg";
+import loginvideo from "../images/videos/login.mp4";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -56,15 +56,17 @@ const Login = () => {
   return (
     <div className="Login">
       <div className="Login__left">
-        <img src={testimg} alt="Login" />
+        <video autoPlay muted loop width="100%" >
+          <source src={loginvideo} type="video/mp4" />
+          Seu navegador não suporta a tag de vídeo.
+        </video>
       </div>
       <div className="Login__rigth">
         <div className="Login__container">
-          
+
           <h1 className="Login__title">Login</h1>
 
           <form className="Login__form" onSubmit={handleSubmit}>
-            <label htmlFor="email">Email</label>
             <input
               className="Login__input"
               type="email"
@@ -74,7 +76,6 @@ const Login = () => {
               required
             />
 
-            <label htmlFor="password">Senha</label>
             <input
               className="Login__input"
               type="password"
@@ -94,7 +95,7 @@ const Login = () => {
           </form>
 
           <div className="Login__links">
-            <Link to="/register" className="Login__link">
+            <Link to="/register" className="Login__link left">
               Não tem uma conta? Cadastre-se
             </Link>
             <Link to="/token-authentication" className="Login__link">
