@@ -93,8 +93,9 @@
 }
 
 .Login__input {
-  width: 400px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 400px;
+  height: 50px;
   padding: 0.8rem;
   border: 1px solid rgba(221, 221, 221, 0.5);
   border-radius: 9px;

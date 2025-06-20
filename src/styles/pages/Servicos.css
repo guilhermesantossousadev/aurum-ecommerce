@@ -222,7 +222,8 @@
 
   .Box__item.first {
     align-items: center;
-    text-align: center;
+    padding-left: 1rem;
+    text-align: left;
   }
 
   .Box__item.first h1 {

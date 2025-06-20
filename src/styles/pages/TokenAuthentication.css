@@ -12,10 +12,8 @@
 .TokenAuth__container {
   width: 100%;
   max-width: 400px;
-  background-color: #ffffff;
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .TokenAuth__title {
@@ -32,17 +30,19 @@
 }
 
 .TokenAuth__input {
-  width: 100%;
   padding: 0.8rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  border: 1px solid rgba(221, 221, 221, 0.5);
+  border-radius: 9px;
   font-size: 1rem;
   transition: border-color 0.3s ease;
+  color: #000 !important;
+  box-sizing: border-box;
+  background-color: #f4f8f9;
 }
 
 .TokenAuth__input:focus {
   outline: none;
-  border-color: #007bff;
+  border-color: #000;
 }
 
 .TokenAuth__button {
@@ -75,7 +75,7 @@
 }
 
 .TokenAuth__link {
-  color:  #000000;
+  color: #000000;
   text-decoration: none;
   font-size: 0.9rem;
   transition: color 0.3s ease;
@@ -123,4 +123,4 @@
   .TokenAuth__title {
     font-size: 1.5rem;
   }
-} 
+}

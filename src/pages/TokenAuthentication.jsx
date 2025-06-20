@@ -96,7 +96,7 @@ const TokenAuthentication = () => {
 
     try {
       const response = await fetch(
-        `https://marketplacejoias-api-latest.onrender.com/api/Usuario/ResetPassword?email=${formData.email}.com&password=${formData.newPassword}`,
+        `https://marketplacejoias-api-latest.onrender.com/api/Usuario/ResetPassword?email=${formData.email}&password=${formData.newPassword}`,
         {
           method: "PUT",
           headers: {
