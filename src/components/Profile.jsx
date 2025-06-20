@@ -25,10 +25,40 @@ const Profile = () => {
   const [uploading, setUploading] = useState(false);
   const [isEditingPhoto, setIsEditingPhoto] = useState(false);
 
+  const [anuncios, setAnuncios] = useState([]);
+
   const handleLogout = () => {
     dispatch(logout());
     navigate("/");
   };
+
+  const GetAnuncios = async () => {
+    try {
+      const response = await fetch(
+        `https://marketplacejoias-api-latest.onrender.com/api/Anuncio/GetByUsuarioIdAnuncio?usuarioId=${user.id}`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Erro ao buscar anúncios.");
+      }
+
+      const data = await response.json();
+      setAnuncios(data);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  useEffect(() => {
+    if (user?.id) {
+      GetAnuncios();
+    }
+  }, [user?.id]);
+
 
   const updateUserData = async (updatedData) => {
     const data = { ...user, ...updatedData };
@@ -96,72 +126,148 @@ const Profile = () => {
   };
 
   return (
-    <div className="profile-container">
-      <div className="profile-header">
+    <div className="profile__container">
+      <div className="profile__header">
       </div>
-      <div className="profile-wrapper">
-        <div className="profile-card">
-          <div className="avatar-section">
-            <img src={profileImage} alt="Foto" className="avatar-img" />
-            {isEditingPhoto ? (
-              <div className="photo-edit">
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleFileChange}
-                />
-                <button onClick={handleUploadImage} disabled={uploading}>
-                  {uploading ? "Enviando..." : "Enviar"}
-                </button>
-                <button onClick={() => setIsEditingPhoto(false)}>
-                  <img src={ximg} alt="Cancelar" width="10px" />
-                </button>
-              </div>
-            ) : (
-              <button onClick={() => setIsEditingPhoto(true)}>
-                Upload Photo
-              </button>
-            )}
-          </div>
+      <div className="profile__wrapper">
+        <div className="profile__card">
 
-          <div className="profile-info">
-            {["nome", "email", "cpf", "idade"].map((field) => (
-              <div key={field} className="info-row">
-                <label>{field.charAt(0).toUpperCase() + field.slice(1)}</label>
-                {editField === field ? (
-                  <>
+          <div className="avatar__section">
+            <div className="avatar__section__item">
+              <img src={profileImage} alt="Foto" className="avatar__img" />
+            </div>
+
+            <div className="avatar__section__item right">
+              {isEditingPhoto ? (
+                <>
+                  <div className="photo__edit">
+                    {/* input file escondido */}
                     <input
-                      value={{ nome, email, cpf, idade }[field]}
-                      onChange={(e) => {
-                        const setters = {
-                          nome: setNome,
-                          email: setEmail,
-                          cpf: setCpf,
-                          idade: setIdade,
-                        };
-                        setters[field](e.target.value);
-                      }}
+                      id="upload-photo"
+                      type="file"
+                      accept="image/*"
+                      onChange={handleFileChange}
+                      style={{ display: "none" }}
                     />
 
-                    <button onClick={() => handleSave(field)}>
+                    {/* label estilizado como botão */}
+                    <label htmlFor="upload-photo" className="btn__upload-photo">
+                      Selecionar imagem
+                    </label>
+
+                    {/* botão enviar */}
+                    <button onClick={handleUploadImage} disabled={uploading}>
+                      {uploading ? "Enviando..." : "Enviar"}
+                    </button>
+                  </div>
+
+                  <div className="xbtn">
+                    <button onClick={() => setIsEditingPhoto(false)}>
+                      <img src={ximg} alt="Cancelar" width="10px" />
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <button onClick={() => setIsEditingPhoto(true)}>
+                  Upload Photo
+                </button>
+              )}
+            </div>
+
+
+          </div>
+
+          <div className="profile__info">
+            <div className="info__row">
+              <div className="info__row__top">
+                <label>Nome</label>
+              </div>
+
+              <div className="info__row__bottom">
+                {editField === "nome" ? (
+                  <>
+                    <input value={nome} onChange={(e) => setNome(e.target.value)} />
+                    <button onClick={() => handleSave("nome")}>
                       <FaSave />
                     </button>
                   </>
                 ) : (
                   <>
-                    <span>{eval(field)}</span>
-                    <button onClick={() => setEditField(field)}>Editar</button>
+                    <span>{nome}</span>
+                    <button onClick={() => setEditField("nome")}>Editar</button>
                   </>
                 )}
               </div>
-            ))}
-
-            <div className="legal-status">
-              <label>Status KYC:</label>
-              <span className="verified">Verificado</span>
             </div>
 
-            <div className="logout-section">
+            <div className="info__row">
+              <div className="info__row__top">
+                <label>Email</label>
+              </div>
+
+              <div className="info__row__bottom">
+
+                {editField === "email" ? (
+                  <>
+                    <input value={email} onChange={(e) => setEmail(e.target.value)} />
+                    <button onClick={() => handleSave("email")}>
+                      <FaSave />
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <span>{email}</span>
+                    <button onClick={() => setEditField("email")}>Editar</button>
+                  </>
+                )}
+              </div>
+            </div>
+
+            <div className="info__row">
+              <div className="info__row__top">
+                <label>CPF</label>
+              </div>
+
+              <div className="info__row__bottom">
+                {editField === "cpf" ? (
+                  <>
+                    <input value={cpf} onChange={(e) => setCpf(e.target.value)} />
+                    <button onClick={() => handleSave("cpf")}>
+                      <FaSave />
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <span>{cpf}</span>
+                    <button onClick={() => setEditField("cpf")}>Editar</button>
+                  </>
+                )}
+              </div>
+            </div>
+
+            <div className="info__row">
+              <div className="info__row__top">
+                <label>Idade</label>
+              </div>
+
+              <div className="info__row__bottom">
+                {editField === "idade" ? (
+                  <>
+                    <input value={idade} onChange={(e) => setIdade(e.target.value)} />
+                    <button onClick={() => handleSave("idade")}>
+                      <FaSave />
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <span>{idade}</span>
+                    <button onClick={() => setEditField("idade")}>Editar</button>
+                  </>
+                )}
+              </div>
+            </div>
+
+            <div className="logout__section">
               <Link to="/cadastroJoia">Cadastrar joia</Link>
               <button onClick={handleLogout}>
                 <FaSignOutAlt /> Sair
@@ -170,28 +276,33 @@ const Profile = () => {
           </div>
         </div>
 
-        <div className="profile-details">
-          <h3>Professional Details</h3>
-          <p>This are the professional details shown to users in the app.</p>
-          <div className="expertise-tags">
-            {['Career', 'Money', 'Stock', 'Mortgage'].map((tag) => (
-              <span key={tag} className="tag">{tag}</span>
-            ))}
-          </div>
-          <div className="experience-block">
-            <strong>7 Years</strong> of total experience
-          </div>
-          <div className="rating-block">
-            <span className="stars">★★★★☆</span> from 34 customers
-          </div>
-          <div className="reviews">
-            <strong>Ankit Srivastava</strong>
-            <p>
-              Excellent conversation with him... very knowledgeable personality
-              to talk to.
-            </p>
+        <div className="profile__details">
+          <h3>Anúncios Cadastrados</h3>
+          <p>Estes são os anúncios que você cadastrou no nosso site.</p>
+          <div className="anuncios">
+            {anuncios.length === 0 ? (
+              <p>Você não possui anúncios cadastrados.</p>
+            ) : (
+              anuncios.map((anuncio) => (
+                <div key={anuncio.id} className="anuncio__item">
+                  <div className="anuncio__item__left">
+                    {anuncio.urLs && anuncio.urLs.length > 0 && (
+                      <img
+                        src={anuncio.urLs[0]}
+                        alt={anuncio.titulo}
+                      />
+                    )}
+                  </div>
+                  <div className="anuncio__item__rigth">
+                    <h4>{anuncio.titulo}</h4>
+                    <p>Tipo: {anuncio.tipoPeca}</p>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
         </div>
+
       </div>
     </div>
   );
