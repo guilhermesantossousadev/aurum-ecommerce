@@ -55,14 +55,14 @@ const NavBar = () => {
           setIsScrolled(scrollTop > bannerHeight - 80);
         }
       } else if (location.pathname === "/profile") {
-        const profileHeader = document.querySelector(".profile-header");
+        const profileHeader = document.querySelector(".profile__header");
         if (profileHeader) {
           const profileHeight = profileHeader.offsetHeight;
           setIsScrolled(scrollTop > profileHeight - 80);
         } else {
           // Tenta novamente depois de um pequeno atraso
           setTimeout(() => {
-            const retryHeader = document.querySelector(".profile-header");
+            const retryHeader = document.querySelector(".profile__header");
             if (retryHeader) {
               const profileHeight = retryHeader.offsetHeight;
               setIsScrolled(scrollTop > profileHeight - 80);
