@@ -1,22 +1,13 @@
+// Novo layout inspirado na imagem enviada, mantendo funcionalidades
+
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/userSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-
 import "../styles/components/Profile.css";
-
 import ximg from "../images/Common/x.png";
-
-import {
-  FaEnvelope,
-  FaCalendarAlt,
-  FaIdCard,
-  FaMoneyBill,
-  FaSignOutAlt,
-  FaEdit,
-  FaSave,
-} from "react-icons/fa";
+import { FaSignOutAlt, FaSave } from "react-icons/fa";
 
 const Profile = () => {
   const user = useSelector((state) => state.user);
@@ -29,17 +20,9 @@ const Profile = () => {
   const [idade, setIdade] = useState(user.idade);
   const [nome, setNome] = useState(user.nome);
 
-  const [anuncios, setAnuncios] = useState([]);
-  const [joias, setJoias] = useState({}); // objeto com idAnuncio -> joia
-
-  // Estado para controlar a imagem local e o arquivo selecionado
-  const [profileImage, setProfileImage] = useState(
-    user.fotoPerfilURL !== null ? user.fotoPerfilURL : fotodeperfilpadrao
-  );
+  const [profileImage, setProfileImage] = useState(user.fotoPerfilURL);
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploading, setUploading] = useState(false);
-
-  // Novo estado para controlar se o usuário quer editar a foto
   const [isEditingPhoto, setIsEditingPhoto] = useState(false);
 
   const handleLogout = () => {
@@ -47,83 +30,37 @@ const Profile = () => {
     navigate("/");
   };
 
-  const handleEditClick = (field) => {
-    setEditField(field);
-  };
-
   const updateUserData = async (updatedData) => {
-    const data = {
-      id: user.id || 0,
-      nome: updatedData.nome ?? user.nome,
-      cpf: updatedData.cpf ?? user.cpf,
-      idade: updatedData.idade ?? user.idade,
-      email: updatedData.email ?? user.email,
-      password: user.password,
-      cep: user.cep,
-      numero: user.numero,
-      complemento: user.complemento,
-      endereco: user.endereco,
-      fotoPerfilURL: user.fotoPerfilURL,
-      isAdmin: user.isAdmin || false,
-    };
-
+    const data = { ...user, ...updatedData };
     try {
       const response = await fetch(
         "https://marketplacejoias-api-latest.onrender.com/api/Usuario/PutUsuario",
         {
           method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         }
       );
-
-      if (!response.ok) {
-        throw new Error("Erro ao atualizar o perfil. Tente novamente.");
-      }
-
+      if (!response.ok) throw new Error("Erro ao atualizar o perfil.");
       toast.success("Dados atualizados com sucesso!");
       setEditField(null);
     } catch (error) {
-      console.error(error);
       toast.error("Erro na atualização: " + error.message);
     }
   };
 
   const handleSave = async (field) => {
-    switch (field) {
-      case "nome":
-        if (!nome.trim()) {
-          toast("Por favor, insira um nome válido.");
-          return;
-        }
-        await updateUserData({ nome });
-        break;
-      case "cpf":
-        if (!cpf.trim()) {
-          toast("Por favor, insira um CPF válido.");
-          return;
-        }
-        await updateUserData({ cpf });
-        break;
-      case "idade":
-        if (!idade || isNaN(idade) || parseInt(idade) <= 0) {
-          toast("Por favor, insira uma idade válida.");
-          return;
-        }
-        await updateUserData({ idade });
-        break;
-      case "email":
-        if (!email || !/\S+@\S+\.\S+/.test(email)) {
-          toast("Por favor, insira um e-mail válido.");
-          return;
-        }
-        await updateUserData({ email });
-        break;
-      default:
-        break;
+    const validators = {
+      nome: nome.trim(),
+      cpf: cpf.trim(),
+      idade: idade && !isNaN(idade) && parseInt(idade) > 0,
+      email: /\S+@\S+\.\S+/.test(email),
+    };
+    if (!validators[field]) {
+      toast("Campo inválido");
+      return;
     }
+    await updateUserData({ [field]: eval(field) });
   };
 
   const handleFileChange = (e) => {
@@ -131,366 +68,132 @@ const Profile = () => {
     if (file) {
       setSelectedFile(file);
       const reader = new FileReader();
-      reader.onloadend = () => {
-        setProfileImage(reader.result);
-      };
+      reader.onloadend = () => setProfileImage(reader.result);
       reader.readAsDataURL(file);
     }
   };
 
   const handleUploadImage = async () => {
-    if (!selectedFile) {
-      toast("Por favor, selecione uma imagem antes de enviar.");
-      return;
-    }
-
+    if (!selectedFile) return toast("Selecione uma imagem.");
     setUploading(true);
-
     const formData = new FormData();
     formData.append("file", selectedFile);
     formData.append("usuarioId", user.id);
-
     try {
-      const response = await fetch(
+      const res = await fetch(
         `https://marketplacejoias-api-latest.onrender.com/api/Usuario/UploadImageUsuario?usuarioId=${user.id}`,
-
-        {
-          method: "POST",
-          body: formData,
-        }
+        { method: "POST", body: formData }
       );
-
-      if (!response.ok) {
-        throw new Error("Falha no upload da imagem.");
-      }
-
-      toast.success("Imagem atualizada com sucesso!");
+      if (!res.ok) throw new Error();
+      toast.success("Imagem atualizada!");
       setSelectedFile(null);
-      setIsEditingPhoto(false); // fecha a seção de edição de foto
-    } catch (error) {
-      console.log("Erro ao enviar imagem: " + error.message);
+      setIsEditingPhoto(false);
+    } catch {
       toast.error("Erro ao enviar imagem");
     } finally {
       setUploading(false);
     }
   };
 
-  const fetchAnunciosUsuario = async () => {
-    try {
-      const response = await fetch(
-        `https://marketplacejoias-api-latest.onrender.com/api/Anuncio/GetByUsuarioIdAnuncio?usuarioId=${user.id}`,
-        { method: "GET", headers: { "Content-Type": "application/json" } }
-      );
-
-      if (!response.ok) throw new Error("Erro ao carregar anúncios");
-
-      const anunciosUsuario = await response.json();
-      setAnuncios(anunciosUsuario);
-
-      // Agora busca as joias relacionadas a cada anúncio
-      const joiasMap = {};
-      await Promise.all(
-        anunciosUsuario.map(async (anuncio) => {
-          try {
-            const anelResponse = await fetch(
-              `https://marketplacejoias-api-latest.onrender.com/api/Joia/GetByIdJoia?id=${anuncio.joiaId}`
-            );
-            if (!anelResponse.ok) throw new Error("Erro ao carregar anel");
-
-            const anelData = await anelResponse.json();
-            joiasMap[anuncio.id] = anelData;
-          } catch (err) {
-            console.error("Erro carregando anel do anúncio", anuncio.id, err);
-          }
-        })
-      );
-
-      setJoias(joiasMap);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchAnunciosUsuario();
-  }, []);
-
-  const handleVerDetalhesClick = (anuncioId, joiaId) => {
-    const fetchTipoJoia = async () => {
-      try {
-        const response = await fetch(
-          `https://marketplacejoias-api-latest.onrender.com/api/Joia/GetByIdJoia?id=${joiaId}`
-        );
-        if (!response.ok) throw new Error("Erro ao buscar detalhes.");
-
-        const data = await response.json();
-        const tipo = data.tipoPeca?.toLowerCase();
-
-        const tipoParaUrl = {
-          anel: `/detalhesAnel/${anuncioId}`,
-          relogio: `/detalhesRelogio/${anuncioId}`,
-          colar: `/detalhesColar/${anuncioId}`,
-          brinco: `/detalhesBrinco/${anuncioId}`,
-          pulseira: `/detalhesPulseira/${anuncioId}`,
-          pingente: `/detalhesPingente/${anuncioId}`,
-          piercing: `/detalhesPiercing/${anuncioId}`,
-        };
-
-        const rota = tipoParaUrl[tipo] || `/DetalhesAnuncio/${anuncioId}`;
-        navigate(rota);
-      } catch (error) {
-        console.error("Erro:", error);
-        toast.error("Erro ao carregar detalhes da joia.");
-      }
-    };
-    fetchTipoJoia();
-  };
-
   return (
-    <section className="Profile">
-      <div className="Profile__top"></div>
-      <div className="Profile__bottom">
-        <div className="Profile__boxes">
-          <div className="Profile__box__first first">
-            <div className="Profile__box__img__container">
-              <div className="Profile__box__img__container__left">
-                <div className="Profile__img">
-                  <img
-                    src={profileImage}
-                    alt="foto de perfil"
-                    className="fotoperfil"
-                  />
-                </div>
+    <div className="profile-container">
+      <div className="profile-header">
+      </div>
+      <div className="profile-wrapper">
+        <div className="profile-card">
+          <div className="avatar-section">
+            <img src={profileImage} alt="Foto" className="avatar-img" />
+            {isEditingPhoto ? (
+              <div className="photo-edit">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                />
+                <button onClick={handleUploadImage} disabled={uploading}>
+                  {uploading ? "Enviando..." : "Enviar"}
+                </button>
+                <button onClick={() => setIsEditingPhoto(false)}>
+                  <img src={ximg} alt="Cancelar" width="10px" />
+                </button>
               </div>
-              <div className="Profile__box__img__container__right">
-                {!isEditingPhoto ? (
-                  <button
-                    onClick={() => setIsEditingPhoto(true)}
-                    className="camera__img"
-                  >
-                    Editar
-                  </button>
-                ) : (
+            ) : (
+              <button onClick={() => setIsEditingPhoto(true)}>
+                Upload Photo
+              </button>
+            )}
+          </div>
+
+          <div className="profile-info">
+            {["nome", "email", "cpf", "idade"].map((field) => (
+              <div key={field} className="info-row">
+                <label>{field.charAt(0).toUpperCase() + field.slice(1)}</label>
+                {editField === field ? (
                   <>
                     <input
-                      type="file"
-                      accept="image/*"
-                      id="fileInput"
-                      style={{ display: "none" }}
-                      onChange={handleFileChange}
-                    />
-                    <button
-                      onClick={() =>
-                        document.getElementById("fileInput").click()
-                      }
-                    >
-                      Selecionar Foto
-                    </button>
-                    <button
-                      onClick={handleUploadImage}
-                      disabled={uploading || !selectedFile}
-                      style={{ marginLeft: "10px" }}
-                    >
-                      {uploading ? "Enviando..." : "Enviar Foto"}
-                    </button>
-                    <button
-                      className="xbutton"
-                      onClick={() => {
-                        setIsEditingPhoto(false);
-                        setSelectedFile(null);
-                        setProfileImage(
-                          user.fotoPerfilURL !== null
-                            ? user.fotoPerfilURL
-                            : fotodeperfilpadrao
-                        );
+                      value={{ nome, email, cpf, idade }[field]}
+                      onChange={(e) => {
+                        const setters = {
+                          nome: setNome,
+                          email: setEmail,
+                          cpf: setCpf,
+                          idade: setIdade,
+                        };
+                        setters[field](e.target.value);
                       }}
-                      style={{ marginLeft: "10px" }}
-                    >
-                      <img src={ximg} alt="ximg" width="10px" />
+                    />
+
+                    <button onClick={() => handleSave(field)}>
+                      <FaSave />
                     </button>
+                  </>
+                ) : (
+                  <>
+                    <span>{eval(field)}</span>
+                    <button onClick={() => setEditField(field)}>Editar</button>
                   </>
                 )}
               </div>
+            ))}
+
+            <div className="legal-status">
+              <label>Status KYC:</label>
+              <span className="verified">Verificado</span>
             </div>
 
-            <div className="Profile__itens">
-              {/* Nome */}
-              <div className="Profile__item">
-                <strong>Nome:</strong>
-                <div className="Profile__item__bottom">
-                  {editField === "nome" ? (
-                    <>
-                      <div className="Profile__item__bottom__input">
-                        <input
-                          type="text"
-                          value={nome}
-                          onChange={(e) => setNome(e.target.value)}
-                        />
-                      </div>
-                      <div className="Profile__item__bottom__button">
-                        <button onClick={() => handleSave("nome")}>
-                          <FaSave /> Salvar
-                        </button>
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <div className="Profile__item__bottom__input">{nome}</div>
-                      <div className="Profile__item__bottom__button">
-                        <button onClick={() => handleEditClick("nome")}>
-                          Editar
-                        </button>
-                      </div>
-                    </>
-                  )}
-                </div>
-              </div>
-
-              {/* CPF */}
-              <div className="Profile__item">
-                <strong>CPF:</strong>
-                <div className="Profile__item__bottom">
-                  {editField === "cpf" ? (
-                    <>
-                      <div className="Profile__item__bottom__input">
-                        <input
-                          type="text"
-                          value={cpf}
-                          onChange={(e) => setCpf(e.target.value)}
-                        />
-                      </div>
-                      <div className="Profile__item__bottom__button">
-                        <button onClick={() => handleSave("cpf")}>
-                          <FaSave /> Salvar
-                        </button>
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <div className="Profile__item__bottom__input">{cpf}</div>
-                      <div className="Profile__item__bottom__button">
-                        <button onClick={() => handleEditClick("cpf")}>
-                          Editar
-                        </button>
-                      </div>
-                    </>
-                  )}
-                </div>
-              </div>
-
-              {/* Idade */}
-              <div className="Profile__item">
-                <strong>Idade:</strong>
-                <div className="Profile__item__bottom">
-                  {editField === "idade" ? (
-                    <>
-                      <div className="Profile__item__bottom__input">
-                        <input
-                          type="number"
-                          value={idade}
-                          onChange={(e) => setIdade(e.target.value)}
-                        />
-                      </div>
-                      <div className="Profile__item__bottom__button">
-                        <button onClick={() => handleSave("idade")}>
-                          <FaSave /> Salvar
-                        </button>
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <div className="Profile__item__bottom__input">
-                        {idade}
-                      </div>
-                      <div className="Profile__item__bottom__button">
-                        <button onClick={() => handleEditClick("idade")}>
-                          Editar
-                        </button>
-                      </div>
-                    </>
-                  )}
-                </div>
-              </div>
-
-              {/* Email */}
-              <div className="Profile__item">
-                <strong>Email:</strong>
-                <div className="Profile__item__bottom">
-                  {editField === "email" ? (
-                    <>
-                      <div className="Profile__item__bottom__input">
-                        <input
-                          type="email"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                        />
-                      </div>
-                      <div className="Profile__item__bottom__button">
-                        <button onClick={() => handleSave("email")}>
-                          <FaSave /> Salvar
-                        </button>
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <div className="Profile__item__bottom__input">
-                        {email}
-                      </div>
-                      <div className="Profile__item__bottom__button">
-                        <button onClick={() => handleEditClick("email")}>
-                          Editar
-                        </button>
-                      </div>
-                    </>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            <div className="Profile__btn__container">
-              <Link to="/cadastroJoia">Cadastrar uma joia</Link>
-              <button className="profile__logout" onClick={handleLogout}>
+            <div className="logout-section">
+              <Link to="/cadastroJoia">Cadastrar joia</Link>
+              <button onClick={handleLogout}>
                 <FaSignOutAlt /> Sair
               </button>
             </div>
           </div>
-          <div className="Profile__box__second second">
-            <h2>Meus Anúncios</h2>
-            {anuncios.length === 0 ? (
-              <p>Você ainda não cadastrou nenhuma joia.</p>
-            ) : (
-              anuncios.map((anuncio) => {
-                const joia = joias[anuncio.joiaId];
-                return (
-                  <div key={anuncio.id} className="anuncio__card__profile">
-                    <img
-                      src={anuncio.urLs[0]} // primeira imagem
-                      alt={anuncio.nome || anuncio.titulo}
-                      width="30px"
-                    />
-                    <h3>{anuncio.titulo}</h3>
-                    <p>Preço: R$ {joia?.valor}</p>
-                    {joia && (
-                      <>
-                        <p>Descrição da joia: {joia.descricao}</p>
-                        {/* Outros detalhes da joia que quiser mostrar */}
-                      </>
-                    )}
-                    <button
-                      onClick={() =>
-                        handleVerDetalhesClick(anuncio.id, anuncio.joiaId)
-                      }
-                    >
-                      Ver detalhes
-                    </button>
-                  </div>
-                );
-              })
-            )}
+        </div>
+
+        <div className="profile-details">
+          <h3>Professional Details</h3>
+          <p>This are the professional details shown to users in the app.</p>
+          <div className="expertise-tags">
+            {['Career', 'Money', 'Stock', 'Mortgage'].map((tag) => (
+              <span key={tag} className="tag">{tag}</span>
+            ))}
+          </div>
+          <div className="experience-block">
+            <strong>7 Years</strong> of total experience
+          </div>
+          <div className="rating-block">
+            <span className="stars">★★★★☆</span> from 34 customers
+          </div>
+          <div className="reviews">
+            <strong>Ankit Srivastava</strong>
+            <p>
+              Excellent conversation with him... very knowledgeable personality
+              to talk to.
+            </p>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

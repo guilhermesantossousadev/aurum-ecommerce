@@ -17,6 +17,35 @@ function Carrinho() {
   const [notificacao, setNotificacao] = useState("");
   const [loading, setLoading] = useState(true);
 
+  const [cep, setCep] = useState("");
+  const [frete, setFrete] = useState(null);
+
+  const calcularFrete = async () => {
+    if (!cep || cep.length < 8) return toast.error("Informe um CEP válido");
+
+    try {
+      const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+      const data = await response.json();
+
+      if (data.erro) return toast.error("CEP inválido");
+
+      // Simulação do frete baseado no valor da compra
+      const valorFrete = carrinho.valorTotal < 2000 ? 19.9 : 0;
+      const prazoEntrega = carrinho.valorTotal < 500 ? 5 : 3;
+
+      setFrete({
+        valor: valorFrete.toFixed(2),
+        prazo: prazoEntrega,
+      });
+
+      toast.success("Frete calculado com sucesso!");
+    } catch (err) {
+      console.error(err);
+      toast.error("Erro ao calcular o frete");
+    }
+  };
+
+
   // Tratamento para usuário não logado
   if (!user?.id) {
     return (
@@ -113,107 +142,6 @@ function Carrinho() {
     }
   };
 
-  // Função para agrupar anúncios e contar quantidade
-  const agruparItensComQuantidade = (anunciosIdsArray) => {
-    const map = {};
-    anunciosIdsArray.forEach((id) => {
-      map[id] = (map[id] || 0) + 1;
-    });
-    return map; // ex: { "1": 3, "2": 1 }
-  };
-
-  // Aumentar quantidade de um anúncio no carrinho
-  const aumentarQuantidade = async (anuncioId) => {
-    try {
-      const usuarioId = user?.id;
-      if (!usuarioId) return;
-
-      const response = await fetch(
-        `https://marketplacejoias-api-latest.onrender.com/api/Carrinho/GetByUsuarioIdCarrinho?usuarioId=${usuarioId}`
-      );
-      if (!response.ok) throw new Error("Erro ao buscar carrinho");
-      const data = await response.json();
-
-      const novosAnuncios = [
-        ...data.anunciosId.anunciosId,
-        anuncioId.toString(),
-      ];
-
-      const carrinhoAtualizado = {
-        ...data,
-        anunciosId: { anunciosId: novosAnuncios },
-      };
-
-      const updateResponse = await fetch(
-        `https://marketplacejoias-api-latest.onrender.com/api/Carrinho/PutCarrinho`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(carrinhoAtualizado),
-        }
-      );
-      if (!updateResponse.ok) throw new Error("Erro ao atualizar carrinho");
-
-      await fetch(
-        `https://marketplacejoias-api-latest.onrender.com/api/Carrinho/CompileValue?usuarioId=${usuarioId}`,
-        { method: "PUT", headers: { "Content-Type": "application/json" } }
-      );
-
-      await fetchCarrinho();
-    } catch (error) {
-      console.error(error);
-      toast.error("Erro ao aumentar quantidade");
-    }
-  };
-
-  // Diminuir quantidade de um anúncio no carrinho
-  const diminuirQuantidade = async (anuncioId) => {
-    try {
-      const usuarioId = user?.id;
-      if (!usuarioId) return;
-
-      const response = await fetch(
-        `https://marketplacejoias-api-latest.onrender.com/api/Carrinho/GetByUsuarioIdCarrinho?usuarioId=${usuarioId}`
-      );
-      if (!response.ok) throw new Error("Erro ao buscar carrinho");
-      const data = await response.json();
-
-      const anunciosAtuais = [...data.anunciosId.anunciosId];
-      const index = anunciosAtuais.indexOf(anuncioId.toString());
-      if (index !== -1) {
-        anunciosAtuais.splice(index, 1);
-      } else {
-        toast.error("Produto não encontrado no carrinho");
-        return;
-      }
-
-      const carrinhoAtualizado = {
-        ...data,
-        anunciosId: { anunciosId: anunciosAtuais },
-      };
-
-      const updateResponse = await fetch(
-        `https://marketplacejoias-api-latest.onrender.com/api/Carrinho/PutCarrinho`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(carrinhoAtualizado),
-        }
-      );
-      if (!updateResponse.ok) throw new Error("Erro ao atualizar carrinho");
-
-      await fetch(
-        `https://marketplacejoias-api-latest.onrender.com/api/Carrinho/CompileValue?usuarioId=${usuarioId}`,
-        { method: "PUT", headers: { "Content-Type": "application/json" } }
-      );
-
-      await fetchCarrinho();
-    } catch (error) {
-      console.error(error);
-      toast.error("Erro ao diminuir quantidade");
-    }
-  };
-
   // Remover totalmente do carrinho (todos os itens desse anúncio)
   const removerDoCarrinho = async (anuncioId) => {
     try {
@@ -299,11 +227,6 @@ function Carrinho() {
     );
   }
 
-  // Objeto com quantidades de cada anuncioId
-  const quantidades = carrinho?.anunciosId?.anunciosId
-    ? agruparItensComQuantidade(carrinho.anunciosId.anunciosId)
-    : {};
-
   // Garante anúncios únicos (sem repetição)
   const anunciosUnicos = anuncios.filter(
     (anuncio, index, self) =>
@@ -327,7 +250,6 @@ function Carrinho() {
             <div className="carrinho-items">
               {anunciosUnicos.map((anuncio) => {
                 const joia = joias.find((j) => j.id === anuncio.joiaId);
-                const quantidade = quantidades[anuncio.id] || 0;
 
                 return (
                   <div key={anuncio.id} className="carrinho-item">
@@ -347,18 +269,6 @@ function Carrinho() {
                           Material Cravejado: {joia.materialCravejado}
                         </p>
                       )}
-                      <div className="item-quantidade">
-                        <button
-                          onClick={() => diminuirQuantidade(anuncio.id)}
-                          disabled={quantidade <= 1}
-                        >
-                          -
-                        </button>
-                        <span>{quantidade}</span>
-                        <button onClick={() => aumentarQuantidade(anuncio.id)}>
-                          +
-                        </button>
-                      </div>
                       <button
                         className="btn-remover"
                         onClick={() => removerDoCarrinho(anuncio.id)}
@@ -379,43 +289,69 @@ function Carrinho() {
 
             <div className="carrinho-resumo">
               <h3>Resumo do pedido</h3>
+
               <div className="resumo-item">
                 <span>Subtotal do pedido</span>
                 <span>
-                  R${" "}
-                  {carrinho.valorTotal?.toLocaleString("pt-BR", {
+                  R${carrinho.valorTotal?.toLocaleString("pt-BR", {
                     minimumFractionDigits: 2,
                   })}
                 </span>
               </div>
-              <div className="resumo-item">
-                <span>Frete</span>
-                <span>Grátis</span>
-              </div>
+
+              <input
+                type="text"
+                className="frete-input"
+                placeholder="Digite seu CEP"
+                value={cep}
+                onChange={(e) => setCep(e.target.value)}
+              />
+              <button className="frete-btn" onClick={calcularFrete}>
+                Calcular Frete
+              </button>
+
+              {frete && (
+                <p className={`frete-simulado ${frete.valor === "0.00" ? "frete-gratis" : ""}`}>
+                  Frete via PAC:{" "}
+                  {frete.valor === "0.00" ? (
+                    <>
+                      <strong>Grátis</strong> • <strong>Entrega em {frete.prazo} dias úteis</strong>
+                    </>
+                  ) : (
+                    <>R${frete.valor} • Entrega em {frete.prazo} dias úteis</>
+                  )}
+                </p>
+              )}
+
+
+
               <div className="resumo-total">
                 <span>Total:</span>
                 <span>
-                  R${" "}
-                  {carrinho.valorTotal?.toLocaleString("pt-BR", {
+                  R${carrinho.valorTotal?.toLocaleString("pt-BR", {
                     minimumFractionDigits: 2,
                   })}
                 </span>
               </div>
+
               <button className="btn-finalizar-compra">FINALIZAR PEDIDO</button>
+
               <p className="installments">
-                Em até 9x de R${" "}
+                Em até 9x de R$
                 {(carrinho.valorTotal / 9).toLocaleString("pt-BR", {
                   minimumFractionDigits: 2,
                 })}
               </p>
               <p className="pix-discount">
-                Pix: R${" "}
+                Pix: R$
                 {(carrinho.valorTotal * 0.95).toLocaleString("pt-BR", {
                   minimumFractionDigits: 2,
                 })}{" "}
                 (5% nos produtos)
               </p>
             </div>
+
+
           </div>
         )}
       </div>

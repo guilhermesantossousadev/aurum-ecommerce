@@ -21,7 +21,7 @@ const NavBar = () => {
     "/token-authentication",
   ].includes(location.pathname);
 
-  const isWhiteTextPage = ["/", "/contact", "/careers", "/adminPage"].includes(
+  const isWhiteTextPage = ["/", "/contact", "/careers", "/adminPage", "/profile"].includes(
     location.pathname
   );
 
@@ -43,27 +43,53 @@ const NavBar = () => {
     if (isCatalogoPage) return "black-text";
     return "pink-text"; // fallback
   };
+
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
 
       if (location.pathname === "/") {
-        setIsScrolled(scrollTop > window.innerHeight * 0.9);
+        const banner = document.querySelector(".Banner");
+        if (banner) {
+          const bannerHeight = banner.offsetHeight;
+          setIsScrolled(scrollTop > bannerHeight - 80);
+        }
+      } else if (location.pathname === "/profile") {
+        const profileHeader = document.querySelector(".profile-header");
+        if (profileHeader) {
+          const profileHeight = profileHeader.offsetHeight;
+          setIsScrolled(scrollTop > profileHeight - 80);
+        } else {
+          // Tenta novamente depois de um pequeno atraso
+          setTimeout(() => {
+            const retryHeader = document.querySelector(".profile-header");
+            if (retryHeader) {
+              const profileHeight = retryHeader.offsetHeight;
+              setIsScrolled(scrollTop > profileHeight - 80);
+            }
+          }, 100); // você pode ajustar esse delay se quiser
+        }
       } else if (["/login", "/register"].includes(location.pathname)) {
-        setIsScrolled(false); // Mantém transparente nessas rotas
+        setIsScrolled(false);
       } else {
         setIsScrolled(true);
       }
     };
 
-    if (location.pathname === "/") {
-      window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll);
+
+    // Aguarda render completo antes da 1ª verificação
+    const timeoutId = setTimeout(() => {
       handleScroll();
-      return () => window.removeEventListener("scroll", handleScroll);
-    } else {
-      handleScroll();
-    }
+    }, 100);
+
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, [location.pathname]);
+
+
 
   // Determina a classe específica da página
   const getPageClass = () => {
