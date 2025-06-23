@@ -24,70 +24,107 @@ function AdminPage() {
 
   return (
     <div className="Admin">
-      <div className="Admin__menu">
-        <ul className="Dashboard__menu">
-          <div className="Dashboard__menu__tittle">
-            <span>NAVIGATION</span>
-          </div>
-          <li className={step === 0 ? "active" : ""} onClick={() => setStep(0)}>
-            DashBoard
-          </li>
-          <div className="Dashboard__menu__tittle">
-            <span>SOCIAL</span>
-          </div>
-          <ul className="DashBoard__menu__ul">
+      <nav className="Admin__menu" aria-label="Admin navigation menu">
+        <div className="Dashboard__menu__section">
+          <div className="Dashboard__menu__title">NAVIGATION</div>
+          <ul className="Dashboard__menu">
+            <li
+              className={step === 0 ? "active" : ""}
+              onClick={() => setStep(0)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => (e.key === "Enter" ? setStep(0) : null)}
+            >
+              Dashboard
+            </li>
+          </ul>
+        </div>
+
+        <div className="Dashboard__menu__section">
+          <div className="Dashboard__menu__title">SOCIAL</div>
+          <ul className="Dashboard__menu">
             <li
               className={step === 1 ? "active" : ""}
               onClick={() => setStep(1)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => (e.key === "Enter" ? setStep(1) : null)}
             >
-              Anuncios
+              Anúncios
             </li>
             <li
               className={step === 2 ? "active" : ""}
               onClick={() => setStep(2)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => (e.key === "Enter" ? setStep(2) : null)}
             >
               Joias
             </li>
             <li
               className={step === 3 ? "active" : ""}
               onClick={() => setStep(3)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => (e.key === "Enter" ? setStep(3) : null)}
             >
-              Usuarios
+              Usuários
             </li>
             <li
               className={step === 4 ? "active" : ""}
               onClick={() => setStep(4)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => (e.key === "Enter" ? setStep(4) : null)}
             >
               Newsletter
             </li>
             <li
               className={step === 5 ? "active" : ""}
               onClick={() => setStep(5)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => (e.key === "Enter" ? setStep(5) : null)}
             >
               Vendas
             </li>
           </ul>
+        </div>
 
-          <div className="Dashboard__menu__tittle">
-            <span>PAGES</span>
-          </div>
-          <ul>
-            <li onClick={() => navigate("/profile")}>Perfil</li>
-            <li className="profile__logout" onClick={handleLogout}>
+        <div className="Dashboard__menu__section">
+          <div className="Dashboard__menu__title">PAGES</div>
+          <ul className="Dashboard__menu">
+            <li
+              onClick={() => navigate("/profile")}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) =>
+                e.key === "Enter" ? navigate("/profile") : null
+              }
+            >
+              Perfil
+            </li>
+            <li
+              className="profile__logout"
+              onClick={handleLogout}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => (e.key === "Enter" ? handleLogout() : null)}
+            >
               <FaSignOutAlt /> Sair
             </li>
           </ul>
-        </ul>
-      </div>
+        </div>
+      </nav>
 
-      <div className="Admin__all">
+      <main className="Admin__all" role="main">
         {step === 0 && <div>Dashboard</div>}
         {step === 1 && <CrudAnuncios />}
         {step === 2 && <CrudJoias />}
         {step === 3 && <CrudUsuarios />}
         {step === 4 && <CrudNewsletter />}
         {step === 5 && <CrudVendas />}
-      </div>
+      </main>
     </div>
   );
 }

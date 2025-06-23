@@ -10,22 +10,21 @@ import { useSelector } from "react-redux";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
+import CadastroJoia from "./components/CadastroJoia";
+import Profile from "./components/Profile";
 
+import Detalhes from "./pages/detalhes/Detalhes";
+import AdminPage from "./pages/Admin/AdminPage";
+import Carrinho from "./pages/Carrinho";
+import Carreiras from "./pages/Carreiras";
 import Home from "./pages/Home";
 import Servicos from "./pages/Servicos";
 import Sobre from "./pages/Sobre";
 import Login from "./pages/Login";
 import Catalogo from "./pages/Catalogo";
 import Register from "./pages/Register";
-import Profile from "./components/Profile";
 import TokenAuthentication from "./pages/TokenAuthentication";
 import Contato from "./pages/Contato";
-
-import Detalhes from "./pages/detalhes/Detalhes";
-import AdminPage from "./pages/Admin/AdminPage";
-import Carrinho from "./pages/Carrinho";
-import Carreiras from "./pages/Carreiras";
-import CadastroJoia from "./components/CadastroJoia";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
