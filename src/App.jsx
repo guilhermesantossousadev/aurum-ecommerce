@@ -1,4 +1,10 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// App.jsx
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import NavBar from "./components/NavBar";
@@ -18,31 +24,28 @@ import Contato from "./pages/Contato";
 import Detalhes from "./pages/detalhes/Detalhes";
 import AdminPage from "./pages/Admin/AdminPage";
 import Carrinho from "./pages/Carrinho";
+import Carreiras from "./pages/Carreiras";
+import CadastroJoia from "./components/CadastroJoia";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import "./App.css";
-import Carreiras from "./pages/Carreiras";
-import CadastroJoia from "./components/CadastroJoia";
 
-function App() {
-  const usuario = useSelector((state) => state.user);
+function AppRoutes() {
+  const location = useLocation();
+  const hideFooterRoutes = ["/login", "/register", "/adminPage"];
+  const hideFooter = hideFooterRoutes.includes(location.pathname);
 
   return (
-    <Router>
+    <>
       <NavBar />
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
-
         <Route path="/cadastroJoia" element={<CadastroJoia />} />
-
         <Route path="/detalhes/:id" element={<Detalhes />} />
-
         <Route path="/catalogo/:tipo" element={<Catalogo />} />
-        <Route path="/catalogo/:tipo" element={<Catalogo />} />
-
         <Route path="/sobre" element={<Sobre />} />
         <Route path="/carreiras" element={<Carreiras />} />
         <Route path="/contato" element={<Contato />} />
@@ -51,13 +54,19 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
-
         <Route path="/adminPage" element={<AdminPage />} />
-
         <Route path="/token-authentication" element={<TokenAuthentication />} />
       </Routes>
       <ToastContainer position="top-right" autoClose={3000} />
-      <Footer />
+      {!hideFooter && <Footer />}
+    </>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppRoutes />
     </Router>
   );
 }

@@ -1,5 +1,5 @@
 .Admin {
-  height: 100vh;
+  height: auto;
   width: 100%;
   background-color: rgb(244 244 244);
   display: flex;
@@ -10,63 +10,59 @@
   width: 20%;
   height: 100%;
   border-right: 1px solid #3333333b;
+  background-color: #3f4d67;
+  position: fixed;
 }
 
-.Admin__menu ul {
+.Dashboard__menu {
   width: 100%;
   height: 100%;
+  list-style: none;
+}
+
+.Dashboard__menu__tittle {
+  height: auto;
+  padding: 1.5rem;
+}
+
+.Dashboard__menu__tittle span {
+  color: rgb(232 237 247);
+  text-transform: none;
+}
+
+.Dashboard__menu li {
+  width: 100%;
+  height: 60px;
+  color: rgb(169 183 208);
+  padding: 2em;
   display: flex;
-  flex-direction: column;
+  align-items: center;
 }
 
-.Admin__menu ul li {
-  width: 100%;
-  height: 70px;
-}
-
-.Admin__menu ul li button {
-  width: 100%;
-  height: 100%;
+.Dashboard__menu li:hover {
   background-color: transparent;
-  border: 1px solid #3333333b;
-  text-align: left;
-  padding-left: 2rem;
-  transition: 0.3s ease;
+  cursor: pointer;
+  background-color: #364258;
 }
 
-.Admin__menu ul li button:hover {
-  cursor: pointer;
-  background-color: rgb(215, 215, 215);
+.Dashboard__menu li.active {
+  background-color: #2f3b52;
+  color: #ffffff;
+  border-left: 5px solid #079ce0;
+}
+
+.DashBoard__menu__ul li {
+  color: rgb(169 183 208);
 }
 
 .Admin__all {
-  width: 80%;
-  height: auto;
-  min-height: 100%;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow-y: auto;
   padding-top: 10rem;
-}
-
-@media(max-width: 1024px) {
-  .Admin {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .Admin__menu {
-    width: 100%;
-  }
-
-  .Admin__all {
-    width: 100%;
-    height: auto;
-    min-height: 100vh;
-    padding: 2rem;
-    overflow-y: auto;
-    justify-content: start;
-    align-items: start;
-  }
+  background-color: #f4f7fa;
+  margin-left: 20%;
 }
