@@ -10,12 +10,13 @@ function CrudAnuncios() {
   const user = useSelector((state) => state.user);
 
   const [anuncios, setAnuncios] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [editingAnuncio, setEditingAnuncio] = useState(null);
   const [titulo, setTitulo] = useState("");
   const [joiaId, setJoiaId] = useState(null);
   const [urLs, setUrLs] = useState([""]);
   const [usuarioId, setUsuarioId] = useState("");
-  const [step, setStep] = useState(0); // Adicionado o estado de step para alternar entre as views
+  const [step, setStep] = useState(0);
 
   useEffect(() => {
     if (user && user.id) {
@@ -24,29 +25,33 @@ function CrudAnuncios() {
   }, [user]);
 
   useEffect(() => {
-    async function fetchAnuncios() {
-      try {
-        const response = await fetch(
-          "https://marketplacejoias-api-latest.onrender.com/api/Anuncio/GetAnuncio"
-        );
-        if (!response.ok) {
-          throw new Error(`Erro ao buscar anúncios: ${response.status}`);
-        }
-        const data = await response.json();
-        setAnuncios(data);
-      } catch (error) {
-        toast.error(error.message);
-      }
-    }
     fetchAnuncios();
   }, []);
+
+  async function fetchAnuncios() {
+    try {
+      setIsLoading(true);
+      const response = await fetch(
+        "https://marketplacejoias-api-latest.onrender.com/api/Anuncio/GetAnuncio"
+      );
+      if (!response.ok) {
+        throw new Error(`Erro ao buscar anúncios: ${response.status}`);
+      }
+      const data = await response.json();
+      setAnuncios(data);
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   const handleEditClick = (anuncio) => {
     setEditingAnuncio(anuncio);
     setTitulo(anuncio.titulo);
     setJoiaId(anuncio.joiaId);
     setUrLs(anuncio.urLs || []);
-    setStep(1); // Altera o step para 1 para mostrar o formulário de edição
+    setStep(1);
   };
 
   async function handleUpdateAnuncio() {
@@ -79,16 +84,14 @@ function CrudAnuncios() {
       setTitulo("");
       setJoiaId(null);
       setUrLs([""]);
-      setStep(0); // Retorna ao passo inicial após atualizar
+      setStep(0);
       fetchAnuncios();
     } catch (error) {
       toast.error(`Erro ao atualizar anúncio: ${error.message}`);
     }
   }
 
-  async function handleDeleteAnuncio(id) {
-    if (!window.confirm("Tem certeza que quer deletar este anúncio?")) return;
-
+  async function confirmDelete(id) {
     try {
       const response = await fetch(
         `https://marketplacejoias-api-latest.onrender.com/api/Anuncio/DeleteAnuncio?id=${id}`,
@@ -106,6 +109,51 @@ function CrudAnuncios() {
     } catch (error) {
       toast.error(`Erro ao deletar anúncio: ${error.message}`);
     }
+  }
+
+  function handleDeleteAnuncio(id) {
+    toast(
+      ({ closeToast }) => (
+        <div>
+          <p>Tem certeza que deseja deletar este anúncio?</p>
+          <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
+            <button
+              onClick={async () => {
+                await confirmDelete(id);
+                closeToast();
+              }}
+              style={{
+                background: "#d9534f",
+                color: "white",
+                border: "none",
+                padding: "6px 12px",
+                cursor: "pointer",
+              }}
+            >
+              Deletar
+            </button>
+            <button
+              onClick={closeToast}
+              style={{
+                background: "#6c757d",
+                color: "white",
+                border: "none",
+                padding: "6px 12px",
+                cursor: "pointer",
+              }}
+            >
+              Cancelar
+            </button>
+          </div>
+        </div>
+      ),
+      {
+        autoClose: false,
+        closeOnClick: false,
+        closeButton: false,
+        draggable: false,
+      }
+    );
   }
 
   return (
@@ -127,30 +175,36 @@ function CrudAnuncios() {
               <div className="Principal__box__detalhes__item">Ações</div>
             </div>
 
-            {anuncios.length === 0 && <p>Nenhum anúncio encontrado.</p>}
-
-            <ul>
-              {anuncios.map((anuncio) => (
-                <li key={anuncio.id} className="Principal__box__item">
-                  <div className="Principal__box__item__inside">
-                    {anuncio.titulo}
-                  </div>
-                  <div className="Principal__box__item__inside">
-                    ID Joia: {anuncio.joiaId}
-                  </div>
-                  <div className="Principal__box__item__inside acoes">
-                    {user.isAdmin && (
-                      <button onClick={() => handleEditClick(anuncio)}>
-                        Editar
+            {isLoading ? (
+              <p className="Principal__box__item__inside">Carregando...</p>
+            ) : anuncios.length === 0 ? (
+              <p className="Principal__box__item__inside">
+                Nenhum anúncio encontrado.
+              </p>
+            ) : (
+              <ul>
+                {anuncios.map((anuncio) => (
+                  <li key={anuncio.id} className="Principal__box__item">
+                    <div className="Principal__box__item__inside">
+                      {anuncio.titulo}
+                    </div>
+                    <div className="Principal__box__item__inside">
+                      ID Joia: {anuncio.joiaId}
+                    </div>
+                    <div className="Principal__box__item__inside acoes">
+                      {user.isAdmin && (
+                        <button onClick={() => handleEditClick(anuncio)}>
+                          Editar
+                        </button>
+                      )}
+                      <button onClick={() => handleDeleteAnuncio(anuncio.id)}>
+                        Deletar
                       </button>
-                    )}
-                    <button onClick={() => handleDeleteAnuncio(anuncio.id)}>
-                      Deletar
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
           </section>
         </div>
       )}

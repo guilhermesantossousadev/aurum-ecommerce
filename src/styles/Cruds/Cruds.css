@@ -19,6 +19,8 @@
   display: flex;
   padding-inline: 3rem;
   margin-bottom: 1rem;
+  min-height: 50px;
+  gap: 20px;
 }
 
 .Principal__Create__button {
@@ -46,8 +48,8 @@
 }
 
 .Principal__box__detalhes {
-  display: grid;
-  grid-template-columns: 4fr 2fr 2fr;
+  width: 100%;
+  display: flex;
   background-color: #333333aa;
   font-weight: 600;
   padding: 0.75rem 1rem;
@@ -56,6 +58,7 @@
 }
 
 .Principal__box__detalhes__item {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: start;
@@ -72,17 +75,20 @@
 
 .Principal__box ul {
   list-style: none;
+  display: flex;
+  flex-direction: column;
   margin: 0;
   padding: 0;
 }
 
 .Principal__box__item {
-  display: grid;
-  grid-template-columns: 4fr 2fr 2fr;
+  width: 100%;
+  height: 100%;
   background-color: #fff;
   border: 1px solid #ddd;
   border-top: none;
   padding: 1rem;
+  display: flex;
   align-items: center;
   transition: background-color 0.2s ease;
   cursor: default;
@@ -93,6 +99,8 @@
 }
 
 .Principal__box__item__inside {
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: flex-start;

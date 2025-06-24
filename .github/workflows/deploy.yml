@@ -22,9 +22,8 @@ jobs:
       - name: 📤 Enviar build para a Hostinger via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: ftp://46.17.175.80
+          server: 46.17.175.80
           username: u164307256
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: build
           server-dir: public_html/
-

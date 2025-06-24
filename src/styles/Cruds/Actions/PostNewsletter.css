@@ -1,0 +1,84 @@
+.PostNewsletter,
+.PostNewsletterMessage {
+  background-color: #f4f7fa;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  width: 100%;
+}
+
+.PostNewsletter form,
+.PostNewsletterMessage form {
+  width: 100%;
+  max-width: 800px;
+  padding: 2rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.PostNewsletter h3,
+.PostNewsletterMessage h3 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.PostNewsletter label,
+.PostNewsletterMessage label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.PostNewsletter input,
+.PostNewsletter textarea,
+.PostNewsletterMessage input,
+.PostNewsletterMessage textarea {
+  width: 100%;
+  height: 50px;
+  padding: 0.8rem;
+  border: 1px solid rgba(221, 221, 221, 0.5);
+  border-radius: 9px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  color: #000 !important;
+  box-sizing: border-box;
+  background-color: #f4f8f9;
+}
+
+.PostNewsletter textarea,
+.PostNewsletterMessage textarea {
+  resize: vertical;
+  min-height: 100px;
+  height: auto;
+}
+
+.PostNewsletter input:focus,
+.PostNewsletter textarea:focus,
+.PostNewsletterMessage input:focus,
+.PostNewsletterMessage textarea:focus {
+  outline: none;
+  border-color: #999;
+  background-color: #fff;
+}
+
+.PostNewsletter button,
+.PostNewsletterMessage button {
+  margin-top: 2rem;
+  padding: 1rem 2rem;
+  background-color: #555;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.PostNewsletter button:hover,
+.PostNewsletterMessage button:hover {
+  background-color: #3b3b3b;
+}

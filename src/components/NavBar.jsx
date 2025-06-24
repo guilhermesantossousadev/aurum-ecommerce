@@ -21,17 +21,19 @@ const NavBar = () => {
     "/token-authentication",
   ].includes(location.pathname);
 
-  const isWhiteTextPage = ["/", "/contact", "/careers", "/adminPage", "/profile"].includes(
-    location.pathname
-  );
+  const isWhiteTextPage = [
+    "/",
+    "/contact",
+    "/careers",
+    "/adminPage",
+    "/profile",
+  ].includes(location.pathname);
 
   const isPinkTextPage = ["/profile", "/sobre", "/adminPage"].includes(
     location.pathname
   );
 
-  const isCatalogoPage = [
-    "/catalogo",
-  ].includes(location.pathname);
+  const isCatalogoPage = ["/catalogo"].includes(location.pathname);
 
   const isAuthPage = ["/login", "/register"].includes(location.pathname);
 
@@ -67,7 +69,7 @@ const NavBar = () => {
               const profileHeight = retryHeader.offsetHeight;
               setIsScrolled(scrollTop > profileHeight - 80);
             }
-          }, 100); // você pode ajustar esse delay se quiser
+          }, 100);
         }
       } else if (["/login", "/register"].includes(location.pathname)) {
         setIsScrolled(false);
@@ -89,8 +91,6 @@ const NavBar = () => {
     };
   }, [location.pathname]);
 
-
-
   // Determina a classe específica da página
   const getPageClass = () => {
     if (isCatalogoPage) return "catalogo-nav";
@@ -100,8 +100,9 @@ const NavBar = () => {
 
   return (
     <nav
-      className={`navbar ${isScrolled ? "scrolled" : ""
-        } ${getTextClass()} ${getPageClass()}`}
+      className={`navbar ${
+        isScrolled ? "scrolled" : ""
+      } ${getTextClass()} ${getPageClass()}`}
     >
       <div className="Nav__item">
         <Link to="/" className="navbar__brand">
