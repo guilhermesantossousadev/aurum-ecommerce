@@ -1,0 +1,30 @@
+name: 🚀 Deploy automático React para Hostinger via FTP
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Clonar repositório
+        uses: actions/checkout@v3
+
+      - name: 📦 Instalar dependências
+        run: npm install
+
+      - name: 🛠️ Build do projeto
+        run: npm run build
+
+      - name: 📤 Enviar build para a Hostinger via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ftp://46.17.175.80
+          username: u164307256
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: build
+          server-dir: public_html/
+
