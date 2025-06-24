@@ -1,4 +1,4 @@
-name: 🚀 Deploy automático React para Hostinger via FTP
+name: Deploy automático React Vite para Hostinger via FTP
 
 on:
   push:
@@ -10,22 +10,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 📥 Clonar repositório
+      - name: Clonar repositório
         uses: actions/checkout@v3
 
-      - name: 📦 Instalar dependências
+      - name: Instalar dependências
         run: npm install
 
-      - name: 🛠️ Build do projeto com Vite
-        run: |
-          chmod +x ./node_modules/.bin/vite
-          npm run build
+      - name: Build do projeto
+        run: npm run build
 
-      - name: 📤 Enviar build para a Hostinger via FTP
+      - name: Enviar build via FTP para Hostinger
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: 46.17.175.80
           username: u164307256
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: dist
+          local-dir: dist/
           server-dir: public_html/
