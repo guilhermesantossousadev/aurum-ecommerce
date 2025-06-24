@@ -79,16 +79,13 @@
 .Principal__box__item {
   display: grid;
   grid-template-columns: 4fr 2fr 2fr;
+  background-color: #fff;
   border: 1px solid #ddd;
   border-top: none;
   padding: 1rem;
   align-items: center;
   transition: background-color 0.2s ease;
   cursor: default;
-}
-
-.Principal__box__item:nth-child(odd) {
-  background-color: #fafafa;
 }
 
 .Principal__box__item:hover {
