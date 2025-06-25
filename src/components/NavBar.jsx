@@ -19,6 +19,9 @@ const NavBar = () => {
     "/carrinho",
     "/contato",
     "/token-authentication",
+    "/successPage",
+    "/errorPage",
+    "/pendingPage",
   ].includes(location.pathname);
 
   const isWhiteTextPage = [
@@ -33,7 +36,16 @@ const NavBar = () => {
     location.pathname
   );
 
-  const isCatalogoPage = ["/catalogo"].includes(location.pathname);
+  const isCatalogoPage = [
+    "/catalogo",
+    "/catalogo/todos",
+    "/catalogo/relogio",
+    "/catalogo/colar",
+    "/catalogo/pulseira",
+    "/catalogo/anel",
+    "/catalogo/pingente",
+    "/catalogo/brinco",
+  ].includes(location.pathname);
 
   const isAuthPage = ["/login", "/register"].includes(location.pathname);
 

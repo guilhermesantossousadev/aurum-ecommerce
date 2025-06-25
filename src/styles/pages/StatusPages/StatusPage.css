@@ -1,0 +1,59 @@
+.status-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+  padding: 2rem;
+}
+
+.status-page h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.status-page p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.status-page a {
+  background-color: #0c0c0c;
+  color: #ffffff;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+/* Cores do texto (herdadas pelo ícone) */
+.success {
+  color: green;
+}
+
+.error {
+  color: red;
+}
+
+.pending {
+  color: goldenrod;
+}
+
+/* Ícone padrão */
+.icon {
+  font-size: 4rem;
+  margin: 1rem 0;
+}
+
+/* Animação para o spinner */
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}

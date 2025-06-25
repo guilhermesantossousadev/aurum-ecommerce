@@ -27,7 +27,23 @@ function Footer() {
       ].includes(path)
     )
       return "white-text";
-    if (["/carrinho", "/contato", "/adminPage"].includes(path))
+    if (
+      [
+        "/carrinho",
+        "/contato",
+        "/adminPage",
+        "/catalogo/todos",
+        "/catalogo/relogio",
+        "/catalogo/colar",
+        "/catalogo/pulseira",
+        "/catalogo/anel",
+        "/catalogo/pingente",
+        "/catalogo/brinco",
+        "/successPage",
+        "/errorPage",
+        "/pendingPage",
+      ].includes(path)
+    )
       return "black-text";
     return "pink-text";
   };

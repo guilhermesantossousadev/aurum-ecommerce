@@ -1,35 +1,78 @@
-// App.jsx
+import React, { lazy, Suspense } from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   useLocation,
 } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { ToastContainer } from "react-toastify";
 
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
-import CadastroJoia from "./components/CadastroJoia";
-import Profile from "./components/Profile";
 
-import Detalhes from "./pages/detalhes/Detalhes";
-import AdminPage from "./pages/Admin/AdminPage";
-import Carrinho from "./pages/Carrinho";
-import Carreiras from "./pages/Carreiras";
-import Home from "./pages/Home";
-import Servicos from "./pages/Servicos";
-import Sobre from "./pages/Sobre";
-import Login from "./pages/Login";
-import Catalogo from "./pages/Catalogo";
-import Register from "./pages/Register";
-import TokenAuthentication from "./pages/TokenAuthentication";
-import Contato from "./pages/Contato";
-
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import "./App.css";
+
+// Lazy imports das páginas
+const Home = lazy(() => import("./pages/Home"));
+const CadastroJoia = lazy(() => import("./components/CadastroJoia"));
+const Detalhes = lazy(() => import("./pages/detalhes/Detalhes"));
+const Catalogo = lazy(() => import("./pages/Catalogo"));
+const Sobre = lazy(() => import("./pages/Sobre"));
+const Carreiras = lazy(() => import("./pages/Carreiras"));
+const Contato = lazy(() => import("./pages/Contato"));
+const Servicos = lazy(() => import("./pages/Servicos"));
+const Carrinho = lazy(() => import("./pages/Carrinho"));
+const Register = lazy(() => import("./pages/Register"));
+const Login = lazy(() => import("./pages/Login"));
+const Profile = lazy(() => import("./components/Profile"));
+const AdminPage = lazy(() => import("./pages/Admin/AdminPage"));
+const SuccessPage = lazy(() => import("./pages/StatusPages/SuccessPage"));
+const ErrorPage = lazy(() => import("./pages/StatusPages/ErrorPage"));
+const PendingPage = lazy(() => import("./pages/StatusPages/PendingPage"));
+const TokenAuthentication = lazy(() => import("./pages/TokenAuthentication"));
+
+// Inline spinner styles e keyframes
+const spinnerStyle = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  height: "60vh",
+};
+
+const spinnerCircleStyle = {
+  border: "6px solid #f3f3f3",
+  borderTop: "6px solid #d9b346",
+  borderRadius: "50%",
+  width: "50px",
+  height: "50px",
+  animation: "spin 1s linear infinite",
+};
+
+const styleSheet = `
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+`;
+
+if (
+  typeof window !== "undefined" &&
+  !document.getElementById("spinner-keyframes")
+) {
+  const style = document.createElement("style");
+  style.id = "spinner-keyframes";
+  style.appendChild(document.createTextNode(styleSheet));
+  document.head.appendChild(style);
+}
+
+function LoadingSpinner() {
+  return (
+    <div style={spinnerStyle}>
+      <div style={spinnerCircleStyle}></div>
+    </div>
+  );
+}
 
 function AppRoutes() {
   const location = useLocation();
@@ -40,22 +83,30 @@ function AppRoutes() {
     <>
       <NavBar />
       <ScrollToTop />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/cadastroJoia" element={<CadastroJoia />} />
-        <Route path="/detalhes/:id" element={<Detalhes />} />
-        <Route path="/catalogo/:tipo" element={<Catalogo />} />
-        <Route path="/sobre" element={<Sobre />} />
-        <Route path="/carreiras" element={<Carreiras />} />
-        <Route path="/contato" element={<Contato />} />
-        <Route path="/servicos" element={<Servicos />} />
-        <Route path="/carrinho" element={<Carrinho />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/adminPage" element={<AdminPage />} />
-        <Route path="/token-authentication" element={<TokenAuthentication />} />
-      </Routes>
+      <Suspense fallback={<LoadingSpinner />}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/cadastroJoia" element={<CadastroJoia />} />
+          <Route path="/detalhes/:id" element={<Detalhes />} />
+          <Route path="/catalogo/:tipo" element={<Catalogo />} />
+          <Route path="/sobre" element={<Sobre />} />
+          <Route path="/carreiras" element={<Carreiras />} />
+          <Route path="/contato" element={<Contato />} />
+          <Route path="/servicos" element={<Servicos />} />
+          <Route path="/carrinho" element={<Carrinho />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/adminPage" element={<AdminPage />} />
+          <Route path="/successPage" element={<SuccessPage />} />
+          <Route path="/errorPage" element={<ErrorPage />} />
+          <Route path="/pendingPage" element={<PendingPage />} />
+          <Route
+            path="/token-authentication"
+            element={<TokenAuthentication />}
+          />
+        </Routes>
+      </Suspense>
       <ToastContainer position="top-right" autoClose={3000} />
       {!hideFooter && <Footer />}
     </>

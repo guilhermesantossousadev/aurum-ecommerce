@@ -286,7 +286,7 @@
 
 /* Estilo específico para página de catálogo */
 .navbar.catalogo-nav {
-  background-color: rgba(244, 244, 244, 0.9);
+  background-color: #fff;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 

@@ -2,7 +2,7 @@
 
 :root {
   --text-color: #252422;
-  --background-color: #f4f4f4;
+  --background-color: #fff;
   --text-transform: uppercase;
 }
 
@@ -27,7 +27,7 @@
 .Servicos {
   height: auto;
   padding-top: 10rem;
-  background-color: #f4f4f4;
+  background-color: #fff;
 }
 
 .Servicos__container__item {

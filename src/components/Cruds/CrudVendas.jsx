@@ -1,23 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-
 import "../../styles/Cruds/Cruds.css";
 
 const apiBaseUrl = "https://marketplacejoias-api-latest.onrender.com/api/Venda";
 
 const initialFormState = {
-  usuarioId: 0,
-  anunciosId: { anunciosId: [""] },
-  valorTotal: 0,
-  formaPagamento: "",
-  isiInstallments: false,
-  numeroParcelas: 0,
+  id: 0,
+  valorTransacao: 0,
+  valorLiquio: 0,
+  status: "",
+  metodoPagamento: "",
+  parcelas: 0,
+  emailPagador: "",
+  dataCriacao: "",
+  dataAprovacao: "",
+  informacaoAdicional: "",
 };
 
 function CrudVendas() {
   const [vendas, setVendas] = useState([]);
   const [form, setForm] = useState(initialFormState);
-  const [editId, setEditId] = useState(null);
 
   const fetchVendas = async () => {
     try {
@@ -102,11 +104,15 @@ function CrudVendas() {
         <section className="Principal__box">
           <div className="Principal__box__detalhes">
             <div className="Principal__box__detalhes__item">ID</div>
-            <div className="Principal__box__detalhes__item">Usuário</div>
-            <div className="Principal__box__detalhes__item">Anúncios</div>
-            <div className="Principal__box__detalhes__item">Valor</div>
+            <div className="Principal__box__detalhes__item">Transação</div>
+            <div className="Principal__box__detalhes__item">Líquido</div>
+            <div className="Principal__box__detalhes__item">Status</div>
             <div className="Principal__box__detalhes__item">Pagamento</div>
-            <div className="Principal__box__detalhes__item">Parcelado</div>
+            <div className="Principal__box__detalhes__item">Parcelas</div>
+            <div className="Principal__box__detalhes__item">Email</div>
+            <div className="Principal__box__detalhes__item">Criação</div>
+            <div className="Principal__box__detalhes__item">Aprovação</div>
+            <div className="Principal__box__detalhes__item">Informações</div>
             <div className="Principal__box__detalhes__item">Ações</div>
           </div>
 
@@ -120,21 +126,31 @@ function CrudVendas() {
                 <li key={venda.id} className="Principal__box__item">
                   <div className="Principal__box__item__inside">{venda.id}</div>
                   <div className="Principal__box__item__inside">
-                    {venda.usuarioId}
+                    R$ {venda.valorTransacao}
                   </div>
                   <div className="Principal__box__item__inside">
-                    {venda.anunciosId.anunciosId.join(", ")}
+                    R$ {venda.valorLiquio}
                   </div>
                   <div className="Principal__box__item__inside">
-                    R$ {venda.valorTotal}
+                    {venda.status}
                   </div>
                   <div className="Principal__box__item__inside">
-                    {venda.formaPagamento}
+                    {venda.metodoPagamento}
                   </div>
                   <div className="Principal__box__item__inside">
-                    {venda.isiInstallments
-                      ? `Sim (${venda.numeroParcelas}x)`
-                      : "Não"}
+                    {venda.parcelas}x
+                  </div>
+                  <div className="Principal__box__item__inside">
+                    {venda.emailPagador}
+                  </div>
+                  <div className="Principal__box__item__inside">
+                    {new Date(venda.dataCriacao).toLocaleString()}
+                  </div>
+                  <div className="Principal__box__item__inside">
+                    {new Date(venda.dataAprovacao).toLocaleString()}
+                  </div>
+                  <div className="Principal__box__item__inside">
+                    {venda.informacaoAdicional}
                   </div>
                   <div className="Principal__box__item__inside acoes">
                     <button onClick={() => confirmDelete(venda.id)}>
