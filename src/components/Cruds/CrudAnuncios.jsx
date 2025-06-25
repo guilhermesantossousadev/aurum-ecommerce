@@ -15,7 +15,7 @@ function CrudAnuncios() {
   const [joiaId, setJoiaId] = useState(null);
   const [urLs, setUrLs] = useState([""]);
   const [usuarioId, setUsuarioId] = useState("");
-  const [step, setStep] = useState(0); // Adicionado o estado de step para alternar entre as views
+  const [step, setStep] = useState(0);
 
   useEffect(() => {
     if (user && user.id) {
