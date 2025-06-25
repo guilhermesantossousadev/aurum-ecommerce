@@ -117,7 +117,8 @@
 }
 
 /* Estilo para menu desktop */
-.navbar__list.logged {}
+.navbar__list.logged {
+}
 
 .navbar__list {
   margin-left: 0;
@@ -301,11 +302,6 @@
 .navbar.auth-nav {
   background-color: rgba(255, 255, 255, 0.9);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-}
-
-.navbar.auth-nav:not(.scrolled) {
-  background-color: transparent;
-  box-shadow: none;
 }
 
 .navbar.auth-nav a {

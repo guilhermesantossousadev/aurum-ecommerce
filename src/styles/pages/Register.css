@@ -19,7 +19,6 @@
   position: relative;
 }
 
-
 .Register__left span {
   position: absolute;
   top: 80px;
@@ -213,7 +212,6 @@
   transition: width 0.4s ease-in-out;
 }
 
-
 /* Responsividade para tablets e celulares */
 @media (max-width: 1600px) {
   .Register {
@@ -285,7 +283,7 @@
   }
 
   .Register__rigth {
-    display: none;
+    display: block;
     /* Esconder vídeo/imagem para telas menores */
   }
 
@@ -323,6 +321,10 @@
     font-size: 1.5rem;
   }
 
+  .Register__rigth {
+    display: none;
+  }
+
   .Register__form {
     max-width: 100%;
   }
@@ -350,7 +352,7 @@
 }
 
 /* Ou se quiser só para iPhones */
-@media only screen and (min-device-width : 320px) and (max-device-width : 1024px) {
+@media only screen and (min-device-width: 320px) and (max-device-width: 1024px) {
   video {
     display: none !important;
   }
