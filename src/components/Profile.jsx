@@ -59,7 +59,6 @@ const Profile = () => {
     }
   }, [user?.id]);
 
-
   const updateUserData = async (updatedData) => {
     const data = { ...user, ...updatedData };
     try {
@@ -81,16 +80,19 @@ const Profile = () => {
 
   const handleSave = async (field) => {
     const validators = {
-      nome: nome.trim(),
-      cpf: cpf.trim(),
-      idade: idade && !isNaN(idade) && parseInt(idade) > 0,
-      email: /\S+@\S+\.\S+/.test(email),
+      nome: nome.trim().length > 0,
+      cpf: cpf.trim().length > 0,
+      idade: /^\d+$/.test(idade) && parseInt(idade) > 0,
+      email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email),
     };
+
     if (!validators[field]) {
       toast("Campo inválido");
       return;
     }
-    await updateUserData({ [field]: eval(field) });
+
+    const values = { nome, cpf, idade, email };
+    await updateUserData({ [field]: values[field] });
   };
 
   const handleFileChange = (e) => {
@@ -127,11 +129,9 @@ const Profile = () => {
 
   return (
     <div className="profile__container">
-      <div className="profile__header">
-      </div>
+      <div className="profile__header" />
       <div className="profile__wrapper">
         <div className="profile__card">
-
           <div className="avatar__section">
             <div className="avatar__section__item">
               <img src={profileImage} alt="Foto" className="avatar__img" />
@@ -141,7 +141,6 @@ const Profile = () => {
               {isEditingPhoto ? (
                 <>
                   <div className="photo__edit">
-                    {/* input file escondido */}
                     <input
                       id="upload-photo"
                       type="file"
@@ -149,18 +148,13 @@ const Profile = () => {
                       onChange={handleFileChange}
                       style={{ display: "none" }}
                     />
-
-                    {/* label estilizado como botão */}
                     <label htmlFor="upload-photo" className="btn__upload-photo">
                       Selecionar imagem
                     </label>
-
-                    {/* botão enviar */}
                     <button onClick={handleUploadImage} disabled={uploading}>
                       {uploading ? "Enviando..." : "Enviar"}
                     </button>
                   </div>
-
                   <div className="xbtn">
                     <button onClick={() => setIsEditingPhoto(false)}>
                       <img src={ximg} alt="Cancelar" width="10px" />
@@ -173,99 +167,36 @@ const Profile = () => {
                 </button>
               )}
             </div>
-
-
           </div>
 
           <div className="profile__info">
-            <div className="info__row">
-              <div className="info__row__top">
-                <label>Nome</label>
+            {[
+              { label: "Nome", value: nome, field: "nome", set: setNome },
+              { label: "Email", value: email, field: "email", set: setEmail },
+              { label: "CPF", value: cpf, field: "cpf", set: setCpf },
+              { label: "Idade", value: idade, field: "idade", set: setIdade },
+            ].map(({ label, value, field, set }) => (
+              <div key={field} className="info__row">
+                <div className="info__row__top">
+                  <label>{label}</label>
+                </div>
+                <div className="info__row__bottom">
+                  {editField === field ? (
+                    <>
+                      <input value={value} onChange={(e) => set(e.target.value)} />
+                      <button onClick={() => handleSave(field)}>
+                        <FaSave />
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <span>{value}</span>
+                      <button onClick={() => setEditField(field)}>Editar</button>
+                    </>
+                  )}
+                </div>
               </div>
-
-              <div className="info__row__bottom">
-                {editField === "nome" ? (
-                  <>
-                    <input value={nome} onChange={(e) => setNome(e.target.value)} />
-                    <button onClick={() => handleSave("nome")}>
-                      <FaSave />
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <span>{nome}</span>
-                    <button onClick={() => setEditField("nome")}>Editar</button>
-                  </>
-                )}
-              </div>
-            </div>
-
-            <div className="info__row">
-              <div className="info__row__top">
-                <label>Email</label>
-              </div>
-
-              <div className="info__row__bottom">
-
-                {editField === "email" ? (
-                  <>
-                    <input value={email} onChange={(e) => setEmail(e.target.value)} />
-                    <button onClick={() => handleSave("email")}>
-                      <FaSave />
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <span>{email}</span>
-                    <button onClick={() => setEditField("email")}>Editar</button>
-                  </>
-                )}
-              </div>
-            </div>
-
-            <div className="info__row">
-              <div className="info__row__top">
-                <label>CPF</label>
-              </div>
-
-              <div className="info__row__bottom">
-                {editField === "cpf" ? (
-                  <>
-                    <input value={cpf} onChange={(e) => setCpf(e.target.value)} />
-                    <button onClick={() => handleSave("cpf")}>
-                      <FaSave />
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <span>{cpf}</span>
-                    <button onClick={() => setEditField("cpf")}>Editar</button>
-                  </>
-                )}
-              </div>
-            </div>
-
-            <div className="info__row">
-              <div className="info__row__top">
-                <label>Idade</label>
-              </div>
-
-              <div className="info__row__bottom">
-                {editField === "idade" ? (
-                  <>
-                    <input value={idade} onChange={(e) => setIdade(e.target.value)} />
-                    <button onClick={() => handleSave("idade")}>
-                      <FaSave />
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <span>{idade}</span>
-                    <button onClick={() => setEditField("idade")}>Editar</button>
-                  </>
-                )}
-              </div>
-            </div>
+            ))}
 
             <div className="logout__section">
               <Link to="/cadastroJoia">Cadastrar joia</Link>
@@ -286,14 +217,11 @@ const Profile = () => {
               anuncios.map((anuncio) => (
                 <div key={anuncio.id} className="anuncio__item">
                   <div className="anuncio__item__left">
-                    {anuncio.urLs && anuncio.urLs.length > 0 && (
-                      <img
-                        src={anuncio.urLs[0]}
-                        alt={anuncio.titulo}
-                      />
+                    {anuncio.urls && anuncio.urls.length > 0 && (
+                      <img src={anuncio.urls[0]} alt={anuncio.titulo} />
                     )}
                   </div>
-                  <div className="anuncio__item__rigth">
+                  <div className="anuncio__item__right">
                     <h4>{anuncio.titulo}</h4>
                     <p>Tipo: {anuncio.tipoPeca}</p>
                   </div>
@@ -302,7 +230,6 @@ const Profile = () => {
             )}
           </div>
         </div>
-
       </div>
     </div>
   );

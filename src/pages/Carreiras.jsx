@@ -24,12 +24,12 @@ function Carreiras() {
             <div className="Carreiras__container__item__bottom">
               <div className="Carreiras__container__item__bottom__left">
                 <h2>
-                  Como parte do Aurum, operamos escritórios em todo o mundo.
+                  Como parte da Aurum, operamos escritórios em todo o mundo.
                   Estamos sempre buscando nos conectar com pessoas que desejam
-                  realizar o melhor trabalho de suas vidas com as maiores marcas
-                  do mundo. Se você tem interesse em trabalhar conosco ou saber
-                  mais, envie-nos uma mensagem, link do seu portfólio ou
-                  currículo. Aceitamos qualquer proposta que você tenha.
+                  transmitir a cultura de suas vidas com as mais únicas joias
+                  do mundo. Se você tem interesse em trabalhar conosco ou saber mais,
+                  envie-nos uma mensagem, link do seu portfólio ou currículo.
+                  Aceitamos qualquer proposta que você tenha.
                 </h2>
               </div>
               <div className="Carreiras__container__item__bottom__right">

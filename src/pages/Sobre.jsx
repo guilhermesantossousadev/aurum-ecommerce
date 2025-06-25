@@ -11,13 +11,13 @@ import imgB from "../images/Sobre/Photo1.jpg";
 import imgC from "../images/Sobre/Photo2.jpg";
 
 const palavras = [
-  { texto: "Webby Awards", imagem: imgA },
-  { texto: "Adweek", imagem: imgB },
-  { texto: "Awwwards", imagem: imgC },
-  { texto: "D&AD", imagem: imgB },
-  { texto: "One Show", imagem: imgC },
-  { texto: "The FWA", imagem: imgC },
-  { texto: "Comm Arts", imagem: imgC },
+  { texto: "Couture Design Awards", imagem: imgA },
+  { texto: "JNA Awards", imagem: imgB },
+  { texto: "HRD Antwerp Design Awards", imagem: imgC },
+  { texto: "Jewellery World Awards", imagem: imgB },
+  { texto: "Inhorgenta Award", imagem: imgC },
+  { texto: "Goldsmiths’ Craft & Design Council Awards", imagem: imgC },
+  { texto: "Red Dot Award: Product Design", imagem: imgC },
 ];
 
 const Sobre = () => {
@@ -50,9 +50,11 @@ const Sobre = () => {
             ● <span> em valor empresarial</span>
           </h1>
           <h3 className="Sobre__container__item__right_h3 fade-in-up">
-            A AURUM/LUMINE® é uma agência global que prospera na intersecção
-            entre design, dados e tecnologia. Juntos, estamos focados em
-            transformar marcas e culturas — em todo o mundo.
+            A Aurum Lumine® é uma joalheria digital que prospera na intersecção entre design, dados e tecnologia. Juntos,
+            estamos focados em transformar joias e culturas — em todo o mundo.
+            Estratégia. Experiência de Marca. Experiência Digital. Detalhes. Tecnologia.
+            Somos exclusivamente criados para construir joias que importam na cultura.
+
           </h3>
         </div>
       </div>
@@ -162,43 +164,37 @@ const Sobre = () => {
       <div className="Sobre__Capabilities">
         <div className="Sobre__Capabilities__container">
           <div className="Sobre__Capabilities__container__item">
-            <h1>Capabilities</h1>
+            <h1>Capacidades</h1>
           </div>
           <div className="Sobre__Capabilities__container__internal">
             <div className="Sobre__Capabilities__container__item">
-              <h2>CX, Commerce, & Product Design</h2>
+              <h2>Comércio e Design de Produto</h2>
               <ul>
                 <li>Market Analysis & Business Case Development</li>
-                <li>Customer Research, Segmentation & Insights</li>
-                <li>Journey Mapping & Testing</li>
-                <li>Innovation Sprints & Prototyping</li>
-                <li>Experience Strategy & Design</li>
-                <li>Content Strategy & IA</li>
-                <li>Design Systems & Guidelines</li>
-                <li>Website & App Design</li>
-                <li>UI Design</li>
-                <li>Interaction Design</li>
-                <li>Full-Stack Development & CMS Implementation</li>
-                <li>Technical Consultation and Architecture</li>
+                <li>Catálogo Digital de Joias	</li>
+                <li>E-commerce com Carrinho de Compras</li>
+                <li>Personalização de Joias	</li>
+                <li>Emissão de Nota Fiscal Eletrônica</li>
+                <li>Suporte ao Cliente (E-mail)</li>
+                <li>Certificação de Autenticidade</li>
+                <li>Marketing Digital</li>
+                <li>Segurança</li>
+                <li>Proteção de Dados</li>
               </ul>
             </div>
             <div className="Sobre__Capabilities__container__item">
               <h2>Digital-First Branding</h2>
               <ul>
-                <li>Brand Ecosystem & Roadmap</li>
-                <li>Business Intelligence</li>
-                <li>Brand Positioning & Architecture</li>
-                <li>Brand Messaging</li>
-                <li>Visual Identity</li>
-                <li>Brand Guidelines & Playbooks</li>
-                <li>Visual Design</li>
-                <li>Graphic Design</li>
-                <li>Art Direction</li>
-                <li>
-                  Asset Production (Video, 3D, Photography, Motion Design)
-                </li>
-                <li>Brand Naming</li>
-                <li>Go-To-Market Strategy</li>
+                <li>Branding</li>
+                <li>Ecossistema</li>
+                <li>Inteligência Empresarial</li>
+                <li>Arquitetura de Marca</li>
+                <li>Mensagem da Marca</li>
+                <li>Identidade Visual</li>
+                <li>Diretrizes</li>
+                <li>Design Visual</li>
+                <li>Design Gráfico</li>
+                <li>Nomenclatura da marca</li>
               </ul>
             </div>
           </div>
@@ -211,8 +207,9 @@ const Sobre = () => {
         </div>
         <div className="Sobre__awards__item">
           <h2>
-            While results are what matter most, we believe awards bring value
-            and recognition to organizations as well as individuals.
+            Embora os resultados sejam o mais importante,
+            acreditamos que os prêmios agregam valor e
+            reconhecimento às joias e também aos indivíduos.
           </h2>
         </div>
       </div>

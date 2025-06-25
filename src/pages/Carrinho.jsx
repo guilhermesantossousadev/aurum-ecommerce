@@ -20,8 +20,59 @@ function Carrinho() {
   const [cep, setCep] = useState("");
   const [frete, setFrete] = useState(null);
 
+  const [isFinalizando, setIsFinalizando] = useState(false);
+  const [isCalculandoFrete, setIsCalculandoFrete] = useState(false);
+
+  const finalizarPedido = async () => {
+    if (!frete) {
+      toast.error("Calcule o frete antes de finalizar o pedido.");
+      return;
+    }
+
+    setIsFinalizando(true);
+
+    const anunciosParaPagamento = anunciosUnicos.map((anuncio) => {
+      const joia = joias.find((j) => j.id === anuncio.joiaId);
+      return {
+        titulo: anuncio.titulo,
+        valor: parseFloat(joia?.valor || 0),
+      };
+    });
+
+    const totalComFrete = parseFloat(carrinho.valorTotal) + parseFloat(frete.valor);
+
+    try {
+      const response = await fetch(
+        `https://marketplacejoias-api-latest.onrender.com/api/MercadoPago/MercadoPagoCheckoutPro?usuarioId=${user.id}&valorTotal=${totalComFrete}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(anunciosParaPagamento),
+        }
+      );
+
+      if (!response.ok) throw new Error("Erro ao criar pagamento.");
+
+      const data = await response.json();
+      if (data?.initPoint) {
+        window.location.href = data.initPoint;
+      } else {
+        toast.error("URL de pagamento não recebida.");
+      }
+    } catch (error) {
+      console.error("Erro ao finalizar pedido:", error);
+      toast.error("Erro ao finalizar pedido.");
+    } finally {
+      setIsFinalizando(false);
+    }
+  };
+
   const calcularFrete = async () => {
     if (!cep || cep.length < 8) return toast.error("Informe um CEP válido");
+
+    setIsCalculandoFrete(true);
 
     try {
       const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
@@ -29,7 +80,6 @@ function Carrinho() {
 
       if (data.erro) return toast.error("CEP inválido");
 
-      // Simulação do frete baseado no valor da compra
       const valorFrete = carrinho.valorTotal < 2000 ? 19.9 : 0;
       const prazoEntrega = carrinho.valorTotal < 500 ? 5 : 3;
 
@@ -42,9 +92,10 @@ function Carrinho() {
     } catch (err) {
       console.error(err);
       toast.error("Erro ao calcular o frete");
+    } finally {
+      setIsCalculandoFrete(false);
     }
   };
-
 
   // Tratamento para usuário não logado
   if (!user?.id) {
@@ -306,8 +357,9 @@ function Carrinho() {
                 value={cep}
                 onChange={(e) => setCep(e.target.value)}
               />
-              <button className="frete-btn" onClick={calcularFrete}>
-                Calcular Frete
+
+              <button className="frete-btn" onClick={calcularFrete} disabled={isCalculandoFrete}>
+                {isCalculandoFrete ? <span className="spinner"></span> : "Calcular Frete"}
               </button>
 
               {frete && (
@@ -334,7 +386,9 @@ function Carrinho() {
                 </span>
               </div>
 
-              <button className="btn-finalizar-compra">FINALIZAR PEDIDO</button>
+              <button className="btn-finalizar-compra" onClick={finalizarPedido} disabled={isFinalizando}>
+                {isFinalizando ? <span className="spinner"></span> : "FINALIZAR PEDIDO"}
+              </button>
 
               <p className="installments">
                 Em até 9x de R$
