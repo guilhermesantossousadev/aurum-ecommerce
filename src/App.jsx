@@ -5,7 +5,7 @@ import {
   Route,
   useLocation,
 } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
+import {Toaster, toast } from 'sonner';
 
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
@@ -107,7 +107,7 @@ function AppRoutes() {
           />
         </Routes>
       </Suspense>
-      <ToastContainer position="top-right" autoClose={3000} />
+      <Toaster position="top-right" richColors />
       {!hideFooter && <Footer />}
     </>
   );

@@ -1,9 +1,7 @@
-// Register.jsx
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
+import { useNavigate, Link } from "react-router-dom";
+import { toast } from 'sonner';
 
 import { login } from "../store/userSlice";
 import Etapa1 from "../components/EtapasRegister/Etapa1";
@@ -33,12 +31,61 @@ const Register = () => {
   const [token, setToken] = useState("");
   const [usuario, setUsuario] = useState(null);
 
+  const validarCPF = (cpf) => {
+    cpf = cpf.replace(/[^\d]/g, "");
+    if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
+    let soma = 0;
+    for (let i = 0; i < 9; i++) soma += parseInt(cpf.charAt(i)) * (10 - i);
+    let resto = 11 - (soma % 11);
+    if ((resto > 9 ? 0 : resto) !== parseInt(cpf.charAt(9))) return false;
+    soma = 0;
+    for (let i = 0; i < 10; i++) soma += parseInt(cpf.charAt(i)) * (11 - i);
+    resto = 11 - (soma % 11);
+    return (resto > 9 ? 0 : resto) === parseInt(cpf.charAt(10));
+  };
+
+  const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+  const isStrongPassword = (password) =>
+    /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password);
+
+  const validarFormulario = () => {
+    if (!nome || !cpf || !idade || !email || !password || !confirmPassword || !cep || !numero) {
+      toast.error("Todos os campos são obrigatórios.");
+      return false;
+    }
+    if (!validarCPF(cpf)) {
+      toast.error("CPF inválido.");
+      return false;
+    }
+    const idadeInt = parseInt(idade, 10);
+    if (isNaN(idadeInt) || idadeInt < 10 || idadeInt > 120) {
+      toast.error("Idade inválida.");
+      return false;
+    }
+    if (!isValidEmail(email)) {
+      toast.error("E-mail inválido.");
+      return false;
+    }
+    if (password !== confirmPassword) {
+      toast.error("As senhas não coincidem.");
+      return false;
+    }
+    if (!isStrongPassword(password)) {
+      toast.error("A senha deve conter ao menos 8 caracteres, uma letra maiúscula, um número e um símbolo.");
+      return false;
+    }
+    if (!/^\d{8}$/.test(cep.replace(/\D/g, ""))) {
+      toast.error("CEP inválido.");
+      return false;
+    }
+    return true;
+  };
+
   const checkEmailExists = async () => {
     if (!email) return;
     const response = await fetch(
-      `https://marketplacejoias-api-latest.onrender.com/api/Suport/ExistenceAuthenticationEmail?email=${encodeURIComponent(
-        email
-      )}`
+      `https://marketplacejoias-api-latest.onrender.com/api/Suport/ExistenceAuthenticationEmail?email=${encodeURIComponent(email)}`
     );
     const result = await response.text();
     if (!response.ok) {
@@ -58,25 +105,11 @@ const Register = () => {
     }
   };
 
-  const validarCPF = (cpf) => {
-    cpf = cpf.replace(/[^\d]/g, "");
-    if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
-    let soma = 0;
-    for (let i = 0; i < 9; i++) soma += parseInt(cpf.charAt(i)) * (10 - i);
-    let resto = 11 - (soma % 11);
-    if ((resto > 9 ? 0 : resto) !== parseInt(cpf.charAt(9))) return false;
-    soma = 0;
-    for (let i = 0; i < 10; i++) soma += parseInt(cpf.charAt(i)) * (11 - i);
-    resto = 11 - (soma % 11);
-    return (resto > 9 ? 0 : resto) === parseInt(cpf.charAt(10));
-  };
-
   const handleRequestToken = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
-    if (password !== confirmPassword) {
-      toast.error("As senhas não coincidem");
+    if (!validarFormulario()) {
       setIsLoading(false);
       return;
     }
@@ -123,9 +156,7 @@ const Register = () => {
 
     try {
       const response = await fetch(
-        `https://marketplacejoias-api-latest.onrender.com/api/Suport/AuthenticateToken?codigoToken=${encodeURIComponent(
-          token
-        )}`
+        `https://marketplacejoias-api-latest.onrender.com/api/Suport/AuthenticateToken?codigoToken=${encodeURIComponent(token)}`
       );
 
       if (!response.ok) {
@@ -159,6 +190,57 @@ const Register = () => {
     }
   };
 
+  // 🔧 Validações de cada etapa
+  const validarEtapa1 = () => {
+    if (!nome.trim() || !cpf.trim() || !idade.trim()) {
+      toast.error("Preencha nome, CPF e idade.");
+      return false;
+    }
+    if (!validarCPF(cpf)) {
+      toast.error("CPF inválido.");
+      return false;
+    }
+    const idadeInt = parseInt(idade, 10);
+    if (isNaN(idadeInt) || idadeInt < 10 || idadeInt > 120) {
+      toast.error("Idade inválida.");
+      return false;
+    }
+    return true;
+  };
+
+  const validarEtapa2 = () => {
+    if (!email.trim() || !password || !confirmPassword) {
+      toast.error("Preencha e-mail e senha.");
+      return false;
+    }
+    if (!isValidEmail(email)) {
+      toast.error("E-mail inválido.");
+      return false;
+    }
+    if (password !== confirmPassword) {
+      toast.error("As senhas não coincidem.");
+      return false;
+    }
+    if (!isStrongPassword(password)) {
+      toast.error("A senha deve conter ao menos 8 caracteres, uma letra maiúscula, um número e um símbolo.");
+      return false;
+    }
+    return true;
+  };
+
+  const validarEtapa3 = () => {
+    if (!cep.trim() || !numero.trim()) {
+      toast.error("Preencha o CEP e o número.");
+      return false;
+    }
+    if (!/^\d{8}$/.test(cep.replace(/\D/g, ""))) {
+      toast.error("CEP inválido.");
+      return false;
+    }
+    return true;
+  };
+
+
   return (
     <div className="Register">
       {step === 1 && (
@@ -167,19 +249,63 @@ const Register = () => {
             <h1 className="Register__title">Cadastro</h1>
             <form className="Register__form" onSubmit={handleRequestToken}>
               {subStep === 1 && (
-                <Etapa1 style={{ width: "100%", height: "100%" }} nome={nome} setNome={setNome} cpf={cpf} setCpf={setCpf} idade={idade} setIdade={setIdade} validarCPF={validarCPF} next={() => setSubStep(2)} />
+                <Etapa1
+                  style={{ width: "100%", height: "100%" }}
+                  nome={nome}
+                  setNome={setNome}
+                  cpf={cpf}
+                  setCpf={setCpf}
+                  idade={idade}
+                  setIdade={setIdade}
+                  validarCPF={validarCPF}
+                  next={() => {
+                    if (validarEtapa1()) setSubStep(2);
+                  }}
+                />
               )}
+
               {subStep === 2 && (
-                <Etapa2 email={email} setEmail={setEmail} password={password} setPassword={setPassword} confirmPassword={confirmPassword} setConfirmPassword={setConfirmPassword} checkEmailExists={checkEmailExists} next={() => setSubStep(3)} back={() => setSubStep(1)} />
+                <Etapa2
+                  email={email}
+                  setEmail={setEmail}
+                  password={password}
+                  setPassword={setPassword}
+                  confirmPassword={confirmPassword}
+                  setConfirmPassword={setConfirmPassword}
+                  checkEmailExists={checkEmailExists}
+                  next={() => {
+                    if (validarEtapa2()) setSubStep(3);
+                  }}
+                  back={() => setSubStep(1)}
+                />
               )}
+
               {subStep === 3 && (
-                <Etapa3 cep={cep} setCep={setCep} numero={numero} setNumero={setNumero} isLoading={isLoading} back={() => setSubStep(2)} />
+                <>
+                  <Etapa3
+                    cep={cep}
+                    setCep={setCep}
+                    numero={numero}
+                    setNumero={setNumero}
+                    isLoading={isLoading}
+                    back={() => setSubStep(2)}
+                  />
+                  <button
+                    className="Register__button"
+                    type="submit"
+                    disabled={isLoading}
+                    onClick={(e) => {
+                      if (!validarEtapa3()) {
+                        e.preventDefault();
+                        return;
+                      }
+                    }}
+                  >
+                    {isLoading ? "Enviando..." : "Validar Email"}
+                  </button>
+                </>
               )}
-              {subStep === 3 && (
-                <button className="Register__button" type="submit" disabled={isLoading}>
-                  {isLoading ? "Enviando..." : "Validar Email"}
-                </button>
-              )}
+
             </form>
             <div className="Register__links">
               <Link to="/login" className="Register__link">
@@ -191,7 +317,12 @@ const Register = () => {
       )}
 
       {step === 2 && (
-        <ConfirmacaoToken token={token} setToken={setToken} handleSubmit={handleSubmit} isLoading={isLoading} />
+        <ConfirmacaoToken
+          token={token}
+          setToken={setToken}
+          handleSubmit={handleSubmit}
+          isLoading={isLoading}
+        />
       )}
 
       <div className="Register__rigth">

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/userSlice";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { Toaster, toast } from 'sonner';
 import "../styles/components/Profile.css";
 import ximg from "../images/Common/x.png";
 import { FaSignOutAlt, FaSave } from "react-icons/fa";

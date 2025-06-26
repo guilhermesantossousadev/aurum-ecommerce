@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { toast } from "react-toastify";
+import { Toaster, toast } from 'sonner';
 
 import "../../../styles/Cruds/Actions/PostNewsletter.css";
 

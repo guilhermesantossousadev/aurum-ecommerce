@@ -3,7 +3,7 @@ import "../styles/components/Footer.css";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
+import { Toaster, toast } from 'sonner';
 
 import setadireitabranca from "../images/Setas/setadireitabranca.png";
 import setadireitapreta from "../images/Setas/SetaPretaDireita.png";

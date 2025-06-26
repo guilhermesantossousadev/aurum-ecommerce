@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { toast } from "react-toastify";
+import { Toaster, toast } from 'sonner';
 
 import UsuarioForm from "../Cruds/Actions/PostUsuario";
 

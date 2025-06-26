@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { toast } from "react-toastify";
+import { Toaster, toast } from 'sonner';
 
 const apiBaseUrl =
   "https://marketplacejoias-api-latest.onrender.com/api/Newsletter";

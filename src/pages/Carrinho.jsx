@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
+import { Toaster, toast } from 'sonner';
 
 import "../styles/pages/Carrinho.css";
 
@@ -359,7 +359,7 @@ function Carrinho() {
               />
 
               <button className="frete-btn" onClick={calcularFrete} disabled={isCalculandoFrete}>
-                {isCalculandoFrete ? <span className="spinner"></span> : "Calcular Frete"}
+                {isCalculandoFrete ? <span className="loading-spinner"></span> : "Calcular Frete"}
               </button>
 
               {frete && (
@@ -387,7 +387,7 @@ function Carrinho() {
               </div>
 
               <button className="btn-finalizar-compra" onClick={finalizarPedido} disabled={isFinalizando}>
-                {isFinalizando ? <span className="spinner"></span> : "FINALIZAR PEDIDO"}
+                {isFinalizando ? <span className="loading-spinner"></span> : "FINALIZAR PEDIDO"}
               </button>
 
               <p className="installments">

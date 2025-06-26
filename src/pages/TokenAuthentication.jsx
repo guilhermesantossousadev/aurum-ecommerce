@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "../styles/pages/TokenAuthentication.css";
-import { toast } from "react-toastify";
+import { Toaster, toast } from 'sonner';
 
 const TokenAuthentication = () => {
   const navigate = useNavigate();

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { login } from "../store/userSlice";
-import { toast } from "react-toastify";
+import { Toaster, toast } from 'sonner';
 
 import "../styles/pages/Login.css";
 import loginvideo from "../images/videos/login.mp4";
