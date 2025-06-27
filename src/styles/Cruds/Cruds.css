@@ -3,70 +3,69 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
+  padding-bottom: 2rem;
 }
 
-.Separator{
+.Separator {
   width: 100%;
   height: 100%;
 }
 
 .Principal__Create {
   width: 100%;
-  height: auto;
   display: flex;
-  padding-inline: 3rem;
+  padding: 0 3rem;
   margin-bottom: 1rem;
   min-height: 50px;
   gap: 20px;
+  justify-content: flex-start;
+  flex-wrap: wrap;
 }
 
 .Principal__Create__button {
-  padding: 1rem 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 0.8rem 1.6rem;
   background-color: #555;
   border-radius: 6px;
   color: #fff;
   text-decoration: none;
-  transition: 0.3s ease;
   border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .Principal__Create__button:hover {
   background-color: #3b3b3b;
-  cursor: pointer;
 }
 
 .Principal__box {
-  padding-inline: 3rem;
-  margin-top: 1rem;
   width: 100%;
+  padding: 0 3rem;
+  margin-top: 1rem;
+  overflow-x: auto;
 }
 
 .Principal__box__detalhes {
-  width: 100%;
   display: flex;
   background-color: #333333aa;
   font-weight: 600;
   padding: 0.75rem 1rem;
   border-radius: 6px 6px 0 0;
-  user-select: none;
+  color: white;
+  min-width: 600px;
 }
 
 .Principal__box__detalhes__item {
-  width: 100%;
+  flex: 1;
   display: flex;
   align-items: center;
-  justify-content: start;
   padding-left: 1rem;
   border-right: 1px solid #555555aa;
-  color: white;
-  font-weight: normal;
   height: 50px;
+  color: #fff;
+  font-weight: normal;
 }
 
 .Principal__box__detalhes__item:last-child {
@@ -75,23 +74,19 @@
 
 .Principal__box ul {
   list-style: none;
-  display: flex;
-  flex-direction: column;
   margin: 0;
   padding: 0;
 }
 
 .Principal__box__item {
-  width: 100%;
-  height: 100%;
+  display: flex;
+  align-items: center;
   background-color: #fff;
   border: 1px solid #ddd;
   border-top: none;
-  padding: 1rem;
-  display: flex;
-  align-items: center;
+  padding: 1rem 0;
   transition: background-color 0.2s ease;
-  cursor: default;
+  min-width: 600px;
 }
 
 .Principal__box__item:hover {
@@ -99,23 +94,19 @@
 }
 
 .Principal__box__item__inside {
-  width: 100%;
-  height: 100%;
+  flex: 1;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
   padding-left: 1rem;
-  gap: 0.5rem;
+  word-break: break-word;
 }
 
 .Principal__box__item__inside.acoes {
-  display: flex;
-  align-items: center;
   justify-content: center;
+  gap: 0.5rem;
 }
 
 .Principal__box__item__inside button {
-  margin-right: 0.5rem;
   padding: 0.4rem 0.8rem;
   background-color: #333333aa;
   border: none;
@@ -135,4 +126,58 @@
   text-align: center;
   color: #555;
   font-style: italic;
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+  .Principal__Create {
+    padding: 0 1.5rem;
+    gap: 15px;
+  }
+
+  .Principal__box {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .Principal__Create {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0 1rem;
+  }
+
+  .Principal__Create__button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .Principal__box {
+    padding: 0 1rem;
+  }
+
+  .Principal__box__detalhes,
+  .Principal__box__item {
+    min-width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.5rem;
+  }
+
+  .Principal__box__detalhes__item,
+  .Principal__box__item__inside {
+    border-right: none;
+    border-bottom: 1px solid #55555544;
+    width: 100%;
+    padding: 0.5rem 0;
+  }
+
+  .Principal__box__detalhes__item:last-child,
+  .Principal__box__item__inside:last-child {
+    border-bottom: none;
+  }
+
+  .Principal__box__item__inside.acoes {
+    justify-content: flex-start;
+  }
 }

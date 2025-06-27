@@ -4,17 +4,21 @@
   background-color: rgb(244 244 244);
   display: flex;
   margin-top: 5rem;
+  flex-direction: row;
 }
 
 /* Menu fixo à esquerda */
 .Admin__menu {
   width: 20%;
-  height: 100vh; /* para ocupar toda a altura da viewport */
+  min-width: 220px;
+  max-width: 280px;
+  height: 100vh;
   border-right: 1px solid rgba(51, 51, 51, 0.23);
   background-color: #3f4d67;
   position: fixed;
   overflow-y: auto;
   padding-top: 1rem;
+  transition: all 0.3s ease;
 }
 
 /* Container de cada grupo do menu (título + lista) */
@@ -22,11 +26,9 @@
   margin-bottom: 2rem;
 }
 
-/* Título dos grupos do menu */
 .Dashboard__menu__title {
   padding: 1.5rem 1.5rem 0.75rem 1.5rem;
   color: rgb(232 237 247);
-  text-transform: none;
   font-weight: 600;
   font-size: 0.9rem;
 }
@@ -38,7 +40,6 @@
   margin: 0;
 }
 
-/* Itens do menu */
 .Dashboard__menu li {
   width: 100%;
   height: 60px;
@@ -51,25 +52,22 @@
   transition: background-color 0.3s, color 0.3s;
 }
 
-/* Hover nos itens */
 .Dashboard__menu li:hover {
   background-color: #364258;
   color: #ffffff;
 }
 
-/* Item ativo */
 .Dashboard__menu li.active {
   background-color: #2f3b52;
   color: #ffffff;
   border-left: 5px solid #079ce0;
 }
 
-/* Item especial logout */
 .profile__logout {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: #d9534f; /* cor vermelho para logout */
+  color: #d9534f;
 }
 
 .profile__logout:hover {
@@ -77,10 +75,11 @@
   color: #fff;
 }
 
-/* Área principal da página, espaço para o conteúdo */
+/* Área principal da página */
 .Admin__all {
-  margin-left: 20%; /* para abrir espaço para o menu fixo */
+  margin-left: 20%;
   width: 80%;
+  min-width: 320px;
   height: auto;
   padding: 2rem;
   background-color: #f4f7fa;
@@ -88,9 +87,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  transition: all 0.3s ease;
 }
 
-/* Scroll para o menu se crescer muito */
+/* Scroll customizado */
 .Admin__menu::-webkit-scrollbar {
   width: 6px;
 }
@@ -100,18 +100,42 @@
   border-radius: 3px;
 }
 
-/* Responsividade básica */
-@media (max-width: 768px) {
+/* Responsividade */
+@media (max-width: 1024px) {
+  .Admin {
+    flex-direction: column;
+  }
+
   .Admin__menu {
     position: relative;
     width: 100%;
     height: auto;
+    max-height: none;
     border-right: none;
+    padding-bottom: 1rem;
+    max-width: 100%;
   }
 
   .Admin__all {
     margin-left: 0;
     width: 100%;
-    padding-top: 2rem;
+    height: auto;
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .Dashboard__menu li {
+    height: 50px;
+    padding: 0 1rem;
+  }
+
+  .Dashboard__menu__title {
+    padding: 1rem 1rem 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .Admin__all {
+    padding: 0.5rem;
   }
 }
