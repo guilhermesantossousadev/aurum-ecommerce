@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import BotaoPrimario from "../../components/BotaoPrimario";
-import { toast } from "react-toastify";
+import { Toaster, toast } from 'sonner';
 
 import "../../styles/detalhes/Detalhes.css";
 
