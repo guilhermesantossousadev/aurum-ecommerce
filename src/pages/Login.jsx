@@ -43,7 +43,7 @@ const Login = () => {
         setTimeout(() => navigate("/adminPage"), 1500);
       } else {
         toast.success(`Login realizado com sucesso! Bem-vindo, ${user.nome}`);
-        setTimeout(() => navigate("/"), 1500);
+        setTimeout(() => navigate("/"), 500);
       }
     } catch (error) {
       console.error("Erro no login:", error);

@@ -1,11 +1,57 @@
 .botao-primario {
   background-color: #f9cdcd;
   color: #0c0c0c;
-  padding: 1rem 2rem;
-  font-size: 1.2rem;
-  font-weight: bold;
+  width: 100%;
+  padding: 0.8rem 1rem; /* responsivo */
+  font-size: 1rem;
+  font-weight: 400;
   border: none;
-  border-radius: 1px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.botao-primario:hover:not(:disabled) {
+  background-color: #f6bebe;
+  transform: scale(1.02);
+}
+
+.botao-primario:disabled {
+  cursor: not-allowed;
+  opacity: 0.6; /* indica desativado */
+}
+
+.loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #0c0c0c;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsividade */
+@media (max-width: 480px) {
+  .botao-primario {
+    font-size: 0.9rem;
+    padding: 0.7rem 0.9rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .botao-primario {
+    font-size: 1.1rem;
+    padding: 1rem 1.2rem;
+  }
 }

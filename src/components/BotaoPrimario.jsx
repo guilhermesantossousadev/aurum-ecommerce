@@ -1,11 +1,16 @@
 import "../styles/components/BotaoPrimario.css";
 
-function BotaoPrimario({ texto, onClick }) {
+const BotaoPrimario = ({ onClick, loading, texto }) => {
   return (
-    <button className="botao-primario" onClick={onClick}>
-      {texto}
+    <button
+      onClick={onClick}
+      className="botao-primario"
+      disabled={loading}
+      type="button"
+    >
+      {loading ? <span className="loading-spinner"></span> : texto}
     </button>
   );
-}
+};
 
 export default BotaoPrimario;

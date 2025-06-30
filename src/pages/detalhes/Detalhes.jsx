@@ -1,20 +1,23 @@
+// Detalhes.jsx corrigido, pronto para colar
+
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import BotaoPrimario from "../../components/BotaoPrimario";
-import { Toaster, toast } from 'sonner';
-
+import { Toaster, toast } from "sonner";
 import "../../styles/detalhes/Detalhes.css";
 
 import ImageCarousel from "../../components/ImageCarousel";
 import SetaRosaEsquerda from "../../images/Setas/SetaRosaEsquerda.png";
 
-function Detalhesjoia() {
+function Detalhes() {
   const user = useSelector((state) => state.user);
 
   const [anuncio, setAnuncio] = useState(null);
-  const [joia, setjoia] = useState(null);
+  const [joia, setJoia] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [loadingAddCarrinho, setLoadingAddCarrinho] = useState(false);
+  const [isCalculed, setisCalculed] = useState(false);
   const [error, setError] = useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
@@ -23,15 +26,10 @@ function Detalhesjoia() {
   const [frete, setFrete] = useState(null);
   const [valorTotal, setValorTotal] = useState(null);
   const [opcoesFrete, setOpcoesFrete] = useState([]);
+  const [loadingFrete, setLoadingFrete] = useState(false);
 
-  // Tabela de frete base por estado
-  const tabelaFrete = {
-    SP: 22,
-    RJ: 25,
-    MG: 20,
-  };
+  const tabelaFrete = { SP: 22, RJ: 25, MG: 20 };
 
-  // Função auxiliar para formatar datas (Exemplo simples)
   const formatarData = (data) => {
     return data.toLocaleDateString("pt-BR", {
       weekday: "long",
@@ -41,36 +39,22 @@ function Detalhesjoia() {
     });
   };
 
-  // Função que simula opções de frete com prazo e preço
   const calcularFrete = async () => {
     if (!cep || cep.length !== 8) {
       toast.error("CEP inválido.");
       return;
     }
-
+    setLoadingFrete(true);
     try {
-      // Buscar estado pelo CEP
       const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
       const data = await response.json();
-
       if (data.erro) {
         toast.error("CEP não encontrado.");
         return;
       }
-
       const uf = data.uf;
-      if (!uf) {
-        toast.error("Estado não encontrado para esse CEP.");
-        return;
-      }
-
-      // Base do frete
       const freteBase = tabelaFrete[uf] ?? 30;
-
-      // Data de hoje
       const hoje = new Date();
-
-      // Simular várias opções de frete com prazos diferentes
       const opcoes = [
         {
           tipo: "Retire em loja",
@@ -79,7 +63,7 @@ function Detalhesjoia() {
             hoje.getFullYear(),
             hoje.getMonth(),
             hoje.getDate() + ((5 - hoje.getDay() + 7) % 7) + 1
-          ), // próxima sexta-feira
+          ),
           descricao: "Retire em uma loja a partir de sexta-feira",
         },
         {
@@ -89,7 +73,7 @@ function Detalhesjoia() {
             hoje.getFullYear(),
             hoje.getMonth(),
             hoje.getDate() + 4
-          ), // 4 dias depois
+          ),
           descricao:
             "Chegará " +
             formatarData(
@@ -103,7 +87,7 @@ function Detalhesjoia() {
             hoje.getFullYear(),
             hoje.getMonth(),
             hoje.getDate() + 7
-          ), // 7 dias depois
+          ),
           descricao:
             "Chegará " +
             formatarData(
@@ -111,97 +95,71 @@ function Detalhesjoia() {
             ),
         },
       ];
-
+      setisCalculed(true);
       setOpcoesFrete(opcoes);
-
-      // Atualizar valor total com o frete mais barato (economica)
-      setValorTotal((joia?.valor || 0) + freteBase);
+      if (joia) {
+        setValorTotal(joia.valor + freteBase);
+      }
     } catch (error) {
       console.error("Erro ao calcular frete:", error);
       toast.error("Erro ao calcular o frete.");
+    } finally {
+      setLoadingFrete(false);
     }
   };
 
   const adicionarAoCarrinho = async () => {
+    setLoadingAddCarrinho(true);
     try {
       const usuarioId = user?.id;
       if (!usuarioId) {
         toast.error("Usuário não está logado.");
         return;
       }
-
-      // 1. Buscar carrinho atual do usuário
       const carrinhoResponse = await fetch(
         `https://marketplacejoias-api-latest.onrender.com/api/Carrinho/GetByUsuarioIdCarrinho?usuarioId=${usuarioId}`
       );
-
-      if (!carrinhoResponse.ok) {
-        throw new Error("Erro ao buscar carrinho");
-      }
-
+      if (!carrinhoResponse.ok) throw new Error("Erro ao buscar carrinho");
       const carrinhoData = await carrinhoResponse.json();
-
-      // 2. Atualizar lista de anúncios
       const anunciosAtuais = carrinhoData.anunciosId?.anunciosId || [];
-      const anuncioIdString = anuncio.id.toString();
-
-      // Adiciona o novo ID SEM checar duplicação
-      anunciosAtuais.push(anuncioIdString);
-
-      // 3. Criar objeto PUT conforme especificado
+      anunciosAtuais.push(anuncio.id.toString());
       const carrinhoAtualizado = {
-        baseUrl: "string", // fixo
+        baseUrl: "string",
         requestClientOptions: {
           schema: "string",
           headers: {
             additionalProp1: "string",
-            additionalProp2: "string",
-            additionalProp3: "string",
           },
           queryParams: {
             additionalProp1: "string",
-            additionalProp2: "string",
-            additionalProp3: "string",
           },
         },
         id: carrinhoData.id,
-        usuarioId: usuarioId,
-        anunciosId: {
-          anunciosId: anunciosAtuais,
-        },
+        usuarioId,
+        anunciosId: { anunciosId: anunciosAtuais },
         valorTotal: 0,
       };
-
-      console.log(JSON.stringify(carrinhoAtualizado));
-
-      // 4. Requisição PUT
-      const updateResponse = await fetch(
+      await fetch(
         `https://marketplacejoias-api-latest.onrender.com/api/Carrinho/PutCarrinho`,
         {
           method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(carrinhoAtualizado),
         }
       );
-
-      const valorValue = await fetch(
-        `https://marketplacejoias-api-latest.onrender.com/api/Carrinho/CompileValue?usuarioId=${user.id}`,
+      await fetch(
+        `https://marketplacejoias-api-latest.onrender.com/api/Carrinho/CompileValue?usuarioId=${usuarioId}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
         }
       );
-
-      if (!updateResponse.ok) {
-        throw new Error("Erro ao atualizar carrinho");
-      }
-
       toast.success("Produto adicionado ao carrinho com sucesso!");
     } catch (err) {
       console.error("Erro ao adicionar ao carrinho:", err);
       toast.error("Erro ao adicionar ao carrinho");
+    } finally {
+      setLoadingAddCarrinho(false);
     }
   };
 
@@ -209,166 +167,137 @@ function Detalhesjoia() {
     const fetchData = async () => {
       try {
         setLoading(true);
-        setError(null);
-
         const anuncioResponse = await fetch(
           `https://marketplacejoias-api-latest.onrender.com/api/Anuncio/GetByIdAnuncio?id=${id}`
         );
-
-        if (!anuncioResponse.ok) {
+        if (!anuncioResponse.ok)
           throw new Error("Não foi possível carregar os detalhes do anúncio");
-        }
-
         const anuncioData = await anuncioResponse.json();
-
-        if (!anuncioData) {
-          throw new Error("Anúncio não encontrado");
-        }
-
         setAnuncio(anuncioData);
       } catch (err) {
         setError(err.message);
-        console.error("Erro ao carregar dados:", err);
-        setLoading(false);
-      }
-    };
-
-    if (id) {
-      fetchData();
-    }
-  }, [id]);
-
-  useEffect(() => {
-    const fetchjoia = async () => {
-      try {
-        const joiaResponse = await fetch(
-          `https://marketplacejoias-api-latest.onrender.com/api/Joia/GetByIdJoia?id=${anuncio.joiaId}`
-        );
-
-        if (!joiaResponse.ok) {
-          throw new Error("Não foi possível carregar os detalhes do joia");
-        }
-
-        const joiaData = await joiaResponse.json();
-        setjoia(joiaData);
-      } catch (err) {
-        setError(err.message);
-        console.error("Erro ao carregar dados do joia:", err);
       } finally {
         setLoading(false);
       }
     };
+    if (id) fetchData();
+  }, [id]);
 
-    if (anuncio && anuncio.joiaId) {
-      fetchjoia();
-    }
+  useEffect(() => {
+    const fetchJoia = async () => {
+      try {
+        setLoading(true);
+        const joiaResponse = await fetch(
+          `https://marketplacejoias-api-latest.onrender.com/api/Joia/GetByIdJoia?id=${anuncio.joiaId}`
+        );
+        if (!joiaResponse.ok)
+          throw new Error("Não foi possível carregar os detalhes do joia");
+        const joiaData = await joiaResponse.json();
+        setJoia(joiaData);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    if (anuncio?.joiaId) fetchJoia();
   }, [anuncio]);
 
-  if (loading) {
+  const formatarPreco = (preco) =>
+    new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    }).format(preco);
+
+  if (loading)
     return (
       <div className="detalhes__container">
         <div className="loading__message">Carregando detalhes do joia...</div>
       </div>
     );
-  }
-
-  if (error) {
+  if (error)
     return (
       <div className="detalhes__container">
-        <button className="voltar__button" onClick={() => navigate(-1)}>
-          Voltar
-        </button>
-        <div className="error__message">{error}</div>
+        <button onClick={() => navigate(-1)}>Voltar</button>
+        <div>{error}</div>
       </div>
     );
-  }
-
-  if (!anuncio) {
-    return (
-      <div className="detalhes__container">
-        <button className="voltar__button" onClick={() => navigate(-1)}>
-          <img src={SetaRosaEsquerda} alt="Voltar" />
-        </button>
-        <div className="error__message">joia não encontrado</div>
-      </div>
-    );
-  }
-
-  const formatarPreco = (preco) => {
-    try {
-      return new Intl.NumberFormat("pt-BR", {
-        style: "currency",
-        currency: "BRL",
-      }).format(preco);
-    } catch (error) {
-      return "Preço não disponível";
-    }
-  };
 
   return (
     <div className="detalhes">
       <div className="detalhes__container">
-        <button className="voltar__button" onClick={() => navigate(-1)}>
-          <img src={SetaRosaEsquerda} alt="Voltar" />
-        </button>
+        <div className="Voltar__container">
+          <img
+            src={SetaRosaEsquerda}
+            alt="Voltar"
+            className="Voltar__btn"
+            onClick={() => navigate(-1)}
+          />
+        </div>
 
         <div className="detalhes__container__internal">
           <div className="detalhes__container__internal__left">
-            <div className="detalhes__container__imagem">
-              {anuncio.urLs && anuncio.urLs.length > 0 ? (
-                <ImageCarousel images={anuncio.urLs} />
-              ) : (
-                <img src={anuncio.url} alt="Imagem do joia" />
-              )}
-            </div>
+            {anuncio.urLs?.length ? (
+              <ImageCarousel images={anuncio.urLs} />
+            ) : (
+              <img src={anuncio.url} alt="Imagem do joia" />
+            )}
           </div>
-
           <div className="detalhes__container__internal__right">
             <p className="detalhes__info__titulo">{anuncio.titulo}</p>
-            <p className="detalhes__info__item__p">
+            <div className="detalhes__info__item__p">
               <div className="detalhes__venda__container">
-                <span>4x sem juros de {formatarPreco(joia?.valor / 4)}</span>
+                <span>
+                  4x sem juros de {joia ? formatarPreco(joia.valor / 4) : "-"}
+                </span>
                 <p className="detalhes__valor">
-                  {formatarPreco(joia?.valor) || "Valor não disponível"}
+                  {joia ? formatarPreco(joia.valor) : "Valor não disponível"}
                 </p>
+              </div>
+            </div>
+            <div className="frete__container">
+              <div
+                className={`frete__container__item ${isCalculed ? "left" : ""}`}
+              >
                 <BotaoPrimario
                   texto="Adicionar ao carrinho"
                   onClick={adicionarAoCarrinho}
+                  loading={loadingAddCarrinho}
                 />
-              </div>
-            </p>
 
-            <div className="frete__container">
-              <div className="Frete__item__container">
                 <input
                   type="text"
                   placeholder="Digite seu CEP"
                   value={cep}
-                  onChange={(e) => setCep(e.target.value.replace(/\D/g, ""))}
+                  onChange={(e) =>
+                    setCep(e.target.value.replace(/\D/g, "").slice(0, 8))
+                  }
                   maxLength={8}
                   className="frete__input"
                 />
-                <button className="frete__botao" onClick={calcularFrete}>
-                  Calcular Frete
-                </button>
+                <BotaoPrimario
+                  onClick={calcularFrete}
+                  loading={loadingFrete}
+                  texto="Calcular Frete"
+                />
               </div>
-
-              {/* Mostrar todas opções de frete */}
-              {opcoesFrete.length > 0 && (
-                <div className="frete__resultado">
-                  {opcoesFrete.map((opcao, idx) => (
-                    <div key={idx} className="frete__opcao">
-                      <span>{opcao.tipo}:</span>
-                      {opcao.preco === 0 ? (
-                        <span> Grátis</span>
-                      ) : (
-                        <span> {formatarPreco(opcao.preco)}</span>
-                      )}{" "}
-                      - <span>{opcao.descricao}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
+              <div className="frete__container__item">
+                {opcoesFrete.length > 0 && (
+                  <div className="frete__resultado">
+                    {opcoesFrete.map((opcao, idx) => (
+                      <div key={idx} className="frete__opcao">
+                        <span>
+                          {opcao.tipo}:{" "}
+                          {opcao.preco === 0
+                            ? "Grátis"
+                            : formatarPreco(opcao.preco)}{" "}
+                          - {opcao.descricao}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -452,4 +381,4 @@ function Detalhesjoia() {
   );
 }
 
-export default Detalhesjoia;
+export default Detalhes;
