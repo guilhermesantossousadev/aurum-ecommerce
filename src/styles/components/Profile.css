@@ -1,366 +1,180 @@
-/* Profile.css - inspirado no layout visual da imagem enviada */
-
-:root {
-  --main-bg: #f9f9f9;
-  --primary: #1f2a44;
-  --accent: #4e5ba6;
-  --border-color: #e0e0e0;
-  --verified: #d4f5e6;
-  --verified-text: #27ae60;
-  --card-bg: #ffffff;
-  --tag-bg: #edf4ff;
-  --tag-color: #3c60d1;
-  --text-dark: #333;
-}
-
-.profile__container {
-  width: 100%;
+.Profile {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: var(--main-bg);
 }
 
-.profile__header {
-  background-color: var(--primary);
-  height: 200px;
-  display: flex;
-  justify-content: flex-end;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-}
-
-.btn__mydata {
-  background-color: #fff;
-  border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 500;
-}
-
-.profile__wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  justify-content: center;
-  margin-top: -60px;
-  padding: 2rem;
-}
-
-.profile__card,
-.profile__details {
-  background-color: var(--card-bg);
-  padding: 2rem;
-  border-radius: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  max-width: 480px;
+.Profile__Top {
+  background: url("../../images//Home/BannerAurumLumine.png");
   width: 100%;
+  height: 80vh;
 }
 
-.avatar__section {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 1rem;
+.Profile__Bottom {
+  width: 100%;
+  height: 100vh;
   position: relative;
 }
 
-.avatar__section__item {
-  width: 30%;
-  height: 100%;
-}
-
-
-.avatar__section__item.right {
-  width: 70%;
-  height: 100%;
-  display: flex;
-  justify-content: end;
-}
-
-.avatar__img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  box-shadow: 0 0 0 4px #fff;
-}
-
-.avatar__section__item button {
-  padding: 0.4rem 0.8rem;
-  border-radius: 20px;
-  border: none;
-  background-color: #f0f0f0;
-}
-
-.avatar__section__item button:hover {
-  cursor: pointer;
-  background-color: #d8d8d8;
-}
-
-.xbtn {
+.Profile__Box {
   position: absolute;
-  top: 0;
-  right: 0;
-  background-color: transparent;
-}
-
-.xbtn button {
-  background-color: transparent;
-}
-
-.xbtn button:hover {
-  background-color: transparent;
-}
-
-.photo__edit {
-  max-width: 100%;
-  display: flex;
-  flex-direction: row;
-  gap: 0.8rem;
-  align-items: flex-start;
-  background-color: var(--card-bg);
-  padding: 1rem;
-  border-radius: 12px;
-  margin-top: 1rem;
-}
-
-.photo__edit input[type="file"] {
-  padding: 0.4rem 0.6rem;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+  width: 90%;
+  height: 1000px;
   background-color: #fff;
-  font-size: .90rem;
-  cursor: pointer;
-  color: var(--text-dark);
-
-  max-width: 100%;
-  box-sizing: border-box;
-  display: block;
-  overflow: hidden;
-}
-
-.btn__upload-photo {
-  width: 50%;
-  height: 100%;
-  padding: 0.5rem 1.2rem;
-  background-color: var(--accent);
-  color: #fff;
-  border-radius: 8px;
-  font-weight: 500;
-  cursor: pointer;
-  display: inline-block;
-  user-select: none;
-  transition: background-color 0.3s ease;
-  font-size: 14px;
-}
-
-.btn__upload-photo:hover {
-  background-color: #3b4894;
-}
-
-
-.photo__edit button {
-  width: 50%;
-  height: 100%;
-  padding: 0.5rem 1.2rem;
-  background-color: var(--accent);
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  font-size: 14px;
-}
-
-.photo__edit button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-.photo__edit button:hover:not(:disabled) {
-  background-color: #3b4894;
-}
-
-.profile__info {
-  margin-top: 2rem;
+  transform: translate(-50%, -50%);
+  top: 30%;
+  left: 50%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   padding: 2rem;
-  border: 1px solid rgba(221, 221, 221, 0.5);
-}
-
-.info__row {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1rem;
-  gap: 2px;
-}
-
-.info__row__top {
-  width: 100%;
-}
-
-.info__row__bottom {
-  width: 100%;
+  border-radius: 9px;
+  padding-top: 11rem;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-  min-height: 50px;
-  /* Garante altura mínima para alinhamento */
+  flex-direction: column;
 }
 
-.info__row label {
-  font-weight: bold;
-  margin-bottom: 0.2rem;
-  color: var(--text-dark);
-}
-
-.info__row input {
-  width: 100%;
-  max-width: 400px;
-  height: 50px;
-  padding: 0.8rem;
-  border: 1px solid rgba(221, 221, 221, 0.5);
-  border-radius: 9px;
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
-  color: #000 !important;
-  box-sizing: border-box;
-  background-color: #f4f8f9;
-}
-
-.info__row input:focus {
-  outline: none;
-  border-color: #000;
-}
-
-.info__row span {
-  line-height: 1.5;
-  padding: 0.4rem 0;
-  flex-grow: 1;
-  /* Faz o span ocupar espaço e alinhar melhor com o botão */
+.Profile__Box__img {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
   overflow: hidden;
-  color: var(--text-dark);
+  cursor: pointer;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.info__row button {
-  height: 40px;
+.Profile__Box__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: filter 0.3s ease;
+}
+
+.Profile__Box__img:hover img {
+  filter: brightness(0.5);
+}
+
+.Profile__Box__img__overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 2rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.Profile__Box__img:hover .Profile__Box__img__overlay {
+  opacity: 1;
+}
+
+.Profile__box__info {
+  width: 50%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.Profile__info__text.nome {
+  font-size: 3rem;
+}
+
+.Profile__info__text {
+  font-size: 1rem;
+}
+
+.Profile__edit {
+  width: auto;
+  min-width: 100px;
+  height: auto;
+  min-height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: 0.5rem;
+  gap: 10px;
+  transition: 0.3s ease;
+}
+
+.Profile__edit:hover .pencil {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.Profile__edit input {
+  border: none;
+  border-bottom: 1px solid #000;
+  border-radius: 0;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+}
+
+.Profile__edit input::placeholder {
+  color: #f4f4f4;
+}
+
+.Profile__edit input:focus {
+  outline: none;
+  color: #000;
+  border-radius: 0;
+}
+
+.Profile__edit button {
   background-color: transparent;
   border: none;
+}
+
+.Profile__edit button:hover {
+  scale: 1.1;
   cursor: pointer;
-  color: var(--accent);
 }
 
-.verified {
-  display: inline-block;
-  padding: 0.3rem 0.6rem;
-  background-color: var(--verified);
-  color: var(--verified-text);
-  font-weight: 600;
-  border-radius: 6px;
-  margin-left: 0.5rem;
-}
-
-.logout__section {
+.Profile__part {
+  width: 100%;
+  height: 1px;
+  padding-inline: 5rem;
   margin-top: 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  margin-bottom: 2rem;
 }
 
-.logout__section a,
-.logout__section button {
-  text-decoration: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--accent);
-  font-weight: 500;
-}
-
-.profile__details h3 {
-  color: var(--text-dark);
-  margin-bottom: 0.5rem;
-}
-
-.expertise__tags {
-  margin: 1rem 0;
-}
-
-.tag {
-  display: inline-block;
-  background-color: var(--tag-bg);
-  color: var(--tag-color);
-  padding: 0.4rem 0.8rem;
-  border-radius: 12px;
-  margin-right: 0.5rem;
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-
-.experience__lock,
-.rating__block {
-  margin-top: 1rem;
-  font-weight: 500;
-}
-
-.stars {
-  color: #f5a623;
-  font-size: 1.2rem;
-}
-
-.anuncios {
+.Profile__part__inside {
   width: 100%;
+  height: 100%;
+  background-color: rgb(37, 36, 34);
+  border-radius: 7px;
+}
+
+.Profile__loggout {
+  width: auto;
   height: auto;
-}
-
-.anuncio__item {
-  margin-top: 1rem;
-  padding: 1rem;
-  border: 1px solid var(--border-color);
-  border-radius: 10px;
-  background-color: #fafafa;
   display: flex;
-  flex-direction: row;
-  height: 150px;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 2rem;
+  transition: 0.3s ease;
 }
 
-.anuncio__item__left img {
+.Profile__loggout:hover {
+  scale: 1.1;
+  cursor: pointer;
+}
+
+.Anuncios {
   width: 100%;
-}
-
-.anuncio__item__left {
-  width: 30%;
-  height: 100%;
-}
-
-.anuncio__item__right {
-  width: 70%;
-  height: 100%;
-  padding: 1rem;
+  height: 200px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
+  gap: 20px;
 }
 
-.anuncios strong {
-  color: var(--accent);
-}
-
-@media (max-width: 768px) {
-  .profile__wrapper {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .logout__section {
-    flex-direction: column;
-    gap: 1rem;
-  }
+.Anuncio__card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  min-height: 100px;
 }
