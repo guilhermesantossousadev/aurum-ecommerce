@@ -30,4 +30,4 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: dist/
           server-dir: public_html/
-          delete: true # apaga arquivos antigos antes de enviar o novo build
+          dangerous-clean-slate: true
