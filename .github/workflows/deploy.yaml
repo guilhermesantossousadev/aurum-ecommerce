@@ -17,9 +17,16 @@ jobs:
         run: npm install
 
       - name: Build do projeto
-        run: |
-          chmod +x ./node_modules/.bin/vite
-          npm run build
+        run: npm run build
+
+      - name: Limpar public_html na Hostinger
+        uses: sebastianpopp/ftp-action@v2
+        with:
+          host: 46.17.175.80
+          user: u164307256
+          password: ${{ secrets.FTP_PASSWORD }}
+          command: |
+            rm -rf public_html/*
 
       - name: Enviar build via FTP para Hostinger
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4

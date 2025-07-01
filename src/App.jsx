@@ -24,7 +24,7 @@ const Contato = lazy(() => import("./pages/Contato"));
 const Servicos = lazy(() => import("./pages/Servicos"));
 const Carrinho = lazy(() => import("./pages/Carrinho"));
 const Register = lazy(() => import("./pages/Register"));
-const Login = lazy(() => import("./pages/Login"));
+const Login = lazy(() => import("./pages/Login"));  
 const Profile = lazy(() => import("./components/Profile"));
 const AdminPage = lazy(() => import("./pages/Admin/AdminPage"));
 const SuccessPage = lazy(() => import("./pages/StatusPages/SuccessPage"));
