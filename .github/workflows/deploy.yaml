@@ -19,14 +19,16 @@ jobs:
       - name: Build do projeto
         run: npm run build
 
-      - name: Limpar public_html na Hostinger
-        uses: sebastianpopp/ftp-action@v2
-        with:
-          host: 46.17.175.80
-          user: u164307256
-          password: ${{ secrets.FTP_PASSWORD }}
-          command: |
-            rm -rf public_html/*
+      - name: Limpar public_html na Hostinger via lftp
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y lftp
+          lftp -c "
+            open -u u164307256,${{ secrets.FTP_PASSWORD }} 46.17.175.80
+            mirror -R --delete --only-newer --verbose ./empty_folder/ public_html
+            rm -r public_html/*
+            quit
+          "
 
       - name: Enviar build via FTP para Hostinger
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
