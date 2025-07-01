@@ -108,7 +108,7 @@ function Home() {
             <div className="Home__delta__container">
               <div className="Home__delta__left">
                 <h2>
-                  Fred gay Aurum Lumine® é uma joalheria digital que une arte,
+                  Fred gay fred Aurum Lumine® é uma joalheria digital que une arte,
                   luxo e tecnologia para criar experiências exclusivas.
                   Especializada em joias cravejadas, transformamos elegância e valor cultural
                   em peças que refletem sofisticação e autenticidade.
