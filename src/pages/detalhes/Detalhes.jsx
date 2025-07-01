@@ -165,33 +165,26 @@ function Detalhes() {
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
+      setError(null);
       try {
-        setLoading(true);
+        // Fetch Anuncio
         const anuncioResponse = await fetch(
           `https://marketplacejoias-api-latest.onrender.com/api/Anuncio/GetByIdAnuncio?id=${id}`
         );
-        if (!anuncioResponse.ok)
+        if (!anuncioResponse.ok) {
           throw new Error("Não foi possível carregar os detalhes do anúncio");
+        }
         const anuncioData = await anuncioResponse.json();
         setAnuncio(anuncioData);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    if (id) fetchData();
-  }, [id]);
 
-  useEffect(() => {
-    const fetchJoia = async () => {
-      try {
-        setLoading(true);
+        // Fetch Joia using anuncioData.joiaId
         const joiaResponse = await fetch(
-          `https://marketplacejoias-api-latest.onrender.com/api/Joia/GetByIdJoia?id=${anuncio.joiaId}`
+          `https://marketplacejoias-api-latest.onrender.com/api/Joia/GetByIdJoia?id=${anuncioData.joiaId}`
         );
-        if (!joiaResponse.ok)
-          throw new Error("Não foi possível carregar os detalhes do joia");
+        if (!joiaResponse.ok) {
+          throw new Error("Não foi possível carregar os detalhes da joia");
+        }
         const joiaData = await joiaResponse.json();
         setJoia(joiaData);
       } catch (err) {
@@ -200,8 +193,11 @@ function Detalhes() {
         setLoading(false);
       }
     };
-    if (anuncio?.joiaId) fetchJoia();
-  }, [anuncio]);
+
+    if (id) {
+      fetchData();
+    }
+  }, [id]); // Dependência apenas do ID
 
   const formatarPreco = (preco) =>
     new Intl.NumberFormat("pt-BR", {
@@ -212,7 +208,9 @@ function Detalhes() {
   if (loading)
     return (
       <div className="detalhes__container">
-        <div className="loading__message">Carregando detalhes do joia...</div>
+        <div className="loading__message">
+          <div className="loading-spinner-detalhes"></div>
+        </div>
       </div>
     );
   if (error)
