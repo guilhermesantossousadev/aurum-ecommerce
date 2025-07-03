@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 
 import "../styles/pages/Catalogo.css";
 
@@ -11,30 +9,25 @@ import xpng from "../images/Common/x.png";
 
 function Catalogo() {
   const { tipo } = useParams();
-
   const navigate = useNavigate();
   const anunciosPerPage = 7;
-
-  const tipoInicial = tipo ? tipo : "Todos";
+  const tipoInicial = tipo ? tipo : "todos";
   const [selectedFilter, setSelectedFilter] = useState(tipoInicial);
-
   const [anuncios, setAnuncios] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
-
-  const [isAvaliable, setAvaliable] = useState(true);
-
-  const [showFilterModal, setShowFilterModal] = useState(false);
-
+  const [isAvaliable, setAvaliable] = useState("todos");
   const [showFilters, setShowFilters] = useState(false);
+
   const [tempFilter, setTempFilter] = useState({
     tipo: "todos",
     material: "",
     genero: "",
     precoMin: "",
     precoMax: "",
+    disponibilidade: "todos",
   });
 
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 1024);
@@ -45,131 +38,10 @@ function Catalogo() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  useEffect(() => {
-    getAnuncios();
-  }, []);
-
-  const ClearSearch = () => {
-    setSearchTerm("");
-  };
-
-  const renderFilters = () => (
-    <div className="filtersContent">
-      <h2>Tipos</h2>
-
-      <label>
-        <input
-          type="checkbox"
-          checked={tempFilter.tipo === "anel"}
-          onChange={() =>
-            setTempFilter({
-              ...tempFilter,
-              tipo: tempFilter.tipo === "anel" ? "todos" : "anel",
-            })
-          }
-        />
-        Anel
-      </label>
-      <label>
-        <input
-          type="checkbox"
-          checked={tempFilter.tipo === "brinco"}
-          onChange={() =>
-            setTempFilter({
-              ...tempFilter,
-              tipo: tempFilter.tipo === "brinco" ? "todos" : "brinco",
-            })
-          }
-        />
-        Brinco
-      </label>
-
-      <label>
-        <input
-          type="checkbox"
-          checked={tempFilter.tipo === "relogio"}
-          onChange={() =>
-            setTempFilter({
-              ...tempFilter,
-              tipo: tempFilter.tipo === "relogio" ? "todos" : "relogio",
-            })
-          }
-        />
-        Relogio
-      </label>
-
-      <label>
-        <input
-          type="checkbox"
-          checked={tempFilter.tipo === "colar"}
-          onChange={() =>
-            setTempFilter({
-              ...tempFilter,
-              tipo: tempFilter.tipo === "colar" ? "todos" : "colar",
-            })
-          }
-        />
-        Colar
-      </label>
-
-      <label>
-        <input
-          type="checkbox"
-          checked={tempFilter.tipo === "piercing"}
-          onChange={() =>
-            setTempFilter({
-              ...tempFilter,
-              tipo: tempFilter.tipo === "piercing" ? "todos" : "piercing",
-            })
-          }
-        />
-        Piercing
-      </label>
-
-      <label>
-        <input
-          type="checkbox"
-          checked={tempFilter.tipo === "pingente"}
-          onChange={() =>
-            setTempFilter({
-              ...tempFilter,
-              tipo: tempFilter.tipo === "pingente" ? "todos" : "pingente",
-            })
-          }
-        />
-        Pingente
-      </label>
-
-      <label>
-        <input
-          type="checkbox"
-          checked={tempFilter.tipo === "pulseira"}
-          onChange={() =>
-            setTempFilter({
-              ...tempFilter,
-              tipo: tempFilter.tipo === "pulseira" ? "todos" : "pulseira",
-            })
-          }
-        />
-        Pulseira
-      </label>
-
-      {/* Repita para os outros tipos */}
-
-      <div className="filtersButtons">
-        <button
-          onClick={() => {
-            setSelectedFilter(tempFilter.tipo);
-            setShowFilters(false); // Fecha o modal ou dropdown
-          }}
-        >
-          Aplicar
-        </button>
-      </div>
-    </div>
-  );
+  const ClearSearch = () => setSearchTerm("");
 
   const capitalizeFirstLetter = (string) => {
+    if (!string) return "";
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
 
@@ -202,7 +74,7 @@ function Catalogo() {
     .filter((anuncio) =>
       selectedFilter === "todos"
         ? true
-        : anuncio.tipoPeca.toLowerCase() === selectedFilter
+        : anuncio.tipoPeca?.toLowerCase() === selectedFilter
     )
     .filter((anuncio) => {
       if (!searchTerm) return true;
@@ -212,15 +84,20 @@ function Catalogo() {
         titulo.includes(searchTerm.toLowerCase()) ||
         descricao.includes(searchTerm.toLowerCase())
       );
+    })
+    .filter((anuncio) => {
+      if (isAvaliable === "todos") return true;
+      if (isAvaliable === "disponivel") return anuncio.isAvaliable === true;
+      if (isAvaliable === "indisponivel") return anuncio.isAvaliable === false;
+      return true;
     });
 
-  const indexOfLastAnuncio = currentPage * anunciosPerPage;
-  const indexOfFirstAnuncio = indexOfLastAnuncio - anunciosPerPage;
-  const currentAnuncios = anunciosFiltrados.slice(
-    indexOfFirstAnuncio,
-    indexOfLastAnuncio
-  );
   const totalPages = Math.ceil(anunciosFiltrados.length / anunciosPerPage);
+
+  const currentAnuncios = anunciosFiltrados.slice(
+    (currentPage - 1) * anunciosPerPage,
+    currentPage * anunciosPerPage
+  );
 
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -230,6 +107,76 @@ function Catalogo() {
   const handleAnuncioClick = (anuncioId) => {
     navigate(`/detalhes/${anuncioId}`);
   };
+
+  const renderFilters = () => (
+    <div className="filtersContent">
+      <div className="filtersContent__container">
+        <div className="filtersContent__item">
+          <h2>Tipos</h2>
+          {[
+            "anel",
+            "brinco",
+            "relogio",
+            "colar",
+            "piercing",
+            "pingente",
+            "pulseira",
+          ].map((tipo) => (
+            <label key={tipo}>
+              <input
+                type="checkbox"
+                checked={tempFilter.tipo === tipo}
+                onChange={() =>
+                  setTempFilter({
+                    ...tempFilter,
+                    tipo: tempFilter.tipo === tipo ? "todos" : tipo,
+                  })
+                }
+              />
+              {tipo.charAt(0).toUpperCase() + tipo.slice(1)}
+            </label>
+          ))}
+        </div>
+
+        <div className="filtersContent__item">
+          <h2>Disponibilidade</h2>
+          {["todos", "disponivel", "indisponivel"].map((status) => (
+            <label key={status}>
+              <input
+                type="checkbox"
+                checked={tempFilter.disponibilidade === status}
+                onChange={() =>
+                  setTempFilter({
+                    ...tempFilter,
+                    disponibilidade:
+                      tempFilter.disponibilidade === status ? "todos" : status,
+                  })
+                }
+              />
+              {status === "todos"
+                ? "Todos"
+                : status === "disponivel"
+                ? "Disponível"
+                : "Indisponível"}
+            </label>
+          ))}
+        </div>
+      </div>
+
+      <div className="filtersButtons">
+        <button
+          onClick={() => {
+            setSelectedFilter(tempFilter.tipo);
+            setAvaliable(tempFilter.disponibilidade);
+            setShowFilters(false);
+            setCurrentPage(1);
+          }}
+        >
+          Aplicar
+        </button>
+      </div>
+    </div>
+  );
 
   return (
     <div className="Catalogo">
@@ -254,22 +201,23 @@ function Catalogo() {
         </div>
       </div>
 
-      {/* Botão de Filtro */}
       <div className="Catalogo__filters__button">
         <div className="Catalogo__filters__button__item">
           <button
             onClick={() => {
-              const reset = {
+              setTempFilter({
                 tipo: "todos",
                 material: "",
                 genero: "",
                 precoMin: "",
                 precoMax: "",
-              };
-              setTempFilter(reset);
+                disponibilidade: "todos",
+              });
               setSelectedFilter("todos");
-              setShowFilters(false); // Fecha o modal/dropdown ao limpar
+              setAvaliable("todos");
+              setShowFilters(false);
               ClearSearch();
+              setCurrentPage(1);
             }}
           >
             Limpar
@@ -285,19 +233,12 @@ function Catalogo() {
         </div>
       </div>
 
-      {/* Modal de Filtros */}
-      {showFilters && (
-        <div className="dropdownFilters">
-          {/* Dropdown */}
-          {renderFilters()}
-        </div>
-      )}
+      {showFilters && <div className="dropdownFilters">{renderFilters()}</div>}
 
-      {/* Anúncios */}
       <div className="anuncios__container">
         {loading && <p>Carregando anúncios...</p>}
         {error && <p className="error__message">{error}</p>}
-        {!loading && !error && anunciosFiltrados.length === 0 && (
+        {!loading && !error && currentAnuncios.length === 0 && (
           <p>Nenhum anúncio encontrado.</p>
         )}
         <div className="anuncios__grid">
@@ -305,9 +246,9 @@ function Catalogo() {
             <div
               key={anuncio.id}
               className={`anuncio__card ${
-                anuncio.isAvaliable === true ? "" : "isAvaliable"
+                anuncio.isAvaliable ? "" : "isAvaliable"
               }`}
-              onClick={() => handleAnuncioClick(anuncio.id, anuncio.joiaId)}
+              onClick={() => handleAnuncioClick(anuncio.id)}
             >
               <div className="Catalogo__part">
                 <div className="Catalogo__part__inside"></div>
@@ -324,20 +265,14 @@ function Catalogo() {
                 </div>
                 <h3>{anuncio.titulo}</h3>
                 <p>{anuncio.descricao}</p>
-
                 <div className="anuncio__card__seta">
-                  <img
-                    src={SetaPretaDireita}
-                    alt="SetaPretaDireita"
-                    width="10px"
-                  />
+                  <img src={SetaPretaDireita} alt="Seta" width="10px" />
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Paginação */}
         {totalPages > 1 && (
           <div className="pagination">
             <button
