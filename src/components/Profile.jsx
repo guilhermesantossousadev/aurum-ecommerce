@@ -302,27 +302,38 @@ const Profile = () => {
           <div className="Profile__part">
             <div className="Profile__part__inside"></div>
           </div>
-          <h3>Anúncios Cadastrados</h3>
-          <p>Estes são os anúncios que você cadastrou no nosso site.</p>
-          {anuncios.length === 0 ? (
-            <p>Você não possui anúncios cadastrados.</p>
-          ) : (
-            <div className="Anuncios">
-              {anuncios.map((anuncio) => (
-                <div key={anuncio.id} className="Anuncio__card">
-                  <div>
-                    {anuncio.urls && anuncio.urls.length > 0 && (
-                      <img src={anuncio.urls[0]} alt={anuncio.titulo} />
-                    )}
+
+          <div className="Profile__anuncios">
+            <h3>Anúncios Cadastrados</h3>
+            <p>Estes são os anúncios que você cadastrou no nosso site.</p>
+            {anuncios.length === 0 ? (
+              <p>Você não possui anúncios cadastrados.</p>
+            ) : (
+              <div className="Anuncios">
+                {anuncios.map((anuncio) => (
+                  <div key={anuncio.id} className="Anuncio__card">
+                    <div className="Anuncio__card__image">
+                      {anuncio.urLs?.[0] ? (
+                        <img
+                          src={anuncio.urLs[0]}
+                          alt="Imagem do anúncio"
+                          className="anuncio__image"
+                        />
+                      ) : (
+                        <div className="Anuncio__card__image">
+                          <p>Este anúncio não possui imagem.</p>
+                        </div>
+                      )}
+                    </div>
+                    <div>
+                      <h4>{anuncio.titulo}</h4>
+                      <p>Tipo: {anuncio.tipoPeca}</p>
+                    </div>
                   </div>
-                  <div>
-                    <h4>{anuncio.titulo}</h4>
-                    <p>Tipo: {anuncio.tipoPeca}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
