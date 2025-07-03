@@ -325,7 +325,7 @@ const Profile = () => {
                         </div>
                       )}
                     </div>
-                    <div>
+                    <div className="Anuncio__card__info">
                       <h4>{anuncio.titulo}</h4>
                       <p>Tipo: {anuncio.tipoPeca}</p>
                     </div>
