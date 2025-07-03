@@ -120,6 +120,29 @@
   flex-wrap: wrap; /* permite quebra em telas médias */
 }
 
+.frete__container.isAvaliable {
+  display: none;
+}
+
+.anuncio__notAvaliable {
+  display: none;
+}
+
+.anuncio__notAvaliable.isAvaliable {
+  display: block;
+  width: 100%;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.anuncio__notAvaliable.isAvaliable h1{
+  color: #fff;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
 .frete__container__item {
   flex: 1;
   min-width: 250px; /* garante largura mínima em colunas */

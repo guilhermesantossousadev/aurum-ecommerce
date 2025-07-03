@@ -11,6 +11,10 @@ import xpng from "../images/Common/x.png";
 
 function Catalogo() {
   const { tipo } = useParams();
+
+  const navigate = useNavigate();
+  const anunciosPerPage = 7;
+
   const tipoInicial = tipo ? tipo : "Todos";
   const [selectedFilter, setSelectedFilter] = useState(tipoInicial);
 
@@ -19,9 +23,10 @@ function Catalogo() {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
+
+  const [isAvaliable, setAvaliable] = useState(true);
+
   const [showFilterModal, setShowFilterModal] = useState(false);
-  const navigate = useNavigate();
-  const anunciosPerPage = 7;
 
   const [showFilters, setShowFilters] = useState(false);
   const [tempFilter, setTempFilter] = useState({
@@ -299,7 +304,9 @@ function Catalogo() {
           {currentAnuncios.map((anuncio) => (
             <div
               key={anuncio.id}
-              className="anuncio__card"
+              className={`anuncio__card ${
+                anuncio.isAvaliable === true ? "" : "isAvaliable"
+              }`}
               onClick={() => handleAnuncioClick(anuncio.id, anuncio.joiaId)}
             >
               <div className="Catalogo__part">

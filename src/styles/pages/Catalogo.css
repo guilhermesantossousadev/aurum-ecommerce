@@ -300,6 +300,11 @@
   position: relative;
 }
 
+.anuncio__card.isAvaliable {
+  opacity: 0.5;
+  filter: grayscale(0.3);
+}
+
 .anuncio__card__container {
   display: flex;
   flex-direction: row;

@@ -253,7 +253,11 @@ function Detalhes() {
                 </p>
               </div>
             </div>
-            <div className="frete__container">
+            <div
+              className={`frete__container ${
+                anuncio.isAvaliable === true ? "" : "isAvaliable"
+              }`}
+            >
               <div
                 className={`frete__container__item ${isCalculed ? "left" : ""}`}
               >
@@ -296,6 +300,13 @@ function Detalhes() {
                   </div>
                 )}
               </div>
+            </div>
+            <div
+              className={`anuncio__notAvaliable ${
+                anuncio.isAvaliable === true ? "" : "isAvaliable"
+              }`}
+            >
+              <h1>Anuncio não disponível</h1>
             </div>
           </div>
         </div>
