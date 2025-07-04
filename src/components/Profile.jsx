@@ -1,14 +1,15 @@
-import { FaPencilAlt } from "react-icons/fa"; // já importa lá em cima
-import { useState, useEffect } from "react";
+import { FaPencilAlt } from "react-icons/fa";
+import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/userSlice";
-import { Link, useNavigate } from "react-router-dom";
-import { Toaster, toast } from "sonner";
-import ximg from "../images/Common/x.png";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+
+import perfil from "../images/Common/perfil.png";
+
 import { FaSignOutAlt, FaSave } from "react-icons/fa";
 
 import "../styles/components/Profile.css";
-import { div } from "framer-motion/client";
 
 const Profile = () => {
   const user = useSelector((state) => state.user);
@@ -21,14 +22,13 @@ const Profile = () => {
   const [idade, setIdade] = useState(user.idade);
   const [nome, setNome] = useState(user.nome);
 
-  const [showUpload, setShowUpload] = useState(false);
-
   const [profileImage, setProfileImage] = useState(user.fotoPerfilURL);
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploading, setUploading] = useState(false);
-  const [isEditingPhoto, setIsEditingPhoto] = useState(false);
 
   const [anuncios, setAnuncios] = useState([]);
+
+  const inputFileRef = useRef(null);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -91,21 +91,23 @@ const Profile = () => {
     await updateUserData({ [field]: values[field] });
   };
 
-  const handleFileChange = (e) => {
+  const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
       setSelectedFile(file);
       const reader = new FileReader();
       reader.onloadend = () => setProfileImage(reader.result);
       reader.readAsDataURL(file);
+
+      await handleUploadImage(file);
     }
   };
 
-  const handleUploadImage = async () => {
-    if (!selectedFile) return toast("Selecione uma imagem.");
+  const handleUploadImage = async (file) => {
+    if (!file) return toast("Selecione uma imagem.");
     setUploading(true);
     const formData = new FormData();
-    formData.append("file", selectedFile);
+    formData.append("file", file);
     formData.append("usuarioId", user.id);
     try {
       const res = await fetch(
@@ -115,7 +117,6 @@ const Profile = () => {
       if (!res.ok) throw new Error();
       toast.success("Imagem atualizada!");
       setSelectedFile(null);
-      setIsEditingPhoto(false);
     } catch {
       toast.error("Erro ao enviar imagem");
     } finally {
@@ -130,177 +131,89 @@ const Profile = () => {
         <div className="Profile__Box">
           <div
             className="Profile__Box__img"
-            onClick={() => setIsEditingPhoto(true)}
+            onClick={() => inputFileRef.current.click()}
+            style={{ cursor: "pointer" }}
           >
-            <img src={profileImage} alt="Foto" />
+            
+            {user.profileImage === null ? (
+              <img src={profileImage} alt="Foto" />
+            ) : (
+              <img src={perfil} alt="Foto" />
+            )}
+
             <div className="Profile__Box__img__overlay">
               <FaPencilAlt size={30} color="#fff" />
             </div>
           </div>
-          {isEditingPhoto && (
-            <div className="Profile__box__img__upload">
-              <input
-                id="upload-photo"
-                type="file"
-                accept="image/*"
-                onChange={handleFileChange}
-                style={{ display: "none" }}
-              />
-              <label htmlFor="upload-photo" className="upload-label">
-                Selecionar imagem
-              </label>
-              <button onClick={handleUploadImage} disabled={uploading}>
-                {uploading ? "Enviando..." : "Enviar"}
-              </button>
-              <button onClick={() => setIsEditingPhoto(false)}>
-                <img src={ximg} alt="Cancelar" width="10px" />
-              </button>
-            </div>
-          )}
+          <input
+            ref={inputFileRef}
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            style={{ display: "none" }}
+          />
+
           <div className="Profile__box__info">
-            <div className="Profile__info__item">
-              <div className="Profile__info__item__content">
-                {editField === "nome" ? (
-                  <>
+            {/* Campos Nome, Email, CPF, Idade - mantidos sem alteração */}
+            {["nome", "email", "cpf", "idade"].map((field) => (
+              <div key={field} className="Profile__info__item">
+                <div className="Profile__info__item__content">
+                  {editField === field ? (
                     <div className="Profile__edit">
                       <input
                         className="Profile__info__input"
-                        value={nome}
-                        onChange={(e) => setNome(e.target.value)}
+                        value={
+                          field === "nome"
+                            ? nome
+                            : field === "email"
+                            ? email
+                            : field === "cpf"
+                            ? cpf
+                            : idade
+                        }
+                        onChange={(e) =>
+                          field === "nome"
+                            ? setNome(e.target.value)
+                            : field === "email"
+                            ? setEmail(e.target.value)
+                            : field === "cpf"
+                            ? setCpf(e.target.value)
+                            : setIdade(e.target.value)
+                        }
                       />
                       <button
                         className="Profile__info__saveButton"
-                        onClick={() => handleSave("nome")}
+                        onClick={() => handleSave(field)}
                       >
                         <FaSave size={30} color="#000" />
                       </button>
                     </div>
-                  </>
-                ) : (
-                  <>
+                  ) : (
                     <div className="Profile__edit">
-                      <span className="Profile__info__text nome">{nome}</span>
+                      <span className="Profile__info__text">
+                        {field === "nome"
+                          ? nome
+                          : field === "email"
+                          ? email
+                          : field === "cpf"
+                          ? cpf
+                          : idade}
+                      </span>
                       <FaPencilAlt
                         size={30}
                         color="#000"
-                        onClick={() => setEditField("nome")}
+                        onClick={() => setEditField(field)}
                         className="pencil"
                       />
                     </div>
-                  </>
-                )}
+                  )}
+                </div>
               </div>
-            </div>
-
-            <div className="Profile__info__item">
-              <div className="Profile__info__item__content">
-                {editField === "email" ? (
-                  <>
-                    <div className="Profile__edit">
-                      <input
-                        className="Profile__info__input"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                      />
-                      <button
-                        className="Profile__info__saveButton"
-                        onClick={() => handleSave("email")}
-                      >
-                        <FaSave size={30} color="#000" />
-                      </button>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div className="Profile__edit">
-                      <span className="Profile__info__text">{email}</span>
-                      <FaPencilAlt
-                        size={30}
-                        color="#000"
-                        onClick={() => setEditField("email")}
-                        className="pencil"
-                      />
-                    </div>
-                  </>
-                )}
-              </div>
-            </div>
-
-            <div className="Profile__info__item">
-              <div className="Profile__info__item__content">
-                {editField === "cpf" ? (
-                  <>
-                    <div className="Profile__edit">
-                      <input
-                        className="Profile__info__input"
-                        value={cpf}
-                        onChange={(e) => setCpf(e.target.value)}
-                      />
-                      <button
-                        className="Profile__info__saveButton"
-                        onClick={() => handleSave("cpf")}
-                      >
-                        <FaSave size={30} color="#000" />
-                      </button>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div className="Profile__edit">
-                      <span className="Profile__info__text">{cpf}</span>
-                      <FaPencilAlt
-                        size={30}
-                        color="#000"
-                        onClick={() => setEditField("cpf")}
-                        className="pencil"
-                      />
-                    </div>
-                  </>
-                )}
-              </div>
-            </div>
-
-            <div className="Profile__info__item">
-              <div className="Profile__info__item__content">
-                {editField === "idade" ? (
-                  <>
-                    <div className="Profile__edit">
-                      <input
-                        className="Profile__info__input"
-                        value={idade}
-                        onChange={(e) => setIdade(e.target.value)}
-                      />
-                      <button
-                        className="Profile__info__saveButton"
-                        onClick={() => handleSave("idade")}
-                      >
-                        <FaSave size={30} color="#000" />
-                      </button>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div className="Profile__edit">
-                      <span className="Profile__info__text">{idade}</span>
-                      <FaPencilAlt
-                        size={30}
-                        color="#000"
-                        onClick={() => setEditField("idade")}
-                        className="pencil"
-                      />
-                    </div>
-                  </>
-                )}
-              </div>
-            </div>
+            ))}
           </div>
 
           <div className="Profile__loggout">
             <FaSignOutAlt size={30} color="#000" onClick={handleLogout} /> Sair
-          </div>
-
-          <div className="Profile__part">
-            <div className="Profile__part__inside"></div>
           </div>
 
           <div className="Profile__anuncios">

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Toaster, toast } from 'sonner';
+import { Toaster, toast } from "sonner";
 
 import "../../styles/Cruds/Cruds.css";
 
@@ -25,69 +25,6 @@ function CrudJoias() {
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const confirmDelete = (id) => {
-    toast(
-      ({ closeToast }) => (
-        <div>
-          <p>Tem certeza que deseja deletar esta joia?</p>
-          <div style={{ marginTop: "10px", display: "flex", gap: "8px" }}>
-            <button
-              onClick={async () => {
-                await handleDelete(id);
-                closeToast();
-              }}
-              style={{
-                backgroundColor: "#d9534f",
-                color: "#fff",
-                border: "none",
-                padding: "6px 12px",
-                cursor: "pointer",
-              }}
-            >
-              Deletar
-            </button>
-            <button
-              onClick={closeToast}
-              style={{
-                backgroundColor: "#6c757d",
-                color: "#fff",
-                border: "none",
-                padding: "6px 12px",
-                cursor: "pointer",
-              }}
-            >
-              Cancelar
-            </button>
-          </div>
-        </div>
-      ),
-      {
-        autoClose: false,
-        closeOnClick: false,
-        closeButton: false,
-        draggable: false,
-      }
-    );
-  };
-
-  const handleDelete = async (id) => {
-    try {
-      const response = await fetch(`${apiBaseUrl}/DeleteJoia?id=${id}`, {
-        method: "DELETE",
-      });
-      if (!response.ok) throw new Error("Erro ao excluir joia.");
-      toast.success("Joia excluída com sucesso!");
-      fetchJoias();
-    } catch (error) {
-      toast.error(error.message);
-    }
-  };
-
-  const handleEdit = (joia) => {
-    toast.info(`Função de edição chamada para a joia ID ${joia.id}`);
-    // Aqui você pode abrir um modal ou definir um estado para edição
   };
 
   return (
@@ -123,9 +60,6 @@ function CrudJoias() {
                 </div>
                 <div className="Principal__box__item__inside acoes">
                   <button onClick={() => handleEdit(joia)}>Editar</button>
-                  <button onClick={() => confirmDelete(joia.id)}>
-                    Excluir
-                  </button>
                 </div>
               </li>
             ))}

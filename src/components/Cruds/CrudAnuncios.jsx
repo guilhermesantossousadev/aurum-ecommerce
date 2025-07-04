@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Toaster, toast } from 'sonner';
+import { Toaster, toast } from "sonner";
 import { Link } from "react-router-dom";
 
 import "../../styles/Cruds/Cruds.css";
 import PostAnuncios from "./Actions/PostAnuncios";
+
+const apiBaseUrl =
+  "https://marketplacejoias-api-latest.onrender.com/api/Anuncio";
 
 function CrudAnuncios() {
   const user = useSelector((state) => state.user);
@@ -91,71 +94,70 @@ function CrudAnuncios() {
     }
   }
 
-  async function confirmDelete(id) {
+  const confirmDelete = (id) => {
+    const toastId = toast.custom((t) => (
+      <div
+        style={{
+          background: "white",
+          padding: "1rem",
+          borderRadius: "8px",
+          maxWidth: "300px",
+          textAlign: "center",
+        }}
+      >
+        <p>Tem certeza que deseja deletar este Anuncio?</p>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            gap: "10px",
+            marginTop: "10px",
+          }}
+        >
+          <button
+            onClick={async () => {
+              await handleDelete(id);
+              toast.dismiss(t.id); // Fecha o toast após deletar
+            }}
+            style={{
+              background: "#d9534f",
+              color: "white",
+              border: "none",
+              padding: "6px 12px",
+              cursor: "pointer",
+            }}
+          >
+            Deletar
+          </button>
+          <button
+            onClick={() => toast.dismiss(t.id)}
+            style={{
+              background: "#6c757d",
+              color: "white",
+              border: "none",
+              padding: "6px 12px",
+              cursor: "pointer",
+            }}
+          >
+            Cancelar
+          </button>
+        </div>
+      </div>
+    ));
+  };
+
+  const handleDelete = async (id) => {
     try {
-      const response = await fetch(
-        `https://marketplacejoias-api-latest.onrender.com/api/Anuncio/DeleteAnuncio?id=${id}`,
-        {
-          method: "DELETE",
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(`Erro ao deletar anúncio: ${response.status}`);
-      }
-
-      toast.success("Anúncio deletado com sucesso!");
+      const response = await fetch(`${apiBaseUrl}/DeleteAnuncio?id=${id}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) throw new Error("Erro ao excluir Anuncio.");
+      toast.success("Anuncio excluído com sucesso!");
       fetchAnuncios();
     } catch (error) {
-      toast.error(`Erro ao deletar anúncio: ${error.message}`);
+      toast.error(error.message);
     }
-  }
-
-  function handleDeleteAnuncio(id) {
-    toast(
-      ({ closeToast }) => (
-        <div>
-          <p>Tem certeza que deseja deletar este anúncio?</p>
-          <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
-            <button
-              onClick={async () => {
-                await confirmDelete(id);
-                closeToast();
-              }}
-              style={{
-                background: "#d9534f",
-                color: "white",
-                border: "none",
-                padding: "6px 12px",
-                cursor: "pointer",
-              }}
-            >
-              Deletar
-            </button>
-            <button
-              onClick={closeToast}
-              style={{
-                background: "#6c757d",
-                color: "white",
-                border: "none",
-                padding: "6px 12px",
-                cursor: "pointer",
-              }}
-            >
-              Cancelar
-            </button>
-          </div>
-        </div>
-      ),
-      {
-        autoClose: false,
-        closeOnClick: false,
-        closeButton: false,
-        draggable: false,
-      }
-    );
-  }
-
+  };
   return (
     <div className="Separator">
       {step === 0 && (
@@ -197,7 +199,7 @@ function CrudAnuncios() {
                           Editar
                         </button>
                       )}
-                      <button onClick={() => handleDeleteAnuncio(anuncio.id)}>
+                      <button onClick={() => confirmDelete(anuncio.id)}>
                         Deletar
                       </button>
                     </div>

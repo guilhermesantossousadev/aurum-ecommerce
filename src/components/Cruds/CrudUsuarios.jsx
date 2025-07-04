@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Toaster, toast } from 'sonner';
-
-import UsuarioForm from "../Cruds/Actions/PostUsuario";
+import { Toaster, toast } from "sonner";
+import UsuarioForm from "../Cruds/Actions/PostUsuario"; // Confirme se o caminho está correto
 
 const apiBaseUrl =
   "https://marketplacejoias-api-latest.onrender.com/api/Usuario";
@@ -33,7 +32,7 @@ function CrudUsuarios() {
       const data = await response.json();
       setUsuarios(data);
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.message || "Erro ao buscar usuários.");
     } finally {
       setIsLoading(false);
     }
@@ -54,8 +53,9 @@ function CrudUsuarios() {
       toast.success("Usuário criado com sucesso!");
       fetchUsuarios();
       setForm(initialFormState);
+      setStep(0);
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.message || "Erro ao criar usuário.");
     }
   };
 
@@ -72,54 +72,10 @@ function CrudUsuarios() {
       fetchUsuarios();
       setForm(initialFormState);
       setEditId(null);
+      setStep(0);
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.message || "Erro ao atualizar usuário.");
     }
-  };
-
-  const confirmDelete = (id) => {
-    toast(
-      ({ closeToast }) => (
-        <div>
-          <p>Tem certeza que deseja deletar este usuário?</p>
-          <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
-            <button
-              onClick={async () => {
-                await handleDelete(id);
-                closeToast();
-              }}
-              style={{
-                background: "#d9534f",
-                color: "white",
-                border: "none",
-                padding: "6px 12px",
-                cursor: "pointer",
-              }}
-            >
-              Deletar
-            </button>
-            <button
-              onClick={closeToast}
-              style={{
-                background: "#6c757d",
-                color: "white",
-                border: "none",
-                padding: "6px 12px",
-                cursor: "pointer",
-              }}
-            >
-              Cancelar
-            </button>
-          </div>
-        </div>
-      ),
-      {
-        autoClose: false,
-        closeOnClick: false,
-        closeButton: false,
-        draggable: false,
-      }
-    );
   };
 
   const handleDelete = async (id) => {
@@ -131,10 +87,62 @@ function CrudUsuarios() {
       toast.success("Usuário excluído com sucesso!");
       fetchUsuarios();
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.message || "Erro ao excluir usuário.");
     }
   };
 
+  const confirmDelete = (id) => {
+    const toastId = toast.custom((t) => (
+      <div
+        style={{
+          background: "white",
+          padding: "1rem",
+          borderRadius: "8px",
+          maxWidth: "300px",
+          textAlign: "center",
+        }}
+      >
+        <p>Tem certeza que deseja deletar este Anuncio?</p>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            gap: "10px",
+            marginTop: "10px",
+          }}
+        >
+          <button
+            onClick={async () => {
+              await handleDelete(id);
+              toast.dismiss(t.id); // Fecha o toast após deletar
+            }}
+            style={{
+              background: "#d9534f",
+              color: "white",
+              border: "none",
+              padding: "6px 12px",
+              cursor: "pointer",
+            }}
+          >
+            Deletar
+          </button>
+          <button
+            onClick={() => toast.dismiss(t.id)}
+            style={{
+              background: "#6c757d",
+              color: "white",
+              border: "none",
+              padding: "6px 12px",
+              cursor: "pointer",
+            }}
+          >
+            Cancelar
+          </button>
+        </div>
+      </div>
+    ));
+  };
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     if (editId) {
@@ -146,18 +154,31 @@ function CrudUsuarios() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
+    setForm({
+      ...form,
+      [name]: name === "idade" || name === "numero" ? Number(value) : value,
+    });
   };
 
   const handleEdit = (usuario) => {
-    setForm(usuario);
+    setForm({
+      nome: usuario.nome || "",
+      cpf: usuario.cpf || "",
+      idade: usuario.idade || 0,
+      email: usuario.email || "",
+      password: "",
+      cep: usuario.cep || "",
+      numero: usuario.numero || 0,
+      complemento: usuario.complemento || "",
+      endereco: usuario.endereco || "",
+    });
     setEditId(usuario.id);
     setStep(1);
   };
 
   return (
     <div className="Separator">
-      {step === 1 && (
+      {step === 1 ? (
         <div>
           <div className="Principal__Create">
             <button
@@ -180,9 +201,7 @@ function CrudUsuarios() {
             />
           </div>
         </div>
-      )}
-
-      {step === 0 && (
+      ) : (
         <div className="Principal">
           <div className="Principal__Create">
             <button
@@ -206,11 +225,9 @@ function CrudUsuarios() {
             </div>
 
             {isLoading ? (
-              <p className="Principal__box__item__inside">Carregando...</p>
+              <p>Carregando usuários...</p>
             ) : usuarios.length === 0 ? (
-              <p className="Principal__box__item__inside">
-                Nenhum usuário encontrado.
-              </p>
+              <p>Nenhum usuário encontrado.</p>
             ) : (
               <ul>
                 {usuarios.map((usuario) => (
@@ -225,11 +242,9 @@ function CrudUsuarios() {
                       {usuario.email}
                     </div>
                     <div className="Principal__box__item__inside acoes">
-                      {usuario.isAdmin && (
-                        <button onClick={() => handleEdit(usuario)}>
-                          Editar
-                        </button>
-                      )}
+                      <button onClick={() => handleEdit(usuario)}>
+                        Editar
+                      </button>
                       <button onClick={() => confirmDelete(usuario.id)}>
                         Excluir
                       </button>

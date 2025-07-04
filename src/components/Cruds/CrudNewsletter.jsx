@@ -1,6 +1,6 @@
 // ... imports
 import React, { useState, useEffect } from "react";
-import { Toaster, toast } from 'sonner';
+import { Toaster, toast } from "sonner";
 
 import PostNewsletter from "../Cruds/Actions/PostNewsletter";
 import SendNewsletterMessage from "../Cruds/Actions/PostNewsletterMessage";
@@ -78,48 +78,54 @@ function CrudNewsletter() {
   };
 
   const confirmDelete = (id) => {
-    toast(
-      ({ closeToast }) => (
-        <div>
-          <p>Tem certeza que deseja excluir esta newsletter?</p>
-          <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
-            <button
-              onClick={async () => {
-                await handleDelete(id);
-                closeToast();
-              }}
-              style={{
-                background: "#d9534f",
-                color: "white",
-                border: "none",
-                padding: "6px 12px",
-                cursor: "pointer",
-              }}
-            >
-              Excluir
-            </button>
-            <button
-              onClick={closeToast}
-              style={{
-                background: "#6c757d",
-                color: "white",
-                border: "none",
-                padding: "6px 12px",
-                cursor: "pointer",
-              }}
-            >
-              Cancelar
-            </button>
-          </div>
+    const toastId = toast.custom((t) => (
+      <div
+        style={{
+          background: "white",
+          padding: "1rem",
+          borderRadius: "8px",
+          maxWidth: "300px",
+          textAlign: "center",
+        }}
+      >
+        <p>Tem certeza que deseja deletar este cadastro da newsletter?</p>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            gap: "10px",
+            marginTop: "10px",
+          }}
+        >
+          <button
+            onClick={async () => {
+              await handleDelete(id);
+            }}
+            style={{
+              background: "#d9534f",
+              color: "white",
+              border: "none",
+              padding: "6px 12px",
+              cursor: "pointer",
+            }}
+          >
+            Deletar
+          </button>
+          <button
+            onClick={() => toast.dismiss(t.id)}
+            style={{
+              background: "#6c757d",
+              color: "white",
+              border: "none",
+              padding: "6px 12px",
+              cursor: "pointer",
+            }}
+          >
+            Cancelar
+          </button>
         </div>
-      ),
-      {
-        autoClose: false,
-        closeOnClick: false,
-        closeButton: false,
-        draggable: false,
-      }
-    );
+      </div>
+    ));
   };
 
   const handleSubmit = (e) => {

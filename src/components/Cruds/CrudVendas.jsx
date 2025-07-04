@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Toaster, toast } from 'sonner';
+import { Toaster, toast } from "sonner";
 import "../../styles/Cruds/Cruds.css";
 
 const apiBaseUrl = "https://marketplacejoias-api-latest.onrender.com/api/Venda";
@@ -36,69 +36,11 @@ function CrudVendas() {
     fetchVendas();
   }, []);
 
-  const handleDelete = async (id) => {
-    try {
-      const response = await fetch(`${apiBaseUrl}/DeleteVenda?id=${id}`, {
-        method: "DELETE",
-      });
-      if (!response.ok) throw new Error("Erro ao excluir venda.");
-      toast.success("Venda excluída com sucesso!");
-      fetchVendas();
-    } catch (error) {
-      toast.error(error.message);
-    }
-  };
-
-  const confirmDelete = (id) => {
-    toast(
-      ({ closeToast }) => (
-        <div>
-          <p>Tem certeza que deseja deletar esta venda?</p>
-          <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
-            <button
-              onClick={async () => {
-                await handleDelete(id);
-                closeToast();
-              }}
-              style={{
-                background: "#d9534f",
-                color: "white",
-                border: "none",
-                padding: "6px 12px",
-                cursor: "pointer",
-              }}
-            >
-              Deletar
-            </button>
-            <button
-              onClick={closeToast}
-              style={{
-                background: "#6c757d",
-                color: "white",
-                border: "none",
-                padding: "6px 12px",
-                cursor: "pointer",
-              }}
-            >
-              Cancelar
-            </button>
-          </div>
-        </div>
-      ),
-      {
-        autoClose: false,
-        closeOnClick: false,
-        closeButton: false,
-        draggable: false,
-      }
-    );
-  };
-
   return (
     <div className="Separator">
       <div className="Principal">
         <div className="Principal__Create">
-          <h2 style={{ margin: 0, color: "#333" }}>Vendas</h2>
+          <h2>Vendas</h2>
         </div>
 
         <section className="Principal__box">
@@ -113,7 +55,6 @@ function CrudVendas() {
             <div className="Principal__box__detalhes__item">Criação</div>
             <div className="Principal__box__detalhes__item">Aprovação</div>
             <div className="Principal__box__detalhes__item">Informações</div>
-            <div className="Principal__box__detalhes__item">Ações</div>
           </div>
 
           {vendas.length === 0 ? (
@@ -151,11 +92,6 @@ function CrudVendas() {
                   </div>
                   <div className="Principal__box__item__inside">
                     {venda.informacaoAdicional}
-                  </div>
-                  <div className="Principal__box__item__inside acoes">
-                    <button onClick={() => confirmDelete(venda.id)}>
-                      Excluir
-                    </button>
                   </div>
                 </li>
               ))}

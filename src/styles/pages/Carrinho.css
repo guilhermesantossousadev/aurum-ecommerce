@@ -207,8 +207,8 @@
 }
 
 .btn-finalizar-compra {
-  width: 100%;
   min-width: 100%;
+  width: 100%;
   padding: 1rem;
   background-color: #000000;
   color: white;
@@ -444,6 +444,7 @@
 
 
 .frete-btn {
+  min-width: 100%;
   width: 100%;
   padding: 0.75rem 1rem;
   margin-top: 0.75rem;
