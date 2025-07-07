@@ -1,33 +1,35 @@
-name: Deploy automático React Vite para Hostinger via FTP
+name: Deploy React App to Hostinger via FTP
 
 on:
   push:
     branches:
-      - main
+      - main # Substitua pela sua branch de deploy, se diferente
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Clonar repositório
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Instalar dependências
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
         run: npm install
 
-      - name: Ajustar permissão do vite
-        run: chmod +x ./node_modules/.bin/vite
+      - name: Build React app
+        run: npm run build
 
-      - name: Build do projeto
-        run: ./node_modules/.bin/vite build
-
-      - name: Enviar build via FTP para Hostinger (limpando pasta antes)
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      - name: Deploy to Hostinger via FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.4.0
         with:
-          server: 46.17.175.80
-          username: u164307256
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: dist/
-          server-dir: public_html/
-          delete: true # apaga arquivos antigos antes de enviar o novo build
+          server-dir: ${{ secrets.FTP_PATH }}
+          local-dir: build
+          git-ftp-args: --insecure --delete
