@@ -19,10 +19,13 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      - name: Build React app a
-        run: npm run build
+      - name: Ajustar permissão do vite
+        run: chmod +x ./node_modules/.bin/vite
+
+      - name: Build React app
+        run: npx vite build
 
       - name: Deploy to Hostinger via FTP
         uses: SamKirkland/FTP-Deploy-Action@4.3.0
