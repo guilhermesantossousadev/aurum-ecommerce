@@ -50,11 +50,12 @@ const Sobre = () => {
             ● <span> em valor empresarial</span>
           </h1>
           <h3 className="Sobre__container__item__right_h3 fade-in-up">
-            A Aurum Lumine® é uma joalheria digital que prospera na intersecção entre design, dados e tecnologia. Juntos,
-            estamos focados em transformar joias e culturas — em todo o mundo.
-            Estratégia. Experiência de Marca. Experiência Digital. Detalhes. Tecnologia.
-            Somos exclusivamente criados para construir joias que importam na cultura.
-
+            A Aurum Lumine® é uma joalheria digital que prospera na intersecção
+            entre design, dados e tecnologia. Juntos, estamos focados em
+            transformar joias e culturas — em todo o mundo. Estratégia.
+            Experiência de Marca. Experiência Digital. Detalhes. Tecnologia.
+            Somos exclusivamente criados para construir joias que importam na
+            cultura.
           </h3>
         </div>
       </div>
@@ -171,9 +172,9 @@ const Sobre = () => {
               <h2>Comércio e Design de Produto</h2>
               <ul>
                 <li>Market Analysis & Business Case Development</li>
-                <li>Catálogo Digital de Joias	</li>
+                <li>Catálogo Digital de Joias </li>
                 <li>E-commerce com Carrinho de Compras</li>
-                <li>Personalização de Joias	</li>
+                <li>Personalização de Joias </li>
                 <li>Emissão de Nota Fiscal Eletrônica</li>
                 <li>Suporte ao Cliente (E-mail)</li>
                 <li>Certificação de Autenticidade</li>
@@ -183,9 +184,8 @@ const Sobre = () => {
               </ul>
             </div>
             <div className="Sobre__Capabilities__container__item">
-              <h2>Digital-First Branding</h2>
+              <h2>Branding</h2>
               <ul>
-                <li>Branding</li>
                 <li>Ecossistema</li>
                 <li>Inteligência Empresarial</li>
                 <li>Arquitetura de Marca</li>
@@ -207,9 +207,9 @@ const Sobre = () => {
         </div>
         <div className="Sobre__awards__item">
           <h2>
-            Embora os resultados sejam o mais importante,
-            acreditamos que os prêmios agregam valor e
-            reconhecimento às joias e também aos indivíduos.
+            Embora os resultados sejam o mais importante, acreditamos que os
+            prêmios agregam valor e reconhecimento às joias e também aos
+            indivíduos.
           </h2>
         </div>
       </div>

@@ -2,12 +2,12 @@ import "../styles/pages/Servicos.css";
 import { Link } from "react-router-dom";
 
 import Assinatura from "../images/Servicos/AssinaturaEstetica.jpeg";
-import Presenca from "../images/Servicos/PresençaSensorial.jpg";
+import Presenca from "../images/Servicos/PresençaSensorial.jpeg";
 import Simbolos from "../images/Servicos/SimbolosVivos.jpeg";
 import Relogio from "../images/Servicos/relogioVladmir.jpeg";
 import Estilo from "../images/Servicos/EstilocomSignificado.jpeg";
 import Hope from "../images/Servicos/Hope.jpg";
-import Vinculo from "../images/Servicos/VínculoSingular.png";
+import Vinculo from "../images/Servicos/VínculoSingular.jpeg";
 import Essencia from "../images/Servicos/Essencia.jpeg";
 
 function Servicos() {

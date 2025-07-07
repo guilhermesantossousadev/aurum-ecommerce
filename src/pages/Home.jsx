@@ -108,9 +108,9 @@ function Home() {
             <div className="Home__delta__container">
               <div className="Home__delta__left">
                 <h2>
-                  Aurum Lumine® é uma joalheria digital que une arte,
-                  luxo e tecnologia para criar experiências exclusivas.
-                  Especializada em joias cravejadas, transformamos elegância e valor cultural
+                  Aurum Lumine® é uma joalheria digital que une arte, luxo e
+                  tecnologia para criar experiências exclusivas. Especializada
+                  em joias cravejadas, transformamos elegância e valor cultural
                   em peças que refletem sofisticação e autenticidade.
                 </h2>
                 <Link to="/servicos">
@@ -126,6 +126,7 @@ function Home() {
           <div className="part">
             <div className="part__inside"></div>
           </div>
+
           <div className="Home__Echo">
             <div className="Home__Echo__container">
               <div className="Home__Echo__container__row">
@@ -133,11 +134,12 @@ function Home() {
                   to="/catalogo/relogio"
                   className="Home__Echo__container__item"
                 >
-                  <div className="Home__Echo__container__item__img">
+                  <div className="Home__Echo__container__item__img filtro">
                     <img src={relogio} alt="relogio" />
-                  </div>
-                  <div className="Home__Echo__container__item__text">
-                    relógios
+
+                    <div className="Home__Echo__container__item__text">
+                      relógios
+                    </div>
                   </div>
                 </Link>
 
@@ -145,11 +147,11 @@ function Home() {
                   to="/catalogo/colar"
                   className="Home__Echo__container__item"
                 >
-                  <div className="Home__Echo__container__item__img">
+                  <div className="Home__Echo__container__item__img filtro">
                     <img src={corrente} alt="corrente" />
-                  </div>
-                  <div className="Home__Echo__container__item__text">
-                    correntes
+                    <div className="Home__Echo__container__item__text">
+                      correntes
+                    </div>
                   </div>
                 </Link>
 
@@ -157,11 +159,11 @@ function Home() {
                   to="/catalogo/pulseira"
                   className="Home__Echo__container__item"
                 >
-                  <div className="Home__Echo__container__item__img">
+                  <div className="Home__Echo__container__item__img filtro">
                     <img src={pulseira} alt="pulseira" />
-                  </div>
-                  <div className="Home__Echo__container__item__text">
-                    pulseiras
+                    <div className="Home__Echo__container__item__text">
+                      pulseiras
+                    </div>
                   </div>
                 </Link>
               </div>
@@ -171,21 +173,23 @@ function Home() {
                   to="/catalogo/anel"
                   className="Home__Echo__container__item"
                 >
-                  <div className="Home__Echo__container__item__img">
+                  <div className="Home__Echo__container__item__img filtro">
                     <img src={anel} alt="anel" />
+                    <div className="Home__Echo__container__item__text">
+                      Anéis
+                    </div>
                   </div>
-                  <div className="Home__Echo__container__item__text">Anéis</div>
                 </Link>
 
                 <Link
                   to="/catalogo/pingente"
                   className="Home__Echo__container__item"
                 >
-                  <div className="Home__Echo__container__item__img">
+                  <div className="Home__Echo__container__item__img filtro">
                     <img src={pingente} alt="pingente" />
-                  </div>
-                  <div className="Home__Echo__container__item__text">
-                    Pingentes
+                    <div className="Home__Echo__container__item__text">
+                      Pingentes
+                    </div>
                   </div>
                 </Link>
 
@@ -193,11 +197,11 @@ function Home() {
                   to="/catalogo/brinco"
                   className="Home__Echo__container__item"
                 >
-                  <div className="Home__Echo__container__item__img">
+                  <div className="Home__Echo__container__item__img filtro">
                     <img src={brinco} alt="brinco" />
-                  </div>
-                  <div className="Home__Echo__container__item__text">
-                    brincos
+                    <div className="Home__Echo__container__item__text">
+                      brincos
+                    </div>
                   </div>
                 </Link>
               </div>

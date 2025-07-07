@@ -134,8 +134,8 @@
 
 .image-stack {
   position: absolute;
-  width: 700px;
-  height: 1000px;
+  width: 500px;
+  height: 700px;
   transition: all 0.3s ease;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -155,7 +155,7 @@
 
 .image-stack:nth-child(2) {
   top: 500px;
-  left: 50%;
+  left: 55%;
   z-index: 4;
 }
 
@@ -661,7 +661,6 @@
 
 .palavra {
   position: relative;
-  cursor: pointer;
   padding: 5px 10px;
   margin-right: 1rem;
   z-index: 2;
@@ -675,6 +674,7 @@
 
 .palavra span {
   color: #f9cdcd;
+  cursor: normal;
 }
 
 /* Quando estiver ativa (hover), fica opaca */
