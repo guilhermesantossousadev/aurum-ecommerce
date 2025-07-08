@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import { Toaster, toast } from "sonner";
 import { Link } from "react-router-dom";
 
+import formatCurrency from "../../components/utils/formatCurrency.jsx"; // ajuste o caminho
+
 import "../../styles/Cruds/Cruds.css";
 import PostAnuncios from "./Actions/PostAnuncios";
 
@@ -172,8 +174,9 @@ function CrudAnuncios() {
           </div>
           <section className="Principal__box">
             <div className="Principal__box__detalhes">
+              <div className="Principal__box__detalhes__item">Tipo</div>
               <div className="Principal__box__detalhes__item">Título</div>
-              <div className="Principal__box__detalhes__item">JoiaId</div>
+              <div className="Principal__box__detalhes__item">Valor</div>
               <div className="Principal__box__detalhes__item">Ações</div>
             </div>
 
@@ -188,17 +191,18 @@ function CrudAnuncios() {
                 {anuncios.map((anuncio) => (
                   <li key={anuncio.id} className="Principal__box__item">
                     <div className="Principal__box__item__inside">
+                      {anuncio.tipoPeca}
+                    </div>
+                    <div className="Principal__box__item__inside">
                       {anuncio.titulo}
                     </div>
                     <div className="Principal__box__item__inside">
-                      ID Joia: {anuncio.joiaId}
+                      Valor: {formatCurrency(anuncio.valor)}
                     </div>
                     <div className="Principal__box__item__inside acoes">
-                      {user.isAdmin && (
-                        <button onClick={() => handleEditClick(anuncio)}>
-                          Editar
-                        </button>
-                      )}
+                      <button onClick={() => console.log(anuncio.id)}>
+                        Visualizar Joia
+                      </button>
                       <button onClick={() => confirmDelete(anuncio.id)}>
                         Deletar
                       </button>

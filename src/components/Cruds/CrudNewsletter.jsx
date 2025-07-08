@@ -163,16 +163,6 @@ function CrudNewsletter() {
                 setForm(initialFormState);
               }}
             >
-              Cadastrar E-mail
-            </button>
-            <button
-              className="Principal__Create__button"
-              onClick={() => {
-                setStep(2);
-                setEditId(null);
-                setForm(initialFormState);
-              }}
-            >
               Criar Mensagem
             </button>
           </div>
@@ -220,79 +210,8 @@ function CrudNewsletter() {
         </div>
       )}
 
-      {/* Cadastro e edição */}
-      {step === 1 &&
-        (editId ? (
-          <div className="Separator">
-            <div className="Principal">
-              <div className="Principal__Create">
-                <button
-                  className="Principal__Create__button"
-                  onClick={() => setStep(0)}
-                >
-                  Voltar
-                </button>
-              </div>
-              <form onSubmit={handleSubmit}>
-                <h3>Editar Newsletter</h3>
-                <label htmlFor="usuarioId">Usuário ID</label>
-                <input
-                  id="usuarioId"
-                  name="usuarioId"
-                  type="number"
-                  placeholder="ID do Usuário"
-                  value={form.usuarioId}
-                  onChange={(e) =>
-                    setForm({ ...form, usuarioId: e.target.value })
-                  }
-                  required
-                />
-
-                <label htmlFor="email">Email</label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="Email"
-                  value={form.email}
-                  onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  required
-                />
-
-                <button type="submit" className="Principal__Create__button">
-                  Atualizar
-                </button>
-                <button
-                  type="button"
-                  className="Principal__Create__button"
-                  onClick={handleBack}
-                >
-                  Cancelar
-                </button>
-              </form>
-            </div>
-          </div>
-        ) : (
-          <div className="Principal">
-            <div className="Principal__Create">
-              <button
-                className="Principal__Create__button"
-                onClick={() => setStep(0)}
-              >
-                Voltar
-              </button>
-            </div>
-            <PostNewsletter
-              onCreated={() => {
-                fetchNewsletters();
-                setStep(0);
-              }}
-            />
-          </div>
-        ))}
-
       {/* Envio de mensagem */}
-      {step === 2 && (
+      {step === 1 && (
         <div className="Principal">
           <div className="Principal__Create">
             <button

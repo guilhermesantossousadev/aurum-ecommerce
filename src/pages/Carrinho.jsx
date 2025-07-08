@@ -2,7 +2,9 @@ import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { Toaster, toast } from 'sonner';
+import { Toaster, toast } from "sonner";
+
+import formatCurrency from "../components/utils/formatCurrency";
 
 import "../styles/pages/Carrinho.css";
 
@@ -13,6 +15,8 @@ function Carrinho() {
   const [error, setError] = useState(null);
   const [anuncios, setAnuncios] = useState([]);
   const [joias, setJoias] = useState([]);
+
+  const [parcelas, setParcelas] = useState("");
 
   const [notificacao, setNotificacao] = useState("");
   const [loading, setLoading] = useState(true);
@@ -39,7 +43,8 @@ function Carrinho() {
       };
     });
 
-    const totalComFrete = parseFloat(carrinho.valorTotal) + parseFloat(frete.valor);
+    const totalComFrete =
+      parseFloat(carrinho.valorTotal) + parseFloat(frete.valor);
 
     try {
       const response = await fetch(
@@ -66,6 +71,40 @@ function Carrinho() {
       toast.error("Erro ao finalizar pedido.");
     } finally {
       setIsFinalizando(false);
+    }
+  };
+  const CalcParcelas = async () => {
+    if (isNaN(parseFloat(carrinho?.valorTotal))) {
+      setParcelas("0,00");
+      return;
+    }
+
+    const totalComFrete =
+      parseFloat(carrinho?.valorTotal || 0) + parseFloat(frete?.valor || 0);
+
+    try {
+      const response = await fetch(
+        `https://marketplacejoias-api-latest.onrender.com/api/Anuncio/CalcValorParcelas?preco=${carrinho?.valorTotal}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) throw new Error("Erro ao calcular parcelas.");
+
+      const data = await response.text();
+
+      setParcelas(
+        parseFloat(data || 0).toLocaleString("pt-BR", {
+          minimumFractionDigits: 2,
+        })
+      );
+    } catch (error) {
+      console.error("Erro ao calcular parcelas:", error);
+      toast.error("Erro ao calcular parcelas.");
     }
   };
 
@@ -249,7 +288,13 @@ function Carrinho() {
     if (user?.id) {
       fetchCarrinho();
     }
-  }, [user]);
+  }, [user?.id]);
+
+  useEffect(() => {
+    if (carrinho) {
+      CalcParcelas();
+    }
+  }, [carrinho, frete]);
 
   if (error) {
     return (
@@ -344,7 +389,8 @@ function Carrinho() {
               <div className="resumo-item">
                 <span>Subtotal do pedido</span>
                 <span>
-                  R${carrinho.valorTotal?.toLocaleString("pt-BR", {
+                  R$
+                  {carrinho.valorTotal?.toLocaleString("pt-BR", {
                     minimumFractionDigits: 2,
                   })}
                 </span>
@@ -358,43 +404,58 @@ function Carrinho() {
                 onChange={(e) => setCep(e.target.value)}
               />
 
-              <button className="frete-btn" onClick={calcularFrete} disabled={isCalculandoFrete}>
-                {isCalculandoFrete ? <span className="loading-spinner"></span> : "Calcular Frete"}
+              <button
+                className="frete-btn"
+                onClick={calcularFrete}
+                disabled={isCalculandoFrete}
+              >
+                {isCalculandoFrete ? (
+                  <span className="loading-spinner"></span>
+                ) : (
+                  "Calcular Frete"
+                )}
               </button>
 
               {frete && (
-                <p className={`frete-simulado ${frete.valor === "0.00" ? "frete-gratis" : ""}`}>
+                <p
+                  className={`frete-simulado ${
+                    frete.valor === "0.00" ? "frete-gratis" : ""
+                  }`}
+                >
                   Frete via PAC:{" "}
                   {frete.valor === "0.00" ? (
                     <>
-                      <strong>Grátis</strong> • <strong>Entrega em {frete.prazo} dias úteis</strong>
+                      <strong>Grátis</strong> •{" "}
+                      <strong>Entrega em {frete.prazo} dias úteis</strong>
                     </>
                   ) : (
-                    <>R${frete.valor} • Entrega em {frete.prazo} dias úteis</>
+                    <>
+                      R${frete.valor} • Entrega em {frete.prazo} dias úteis
+                    </>
                   )}
                 </p>
               )}
 
-
-
               <div className="resumo-total">
                 <span>Total:</span>
-                <span>
-                  R${carrinho.valorTotal?.toLocaleString("pt-BR", {
-                    minimumFractionDigits: 2,
-                  })}
-                </span>
+                <span>Valor: {formatCurrency(carrinho.valorTotal)}</span>
               </div>
 
-              <button className="btn-finalizar-compra" onClick={finalizarPedido} disabled={isFinalizando}>
-                {isFinalizando ? <span className="loading-spinner"></span> : "FINALIZAR PEDIDO"}
+              <button
+                className="btn-finalizar-compra"
+                onClick={finalizarPedido}
+                disabled={isFinalizando}
+              >
+                {isFinalizando ? (
+                  <span className="loading-spinner"></span>
+                ) : (
+                  "FINALIZAR PEDIDO"
+                )}
               </button>
 
               <p className="installments">
                 Em até 9x de R$
-                {(carrinho.valorTotal / 9).toLocaleString("pt-BR", {
-                  minimumFractionDigits: 2,
-                })}
+                {parcelas}
               </p>
               <p className="pix-discount">
                 Pix: R$
@@ -404,8 +465,6 @@ function Carrinho() {
                 (5% nos produtos)
               </p>
             </div>
-
-
           </div>
         )}
       </div>

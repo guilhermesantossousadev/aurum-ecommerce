@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Toaster, toast } from 'sonner';
+import { Toaster, toast } from "sonner";
 
 import DragAndDropUploader from "../../../components/DragAndDropUploader";
 import SpecificInputs from "../../../components/SpecificInputs";
@@ -55,6 +55,20 @@ const PostAnuncios = () => {
       setUsuarioId(user.id);
     }
   }, [user]);
+
+  const handleCurrencyChange = (inputValue) => {
+    // Remove tudo que não for dígito
+    const onlyDigits = inputValue.replace(/\D/g, "");
+    const numberValue = Number(onlyDigits) / 100;
+
+    // Atualiza o estado formatado como string
+    const formattedValue = numberValue.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
+
+    handleChange("valor", formattedValue);
+  };
 
   const handleChange = (field, value) => {
     setJoiaData((prev) => ({ ...prev, [field]: value }));
@@ -184,10 +198,9 @@ const PostAnuncios = () => {
 
           <label>Valor</label>
           <input
-            type="number"
-            min={0}
+            type="text"
             value={joiaData.valor}
-            onChange={(e) => handleChange("valor", Number(e.target.value) || 0)}
+            onChange={(e) => handleCurrencyChange(e.target.value)}
             required
           />
 
