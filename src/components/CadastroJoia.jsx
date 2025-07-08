@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from "react";
-
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { Toaster, toast } from 'sonner';
-
+import { toast } from "sonner";
 import DragAndDropUploader from "../components/DragAndDropUploader";
+import "../styles/components/cadastroJoia.css";
 
-import "../styles/components/cadastroJoia.css"
-
-const apiBaseUrl = "https://marketplacejoias-api-latest.onrender.com/api";
+const apiBaseUrl =
+  import.meta.env.VITE_API_BASE_URL ||
+  "https://marketplacejoias-api-latest.onrender.com/api";
 
 const initialFormState = {
   tipoPeca: "",
@@ -46,10 +45,37 @@ const CadastroAnuncio = () => {
   const [joiaId, setJoiaId] = useState(null);
   const [titulo, setTitulo] = useState("");
   const [selectedImages, setSelectedImages] = useState([]);
-  const [uploadedUrls, setUploadedUrls] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleChange = (field, value) => {
-    setForm((prev) => ({ ...prev, [field]: value }));
+  const [valor, setValor] = useState("");
+
+  const handleChangeNumeros = (e) => {
+    const { name, value } = e.target;
+    // Permite números e apenas um ponto
+    const somenteNumeros = value.replace(/[^0-9.]/g, "");
+    const partes = somenteNumeros.split(".");
+    let formatted = partes[0];
+    if (partes.length > 1) {
+      formatted += "." + partes.slice(1).join("");
+    }
+
+    setForm((prev) => ({
+      ...prev,
+      [name]: formatted,
+    }));
+  };
+
+  const handleChange = (e) => {
+    const { name, type, value, checked } = e.target;
+    setForm((prev) => ({
+      ...prev,
+      [name]:
+        type === "checkbox"
+          ? checked
+          : type === "number"
+          ? Number(value)
+          : value,
+    }));
   };
 
   const handleUploadImages = async () => {
@@ -59,9 +85,7 @@ const CadastroAnuncio = () => {
     }
 
     const formData = new FormData();
-    selectedImages.forEach((file) => {
-      formData.append("files", file);
-    });
+    selectedImages.forEach((file) => formData.append("files", file));
 
     try {
       const response = await fetch(
@@ -73,17 +97,16 @@ const CadastroAnuncio = () => {
       );
       if (!response.ok) throw new Error("Erro ao enviar imagens.");
       const urls = await response.json();
-      setUploadedUrls(urls);
       toast.success("Imagens enviadas com sucesso!");
-      return urls;  // ✅ Adicione esta linha para devolver as URLs!
+      return urls;
     } catch (error) {
       toast.error(error.message);
-      return []; // também devolve um array vazio em caso de erro
+      return [];
     }
   };
 
-
   const handleCreateJoia = async () => {
+    setIsLoading(true);
     try {
       const response = await fetch(`${apiBaseUrl}/Joia/PostJoia`, {
         method: "POST",
@@ -97,20 +120,21 @@ const CadastroAnuncio = () => {
       setStep(2);
     } catch (error) {
       toast.error(error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleCreateAnuncio = async () => {
-    const urls = await handleUploadImages();
-    const anuncioData = {
-      joiaId,
-      titulo,
-      urLs: urls, // ✅ Usar as URLs retornadas
-      usuarioId: user.id,
-    };
-
-
+    setIsLoading(true);
     try {
+      const urls = await handleUploadImages();
+      const anuncioData = {
+        joiaId,
+        titulo,
+        urLs: urls,
+        usuarioId: user.id,
+      };
       const response = await fetch(`${apiBaseUrl}/Anuncio/PostAnuncio`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -118,18 +142,17 @@ const CadastroAnuncio = () => {
       });
       if (!response.ok) throw new Error("Erro ao criar anúncio.");
       toast.success("Anúncio criado com sucesso!");
-      // Resetar tudo
       setStep(1);
       setForm(initialFormState);
       setJoiaId(null);
       setTitulo("");
       setSelectedImages([]);
-      setUploadedUrls([]);
     } catch (error) {
       toast.error(error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
-
 
   const renderSpecificInputs = () => {
     switch (form.tipoPeca) {
@@ -138,15 +161,17 @@ const CadastroAnuncio = () => {
           <>
             <label>Tamanho</label>
             <input
+              name="tamanho"
               type="number"
               value={form.tamanho}
-              onChange={(e) => handleChange("tamanho", Number(e.target.value))}
+              onChange={handleChange}
             />
             <label>Formato</label>
             <input
+              name="formato"
               type="text"
               value={form.formato}
-              onChange={(e) => handleChange("formato", e.target.value)}
+              onChange={handleChange}
             />
           </>
         );
@@ -155,15 +180,17 @@ const CadastroAnuncio = () => {
           <>
             <label>Tipo Fecho</label>
             <input
+              name="tipoFecho"
               type="text"
               value={form.tipoFecho}
-              onChange={(e) => handleChange("tipoFecho", e.target.value)}
+              onChange={handleChange}
             />
             <label>Modelo</label>
             <input
+              name="modelo"
               type="text"
               value={form.modelo}
-              onChange={(e) => handleChange("modelo", e.target.value)}
+              onChange={handleChange}
             />
           </>
         );
@@ -172,27 +199,27 @@ const CadastroAnuncio = () => {
           <>
             <label>Comprimento</label>
             <input
+              name="comprimento"
               type="number"
               value={form.comprimento}
-              onChange={(e) =>
-                handleChange("comprimento", Number(e.target.value))
-              }
+              onChange={handleChange}
             />
             <label>Possui Pingente</label>
             <input
+              name="havePendant"
               type="checkbox"
               checked={form.havePendant}
-              onChange={(e) => handleChange("havePendant", e.target.checked)}
+              onChange={handleChange}
             />
             <label>Tipo Corrente</label>
             <input
+              name="tipoCorrente"
               type="text"
               value={form.tipoCorrente}
-              onChange={(e) => handleChange("tipoCorrente", e.target.value)}
+              onChange={handleChange}
             />
           </>
         );
-      // ... (outros cases iguais ao seu CadastroJoia)
       default:
         return null;
     }
@@ -201,9 +228,8 @@ const CadastroAnuncio = () => {
   return (
     <div className="CadastroJoia">
       <div className="CadastroJoia__container">
-        <h2>
-          {step === 1 ? "Cadastrar Joia" : "Cadastrar Anúncio"}
-        </h2>
+        <h2>{step === 1 ? "Cadastrar Joia" : "Cadastrar Anúncio"}</h2>
+
         {step === 1 && (
           <form
             onSubmit={(e) => {
@@ -213,52 +239,65 @@ const CadastroAnuncio = () => {
           >
             <label>Tipo da Peça</label>
             <select
+              name="tipoPeca"
               value={form.tipoPeca}
-              onChange={(e) => handleChange("tipoPeca", e.target.value)}
+              onChange={handleChange}
               required
             >
               <option value="">-- Selecione --</option>
-              <option value="Anel">Anel</option>
-              <option value="Brinco">Brinco</option>
-              <option value="Colar">Colar</option>
-              <option value="Piercing">Piercing</option>
-              <option value="Pingente">Pingente</option>
-              <option value="Pulseira">Pulseira</option>
-              <option value="Relogio">Relógio</option>
+              {[
+                "Anel",
+                "Brinco",
+                "Colar",
+                "Piercing",
+                "Pingente",
+                "Pulseira",
+                "Relogio",
+              ].map((tipo) => (
+                <option key={tipo} value={tipo}>
+                  {tipo}
+                </option>
+              ))}
             </select>
 
             <label>Valor</label>
             <input
-              type="number"
+              name="valor"
+              type="text"
               step="0.01"
               value={form.valor}
-              onChange={(e) => handleChange("valor", Number(e.target.value))}
+              onChange={handleChangeNumeros}
             />
 
             <label>Descrição</label>
             <textarea
+              name="descricao"
               value={form.descricao}
-              onChange={(e) => handleChange("descricao", e.target.value)}
+              onChange={handleChange}
             />
 
             <label>Peso</label>
             <input
+              name="peso"
               type="number"
               step="0.01"
               value={form.peso}
-              onChange={(e) => handleChange("peso", Number(e.target.value))}
+              onChange={handleChange}
             />
 
             <label>Material</label>
             <input
+              name="material"
               type="text"
               value={form.material}
-              onChange={(e) => handleChange("material", e.target.value)}
+              onChange={handleChange}
             />
 
             {renderSpecificInputs()}
 
-            <button type="submit">Avançar para Anúncio</button>
+            <button type="submit" disabled={isLoading}>
+              {isLoading ? "Salvando..." : "Avançar para Anúncio"}
+            </button>
           </form>
         )}
 
@@ -278,10 +317,11 @@ const CadastroAnuncio = () => {
             />
 
             <label>Imagens do Anúncio</label>
-
             <DragAndDropUploader onFilesUploaded={setSelectedImages} />
 
-            <button type="submit">Cadastrar Anúncio</button>
+            <button type="submit" disabled={isLoading}>
+              {isLoading ? "Publicando..." : "Cadastrar Anúncio"}
+            </button>
           </form>
         )}
       </div>

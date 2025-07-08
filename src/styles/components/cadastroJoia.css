@@ -38,18 +38,39 @@
   font-size: 0.95rem;
   margin-bottom: 0.3rem;
 }
-
-.CadastroJoia input,
-.CadastroJoia select,
-.CadastroJoia textarea {
+.CadastroJoia input {
   padding: 0.8rem;
-  border: 1px solid rgba(221, 221, 221, 0.5);
-  border-radius: 9px;
+  border: none;
+  border-bottom: 1px solid rgba(221, 221, 221, 0.5);
+  border-radius: 0px;
   font-size: 1rem;
   transition: border-color 0.3s ease;
   color: #000 !important;
   box-sizing: border-box;
-  background-color: #f4f8f9;
+  background-color: transparent;
+}
+
+.CadastroJoia select {
+  padding: 0.8rem;
+  border: none;
+  border-bottom: 1px solid rgba(221, 221, 221, 0.5);
+  border-radius: 0px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  color: #000 !important;
+  box-sizing: border-box;
+  background-color: transparent;
+}
+
+.CadastroJoia textarea {
+  padding: 0.8rem;
+  border: 1px solid rgba(221, 221, 221, 0.5);
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  color: #000 !important;
+  box-sizing: border-box;
+  background-color: transparent;
 }
 
 .CadastroJoia input,

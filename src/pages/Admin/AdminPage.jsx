@@ -24,107 +24,110 @@ function AdminPage() {
 
   return (
     <div className="Admin">
-      <nav className="Admin__menu" aria-label="Admin navigation menu">
-        <div className="Dashboard__menu__section">
-          <div className="Dashboard__menu__title">NAVIGATION</div>
-          <ul className="Dashboard__menu">
-            <li
-              className={step === 0 ? "active" : ""}
-              onClick={() => setStep(0)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => (e.key === "Enter" ? setStep(0) : null)}
-            >
-              Dashboard
-            </li>
-          </ul>
-        </div>
+      <div className="Admin__left">
+        <nav className="Admin__menu" aria-label="Admin navigation menu">
+          <div className="Dashboard__menu__section">
+            <div className="Dashboard__menu__title">NAVIGATION</div>
+            <ul className="Dashboard__menu">
+              <li
+                className={step === 0 ? "active" : ""}
+                onClick={() => setStep(0)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => (e.key === "Enter" ? setStep(0) : null)}
+              >
+                Dashboard
+              </li>
+            </ul>
+          </div>
 
-        <div className="Dashboard__menu__section">
-          <div className="Dashboard__menu__title">SOCIAL</div>
-          <ul className="Dashboard__menu">
-            <li
-              className={step === 1 ? "active" : ""}
-              onClick={() => setStep(1)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => (e.key === "Enter" ? setStep(1) : null)}
-            >
-              Anúncios
-            </li>
-            <li
-              className={step === 2 ? "active" : ""}
-              onClick={() => setStep(2)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => (e.key === "Enter" ? setStep(2) : null)}
-            >
-              Joias
-            </li>
-            <li
-              className={step === 3 ? "active" : ""}
-              onClick={() => setStep(3)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => (e.key === "Enter" ? setStep(3) : null)}
-            >
-              Usuários
-            </li>
-            <li
-              className={step === 4 ? "active" : ""}
-              onClick={() => setStep(4)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => (e.key === "Enter" ? setStep(4) : null)}
-            >
-              Newsletter
-            </li>
-            <li
-              className={step === 5 ? "active" : ""}
-              onClick={() => setStep(5)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => (e.key === "Enter" ? setStep(5) : null)}
-            >
-              Vendas
-            </li>
-          </ul>
-        </div>
+          <div className="Dashboard__menu__section">
+            <div className="Dashboard__menu__title">SOCIAL</div>
+            <ul className="Dashboard__menu">
+              <li
+                className={step === 1 ? "active" : ""}
+                onClick={() => setStep(1)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => (e.key === "Enter" ? setStep(1) : null)}
+              >
+                Anúncios
+              </li>
+              <li
+                className={step === 2 ? "active" : ""}
+                onClick={() => setStep(2)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => (e.key === "Enter" ? setStep(2) : null)}
+              >
+                Joias
+              </li>
+              <li
+                className={step === 3 ? "active" : ""}
+                onClick={() => setStep(3)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => (e.key === "Enter" ? setStep(3) : null)}
+              >
+                Usuários
+              </li>
+              <li
+                className={step === 4 ? "active" : ""}
+                onClick={() => setStep(4)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => (e.key === "Enter" ? setStep(4) : null)}
+              >
+                Newsletter
+              </li>
+              <li
+                className={step === 5 ? "active" : ""}
+                onClick={() => setStep(5)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => (e.key === "Enter" ? setStep(5) : null)}
+              >
+                Vendas
+              </li>
+            </ul>
+          </div>
 
-        <div className="Dashboard__menu__section">
-          <div className="Dashboard__menu__title">PAGES</div>
-          <ul className="Dashboard__menu">
-            <li
-              onClick={() => navigate("/profile")}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) =>
-                e.key === "Enter" ? navigate("/profile") : null
-              }
-            >
-              Perfil
-            </li>
-            <li
-              className="profile__logout"
-              onClick={handleLogout}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => (e.key === "Enter" ? handleLogout() : null)}
-            >
-              <FaSignOutAlt /> Sair
-            </li>
-          </ul>
-        </div>
-      </nav>
-
-      <main className="Admin__all" role="main">
-        {step === 0 && <div>Dashboard</div>}
-        {step === 1 && <CrudAnuncios />}
-        {step === 2 && <CrudJoias />}
-        {step === 3 && <CrudUsuarios />}
-        {step === 4 && <CrudNewsletter />}
-        {step === 5 && <CrudVendas />}
-      </main>
+          <div className="Dashboard__menu__section">
+            <div className="Dashboard__menu__title">PAGES</div>
+            <ul className="Dashboard__menu">
+              <li
+                onClick={() => navigate("/profile")}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) =>
+                  e.key === "Enter" ? navigate("/profile") : null
+                }
+              >
+                Perfil
+              </li>
+              <li
+                className="profile__logout"
+                onClick={handleLogout}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => (e.key === "Enter" ? handleLogout() : null)}
+              >
+                <FaSignOutAlt /> Sair
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <div className="Admin__right">
+        <main className="Admin__all" role="main">
+          {step === 0 && <div>Dashboard</div>}
+          {step === 1 && <CrudAnuncios />}
+          {step === 2 && <CrudJoias />}
+          {step === 3 && <CrudUsuarios />}
+          {step === 4 && <CrudNewsletter />}
+          {step === 5 && <CrudVendas />}
+        </main>
+      </div>
     </div>
   );
 }

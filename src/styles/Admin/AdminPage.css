@@ -1,39 +1,62 @@
 .Admin {
   height: auto;
+  min-height: 100vh;
   width: 100%;
   background-color: rgb(244 244 244);
   display: flex;
   margin-top: 5rem;
   flex-direction: row;
+  position: relative; /* referência para fixed */
 }
 
-/* Menu fixo à esquerda */
-.Admin__menu {
-  width: 20%;
-  min-width: 220px;
-  max-width: 280px;
+/* Sidebar fixa com largura fixa */
+.Admin__left {
+  width: 280px;
   height: 100vh;
-  border-right: 1px solid rgba(51, 51, 51, 0.23);
-  background-color: #3f4d67;
+  background-color: #d9534f;
   position: fixed;
+  top: 5rem; /* alinhado com margin-top da Admin */
+  left: 0;
   overflow-y: auto;
-  padding-top: 1rem;
+}
+
+/* Menu dentro da sidebar */
+.Admin__menu {
+  width: 100%;
+  height: 100%;
+  background-color: #3f4d67;
+  border-right: 1px solid rgba(51, 51, 51, 0.23);
+  padding-top: 0;
+  transition: all 0.3s ease;
+  overflow-y: auto; /* scroll interno */
+}
+
+/* Área principal deslocada para direita */
+.Admin__right {
+  margin-left: 280px; /* largura da sidebar */
+  width: calc(100% - 280px);
+  min-height: 100vh;
+  padding: 2rem;
+  background-color: #f4f7fa;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
   transition: all 0.3s ease;
 }
 
-/* Container de cada grupo do menu (título + lista) */
+/* Menu Dashboard */
 .Dashboard__menu__section {
   margin-bottom: 2rem;
 }
 
 .Dashboard__menu__title {
-  padding: 1.5rem 1.5rem 0.75rem 1.5rem;
+  padding: 0.5rem;
   color: rgb(232 237 247);
   font-weight: 600;
   font-size: 0.9rem;
 }
 
-/* Lista de itens do menu */
 .Dashboard__menu {
   list-style: none;
   padding: 0;
@@ -42,7 +65,7 @@
 
 .Dashboard__menu li {
   width: 100%;
-  height: 60px;
+  height: 50px;
   color: rgb(169 183 208);
   padding: 0 2rem;
   display: flex;
@@ -75,22 +98,7 @@
   color: #fff;
 }
 
-/* Área principal da página */
-.Admin__all {
-  margin-left: 20%;
-  width: 80%;
-  min-width: 320px;
-  height: auto;
-  padding: 2rem;
-  background-color: #f4f7fa;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  transition: all 0.3s ease;
-}
-
-/* Scroll customizado */
+/* Scroll customizado para Webkit */
 .Admin__menu::-webkit-scrollbar {
   width: 6px;
 }
@@ -100,26 +108,44 @@
   border-radius: 3px;
 }
 
+.Admin__all {
+  width: 100%;
+  height: auto;
+  min-height: 100vh;
+  padding: 2rem;
+  background-color: #f4f7fa;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  transition: all 0.3s ease;
+}
+
 /* Responsividade */
 @media (max-width: 1024px) {
   .Admin {
     flex-direction: column;
   }
 
-  .Admin__menu {
+  .Admin__left {
     position: relative;
     width: 100%;
     height: auto;
-    max-height: none;
-    border-right: none;
-    padding-bottom: 1rem;
-    max-width: 100%;
+    top: 0;
+    overflow: visible; /* permite scroll normal */
   }
 
-  .Admin__all {
+  .Admin__menu {
+    position: relative;
+    height: auto;
+    border-right: none;
+    padding-bottom: 1rem;
+    overflow-y: visible; /* scroll normal */
+  }
+
+  .Admin__right {
     margin-left: 0;
     width: 100%;
-    height: auto;
     padding: 1rem;
   }
 }
@@ -135,7 +161,7 @@
     font-size: 0.85rem;
   }
 
-  .Admin__all {
+  .Admin__right {
     padding: 0.5rem;
   }
 }
