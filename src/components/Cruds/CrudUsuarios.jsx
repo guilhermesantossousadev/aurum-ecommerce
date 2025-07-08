@@ -142,7 +142,7 @@ function CrudUsuarios() {
       </div>
     ));
   };
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (editId) {
@@ -245,7 +245,10 @@ function CrudUsuarios() {
                       <button onClick={() => handleEdit(usuario)}>
                         Editar
                       </button>
-                      <button onClick={() => confirmDelete(usuario.id)}>
+                      <button
+                        onClick={() => confirmDelete(usuario.id)}
+                        style={{ backgroundColor: "#b50f0f" }}
+                      >
                         Excluir
                       </button>
                     </div>

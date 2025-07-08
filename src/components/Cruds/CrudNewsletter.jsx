@@ -198,7 +198,10 @@ function CrudNewsletter() {
                       <button onClick={() => handleEdit(newsletter)}>
                         Editar
                       </button>
-                      <button onClick={() => confirmDelete(newsletter.id)}>
+                      <button
+                        onClick={() => confirmDelete(newsletter.id)}
+                        style={{ backgroundColor: "#b50f0f" }}
+                      >
                         Excluir
                       </button>
                     </div>

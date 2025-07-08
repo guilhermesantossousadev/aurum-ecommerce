@@ -3,7 +3,8 @@ import { useSelector } from "react-redux";
 import { Toaster, toast } from "sonner";
 import { Link } from "react-router-dom";
 
-import formatCurrency from "../../components/utils/formatCurrency.jsx"; // ajuste o caminho
+import formatCurrency from "../../components/utils/formatCurrency.jsx";
+import Popup from "../../components/Popup"; // ajuste o caminho conforme sua estrutura
 
 import "../../styles/Cruds/Cruds.css";
 import PostAnuncios from "./Actions/PostAnuncios";
@@ -22,6 +23,10 @@ function CrudAnuncios() {
   const [urLs, setUrLs] = useState([""]);
   const [usuarioId, setUsuarioId] = useState("");
   const [step, setStep] = useState(0);
+
+  // State do popup
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [selectedAnuncio, setSelectedAnuncio] = useState(null);
 
   useEffect(() => {
     if (user && user.id) {
@@ -97,7 +102,7 @@ function CrudAnuncios() {
   }
 
   const confirmDelete = (id) => {
-    const toastId = toast.custom((t) => (
+    toast.custom((t) => (
       <div
         style={{
           background: "white",
@@ -119,7 +124,7 @@ function CrudAnuncios() {
           <button
             onClick={async () => {
               await handleDelete(id);
-              toast.dismiss(t.id); // Fecha o toast após deletar
+              toast.dismiss(t.id);
             }}
             style={{
               background: "#d9534f",
@@ -160,6 +165,35 @@ function CrudAnuncios() {
       toast.error(error.message);
     }
   };
+
+  // Funções do popup
+  const handleOpenPopup = (anuncio) => {
+    setSelectedAnuncio(anuncio);
+    setIsPopupOpen(true);
+  };
+
+  const handleClosePopup = () => {
+    setIsPopupOpen(false);
+    setSelectedAnuncio(null);
+  };
+  
+  function corrigirAcentoTipoPeca(tipoPeca) {
+    if (!tipoPeca) return "";
+
+    const tipo = tipoPeca.trim().toLowerCase();
+
+    const correcoes = {
+      anel: "Anél",
+      colar: "Colar",
+      pulseira: "Pulseira",
+      brinco: "Brinco",
+      joia: "Jóia",
+      relogio: "Relógio",
+    };
+
+    return correcoes[tipo] || tipoPeca;
+  }
+
   return (
     <div className="Separator">
       {step === 0 && (
@@ -191,7 +225,7 @@ function CrudAnuncios() {
                 {anuncios.map((anuncio) => (
                   <li key={anuncio.id} className="Principal__box__item">
                     <div className="Principal__box__item__inside">
-                      {anuncio.tipoPeca}
+                      {corrigirAcentoTipoPeca(anuncio.tipoPeca)}
                     </div>
                     <div className="Principal__box__item__inside">
                       {anuncio.titulo}
@@ -200,10 +234,13 @@ function CrudAnuncios() {
                       Valor: {formatCurrency(anuncio.valor)}
                     </div>
                     <div className="Principal__box__item__inside acoes">
-                      <button onClick={() => console.log(anuncio.id)}>
+                      <button onClick={() => handleOpenPopup(anuncio)}>
                         Visualizar Joia
                       </button>
-                      <button onClick={() => confirmDelete(anuncio.id)}>
+                      <button
+                        onClick={() => confirmDelete(anuncio.id)}
+                        style={{ backgroundColor: "#b50f0f" }}
+                      >
                         Deletar
                       </button>
                     </div>
@@ -237,6 +274,11 @@ function CrudAnuncios() {
             />
           </div>
         </div>
+      )}
+
+      {/* Renderização do Popup de Visualização */}
+      {isPopupOpen && selectedAnuncio && (
+        <Popup anuncio={selectedAnuncio} onClose={handleClosePopup} />
       )}
     </div>
   );
