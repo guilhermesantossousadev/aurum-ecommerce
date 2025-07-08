@@ -603,35 +603,6 @@
   color: #000;
 }
 
-.Sobre__awards {
-  height: 60vh;
-  width: 100%;
-  display: flex;
-}
-
-.Sobre__awards__item {
-  width: 50%;
-  height: 100%;
-  padding: 4rem;
-  position: relative;
-}
-
-.Sobre__awards__item h1 {
-  color: #f9cdcd;
-  font-size: 4rem;
-  text-transform: uppercase;
-}
-
-.Sobre__awards__item h2 {
-  color: #f9cdcd;
-  font-size: 2rem;
-  max-width: 700px;
-  position: absolute;
-  top: 45%;
-  left: 30%;
-  transform: translate(-50%, -50%);
-}
-
 .Sobre__Hoverimgs {
   height: 200vh;
   width: 100%;
@@ -692,39 +663,6 @@
 }
 
 @media (max-width: 1024px) {
-  .Sobre__awards {
-    height: 40vh;
-    /* um pouco maior para compensar espaço */
-    flex-direction: column;
-    /* mantém flex, mas empilha verticalmente */
-    padding-inline: 1rem;
-  }
-
-  .Sobre__awards__item {
-    width: 100%;
-    /* ocupa toda a largura na vertical */
-    padding: 1rem;
-    /* reduz o padding */
-    height: auto;
-    /* para ajustar a altura conforme conteúdo */
-  }
-
-  .Sobre__awards__item h1 {
-    font-size: 2.5rem;
-    /* reduz a fonte para caber na tela */
-  }
-
-  .Sobre__awards__item h2 {
-    font-size: 1.8rem;
-    max-width: 90%;
-    /* ocupa quase toda a largura */
-    position: static;
-    /* remove posicionamento absoluto para evitar corte */
-    transform: none;
-    margin-top: 1rem;
-    font-weight: normal;
-  }
-
   .Sobre__Hoverimgs {
     height: auto;
     /* ajusta altura para o conteúdo */
@@ -764,38 +702,6 @@
 }
 
 @media (max-width: 768px) {
-  .Sobre__awards {
-    height: 40vh;
-    /* um pouco maior para compensar espaço */
-    flex-direction: column;
-    /* mantém flex, mas empilha verticalmente */
-    padding-inline: 1rem;
-  }
-
-  .Sobre__awards__item {
-    width: 100%;
-    /* ocupa toda a largura na vertical */
-    padding: 1rem;
-    /* reduz o padding */
-    height: auto;
-    /* para ajustar a altura conforme conteúdo */
-  }
-
-  .Sobre__awards__item h1 {
-    font-size: 2.5rem;
-    /* reduz a fonte para caber na tela */
-  }
-
-  .Sobre__awards__item h2 {
-    font-size: 1.8rem;
-    max-width: 90%;
-    /* ocupa quase toda a largura */
-    position: static;
-    /* remove posicionamento absoluto para evitar corte */
-    transform: none;
-    margin-top: 1rem;
-  }
-
   .Sobre__Hoverimgs {
     height: auto;
     /* ajusta altura para o conteúdo */
@@ -834,38 +740,6 @@
 }
 
 @media (max-width: 440px) {
-  .Sobre__awards {
-    height: 40vh;
-    /* um pouco maior para compensar espaço */
-    flex-direction: column;
-    /* mantém flex, mas empilha verticalmente */
-    padding-inline: 0;
-  }
-
-  .Sobre__awards__item {
-    width: 100%;
-    /* ocupa toda a largura na vertical */
-    padding: 1rem;
-    /* reduz o padding */
-    height: auto;
-    /* para ajustar a altura conforme conteúdo */
-  }
-
-  .Sobre__awards__item h1 {
-    font-size: 2.5rem;
-    /* reduz a fonte para caber na tela */
-  }
-
-  .Sobre__awards__item h2 {
-    font-size: 1.8rem;
-    max-width: 90%;
-    /* ocupa quase toda a largura */
-    position: static;
-    /* remove posicionamento absoluto para evitar corte */
-    transform: none;
-    margin-top: 1rem;
-  }
-
   .Sobre__Hoverimgs {
     height: auto;
     /* ajusta altura para o conteúdo */

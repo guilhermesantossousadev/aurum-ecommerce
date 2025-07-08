@@ -22,6 +22,7 @@ const NavBar = () => {
     "/successPage",
     "/errorPage",
     "/pendingPage",
+    "/cadastroJoia"
   ].includes(location.pathname);
 
   const isWhiteTextPage = [

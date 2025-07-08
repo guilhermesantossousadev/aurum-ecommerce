@@ -143,16 +143,16 @@ function Footer() {
             <ul className={`footer__item__bottom__ul ${footerColorClass}`}>
               <h1>● INICIATIVAS</h1>
               <li>
-                <a href="#">Applied</a>
+                <a href="#">Aplicado</a>
               </li>
               <li>
                 <a href="#">BrandBeats</a>
               </li>
               <li>
-                <a href="#">Moves</a>
+                <a href="#">Movimentos</a>
               </li>
               <li>
-                <a href="#">B/Good</a>
+                <a href="#">B/Bom</a>
               </li>
             </ul>
 
