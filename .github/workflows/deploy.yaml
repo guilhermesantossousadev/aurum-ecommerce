@@ -28,13 +28,13 @@ jobs:
         run: npx vite build
 
       - name: Backup current site on server
-        uses: sebastianpopp/ftp-action@v1
+        uses: appleboy/ftp-action@v0.0.1
         with:
           host: ${{ secrets.FTP_HOST }}
-          user: ${{ secrets.FTP_USERNAME }}
+          username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          command: |
-            mv public_html public_html_backup || true
+          script: |
+            rename public_html public_html_backup
             mkdir public_html
 
       - name: Deploy to Hostinger via FTP
@@ -59,11 +59,11 @@ jobs:
 
       - name: Rollback if deploy fails
         if: failure()
-        uses: sebastianpopp/ftp-action@v2
+        uses: appleboy/ftp-action@v0.0.1
         with:
           host: ${{ secrets.FTP_HOST }}
-          user: ${{ secrets.FTP_USERNAME }}
+          username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          command: |
-            rm -rf public_html
-            mv public_html_backup public_html
+          script: |
+            rmdir public_html
+            rename public_html_backup public_html
