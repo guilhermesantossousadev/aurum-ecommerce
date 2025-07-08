@@ -662,6 +662,84 @@
   transition: top 0.1s ease, left 0.1s ease;
 }
 
+.Sobre__awards {
+  height: 60vh;
+  width: 100%;
+  display: flex;
+}
+
+/* Itens lado a lado em telas grandes */
+.Sobre__awards__item {
+  width: 50%;
+  height: 100%;
+  padding: 4rem;
+  position: relative;
+}
+
+.Sobre__awards__item h1 {
+  color: #f9cdcd;
+  font-size: 4rem;
+  text-transform: uppercase;
+}
+
+.Sobre__awards__item h2 {
+  color: #f9cdcd;
+  font-size: 2rem;
+  max-width: 700px;
+  position: absolute;
+  top: 45%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+}
+
+/* ======= Responsividade ======= */
+
+/* Para telas menores que 1024px (ex: tablets) */
+@media (max-width: 1024px) {
+  .Sobre__awards {
+    flex-direction: column;
+    height: auto; /* altura automática para ajustar conteúdo */
+  }
+
+  .Sobre__awards__item {
+    width: 100%;
+    padding: 2rem;
+    height: auto;
+    position: relative;
+  }
+
+  .Sobre__awards__item h1 {
+    font-size: 3rem;
+    text-align: center;
+  }
+
+  .Sobre__awards__item h2 {
+    position: static; /* remove absolute para fluxo normal */
+    transform: none;
+    max-width: 100%;
+    font-size: 1.5rem;
+    margin-top: 1rem;
+    text-align: center;
+    left: auto;
+    top: auto;
+  }
+}
+
+/* Para telas menores que 480px (ex: celulares) */
+@media (max-width: 480px) {
+  .Sobre__awards__item {
+    padding: 1.5rem 1rem;
+  }
+
+  .Sobre__awards__item h1 {
+    font-size: 2.5rem;
+  }
+
+  .Sobre__awards__item h2 {
+    font-size: 1.2rem;
+  }
+}
+
 @media (max-width: 1024px) {
   .Sobre__Hoverimgs {
     height: auto;

@@ -200,6 +200,19 @@ const Sobre = () => {
           </div>
         </div>
       </div>
+      
+      <div className="Sobre__awards">
+        <div className="Sobre__awards__item">
+          <h1>Awards</h1>
+        </div>
+        <div className="Sobre__awards__item">
+          <h2>
+            Embora os resultados sejam o mais importante, acreditamos que os
+            prêmios agregam valor e reconhecimento às joias e também aos
+            indivíduos.
+          </h2>
+        </div>
+      </div>
 
       <div className="Sobre__Hoverimgs">
         <div className="Sobre__Hoverimgs__item">
