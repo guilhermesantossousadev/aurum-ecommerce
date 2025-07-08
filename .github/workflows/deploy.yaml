@@ -50,7 +50,7 @@ jobs:
 
       - name: Remove backup after successful deploy
         if: success()
-        uses: sebastianpopp/ftp-action@v2
+        uses: sebastianpopp/ftp-action@v1
         with:
           host: ${{ secrets.FTP_HOST }}
           user: ${{ secrets.FTP_USERNAME }}
