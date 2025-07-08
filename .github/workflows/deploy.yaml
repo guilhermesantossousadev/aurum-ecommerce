@@ -1,9 +1,9 @@
-name: Deploy React App to Hostinger via FTP
+name: Deploy React App to Hostinger via FTP with Rollback
 
 on:
   push:
     branches:
-      - main # Substitua pela sua branch de deploy, se diferente
+      - main
 
 jobs:
   build-and-deploy:
@@ -27,8 +27,18 @@ jobs:
       - name: Build React app
         run: npx vite build
 
+      - name: Backup current site on server
+        uses: sebastianpopp/ftp-action@v2
+        with:
+          host: ${{ secrets.FTP_HOST }}
+          user: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          command: |
+            mv public_html public_html_backup || true
+            mkdir public_html
+
       - name: Deploy to Hostinger via FTP
-         
+        id: deploy
         uses: SamKirkland/FTP-Deploy-Action@4.3.0
         with:
           server: ${{ secrets.FTP_HOST }}
@@ -36,4 +46,24 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: /public_html/
           local-dir: dist/
-          dangerous-clean-slate: true
+          dangerous-clean-slate: false
+
+      - name: Remove backup after successful deploy
+        if: success()
+        uses: sebastianpopp/ftp-action@v2
+        with:
+          host: ${{ secrets.FTP_HOST }}
+          user: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          command: rm -rf public_html_backup
+
+      - name: Rollback if deploy fails
+        if: failure()
+        uses: sebastianpopp/ftp-action@v2
+        with:
+          host: ${{ secrets.FTP_HOST }}
+          user: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          command: |
+            rm -rf public_html
+            mv public_html_backup public_html
