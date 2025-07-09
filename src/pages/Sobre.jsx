@@ -93,7 +93,7 @@ const Sobre = () => {
 
       <div className="Sobre__hero">
         <div className="Sobre__hero__item__left">
-          <h1>Instantâneo da agência</h1>
+          <h1>Panorama da Empresa</h1>
         </div>
         <div className="Sobre__hero__item__right">
           <div className="Sobre__hero__item__right__top">

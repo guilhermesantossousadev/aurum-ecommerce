@@ -1,4 +1,12 @@
-import { FaPencilAlt } from "react-icons/fa";
+import {
+  FaPencilAlt,
+  FaSignOutAlt,
+  FaSave,
+  FaUser,
+  FaMapMarkerAlt,
+  FaEnvelope,
+  FaIdCard,
+} from "react-icons/fa";
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/userSlice";
@@ -7,8 +15,6 @@ import { toast } from "sonner";
 
 import perfil from "../images/Common/perfil.png";
 
-import { FaSignOutAlt, FaSave } from "react-icons/fa";
-
 import "../styles/components/Profile.css";
 
 const Profile = () => {
@@ -16,19 +22,29 @@ const Profile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [editField, setEditField] = useState(null);
-  const [email, setEmail] = useState(user.email);
-  const [cpf, setCpf] = useState(user.cpf);
-  const [idade, setIdade] = useState(user.idade);
-  const [nome, setNome] = useState(user.nome);
 
-  const [profileImage, setProfileImage] = useState(user.fotoPerfilURL);
+  const [email, setEmail] = useState(user.email || "");
+  const [cpf, setCpf] = useState(user.cpf || "");
+  const [idade, setIdade] = useState(user.idade || "");
+  const [nome, setNome] = useState(user.nome || "");
+
+  const [profileImage, setProfileImage] = useState(
+    user.fotoPerfilURL || perfil
+  );
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploading, setUploading] = useState(false);
 
   const [anuncios, setAnuncios] = useState([]);
 
   const inputFileRef = useRef(null);
+
+  const openPopup = () => setIsPopupOpen(true);
+  const closePopup = () => {
+    setIsPopupOpen(false);
+    setEditField(null);
+  };
 
   const handleLogout = () => {
     dispatch(logout());
@@ -38,8 +54,7 @@ const Profile = () => {
   const GetAnuncios = async () => {
     try {
       const response = await fetch(
-        `https://marketplacejoias-api-latest.onrender.com/api/Anuncio/GetByUsuarioIdAnuncio?usuarioId=${user.id}`,
-        { method: "GET", headers: { "Content-Type": "application/json" } }
+        `https://marketplacejoias-api-latest.onrender.com/api/Anuncio/GetByUsuarioIdAnuncio?usuarioId=${user.id}`
       );
       if (!response.ok) throw new Error("Erro ao buscar anúncios.");
       const data = await response.json();
@@ -83,7 +98,7 @@ const Profile = () => {
     };
 
     if (!validators[field]) {
-      toast("Campo inválido");
+      toast.error("Campo inválido");
       return;
     }
 
@@ -104,7 +119,7 @@ const Profile = () => {
   };
 
   const handleUploadImage = async (file) => {
-    if (!file) return toast("Selecione uma imagem.");
+    if (!file) return toast.error("Selecione uma imagem.");
     setUploading(true);
     const formData = new FormData();
     formData.append("file", file);
@@ -124,6 +139,30 @@ const Profile = () => {
     }
   };
 
+  const [cepformatado, setcepFormatado] = useState("");
+
+  const searchCEP = async () => {
+    try {
+      if (!user?.cep) return;
+
+      const response = await fetch(
+        `https://viacep.com.br/ws/${user.cep}/json/`
+      );
+      if (!response.ok) throw new Error("Erro ao buscar CEP.");
+
+      const cepData = await response.json();
+
+      setcepFormatado(`${cepData.logradouro}, ${cepData.uf}`);
+    } catch (e) {
+      console.log(e);
+      toast.error("Erro ao buscar CEP.");
+    }
+  };
+
+  useEffect(() => {
+    searchCEP();
+  }, []);
+
   return (
     <div className="Profile">
       <div className="Profile__Top"></div>
@@ -134,13 +173,7 @@ const Profile = () => {
             onClick={() => inputFileRef.current.click()}
             style={{ cursor: "pointer" }}
           >
-            
-            {user.profileImage === null ? (
-              <img src={profileImage} alt="Foto" />
-            ) : (
-              <img src={perfil} alt="Foto" />
-            )}
-
+            <img src={profileImage} alt="Foto" />
             <div className="Profile__Box__img__overlay">
               <FaPencilAlt size={30} color="#fff" />
             </div>
@@ -154,71 +187,66 @@ const Profile = () => {
           />
 
           <div className="Profile__box__info">
-            {/* Campos Nome, Email, CPF, Idade - mantidos sem alteração */}
-            {["nome", "email", "cpf", "idade"].map((field) => (
-              <div key={field} className="Profile__info__item">
-                <div className="Profile__info__item__content">
-                  {editField === field ? (
-                    <div className="Profile__edit">
-                      <input
-                        className="Profile__info__input"
-                        value={
-                          field === "nome"
-                            ? nome
-                            : field === "email"
-                            ? email
-                            : field === "cpf"
-                            ? cpf
-                            : idade
-                        }
-                        onChange={(e) =>
-                          field === "nome"
-                            ? setNome(e.target.value)
-                            : field === "email"
-                            ? setEmail(e.target.value)
-                            : field === "cpf"
-                            ? setCpf(e.target.value)
-                            : setIdade(e.target.value)
-                        }
-                      />
-                      <button
-                        className="Profile__info__saveButton"
-                        onClick={() => handleSave(field)}
-                      >
-                        <FaSave size={30} color="#000" />
-                      </button>
-                    </div>
-                  ) : (
-                    <div className="Profile__edit">
-                      <span className="Profile__info__text">
-                        {field === "nome"
-                          ? nome
-                          : field === "email"
-                          ? email
-                          : field === "cpf"
-                          ? cpf
-                          : idade}
-                      </span>
-                      <FaPencilAlt
-                        size={30}
-                        color="#000"
-                        onClick={() => setEditField(field)}
-                        className="pencil"
-                      />
-                    </div>
-                  )}
+
+            <div className="Profile__box__info__value">
+              <FaUser className="Profile__info__icon nome" />
+              {user.nome}
+            </div>
+
+            <div className="Profile__box__info__value cep">
+              <FaMapMarkerAlt className="Profile__info__icon" />
+              {cepformatado}
+            </div>
+
+            <div className="Profile__box__info__inside">
+              <div className="Profile__box__info__inside__item">
+                <div className="Profile__box__info__inside__icon">
+                  <FaEnvelope className="Profile__info__icon" />
+                  E-mail:
+                </div>
+                <div className="Profile__box__info__inside__value">
+                  {user.email}
                 </div>
               </div>
-            ))}
+
+              <div className="Profile__box__info__inside__item">
+                <div className="Profile__box__info__inside__icon">
+                  <FaIdCard className="Profile__info__icon" />
+                  Cpf:
+                </div>
+                <div className="Profile__box__info__inside__value">
+                  {user.cpf}
+                </div>
+              </div>
+
+              <div className="Profile__box__info__inside__item">
+                <div className="Profile__box__info__inside__icon">
+                  <FaIdCard className="Profile__info__icon" />
+                  Idade:
+                </div>
+                <div className="Profile__box__info__inside__value">
+                  {user.idade} Anos
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div className="Profile__loggout">
-            <FaSignOutAlt size={30} color="#000" onClick={handleLogout} /> Sair
+          <div className="Profile__buttons">
+            <div className="Profile__buttons__item">
+              <h1>A/L®</h1>
+            </div>
+            <div className="Profile__buttons__item end">
+              <button onClick={openPopup}>
+                <FaPencilAlt size={20} className="Profile__icon" /> Editar
+              </button>
+              <button onClick={handleLogout}>
+                <FaSignOutAlt size={20} className="Profile__icon" /> Sair
+              </button>
+            </div>
           </div>
 
           <div className="Profile__anuncios">
             <h3>Anúncios Cadastrados</h3>
-            <p>Estes são os anúncios que você cadastrou no nosso site.</p>
             {anuncios.length === 0 ? (
               <p>Você não possui anúncios cadastrados.</p>
             ) : (
@@ -233,9 +261,7 @@ const Profile = () => {
                           className="anuncio__image"
                         />
                       ) : (
-                        <div className="Anuncio__card__image">
-                          <p>Este anúncio não possui imagem.</p>
-                        </div>
+                        <p>Este anúncio não possui imagem.</p>
                       )}
                     </div>
                     <div className="Anuncio__card__info">
@@ -249,6 +275,72 @@ const Profile = () => {
           </div>
         </div>
       </div>
+
+      {isPopupOpen && (
+        <div className="popup-overlay" onClick={closePopup}>
+          <div className="popup-content" onClick={(e) => e.stopPropagation()}>
+            <h3>Editar Perfil</h3>
+            {["nome", "email", "cpf", "idade"].map((field) => (
+              <div key={field} className="Profile__info__item">
+                <label>{field.toUpperCase()}</label>
+                {editField === field ? (
+                  <div className="Profile__edit">
+                    <input
+                      className="Profile__info__input"
+                      value={
+                        field === "nome"
+                          ? nome
+                          : field === "email"
+                          ? email
+                          : field === "cpf"
+                          ? cpf
+                          : idade
+                      }
+                      onChange={(e) =>
+                        field === "nome"
+                          ? setNome(e.target.value)
+                          : field === "email"
+                          ? setEmail(e.target.value)
+                          : field === "cpf"
+                          ? setCpf(e.target.value)
+                          : setIdade(e.target.value)
+                      }
+                    />
+                    <button
+                      className="Profile__info__saveButton"
+                      onClick={() => handleSave(field)}
+                    >
+                      <FaSave size={20} color="#000" />
+                    </button>
+                  </div>
+                ) : (
+                  <div
+                    className="Profile__info__display"
+                    onClick={() => setEditField(field)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    {field === "nome"
+                      ? nome
+                      : field === "email"
+                      ? email
+                      : field === "cpf"
+                      ? cpf
+                      : idade}
+                    <FaPencilAlt size={16} style={{ marginLeft: "0.5rem" }} />
+                  </div>
+                )}
+              </div>
+            ))}
+            <button
+              onClick={closePopup}
+              className="Profile__closePopup"
+              style={{ marginTop: "1rem" }}
+            >
+              Fechar
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
