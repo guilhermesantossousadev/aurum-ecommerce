@@ -103,8 +103,10 @@
 }
 
 .Profile__box__info__inside {
-  width: 300px;
+  width: 600px;
   display: flex;
+  align-items: center;
+  justify-content: center;
   flex-direction: column;
   gap: 10px;
   margin-top: 2rem;
@@ -116,6 +118,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding-inline: 10.2rem;
 }
 
 .Profile__box__info__inside__icon {
@@ -126,6 +129,8 @@
 .Profile__box__info__inside__value {
   width: 50%;
   height: 100%;
+  text-align: right;
+  overflow: hidden;
 }
 
 .Profile__part {
@@ -153,7 +158,6 @@
   gap: 20px;
   scrollbar-width: thin;
   scrollbar-color: #333 transparent;
-  border: 1px solid #333;
 }
 
 .Profile__anuncios::-webkit-scrollbar {
@@ -264,6 +268,7 @@ svg {
   height: 40px;
   width: 120px;
   background-color: transparent;
+  border: 1px solid #000;
   color: #000;
   transition: color 0.3s ease;
   position: relative;
