@@ -3,7 +3,7 @@ import "../styles/components/Footer.css";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Toaster, toast } from 'sonner';
+import { Toaster, toast } from "sonner";
 
 import setadireitabranca from "../images/Setas/setadireitabranca.png";
 import setadireitapreta from "../images/Setas/SetaPretaDireita.png";
@@ -143,16 +143,13 @@ function Footer() {
             <ul className={`footer__item__bottom__ul ${footerColorClass}`}>
               <h1>● INICIATIVAS</h1>
               <li>
-                <a href="#">Aplicado</a>
+                <Link to="/sobre#panorama">Panorama</Link>
               </li>
               <li>
-                <a href="#">BrandBeats</a>
+                <Link to="/sobre#capacidades">Capacidades</Link>
               </li>
               <li>
-                <a href="#">Movimentos</a>
-              </li>
-              <li>
-                <a href="#">B/Bom</a>
+                <Link to="/sobre#premiacoes">Premiações</Link>
               </li>
             </ul>
 

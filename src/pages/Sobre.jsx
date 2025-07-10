@@ -91,7 +91,7 @@ const Sobre = () => {
         </div>
       </div>
 
-      <div className="Sobre__hero">
+      <div id="panorama" className="Sobre__hero">
         <div className="Sobre__hero__item__left">
           <h1>Panorama da Empresa</h1>
         </div>
@@ -162,7 +162,7 @@ const Sobre = () => {
         </div>
       </div>
 
-      <div className="Sobre__Capabilities">
+      <div id="capacidades" className="Sobre__Capabilities">
         <div className="Sobre__Capabilities__container">
           <div className="Sobre__Capabilities__container__item">
             <h1>Capacidades</h1>
@@ -200,10 +200,10 @@ const Sobre = () => {
           </div>
         </div>
       </div>
-      
-      <div className="Sobre__awards">
+
+      <div id="premiacoes" className="Sobre__awards">
         <div className="Sobre__awards__item">
-          <h1>Awards</h1>
+          <h1>Premiações</h1>
         </div>
         <div className="Sobre__awards__item">
           <h2>

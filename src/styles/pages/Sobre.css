@@ -618,6 +618,9 @@
   position: relative;
   /* antes inline no div principal */
 }
+.Sobre__Hoverimgs ul {
+  list-style: none;
+}
 
 .Sobre__Hoverimgs__item {
   width: 70%;
