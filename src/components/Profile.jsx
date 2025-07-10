@@ -159,6 +159,42 @@ const Profile = () => {
     }
   };
 
+  const handleSaveAll = async () => {
+    const validators = {
+      nome: nome.trim().length > 0,
+      cpf: cpf.trim().length > 0,
+      idade: /^\d+$/.test(idade) && parseInt(idade) > 0,
+      email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email),
+    };
+
+    if (!validators.nome) {
+      toast.error("Nome inválido.");
+      return;
+    }
+    if (!validators.cpf) {
+      toast.error("CPF inválido.");
+      return;
+    }
+    if (!validators.idade) {
+      toast.error("Idade inválida.");
+      return;
+    }
+    if (!validators.email) {
+      toast.error("E-mail inválido.");
+      return;
+    }
+
+    const updatedData = { nome, cpf, idade, email };
+
+    try {
+      await updateUserData(updatedData);
+      toast.success("Perfil atualizado com sucesso!");
+      closePopup();
+    } catch (error) {
+      toast.error("Erro ao atualizar perfil: " + error.message);
+    }
+  };
+
   useEffect(() => {
     searchCEP();
   }, []);
@@ -187,7 +223,6 @@ const Profile = () => {
           />
 
           <div className="Profile__box__info">
-
             <div className="Profile__box__info__value">
               <FaUser className="Profile__info__icon nome" />
               {user.nome}
@@ -280,57 +315,51 @@ const Profile = () => {
         <div className="popup-overlay" onClick={closePopup}>
           <div className="popup-content" onClick={(e) => e.stopPropagation()}>
             <h3>Editar Perfil</h3>
-            {["nome", "email", "cpf", "idade"].map((field) => (
-              <div key={field} className="Profile__info__item">
-                <label>{field.toUpperCase()}</label>
-                {editField === field ? (
-                  <div className="Profile__edit">
-                    <input
-                      className="Profile__info__input"
-                      value={
-                        field === "nome"
-                          ? nome
-                          : field === "email"
-                          ? email
-                          : field === "cpf"
-                          ? cpf
-                          : idade
-                      }
-                      onChange={(e) =>
-                        field === "nome"
-                          ? setNome(e.target.value)
-                          : field === "email"
-                          ? setEmail(e.target.value)
-                          : field === "cpf"
-                          ? setCpf(e.target.value)
-                          : setIdade(e.target.value)
-                      }
-                    />
-                    <button
-                      className="Profile__info__saveButton"
-                      onClick={() => handleSave(field)}
-                    >
-                      <FaSave size={20} color="#000" />
-                    </button>
-                  </div>
-                ) : (
-                  <div
-                    className="Profile__info__display"
-                    onClick={() => setEditField(field)}
-                    style={{ cursor: "pointer" }}
-                  >
-                    {field === "nome"
-                      ? nome
-                      : field === "email"
-                      ? email
-                      : field === "cpf"
-                      ? cpf
-                      : idade}
-                    <FaPencilAlt size={16} style={{ marginLeft: "0.5rem" }} />
-                  </div>
-                )}
-              </div>
-            ))}
+
+            <div className="Profile__info__item">
+              <label>NOME</label>
+              <input
+                className="Profile__info__input"
+                value={nome}
+                onChange={(e) => setNome(e.target.value)}
+              />
+            </div>
+
+            <div className="Profile__info__item">
+              <label>EMAIL</label>
+              <input
+                className="Profile__info__input"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+
+            <div className="Profile__info__item">
+              <label>CPF</label>
+              <input
+                className="Profile__info__input"
+                value={cpf}
+                onChange={(e) => setCpf(e.target.value)}
+              />
+            </div>
+
+            <div className="Profile__info__item">
+              <label>IDADE</label>
+              <input
+                className="Profile__info__input"
+                value={idade}
+                onChange={(e) => setIdade(e.target.value)}
+              />
+            </div>
+
+            <button
+              className="Profile__info__saveButton"
+              onClick={handleSaveAll} // Função para salvar tudo de uma vez
+              style={{ marginTop: "1rem" }}
+            >
+              <FaSave size={20} color="#000" /> Salvar
+            </button>
+
             <button
               onClick={closePopup}
               className="Profile__closePopup"

@@ -397,8 +397,8 @@
   text-transform: uppercase;
   margin: 0;
   color: #f9cdcd;
-  padding-top: 25px;
   font-weight: 800;
+  margin-top: -5px;
 }
 
 .Sobre__hero__item__right {
@@ -407,6 +407,7 @@
   flex-direction: column;
   gap: 2rem;
   padding-left: 2.5rem;
+  justify-content: start;
 }
 
 .Sobre__hero__item__right__top,
@@ -432,6 +433,7 @@
   text-align: left;
   align-items: flex-start;
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -508,6 +510,7 @@
 .Sobre__hero__item__right__bottom__left,
 .Sobre__hero__item__right__bottom__right {
   flex: 1;
+  height: 100%;
 }
 
 .Sobre__hero__item__right h1 {
@@ -563,6 +566,7 @@
   text-transform: uppercase;
   font-weight: 800;
   font-size: 3rem;
+  margin-top: -5px;
 }
 
 .Sobre__Capabilities__container__item h2 {
