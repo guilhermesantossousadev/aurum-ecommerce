@@ -1,0 +1,1 @@
+const e=r=>{if(typeof r=="number")return r.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});const t=Number(r);return isNaN(t)?"R$ 0,00":t.toLocaleString("pt-BR",{style:"currency",currency:"BRL"})};export{e as f};
