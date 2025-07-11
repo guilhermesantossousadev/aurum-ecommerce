@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
-import { toast } from 'sonner';
+import { toast } from "sonner";
 
 import { login } from "../store/userSlice";
 import Etapa1 from "../components/EtapasRegister/Etapa1";
@@ -46,11 +46,17 @@ const Register = () => {
 
   const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-  const isStrongPassword = (password) =>
-    /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password);
-
   const validarFormulario = () => {
-    if (!nome || !cpf || !idade || !email || !password || !confirmPassword || !cep || !numero) {
+    if (
+      !nome ||
+      !cpf ||
+      !idade ||
+      !email ||
+      !password ||
+      !confirmPassword ||
+      !cep ||
+      !numero
+    ) {
       toast.error("Todos os campos são obrigatórios.");
       return false;
     }
@@ -71,10 +77,6 @@ const Register = () => {
       toast.error("As senhas não coincidem.");
       return false;
     }
-    if (!isStrongPassword(password)) {
-      toast.error("A senha deve conter ao menos 8 caracteres, uma letra maiúscula, um número e um símbolo.");
-      return false;
-    }
     if (!/^\d{8}$/.test(cep.replace(/\D/g, ""))) {
       toast.error("CEP inválido.");
       return false;
@@ -85,7 +87,9 @@ const Register = () => {
   const checkEmailExists = async () => {
     if (!email) return;
     const response = await fetch(
-      `https://marketplacejoias-api-latest.onrender.com/api/Suport/ExistenceAuthenticationEmail?email=${encodeURIComponent(email)}`
+      `https://marketplacejoias-api-latest.onrender.com/api/Suport/ExistenceAuthenticationEmail?email=${encodeURIComponent(
+        email
+      )}`
     );
     const result = await response.text();
     if (!response.ok) {
@@ -116,7 +120,9 @@ const Register = () => {
 
     const cepData = await searchCEP();
     const enderecoFormatado = cepData
-      ? `${cepData?.logradouro || ""} Nº ${numero}, ${cepData?.bairro || ""}, ${cepData?.localidade || ""}, ${cepData?.uf || ""}, ${cepData?.cep || ""}`
+      ? `${cepData?.logradouro || ""} Nº ${numero}, ${cepData?.bairro || ""}, ${
+          cepData?.localidade || ""
+        }, ${cepData?.uf || ""}, ${cepData?.cep || ""}`
       : "Endereço não encontrado";
 
     const data = {
@@ -155,8 +161,12 @@ const Register = () => {
     setIsLoading(true);
 
     try {
+      // Validar token
       const response = await fetch(
-        `https://marketplacejoias-api-latest.onrender.com/api/Suport/AuthenticateToken?codigoToken=${encodeURIComponent(token)}`
+        `https://marketplacejoias-api-latest.onrender.com/api/Suport/AuthenticateToken?codigoToken=${encodeURIComponent(
+          token
+        )}`,
+        { method: "GET" }
       );
 
       if (!response.ok) {
@@ -165,6 +175,9 @@ const Register = () => {
         return;
       }
 
+      console.log(JSON.stringify(usuario))
+
+      // Criar usuário
       const resCreate = await fetch(
         "https://marketplacejoias-api-latest.onrender.com/api/Usuario/PostUsuario",
         {
@@ -174,17 +187,19 @@ const Register = () => {
         }
       );
 
+      const result = await resCreate.json();
+
       if (!resCreate.ok) {
-        const errorData = await resCreate.json();
-        throw new Error(errorData.message || "Erro ao criar conta");
+        console.error("Erro ao criar usuário:", result);
+        throw new Error(result.message || "Erro ao criar conta");
       }
 
-      const user = await resCreate.json();
       toast.success("Conta criada com sucesso!");
-      dispatch(login(user));
+      dispatch(login(result));
       navigate("/");
     } catch (error) {
-      toast.error(error.message);
+      console.error("Erro no handleSubmit:", error);
+      toast.error(error.message || "Erro inesperado ao cadastrar");
     } finally {
       setIsLoading(false);
     }
@@ -221,10 +236,6 @@ const Register = () => {
       toast.error("As senhas não coincidem.");
       return false;
     }
-    if (!isStrongPassword(password)) {
-      toast.error("A senha deve conter ao menos 8 caracteres, uma letra maiúscula, um número e um símbolo.");
-      return false;
-    }
     return true;
   };
 
@@ -239,7 +250,6 @@ const Register = () => {
     }
     return true;
   };
-
 
   return (
     <div className="Register">
@@ -305,7 +315,6 @@ const Register = () => {
                   </button>
                 </>
               )}
-
             </form>
             <div className="Register__links">
               <Link to="/login" className="Register__link">
