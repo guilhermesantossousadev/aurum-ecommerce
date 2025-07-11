@@ -254,7 +254,7 @@
 }
 
 .footer.pink-text .loading-spinner {
-  border-top-color: #fff;
+  border-top-color: #f9cdcd;
 }
 
 @keyframes spin {
