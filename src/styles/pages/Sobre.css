@@ -376,6 +376,7 @@
 }
 
 .Sobre__hero {
+  padding-top: 7rem;
   min-height: 100vh;
   height: auto;
   padding-inline: 3.8rem;
@@ -618,6 +619,7 @@
   position: relative;
   /* antes inline no div principal */
 }
+
 .Sobre__Hoverimgs ul {
   list-style: none;
 }

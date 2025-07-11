@@ -12,6 +12,7 @@ import SetaRosaDireita from "../images/Setas/SetaRosaDireita.png";
 function Footer() {
   const location = useLocation();
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false); // adiciona loading
 
   const getFooterColorClass = () => {
     const path = location.pathname;
@@ -52,6 +53,7 @@ function Footer() {
 
   const sendNewsLetter = async (e) => {
     e.preventDefault();
+    setLoading(true); // inicia loading
     try {
       const response = await fetch(
         `https://marketplacejoias-api-latest.onrender.com/api/Newsletter/PostNewsletter?usuarioEmail=${email}`,
@@ -66,6 +68,8 @@ function Footer() {
     } catch (error) {
       console.error(error);
       toast.error("Ocorreu um erro ao cadastrar o email.");
+    } finally {
+      setLoading(false); // finaliza loading
     }
   };
 
@@ -98,18 +102,23 @@ function Footer() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className={`input__footer ${footerColorClass}`}
+                disabled={loading} // opcional: impede digitação durante loading
               />
-              <button type="submit">
-                <img
-                  src={
-                    footerColorClass === "black-text"
-                      ? setadireitapreta
-                      : footerColorClass === "pink-text"
-                      ? SetaRosaDireita
-                      : setadireitabranca
-                  }
-                  alt="seta direita"
-                />
+              <button type="submit" disabled={loading}>
+                {loading ? (
+                  <span className="loading-spinner"></span>
+                ) : (
+                  <img
+                    src={
+                      footerColorClass === "black-text"
+                        ? setadireitapreta
+                        : footerColorClass === "pink-text"
+                        ? SetaRosaDireita
+                        : setadireitabranca
+                    }
+                    alt="seta direita"
+                  />
+                )}
               </button>
             </form>
           </div>

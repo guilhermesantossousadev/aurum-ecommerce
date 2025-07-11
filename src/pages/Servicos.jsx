@@ -5,7 +5,7 @@ import Assinatura from "../images/Servicos/AssinaturaEstetica.jpeg";
 import Presenca from "../images/Servicos/PresençaSensorial.jpeg";
 import Simbolos from "../images/Servicos/SimbolosVivos.jpeg";
 import Relogio from "../images/Servicos/relogioVladmir.jpeg";
-import Estilo from "../images/Servicos/EstilocomSignificado.jpeg";
+import Estilo from "../images/Servicos/../Servicos/EstilocomSignificado.jpeg";
 import Hope from "../images/Servicos/Hope.jpg";
 import Vinculo from "../images/Servicos/VínculoSingular.jpeg";
 import Essencia from "../images/Servicos/Essencia.jpeg";
@@ -56,7 +56,8 @@ function Servicos() {
               <h1>HOPE</h1>
               <p>
                 Joia icônica com Diamante Azul de 45,52 quilates, raro e
-                extremamente valioso.
+                extremamente valioso. É um artefato contemporâneo com alma
+                cultural.
               </p>
             </div>
           </div>
@@ -70,8 +71,7 @@ function Servicos() {
               <h1>AUDEMARS PIGUET</h1>
               <p>
                 Relógio Audemars Piguet cravejado, combina a tradição da marca
-                com um design imponente e moderno, luxo absoluto com diamantes e
-                design marcante.
+                com um design imponente e moderno.
               </p>
             </div>
           </div>
@@ -151,8 +151,7 @@ function Servicos() {
               <h1>SÍMBOLOS VIVOS</h1>
               <p>
                 Cada joia carrega mais que beleza — representa narrativas,
-                crenças e estilos que conectam o passado ao presente. São
-                artefatos contemporâneos com alma cultural.
+                crenças e estilos que conectam o passado ao presente.
               </p>
             </div>
           </div>

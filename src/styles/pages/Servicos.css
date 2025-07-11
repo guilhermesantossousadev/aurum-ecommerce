@@ -164,7 +164,6 @@
 
 .Box__item__top:hover img {
   transform: scale(1);
-  cursor: pointer;
 }
 
 .Box__item__top__img {

@@ -40,8 +40,8 @@ const Etapa2 = ({ email, setEmail, password, setPassword, confirmPassword, setCo
                 />
             </div>
             <div className="Register__form-buttons">
-                <button type="button" onClick={back} className="Register__button">Voltar</button>
                 <button type="button" onClick={next} className="Register__button">Próximo</button>
+                <button type="button" onClick={back} className="Register__button">Voltar</button>
             </div>
         </>
     );
