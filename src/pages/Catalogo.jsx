@@ -7,6 +7,8 @@ import SetaPretaDireita from "../images/Setas/SetaPretaDireita.png";
 import searchicon from "../images/Common/searchicon.png";
 import xpng from "../images/Common/x.png";
 
+import SetaPretaEsquerda from "../images/Setas/SetaPretaEsquerda.png";
+
 function Catalogo() {
   const { tipo } = useParams();
   const navigate = useNavigate();
@@ -108,6 +110,13 @@ function Catalogo() {
     navigate(`/detalhes/${anuncioId}`);
   };
 
+  // função para remover acentos
+  const removerAcentos = (str) =>
+    str
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase();
+
   const renderFilters = () => (
     <div className="filtersContent">
       <div className="filtersContent__container">
@@ -116,7 +125,7 @@ function Catalogo() {
           {[
             "anel",
             "brinco",
-            "relogio",
+            "relógio",
             "colar",
             "piercing",
             "pingente",
@@ -125,11 +134,16 @@ function Catalogo() {
             <label key={tipo}>
               <input
                 type="checkbox"
-                checked={tempFilter.tipo === tipo}
+                checked={
+                  removerAcentos(tempFilter.tipo) === removerAcentos(tipo)
+                }
                 onChange={() =>
                   setTempFilter({
                     ...tempFilter,
-                    tipo: tempFilter.tipo === tipo ? "todos" : tipo,
+                    tipo:
+                      removerAcentos(tempFilter.tipo) === removerAcentos(tipo)
+                        ? "todos"
+                        : tipo,
                   })
                 }
               />
@@ -137,7 +151,6 @@ function Catalogo() {
             </label>
           ))}
         </div>
-
         <div className="filtersContent__item">
           <h2>Disponibilidade</h2>
           {["todos", "disponivel", "indisponivel"].map((status) => (
@@ -161,19 +174,6 @@ function Catalogo() {
             </label>
           ))}
         </div>
-      </div>
-
-      <div className="filtersButtons">
-        <button
-          onClick={() => {
-            setSelectedFilter(tempFilter.tipo);
-            setAvaliable(tempFilter.disponibilidade);
-            setShowFilters(false);
-            setCurrentPage(1);
-          }}
-        >
-          Aplicar
-        </button>
       </div>
     </div>
   );
@@ -203,6 +203,9 @@ function Catalogo() {
 
       <div className="Catalogo__filters__button">
         <div className="Catalogo__filters__button__item">
+          <button onClick={() => setShowFilters((prev) => !prev)}>
+            Filtros
+          </button>
           <button
             onClick={() => {
               setTempFilter({
@@ -222,10 +225,21 @@ function Catalogo() {
           >
             Limpar
           </button>
-          <button onClick={() => setShowFilters((prev) => !prev)}>
-            Filtros
-          </button>
+
+          {showFilters && (
+            <button
+              onClick={() => {
+                setSelectedFilter(tempFilter.tipo);
+                setAvaliable(tempFilter.disponibilidade);
+                setShowFilters(false);
+                setCurrentPage(1);
+              }}
+            >
+              Aplicar
+            </button>
+          )}
         </div>
+
         <div className="Catalogo__filters__button__item right">
           <Link to="/cadastroJoia" className="anuncie-button">
             Anuncie agora
@@ -236,7 +250,13 @@ function Catalogo() {
       {showFilters && <div className="dropdownFilters">{renderFilters()}</div>}
 
       <div className="anuncios__container">
-        {loading && <p>Carregando anúncios...</p>}
+        {loading && (
+          <p className="loading-container">
+            <h2 className="loading-text">Carregando Anuncios...</h2>
+            <span className="loading-spinner"></span>
+          </p>
+        )}
+
         {error && <p className="error__message">{error}</p>}
         {!loading && !error && currentAnuncios.length === 0 && (
           <p>Nenhum anúncio encontrado.</p>
@@ -280,6 +300,7 @@ function Catalogo() {
               disabled={currentPage === 1}
               className="pagination__button"
             >
+              <img src={SetaPretaEsquerda} alt="seta" />
               Anterior
             </button>
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
@@ -290,7 +311,7 @@ function Catalogo() {
                 }`}
                 onClick={() => paginate(num)}
               >
-                {num}
+                <span> {num}</span>
               </button>
             ))}
             <button
@@ -299,6 +320,7 @@ function Catalogo() {
               className="pagination__button"
             >
               Próximo
+              <img src={SetaPretaDireita} alt="seta" />
             </button>
           </div>
         )}

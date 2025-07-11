@@ -25,6 +25,13 @@ function Footer() {
         "/token-authentication",
         "/servicos",
         "/catalogo",
+        "/catalogo/todos",
+        "/catalogo/relogio",
+        "/catalogo/colar",
+        "/catalogo/pulseira",
+        "/catalogo/anel",
+        "/catalogo/pingente",
+        "/catalogo/brinco",
       ].includes(path)
     )
       return "white-text";

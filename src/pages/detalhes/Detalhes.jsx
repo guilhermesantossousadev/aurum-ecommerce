@@ -209,6 +209,7 @@ function Detalhes() {
     return (
       <div className="detalhes__container">
         <div className="loading__message">
+          <h2>Carregando Anuncios...</h2>
           <div className="loading-spinner-detalhes"></div>
         </div>
       </div>
