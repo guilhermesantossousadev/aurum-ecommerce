@@ -16,7 +16,7 @@ const palavras = [
   { texto: "HRD Antwerp Design Awards", imagem: imgC },
   { texto: "Jewellery World Awards", imagem: imgB },
   { texto: "Inhorgenta Award", imagem: imgC },
-  { texto: "Goldsmiths’ Craft & Design Council Awards", imagem: imgC },
+  { texto: "Goldsmiths’ Craft & DC Awards", imagem: imgC },
   { texto: "Red Dot Award: Product Design", imagem: imgC },
 ];
 
@@ -53,8 +53,8 @@ const Sobre = () => {
             A Aurum Lumine® é uma joalheria digital que prospera na intersecção
             entre design, dados e tecnologia. Juntos, estamos focados em
             transformar joias e culturas — em todo o mundo. Estratégia.
-            Experiência de Marca. Experiência Digital. Detalhes. Tecnologia.
-            Somos exclusivamente criados para construir joias que importam na
+            Experiência. Experiência Digital. Detalhes. Tecnologia.
+            Somos exclusivamente criados para construir acessórios que importam na
             cultura.
           </h3>
         </div>
