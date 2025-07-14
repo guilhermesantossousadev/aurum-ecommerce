@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
-import { toast } from "sonner";
+import { toast, Toaster } from "sonner";
 
 import { login } from "../store/userSlice";
 import Etapa1 from "../components/EtapasRegister/Etapa1";
 import Etapa2 from "../components/EtapasRegister/Etapa2";
 import Etapa3 from "../components/EtapasRegister/Etapa3";
+import Etapa4 from "../components/EtapasRegister/Etapa4"; // ✅ importado
 import ConfirmacaoToken from "../components/EtapasRegister/ConfirmacaoToken";
 
 import "../styles/pages/Register.css";
@@ -30,6 +31,8 @@ const Register = () => {
   const [numero, setNumero] = useState("");
   const [token, setToken] = useState("");
   const [usuario, setUsuario] = useState(null);
+  const [complemento, setComplemento] = useState(""); // ✅
+  const [enderecoFormatado, setEnderecoFormatado] = useState(""); // ✅
 
   const validarCPF = (cpf) => {
     cpf = cpf.replace(/[^\d]/g, "");
@@ -119,11 +122,19 @@ const Register = () => {
     }
 
     const cepData = await searchCEP();
-    const enderecoFormatado = cepData
+    const enderecoCompleto = cepData
       ? `${cepData?.logradouro || ""} Nº ${numero}, ${cepData?.bairro || ""}, ${
           cepData?.localidade || ""
         }, ${cepData?.uf || ""}, ${cepData?.cep || ""}`
       : "Endereço não encontrado";
+
+    setEnderecoFormatado(enderecoCompleto);
+    setSubStep(4);
+    setIsLoading(false);
+  };
+
+  const solicitarTokenPosEndereco = async () => {
+    setIsLoading(true);
 
     const data = {
       nome,
@@ -133,7 +144,7 @@ const Register = () => {
       password,
       cep: cep.replace(/[^\d]/g, ""),
       numero,
-      complemento: "",
+      complemento,
       endereco: enderecoFormatado,
     };
 
@@ -161,7 +172,6 @@ const Register = () => {
     setIsLoading(true);
 
     try {
-      // Validar token
       const response = await fetch(
         `https://marketplacejoias-api-latest.onrender.com/api/Suport/AuthenticateToken?codigoToken=${encodeURIComponent(
           token
@@ -175,9 +185,6 @@ const Register = () => {
         return;
       }
 
-      console.log(JSON.stringify(usuario))
-
-      // Criar usuário
       const resCreate = await fetch(
         "https://marketplacejoias-api-latest.onrender.com/api/Usuario/PostUsuario",
         {
@@ -190,7 +197,6 @@ const Register = () => {
       const result = await resCreate.json();
 
       if (!resCreate.ok) {
-        console.error("Erro ao criar usuário:", result);
         throw new Error(result.message || "Erro ao criar conta");
       }
 
@@ -198,14 +204,17 @@ const Register = () => {
       dispatch(login(result));
       navigate("/");
     } catch (error) {
-      console.error("Erro no handleSubmit:", error);
       toast.error(error.message || "Erro inesperado ao cadastrar");
     } finally {
       setIsLoading(false);
     }
   };
 
-  // 🔧 Validações de cada etapa
+  const corrigirEndereco = () => {
+    setEnderecoFormatado("");
+    setSubStep(3);
+  };
+
   const validarEtapa1 = () => {
     if (!nome.trim() || !cpf.trim() || !idade.trim()) {
       toast.error("Preencha nome, CPF e idade.");
@@ -253,6 +262,7 @@ const Register = () => {
 
   return (
     <div className="Register">
+      <Toaster position="top-left" richColors />
       {step === 1 && (
         <div className="Register__left">
           <div className="Register__container">
@@ -260,7 +270,6 @@ const Register = () => {
             <form className="Register__form" onSubmit={handleRequestToken}>
               {subStep === 1 && (
                 <Etapa1
-                  style={{ width: "100%", height: "100%" }}
                   nome={nome}
                   setNome={setNome}
                   cpf={cpf}
@@ -268,9 +277,7 @@ const Register = () => {
                   idade={idade}
                   setIdade={setIdade}
                   validarCPF={validarCPF}
-                  next={() => {
-                    if (validarEtapa1()) setSubStep(2);
-                  }}
+                  next={() => validarEtapa1() && setSubStep(2)}
                 />
               )}
 
@@ -283,9 +290,7 @@ const Register = () => {
                   confirmPassword={confirmPassword}
                   setConfirmPassword={setConfirmPassword}
                   checkEmailExists={checkEmailExists}
-                  next={() => {
-                    if (validarEtapa2()) setSubStep(3);
-                  }}
+                  next={() => validarEtapa2() && setSubStep(3)}
                   back={() => setSubStep(1)}
                 />
               )}
@@ -307,13 +312,24 @@ const Register = () => {
                     onClick={(e) => {
                       if (!validarEtapa3()) {
                         e.preventDefault();
-                        return;
                       }
                     }}
                   >
-                    {isLoading ? "Enviando..." : "Validar Email"}
+                    {isLoading ? "Carregando..." : "Verificar Endereço"}
                   </button>
                 </>
+              )}
+
+              {subStep === 4 && (
+                <Etapa4
+                  complemento={complemento}
+                  setComplemento={setComplemento}
+                  enderecoFormatado={enderecoFormatado}
+                  next={solicitarTokenPosEndereco}
+                  back={() => setSubStep(3)}
+                  corrigirEndereco={corrigirEndereco} // ✅ implementado
+                  isLoading={isLoading}
+                />
               )}
             </form>
             <div className="Register__links">

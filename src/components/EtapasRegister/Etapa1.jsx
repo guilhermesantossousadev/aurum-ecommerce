@@ -17,7 +17,7 @@ const Etapa1 = ({
       .replace(/\D/g, "")
       .replace(/(\d{3})(\d)/, "$1.$2")
       .replace(/(\d{3})(\d)/, "$1.$2")
-      .replace(/(\d{3})(\d{1,2})/, "$1-$2")
+      .replace(/(\d{3})(\d{1,2})/, "$1-$2");
     setCpf(formatted);
     if (formatted.length === 14 && !validarCPF(formatted)) {
       toast.error("CPF inválido");
@@ -38,37 +38,43 @@ const Etapa1 = ({
   return (
     <>
       <div className="progress-bar">
-        <div className="progress" style={{ width: "33%" }} />
+        <div className="progress" style={{ width: "25%" }} />
       </div>
 
       <div className="Register__form-group">
-        <label>Nome Completo</label>
         <input
           type="text"
           value={nome}
           onChange={handleNomeChange}
           required
           className="Register__input"
+          placeholder="Nome Completo"
         />
       </div>
       <div className="Register__form-group">
-        <label>CPF</label>
         <input
           type="text"
           value={cpf}
           onChange={handleCpfChange}
           required
           className="Register__input"
+          placeholder="CPF"
         />
       </div>
       <div className="Register__form-group">
-        <label>Idade</label>
         <input
-          type="number"
+          type="text"
           value={idade}
-          onChange={(e) => setIdade(e.target.value)}
+          onChange={(e) => {
+            const value = e.target.value;
+            // aceita apenas números
+            if (/^\d*$/.test(value)) {
+              setIdade(value);
+            }
+          }}
           required
           className="Register__input"
+          placeholder="Idade"
         />
       </div>
       <button type="button" onClick={next} className="Register__button">

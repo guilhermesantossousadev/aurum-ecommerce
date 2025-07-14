@@ -102,7 +102,7 @@ function CrudUsuarios() {
           textAlign: "center",
         }}
       >
-        <p>Tem certeza que deseja deletar este Anuncio?</p>
+        <p>Tem certeza que deseja deletar este Usuario?</p>
         <div
           style={{
             display: "flex",

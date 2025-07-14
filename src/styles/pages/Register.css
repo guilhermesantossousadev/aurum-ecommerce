@@ -87,7 +87,7 @@
 .Register__form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
   width: 100%;
   max-width: 420px;
   box-sizing: border-box;
@@ -132,7 +132,6 @@
   transition: border-color 0.3s ease;
   color: #000 !important;
   box-sizing: border-box;
-  background-color: #f4f8f9;
 }
 
 .Register__input:focus {
@@ -210,6 +209,22 @@
   background-color: #000;
   width: 0%;
   transition: width 0.4s ease-in-out;
+}
+
+.loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 4px solid #fff;
+  border-top: 4px solid #000;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* animação giratória */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Responsividade para tablets e celulares */

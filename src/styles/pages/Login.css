@@ -103,7 +103,6 @@
   transition: border-color 0.3s ease;
   color: #000 !important;
   box-sizing: border-box;
-  background-color: #f4f8f9;
 }
 
 .Login__input:focus {

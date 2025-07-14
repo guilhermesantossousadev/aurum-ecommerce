@@ -211,10 +211,18 @@ function Contato() {
           <div className="Contato__follow__right">
             <h1>Social</h1>
             <ul>
-              <li>Instagram</li>
-              <li>Twitter</li>
-              <li>Linkedin</li>
-              <li>Facebook</li>
+              <li>
+                <a href="https://www.instagram.com/">Instagram</a>
+              </li>
+              <li>
+                <a href="https://x.com/">Twitter</a>
+              </li>
+              <li>
+                <a href="https://br.linkedin.com/">Linkedin</a>
+              </li>
+              <li>
+                <a href="https://www.facebook.com/?locale=pt_BR">Facebook</a>
+              </li>
             </ul>
           </div>
         </div>
