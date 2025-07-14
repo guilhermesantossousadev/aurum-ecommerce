@@ -42,6 +42,16 @@
   padding-top: 1rem;
 }
 
+.Catalogo__filters__button button.active-filter-button {
+  background-color: #000 !important;
+  color: #fff !important;
+}
+
+.Catalogo__filters__button button.active-filter-button::before {
+  height: 100%;
+}
+
+
 .Catalogo__filters__button__item {
   width: 100%;
   height: 100%;
@@ -100,7 +110,8 @@
 .anuncie-button {
   height: 50px;
   width: 160px;
-  background-color: #000; /* fundo preto */
+  background-color: #000;
+  /* fundo preto */
   border: 1px solid #000;
   color: #fff;
   transition: color 0.3s ease;
@@ -120,7 +131,8 @@
 .anuncie-button::before {
   content: "";
   position: absolute;
-  top: 0; /* mudou de bottom:0 para top:0 */
+  top: 0;
+  /* mudou de bottom:0 para top:0 */
   left: 0;
   width: 100%;
   height: 0;
@@ -159,6 +171,7 @@
   flex-direction: row;
   gap: 100px;
 }
+
 .filtersContent label {
   display: flex;
   flex-direction: row;
@@ -529,6 +542,7 @@
 .pagination__number.active::before {
   transform: scaleY(1);
 }
+
 .pagination__number.active::before span {
   color: #fff;
 }

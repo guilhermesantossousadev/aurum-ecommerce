@@ -27,7 +27,7 @@ function AdminPage() {
       <div className="Admin__left">
         <nav className="Admin__menu" aria-label="Admin navigation menu">
           <div className="Dashboard__menu__section">
-            <div className="Dashboard__menu__title">NAVIGATION</div>
+            <div className="Dashboard__menu__title">INFORMAÇÔES</div>
             <ul className="Dashboard__menu">
               <li
                 className={step === 0 ? "active" : ""}
@@ -36,13 +36,13 @@ function AdminPage() {
                 tabIndex={0}
                 onKeyDown={(e) => (e.key === "Enter" ? setStep(0) : null)}
               >
-                Dashboard
+                GRAFICOS E DADOS
               </li>
             </ul>
           </div>
 
           <div className="Dashboard__menu__section">
-            <div className="Dashboard__menu__title">SOCIAL</div>
+            <div className="Dashboard__menu__title">COMERCIAL</div>
             <ul className="Dashboard__menu">
               <li
                 className={step === 1 ? "active" : ""}
@@ -63,15 +63,6 @@ function AdminPage() {
                 Joias
               </li>
               <li
-                className={step === 3 ? "active" : ""}
-                onClick={() => setStep(3)}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => (e.key === "Enter" ? setStep(3) : null)}
-              >
-                Usuários
-              </li>
-              <li
                 className={step === 4 ? "active" : ""}
                 onClick={() => setStep(4)}
                 role="button"
@@ -79,6 +70,17 @@ function AdminPage() {
                 onKeyDown={(e) => (e.key === "Enter" ? setStep(4) : null)}
               >
                 Newsletter
+              </li>
+
+              <div className="Dashboard__menu__title">SOCIAL </div>
+              <li
+                className={step === 3 ? "active" : ""}
+                onClick={() => setStep(3)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => (e.key === "Enter" ? setStep(3) : null)}
+              >
+                Usuários
               </li>
               <li
                 className={step === 5 ? "active" : ""}
@@ -93,7 +95,7 @@ function AdminPage() {
           </div>
 
           <div className="Dashboard__menu__section">
-            <div className="Dashboard__menu__title">PAGES</div>
+            <div className="Dashboard__menu__title">ADMINISTRAÇÂO</div>
             <ul className="Dashboard__menu">
               <li
                 onClick={() => navigate("/profile")}

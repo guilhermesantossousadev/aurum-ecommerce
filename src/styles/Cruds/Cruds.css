@@ -94,7 +94,7 @@
 }
 
 .Principal__box__item__inside {
-  flex: 1;
+  width: 100%;
   display: flex;
   align-items: center;
   padding-left: 1rem;
@@ -104,6 +104,8 @@
 .Principal__box__item__inside.acoes {
   justify-content: center;
   gap: 0.5rem;
+  padding-left: 0px;
+  margin-left: -1rem;
 }
 
 .Principal__box__item__inside button {

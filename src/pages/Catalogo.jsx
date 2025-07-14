@@ -169,8 +169,8 @@ function Catalogo() {
               {status === "todos"
                 ? "Todos"
                 : status === "disponivel"
-                ? "Disponível"
-                : "Indisponível"}
+                  ? "Disponível"
+                  : "Indisponível"}
             </label>
           ))}
         </div>
@@ -203,9 +203,13 @@ function Catalogo() {
 
       <div className="Catalogo__filters__button">
         <div className="Catalogo__filters__button__item">
-          <button onClick={() => setShowFilters((prev) => !prev)}>
+          <button
+            onClick={() => setShowFilters((prev) => !prev)}
+            className={showFilters ? "active-filter-button" : ""}
+          >
             Filtros
           </button>
+
           <button
             onClick={() => {
               setTempFilter({
@@ -265,9 +269,8 @@ function Catalogo() {
           {currentAnuncios.map((anuncio) => (
             <div
               key={anuncio.id}
-              className={`anuncio__card ${
-                anuncio.isAvaliable ? "" : "isAvaliable"
-              }`}
+              className={`anuncio__card ${anuncio.isAvaliable ? "" : "isAvaliable"
+                }`}
               onClick={() => handleAnuncioClick(anuncio.id)}
             >
               <div className="Catalogo__part">
@@ -306,9 +309,8 @@ function Catalogo() {
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
               <button
                 key={num}
-                className={`pagination__number ${
-                  currentPage === num ? "active" : ""
-                }`}
+                className={`pagination__number ${currentPage === num ? "active" : ""
+                  }`}
                 onClick={() => paginate(num)}
               >
                 <span> {num}</span>

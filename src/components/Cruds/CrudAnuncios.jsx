@@ -183,7 +183,7 @@ function CrudAnuncios() {
     const tipo = tipoPeca.trim().toLowerCase();
 
     const correcoes = {
-      anel: "Anél",
+      anel: "Anel",
       colar: "Colar",
       pulseira: "Pulseira",
       brinco: "Brinco",
@@ -231,7 +231,7 @@ function CrudAnuncios() {
                       {anuncio.titulo}
                     </div>
                     <div className="Principal__box__item__inside">
-                      Valor: {formatCurrency(anuncio.valor)}
+                      {formatCurrency(anuncio.valor)}
                     </div>
                     <div className="Principal__box__item__inside acoes">
                       <button onClick={() => handleOpenPopup(anuncio)}>

@@ -197,7 +197,8 @@
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 25px;
+  margin-top: 20px;
 }
 
 .Contato__follow__right ul li {
