@@ -60,6 +60,7 @@ function Catalogo() {
       const response = await fetch(url);
       if (!response.ok) throw new Error("Erro ao buscar anúncios.");
       const data = await response.json();
+
       setAnuncios(data);
     } catch (error) {
       setError("Erro ao carregar os anúncios.");
@@ -70,6 +71,13 @@ function Catalogo() {
 
   useEffect(() => {
     getAnuncios();
+  }, [selectedFilter]);
+
+  useEffect(() => {
+    setTempFilter((prev) => ({
+      ...prev,
+      tipo: selectedFilter
+    }));
   }, [selectedFilter]);
 
   const anunciosFiltrados = anuncios

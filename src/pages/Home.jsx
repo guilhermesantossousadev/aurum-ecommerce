@@ -150,7 +150,7 @@ function Home() {
                   <div className="Home__Echo__container__item__img filtro">
                     <img src={corrente} alt="corrente" />
                     <div className="Home__Echo__container__item__text">
-                      correntes
+                      colar
                     </div>
                   </div>
                 </Link>
