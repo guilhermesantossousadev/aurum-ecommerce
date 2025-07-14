@@ -42,6 +42,7 @@ const Profile = () => {
   const [uploading, setUploading] = useState(false);
 
   const [anuncios, setAnuncios] = useState([]);
+  const [compras, setCompras] = useState([]);
 
   const inputFileRef = useRef(null);
 
@@ -69,11 +70,30 @@ const Profile = () => {
     }
   };
 
+  const GetCompras = async () => {
+    try {
+      const response = await fetch(
+        `https://marketplacejoias-api-latest.onrender.com/api/Venda/GetByEmailVenda?email=${user.email}`
+      );
+      if (!response.ok) throw new Error("Erro ao buscar compras.");
+      const data = await response.json();
+      setCompras(data);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   useEffect(() => {
     if (user?.id) {
       GetAnuncios();
     }
   }, [user?.id]);
+
+  useEffect(() => {
+    if (user?.email) {
+      GetCompras();
+    }
+  }, [user?.email]);
 
   const updateUserData = async (updatedData) => {
     const data = { ...user, ...updatedData };
@@ -356,7 +376,66 @@ const Profile = () => {
                 </div>
               )}
             </div>
-            <div className="Profile__container__rigth"></div>
+            <div className="Profile__container__rigth">
+              <div className="Profile__container__rigth__tittle">
+                <h3>Compras Cadastrados</h3>
+              </div>
+              {compras.length === 0 ? (
+                <p>Você não possui compras cadastradas.</p>
+              ) : (
+                <div className="Profile__container__rigth__Anuncios">
+                  {compras.map((compra) => (
+                    <div
+                      key={compra.id}
+                      className="Profile__container__rigth__Anuncio__card"
+                    >
+                      <div className="Profile__container__rigth__Anuncio__card__info">
+                        <h4>
+                          <FaTag style={{ marginRight: "10px" }} size={20} />
+                          Compra ID: {compra.id}
+                        </h4>
+
+                        <span>
+                          <FaCogs style={{ marginRight: "10px" }} size={20} />
+                          Data:{" "}
+                          {new Date(compra.dataCriacao).toLocaleDateString()}
+                        </span>
+
+                        <span>
+                          <FaDollarSign
+                            style={{ marginRight: "10px" }}
+                            size={20}
+                          />
+                          Valor: R$ {compra.valorTransacao.toFixed(2)}
+                        </span>
+
+                        <span>
+                          <FaCheckCircle
+                            color="green"
+                            style={{ marginRight: "10px" }}
+                            size={20}
+                          />
+                          Status: {compra.status}
+                        </span>
+
+                        <span>
+                          <FaTag style={{ marginRight: "10px" }} size={20} />
+                          Método: {compra.metodoPagamento}
+                        </span>
+
+                        {compra.parcelas > 0 && (
+                          <span>Parcelas: {compra.parcelas}</span>
+                        )}
+
+                        {compra.informacaoAdicional && (
+                          <span>Info: {compra.informacaoAdicional}</span>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
 
           {/* 

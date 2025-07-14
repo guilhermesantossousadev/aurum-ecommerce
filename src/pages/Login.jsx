@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { login } from "../store/userSlice";
-import { Toaster, toast } from 'sonner';
+import { toast } from "sonner";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 import "../styles/pages/Login.css";
 import loginvideo from "../images/videos/login.mp4";
@@ -14,6 +15,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -56,14 +58,13 @@ const Login = () => {
   return (
     <div className="Login">
       <div className="Login__left">
-        <video autoPlay muted loop width="100%" >
+        <video autoPlay muted loop width="100%">
           <source src={loginvideo} type="video/mp4" />
           Seu navegador não suporta a tag de vídeo.
         </video>
       </div>
       <div className="Login__rigth">
         <div className="Login__container">
-
           <h1 className="Login__title">Login</h1>
 
           <form className="Login__form" onSubmit={handleSubmit}>
@@ -76,14 +77,35 @@ const Login = () => {
               required
             />
 
-            <input
-              className="Login__input"
-              type="password"
-              placeholder="Senha"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+            <div
+              className="Login__input-container"
+              style={{ position: "relative", width: "95%" }}
+            >
+              <input
+                className="Login__input"
+                type={showPassword ? "text" : "password"}
+                placeholder="Senha"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                style={{
+                  position: "absolute",
+                  right: "10px",
+                  top: "20%",
+                  transform: "translateY(-50%)",
+                  background: "transparent",
+                  border: "none",
+                  cursor: "pointer",
+                  padding: 0,
+                }}
+              >
+                {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
+              </button>
+            </div>
 
             <button
               className="Login__button"
@@ -102,7 +124,6 @@ const Login = () => {
               Redefina sua senha
             </Link>
           </div>
-
         </div>
       </div>
     </div>
