@@ -208,10 +208,10 @@ function Detalhes() {
   if (loading)
     return (
       <div className="detalhes__container">
-        <div className="loading__message">
-          <h2>Carregando Anuncios...</h2>
-          <div className="loading-spinner-detalhes"></div>
-        </div>
+        <p className="loading-container">
+          <h2 className="loading-text">Carregando Anuncio...</h2>
+          <span className="loading-spinner"></span>
+        </p>
       </div>
     );
   if (error)

@@ -276,32 +276,35 @@
   margin-bottom: 1.5rem;
 }
 
-.carrinho-loading {
+.loading-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  padding: 3rem;
-  background: white;
-  border-radius: 12px;
+  align-items: center;
+  padding: 20px 0;
+  height: 100%;
+  min-height: 70vh;
+}
+
+.loading-text {
+  font-size: 1.5rem;
+  color: #000;
+  margin-bottom: 1rem;
+  font-weight: 600;
 }
 
 .loading-spinner {
   width: 40px;
   height: 40px;
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #000000;
+  border: 4px solid #fff;
+  border-top: 4px solid #000;
   border-radius: 50%;
   animation: spin 1s linear infinite;
-  margin-bottom: 1rem;
 }
 
+/* animação giratória */
 @keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
+  to {
     transform: rotate(360deg);
   }
 }
@@ -441,7 +444,6 @@
   box-sizing: border-box;
   background-color: #f4f8f9;
 }
-
 
 .frete-btn {
   min-width: 100%;

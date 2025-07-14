@@ -314,10 +314,10 @@ function Carrinho() {
     return (
       <div className="Carrinho">
         <div className="carrinho-container">
-          <div className="carrinho-loading">
-            <div className="loading-spinner"></div>
-            <p>Carregando seu carrinho...</p>
-          </div>
+          <p className="loading-container">
+            <h2 className="loading-text">Carregando Seu Carrinho...</h2>
+            <span className="loading-spinner"></span>
+          </p>
         </div>
       </div>
     );
