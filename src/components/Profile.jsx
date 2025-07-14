@@ -6,6 +6,11 @@ import {
   FaMapMarkerAlt,
   FaEnvelope,
   FaIdCard,
+  FaTag,
+  FaCogs,
+  FaCheckCircle,
+  FaTimesCircle,
+  FaDollarSign,
 } from "react-icons/fa";
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -280,6 +285,83 @@ const Profile = () => {
             </div>
           </div>
 
+          <div className="Profile__container">
+            <div className="Profile__container__left">
+              <div className="Profile__container__left__tittle">
+                <h3>Anúncios Cadastrados</h3>
+              </div>
+              {anuncios.length === 0 ? (
+                <p>Você não possui anúncios cadastrados.</p>
+              ) : (
+                <div className="Profile__container__left__Anuncios">
+                  {anuncios.map((anuncio) => (
+                    <div
+                      key={anuncio.id}
+                      className="Profile__container__left__Anuncio__card"
+                    >
+                      <div className="Profile__container__left__Anuncio__card__image">
+                        {anuncio.urLs?.[0] ? (
+                          <img
+                            src={anuncio.urLs[0]}
+                            alt="Imagem do anúncio"
+                            className="anuncio__image"
+                          />
+                        ) : (
+                          <p>Este anúncio não possui imagem.</p>
+                        )}
+                      </div>
+                      <div className="Profile__container__left__Anuncio__card__info">
+                        <h4>
+                          <FaTag style={{ marginRight: "10px" }} size={20} />
+                          Titulo: {anuncio.titulo}
+                        </h4>
+
+                        <span>
+                          <FaCogs style={{ marginRight: "10px" }} size={20} />
+                          Tipo: {anuncio.tipoPeca}
+                        </span>
+
+                        <span>
+                          {anuncio.isAvaliable === true ? (
+                            <>
+                              <FaCheckCircle
+                                color="green"
+                                style={{ marginRight: "10px" }}
+                                size={20}
+                              />
+                              Disponibilidade: Disponível
+                            </>
+                          ) : (
+                            <>
+                              <FaTimesCircle
+                                color="red"
+                                style={{ marginRight: "10px" }}
+                                size={20}
+                              />
+                              Disponibilidade: Indisponível
+                            </>
+                          )}
+                        </span>
+
+                        <span>
+                          <FaDollarSign
+                            style={{ marginRight: "10px" }}
+                            size={20}
+                          />
+                          Valor: {anuncio.valor}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+            <div className="Profile__container__rigth"></div>
+          </div>
+
+          {/* 
+    
+    
           <div className="Profile__anuncios">
             <h3>Anúncios Cadastrados</h3>
             {anuncios.length === 0 ? (
@@ -308,6 +390,7 @@ const Profile = () => {
               </div>
             )}
           </div>
+    */}
         </div>
       </div>
 

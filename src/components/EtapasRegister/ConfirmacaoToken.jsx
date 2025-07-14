@@ -21,7 +21,7 @@ const ConfirmacaoToken = ({ token, setToken, handleSubmit, isLoading }) => {
             disabled={isLoading}
             className="Register__button"
           >
-            {isLoading ? <div className="loading-spinner" /> : "Validar"}
+            {isLoading ? <div className="loading-spinner-register" /> : "Validar"}
           </button>
         </form>
       </div>

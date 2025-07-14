@@ -59,7 +59,7 @@ const Etapa4 = ({
             className="Register__button"
             disabled={isLoading}
           >
-            {isLoading ? <div className="loading-spinner" /> : "Avançar"}
+            {isLoading ? <div className="loading-spinner-register" /> : "Avançar"}
           </button>
         </div>
       </div>
