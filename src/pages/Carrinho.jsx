@@ -119,7 +119,7 @@ function Carrinho() {
 
       if (data.erro) return toast.error("CEP inválido");
 
-      const valorFrete = carrinho.valorTotal < 2000 ? 19.9 : 0;
+      const valorFrete = carrinho.valorTotal < 2000 ? 0.1 : 0;
       const prazoEntrega = carrinho.valorTotal < 500 ? 5 : 3;
 
       setFrete({
