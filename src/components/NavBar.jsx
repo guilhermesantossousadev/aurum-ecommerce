@@ -217,7 +217,7 @@ const NavBar = () => {
               ) : (
                 <li>
                   <Link to="/profile" onClick={() => setIsMenuOpen(false)}>
-                    {user.nome}
+                    Perfil
                   </Link>
                 </li>
               )}

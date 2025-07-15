@@ -349,7 +349,7 @@ const Profile = () => {
                                 style={{ marginRight: "10px" }}
                                 size={20}
                               />
-                              Disponibilidade: Disponível
+                              Disponível
                             </>
                           ) : (
                             <>
@@ -358,7 +358,7 @@ const Profile = () => {
                                 style={{ marginRight: "10px" }}
                                 size={20}
                               />
-                              Disponibilidade: Indisponível
+                              Indisponível
                             </>
                           )}
                         </span>

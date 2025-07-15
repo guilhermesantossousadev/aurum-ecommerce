@@ -262,7 +262,6 @@ const Register = () => {
 
   return (
     <div className="Register">
-      <Toaster position="top-left" richColors />
       {step === 1 && (
         <div className="Register__left">
           <div className="Register__container">
