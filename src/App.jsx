@@ -57,7 +57,7 @@ function AppRoutes() {
         <Route path="/adminPage" element={<AdminPage />} />
         <Route path="/successPage" element={<SuccessPage />} />
         <Route path="/errorPage" element={<ErrorPage />} />
-        <Route path="/pendingPage" element={<PendingPage />} />
+        <Route path="/  " element={<PendingPage />} />
         <Route path="/token-authentication" element={<TokenAuthentication />} />
       </Routes>
       <Toaster position="top-right" richColors />

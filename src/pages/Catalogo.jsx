@@ -47,11 +47,16 @@ function Catalogo() {
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
 
+  const removerAcentos = (str) =>
+    str.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+
   const getAnuncios = async () => {
     setLoading(true);
     setError(null);
     try {
-      const tipoFormatado = capitalizeFirstLetter(selectedFilter);
+      const tipoSemAcento = removerAcentos(selectedFilter);
+      const tipoFormatado = capitalizeFirstLetter(tipoSemAcento);
+
       const url =
         selectedFilter !== "todos"
           ? `https://marketplacejoias-api-latest.onrender.com/api/Anuncio/GetByTipoJoia?tipoPeca=${tipoFormatado}`
@@ -76,16 +81,18 @@ function Catalogo() {
   useEffect(() => {
     setTempFilter((prev) => ({
       ...prev,
-      tipo: selectedFilter
+      tipo: selectedFilter,
     }));
   }, [selectedFilter]);
 
   const anunciosFiltrados = anuncios
-    .filter((anuncio) =>
-      selectedFilter === "todos"
-        ? true
-        : anuncio.tipoPeca?.toLowerCase() === selectedFilter
-    )
+    .filter((anuncio) => {
+      if (selectedFilter === "todos") return true;
+      return (
+        removerAcentos(anuncio.tipoPeca || "") ===
+        removerAcentos(selectedFilter || "")
+      );
+    })
     .filter((anuncio) => {
       if (!searchTerm) return true;
       const titulo = anuncio.titulo?.toLowerCase() || "";
@@ -117,13 +124,6 @@ function Catalogo() {
   const handleAnuncioClick = (anuncioId) => {
     navigate(`/detalhes/${anuncioId}`);
   };
-
-  // função para remover acentos
-  const removerAcentos = (str) =>
-    str
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .toLowerCase();
 
   const renderFilters = () => (
     <div className="filtersContent">
@@ -177,8 +177,8 @@ function Catalogo() {
               {status === "todos"
                 ? "Todos"
                 : status === "disponivel"
-                  ? "Disponível"
-                  : "Indisponível"}
+                ? "Disponível"
+                : "Indisponível"}
             </label>
           ))}
         </div>
@@ -263,10 +263,10 @@ function Catalogo() {
 
       <div className="anuncios__container">
         {loading && (
-          <p className="loading-container">
-            <h2 className="loading-text">Carregando Anuncios...</h2>
+          <div className="loading-container">
+            <h2 className="loading-text">Carregando Anúncios...</h2>
             <span className="loading-spinner"></span>
-          </p>
+          </div>
         )}
 
         {error && <p className="error__message">{error}</p>}
@@ -277,8 +277,9 @@ function Catalogo() {
           {currentAnuncios.map((anuncio) => (
             <div
               key={anuncio.id}
-              className={`anuncio__card ${anuncio.isAvaliable ? "" : "isAvaliable"
-                }`}
+              className={`anuncio__card ${
+                anuncio.isAvaliable ? "" : "isAvaliable"
+              }`}
               onClick={() => handleAnuncioClick(anuncio.id)}
             >
               <div className="Catalogo__part">
@@ -317,8 +318,9 @@ function Catalogo() {
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
               <button
                 key={num}
-                className={`pagination__number ${currentPage === num ? "active" : ""
-                  }`}
+                className={`pagination__number ${
+                  currentPage === num ? "active" : ""
+                }`}
                 onClick={() => paginate(num)}
               >
                 <span> {num}</span>
