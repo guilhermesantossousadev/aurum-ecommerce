@@ -21,7 +21,7 @@
 .PostNewsletterMessage h3 {
   text-align: center;
   margin-bottom: 1.5rem;
-  color: #333;
+  color: #555;
 }
 
 .PostNewsletter label,
@@ -29,7 +29,7 @@
   display: block;
   margin-top: 1rem;
   font-weight: 600;
-  color: #333;
+  color: #555;
 }
 
 .PostNewsletter input,
@@ -39,11 +39,12 @@
   width: 100%;
   height: 50px;
   padding: 0.8rem;
-  border: 1px solid rgba(221, 221, 221, 0.5);
-  border-radius: 9px;
+  border: none;
+  border-bottom: 1px solid #555;
+  border-radius: 0;
   font-size: 1rem;
   transition: border-color 0.3s ease;
-  color: #000 !important;
+  color: #555 !important;
   box-sizing: border-box;
   background-color: #f4f8f9;
 }
@@ -53,6 +54,8 @@
   resize: vertical;
   min-height: 100px;
   height: auto;
+  border: 1px solid #555;
+  border-radius: 5px;
 }
 
 .PostNewsletter input:focus,

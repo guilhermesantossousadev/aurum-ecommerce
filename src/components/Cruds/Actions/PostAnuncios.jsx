@@ -213,23 +213,51 @@ const PostAnuncios = () => {
 
           <label>Peso</label>
           <input
-            type="number"
-            min={0}
+            type="text"
+            inputMode="decimal"
+            pattern="[0-9]*[.,]?[0-9]*"
             value={joiaData.peso}
-            onChange={(e) => handleChange("peso", Number(e.target.value) || 0)}
+            onChange={(e) => {
+              const value = e.target.value.replace(",", "."); // aceita vírgula ou ponto
+              if (/^\d*\.?\d*$/.test(value)) {
+                handleChange("peso", value);
+              }
+            }}
             required
           />
 
+
           <label>Material</label>
-          <input
-            type="text"
+          <select
             value={joiaData.material}
             onChange={(e) => handleChange("material", e.target.value)}
             required
-          />
+          >
+            <option value="">Selecione</option>
+            <option value="Ouro">Ouro</option>
+            <option value="Ouro Branco">Ouro Branco</option>
+            <option value="Ouro Rosé">Ouro Rosé</option>
+            <option value="Prata">Prata</option>
+            <option value="Prata de Lei">Prata de Lei</option>
+            <option value="Platina">Platina</option>
+            <option value="Paládio">Paládio</option>
+            <option value="Aço Inoxidável">Aço Inoxidável</option>
+            <option value="Cobre">Cobre</option>
+            <option value="Latão">Latão</option>
+            <option value="Níquel">Níquel</option>
+            <option value="Ródio">Ródio</option>
+            <option value="Zircônia">Zircônia</option>
+            <option value="Titânio">Titânio</option>
+            <option value="Tungstênio">Tungstênio</option>
+            <option value="Cerâmica">Cerâmica</option>
+            <option value="Madeira">Madeira</option>
+            <option value="Resina">Resina</option>
+            <option value="Cristal">Cristal</option>
+            <option value="Vidro">Vidro</option>
+          </select>
 
-          <label>
-            Cravejada
+
+          <label className="checkbox-label">
             <input
               type="checkbox"
               checked={joiaData.isStudded}
@@ -237,7 +265,9 @@ const PostAnuncios = () => {
                 handleBooleanChange("isStudded", e.target.checked)
               }
             />
+            Cravejada
           </label>
+
 
           {joiaData.isStudded && (
             <div>

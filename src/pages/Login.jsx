@@ -71,7 +71,7 @@ const Login = () => {
             <input
               className="Login__input"
               type="email"
-              placeholder="E-mail"
+              placeholder="e-mail"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required

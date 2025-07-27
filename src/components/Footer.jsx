@@ -82,12 +82,12 @@ function Footer() {
 
   const offices = [
     { name: "San Diego", id: "sandiego" },
-    { name: "New York", id: "newyork" },
-    { name: "Bay Area", id: "bayarea" },
+    { name: "Nova York", id: "newyork" },
+    { name: "Área da Baía de São Francisco", id: "bayarea" },
     { name: "St. Louis", id: "stlouis" },
-    { name: "Amsterdam", id: "amsterdam" },
-    { name: "London", id: "london" },
-    { name: "Berlin", id: "berlin" },
+    { name: "Amsterdã", id: "amsterdam" },
+    { name: "Londres", id: "london" },
+    { name: "Berlim", id: "berlin" },
     { name: "Argentina", id: "argentina" },
   ];
 

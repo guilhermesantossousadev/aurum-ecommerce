@@ -18,14 +18,14 @@
 .PostUsuario h2 {
   text-align: center;
   margin-bottom: 1.5rem;
-  color: #333;
+  color: #555;
 }
 
 .PostUsuario label {
   display: block;
   margin-top: 1rem;
   font-weight: 600;
-  color: #333;
+  color: #555;
 }
 
 .PostUsuario input,
@@ -33,11 +33,12 @@
   width: 100%;
   height: 50px;
   padding: 0.8rem;
-  border: 1px solid rgba(221, 221, 221, 0.5);
-  border-radius: 9px;
+  border: none;
+  border-bottom: 1px solid #555;
+  border-radius: 0;
   font-size: 1rem;
   transition: border-color 0.3s ease;
-  color: #000 !important;
+  color: #555 !important;
   box-sizing: border-box;
   background-color: #f4f8f9;
 }
@@ -55,7 +56,7 @@
 .PostUsuario select,
 .PostUsuario textarea:focus {
   outline: none;
-  border-color: #000;
+  border-color: #555;
 }
 .PostUsuario input:focus,
 .PostUsuario select:focus,

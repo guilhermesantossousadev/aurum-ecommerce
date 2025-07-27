@@ -73,8 +73,8 @@ const CadastroAnuncio = () => {
         type === "checkbox"
           ? checked
           : type === "number"
-          ? Number(value)
-          : value,
+            ? Number(value)
+            : value,
     }));
   };
 
@@ -286,12 +286,34 @@ const CadastroAnuncio = () => {
             />
 
             <label>Material</label>
-            <input
+            <select
               name="material"
-              type="text"
               value={form.material}
               onChange={handleChange}
-            />
+              required
+            >
+              <option value="">Selecione</option>
+              <option value="Ouro">Ouro</option>
+              <option value="Ouro Branco">Ouro Branco</option>
+              <option value="Ouro Rosé">Ouro Rosé</option>
+              <option value="Prata">Prata</option>
+              <option value="Prata de Lei">Prata de Lei</option>
+              <option value="Platina">Platina</option>
+              <option value="Paládio">Paládio</option>
+              <option value="Aço Inoxidável">Aço Inoxidável</option>
+              <option value="Cobre">Cobre</option>
+              <option value="Latão">Latão</option>
+              <option value="Níquel">Níquel</option>
+              <option value="Ródio">Ródio</option>
+              <option value="Zircônia">Zircônia</option>
+              <option value="Titânio">Titânio</option>
+              <option value="Tungstênio">Tungstênio</option>
+              <option value="Cerâmica">Cerâmica</option>
+              <option value="Madeira">Madeira</option>
+              <option value="Resina">Resina</option>
+              <option value="Cristal">Cristal</option>
+              <option value="Vidro">Vidro</option>
+            </select>
 
             {renderSpecificInputs()}
 

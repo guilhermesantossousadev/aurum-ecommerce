@@ -51,7 +51,6 @@ const PostUsuario = ({ onUserCreated }) => {
         <input
           id="nome"
           name="nome"
-          placeholder="Nome"
           value={form.nome}
           onChange={handleChange}
           required
@@ -61,7 +60,6 @@ const PostUsuario = ({ onUserCreated }) => {
         <input
           id="cpf"
           name="cpf"
-          placeholder="CPF"
           value={form.cpf}
           onChange={handleChange}
           required
@@ -71,20 +69,23 @@ const PostUsuario = ({ onUserCreated }) => {
         <input
           id="idade"
           name="idade"
-          type="number"
-          placeholder="Idade"
+          type="text"
+          inputMode="numeric"
+          pattern="[0-9]*"
           value={form.idade}
-          onChange={handleChange}
-          min={0}
+          onChange={(e) => {
+            const onlyNumbers = e.target.value.replace(/\D/g, "");
+            handleChange({ target: { name: "idade", value: onlyNumbers } });
+          }}
           required
         />
 
-        <label htmlFor="email">Email</label>
+
+        <label htmlFor="email">E-mail</label>
         <input
           id="email"
           name="email"
           type="email"
-          placeholder="Email"
           value={form.email}
           onChange={handleChange}
           required
@@ -95,7 +96,6 @@ const PostUsuario = ({ onUserCreated }) => {
           id="password"
           name="password"
           type="password"
-          placeholder="Senha"
           value={form.password}
           onChange={handleChange}
           required
@@ -105,29 +105,40 @@ const PostUsuario = ({ onUserCreated }) => {
         <input
           id="cep"
           name="cep"
-          placeholder="CEP"
           value={form.cep}
-          onChange={handleChange}
+          onChange={(e) => {
+            let value = e.target.value.replace(/\D/g, ""); // remove não-dígitos
+            if (value.length > 5) {
+              value = value.replace(/^(\d{5})(\d{1,3})/, "$1-$2");
+            }
+            handleChange({ target: { name: "cep", value } });
+          }}
+          maxLength={9}
           required
         />
+
 
         <label htmlFor="numero">Número</label>
         <input
           id="numero"
           name="numero"
-          type="number"
-          placeholder="Número"
+          type="text"
           value={form.numero}
-          onChange={handleChange}
+          onChange={(e) => {
+            const value = e.target.value;
+            if (/^\d*$/.test(value)) {
+              handleChange(e);
+            }
+          }}
           min={0}
           required
         />
+
 
         <label htmlFor="complemento">Complemento</label>
         <input
           id="complemento"
           name="complemento"
-          placeholder="Complemento"
           value={form.complemento}
           onChange={handleChange}
         />
@@ -136,7 +147,6 @@ const PostUsuario = ({ onUserCreated }) => {
         <input
           id="endereco"
           name="endereco"
-          placeholder="Endereço"
           value={form.endereco}
           onChange={handleChange}
           required

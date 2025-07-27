@@ -35,7 +35,6 @@ function PostNewsletterMessage() {
         <label htmlFor="titulo">Título</label>
         <input
           name="titulo"
-          placeholder="Título"
           value={messageForm.titulo}
           onChange={(e) =>
             setMessageForm({ ...messageForm, titulo: e.target.value })
@@ -45,7 +44,6 @@ function PostNewsletterMessage() {
         <label htmlFor="mensagem">Mensagem</label>
         <textarea
           name="mensagem"
-          placeholder="Mensagem"
           value={messageForm.mensagem}
           onChange={(e) =>
             setMessageForm({ ...messageForm, mensagem: e.target.value })
