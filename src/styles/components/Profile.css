@@ -329,7 +329,7 @@ svg {
   height: 100%;
 }
 
-.popup-overlay {
+.popup-overlay-profile {
   position: fixed;
   top: 0;
   left: 0;
@@ -342,20 +342,73 @@ svg {
   z-index: 999;
 }
 
-.popup-content {
+.popup-content-profile {
   background-color: white;
   padding: 2rem;
   border-radius: 8px;
-  max-width: 90%;
-  max-height: 90%;
+  width: 600px;
+  height: 500px;
   overflow-y: auto;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  position: relative;
 }
 
 button {
   padding: 0.5rem 1rem;
   margin-top: 1rem;
 }
+
+
+.Profile__info__saveButton {
+  width: 150px;
+  height: 50px;
+  border: 1px solid #252422;
+  background-color: transparent;
+  transition: .3s ease;
+  color: #000;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+
+.Profile__info__saveButton:hover {
+  background-color: #3a3938;
+  border: none;
+}
+
+
+.Profile__closePopup {
+  position: absolute;
+  width: auto;
+  height: auto;
+  background-color: transparent;
+  border: none;
+  transition: .3s ease;
+  color: #fff;
+  border-radius: 3px;
+  right: 25px;
+  top: 20px;
+}
+
+.Profile__closePopup img {
+  width: 30px;
+  transition: .3s ease;
+}
+
+.Profile__closePopup img:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
 
 /* RESPONSIVIDADE */
 @media (max-width: 1024px) {

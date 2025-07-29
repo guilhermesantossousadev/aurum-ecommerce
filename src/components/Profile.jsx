@@ -19,6 +19,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 import perfil from "../images/Common/perfil.png";
+import xpgn from "../images/Common/x.png"
 
 import "../styles/components/Profile.css";
 
@@ -365,15 +366,15 @@ const Profile = () => {
                 </div>
               )}
             </div>
-            
+
           </div>
         </div>
       </div>
 
       {isPopupOpen && (
-        <div className="popup-overlay" onClick={closePopup}>
-          <div className="popup-content" onClick={(e) => e.stopPropagation()}>
-            <h3>Editar Perfil</h3>
+        <div className="popup-overlay-profile" onClick={closePopup}>
+          <div className="popup-content-profile" onClick={(e) => e.stopPropagation()}>
+            <h3>Edite o seu perfil</h3>
 
             <div className="Profile__info__item">
               <label>NOME</label>
@@ -424,7 +425,7 @@ const Profile = () => {
               className="Profile__closePopup"
               style={{ marginTop: "1rem" }}
             >
-              Fechar
+              <img src={xpgn} alt="xpgn" />
             </button>
           </div>
         </div>
