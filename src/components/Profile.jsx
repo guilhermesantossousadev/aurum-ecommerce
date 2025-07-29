@@ -306,170 +306,67 @@ const Profile = () => {
           </div>
 
           <div className="Profile__container">
-            <div className="Profile__container__left">
-              <div className="Profile__container__left__tittle">
-                <h3>Anúncios Cadastrados</h3>
-              </div>
+
+            <div className="Profile__content-section">
+              <h2 className="Profile__section-title">Meus Anúncios</h2>
               {anuncios.length === 0 ? (
-                <p>Você não possui anúncios cadastrados.</p>
+                <p className="Profile__no-data">Você não possui anúncios cadastrados.</p>
               ) : (
-                <div className="Profile__container__left__Anuncios">
+                <div className="Profile__cards-container">
                   {anuncios.map((anuncio) => (
-                    <div
-                      key={anuncio.id}
-                      className="Profile__container__left__Anuncio__card"
-                    >
-                      <div className="Profile__container__left__Anuncio__card__image">
+                    <div key={anuncio.id} className="Profile__card">
+                      <div className="Profile__card-image">
                         {anuncio.urLs?.[0] ? (
-                          <img
-                            src={anuncio.urLs[0]}
-                            alt="Imagem do anúncio"
-                            className="anuncio__image"
-                          />
+                          <img src={anuncio.urLs[0]} alt="Imagem do anúncio" />
                         ) : (
-                          <p>Este anúncio não possui imagem.</p>
+                          <p>Sem imagem</p>
                         )}
                       </div>
-                      <div className="Profile__container__left__Anuncio__card__info">
+                      <div className="Profile__card-info">
                         <h4>
-                          <FaTag style={{ marginRight: "10px" }} size={20} />
-                          Titulo: {anuncio.titulo}
+                          <FaTag size={16} /> {anuncio.titulo}
                         </h4>
-
-                        <span>
-                          <FaCogs style={{ marginRight: "10px" }} size={20} />
-                          Tipo: {anuncio.tipoPeca}
-                        </span>
-
-                        <span>
-                          {anuncio.isAvaliable === true ? (
-                            <>
-                              <FaCheckCircle
-                                color="green"
-                                style={{ marginRight: "10px" }}
-                                size={20}
-                              />
-                              Disponível
-                            </>
+                        <p><FaCogs size={14} /> Tipo: {anuncio.tipoPeca}</p>
+                        <p>
+                          {anuncio.isAvaliable ? (
+                            <FaCheckCircle color="green" size={14} />
                           ) : (
-                            <>
-                              <FaTimesCircle
-                                color="red"
-                                style={{ marginRight: "10px" }}
-                                size={20}
-                              />
-                              Indisponível
-                            </>
-                          )}
-                        </span>
-
-                        <span>
-                          <FaDollarSign
-                            style={{ marginRight: "10px" }}
-                            size={20}
-                          />
-                          Valor: {anuncio.valor}
-                        </span>
+                            <FaTimesCircle color="red" size={14} />
+                          )}{" "}
+                          {anuncio.isAvaliable ? "Disponível" : "Indisponível"}
+                        </p>
+                        <p><FaDollarSign size={14} /> R$ {anuncio.valor}</p>
                       </div>
                     </div>
                   ))}
                 </div>
               )}
-            </div>
-            <div className="Profile__container__rigth">
-              <div className="Profile__container__rigth__tittle">
-                <h3>Compras Cadastrados</h3>
-              </div>
+
+              <h2 className="Profile__section-title">Minhas Compras</h2>
               {compras.length === 0 ? (
-                <p>Você não possui compras cadastradas.</p>
+                <p className="Profile__no-data">Você ainda não realizou compras.</p>
               ) : (
-                <div className="Profile__container__rigth__Anuncios">
+                <div className="Profile__cards-container">
                   {compras.map((compra) => (
-                    <div
-                      key={compra.id}
-                      className="Profile__container__rigth__Anuncio__card"
-                    >
-                      <div className="Profile__container__rigth__Anuncio__card__info">
+                    <div key={compra.id} className="Profile__card">
+                      <div className="Profile__card-info full">
                         <h4>
-                          <FaTag style={{ marginRight: "10px" }} size={20} />
-                          Compra ID: {compra.id}
+                          <FaTag size={16} /> Compra #{compra.id}
                         </h4>
-
-                        <span>
-                          <FaCogs style={{ marginRight: "10px" }} size={20} />
-                          Data:{" "}
-                          {new Date(compra.dataCriacao).toLocaleDateString()}
-                        </span>
-
-                        <span>
-                          <FaDollarSign
-                            style={{ marginRight: "10px" }}
-                            size={20}
-                          />
-                          Valor: R$ {compra.valorTransacao.toFixed(2)}
-                        </span>
-
-                        <span>
-                          <FaCheckCircle
-                            color="green"
-                            style={{ marginRight: "10px" }}
-                            size={20}
-                          />
-                          Status: {compra.status}
-                        </span>
-
-                        <span>
-                          <FaTag style={{ marginRight: "10px" }} size={20} />
-                          Método: {compra.metodoPagamento}
-                        </span>
-
-                        {compra.parcelas > 0 && (
-                          <span>Parcelas: {compra.parcelas}</span>
-                        )}
-
-                        {compra.informacaoAdicional && (
-                          <span>Info: {compra.informacaoAdicional}</span>
-                        )}
+                        <p><FaCogs size={14} /> {new Date(compra.dataCriacao).toLocaleDateString()}</p>
+                        <p><FaDollarSign size={14} /> Valor: R$ {compra.valorTransacao.toFixed(2)}</p>
+                        <p><FaCheckCircle size={14} color="green" /> Status: {compra.status}</p>
+                        <p><FaTag size={14} /> Método: {compra.metodoPagamento}</p>
+                        {compra.parcelas > 0 && <p>Parcelas: {compra.parcelas}</p>}
+                        {compra.informacaoAdicional && <p>Info: {compra.informacaoAdicional}</p>}
                       </div>
                     </div>
                   ))}
                 </div>
               )}
             </div>
+            
           </div>
-
-          {/* 
-    
-    
-          <div className="Profile__anuncios">
-            <h3>Anúncios Cadastrados</h3>
-            {anuncios.length === 0 ? (
-              <p>Você não possui anúncios cadastrados.</p>
-            ) : (
-              <div className="Anuncios">
-                {anuncios.map((anuncio) => (
-                  <div key={anuncio.id} className="Anuncio__card">
-                    <div className="Anuncio__card__image">
-                      {anuncio.urLs?.[0] ? (
-                        <img
-                          src={anuncio.urLs[0]}
-                          alt="Imagem do anúncio"
-                          className="anuncio__image"
-                        />
-                      ) : (
-                        <p>Este anúncio não possui imagem.</p>
-                      )}
-                    </div>
-                    <div className="Anuncio__card__info">
-                      <h4>{anuncio.titulo}</h4>
-                      <p>Tipo: {anuncio.tipoPeca}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-    */}
         </div>
       </div>
 
