@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  useLocation
+  useLocation,
 } from "react-router-dom";
 import { Toaster } from "sonner";
 
@@ -31,6 +31,7 @@ const SuccessPage = lazy(() => import("./pages/StatusPages/SuccessPage"));
 const ErrorPage = lazy(() => import("./pages/StatusPages/ErrorPage"));
 const PendingPage = lazy(() => import("./pages/StatusPages/PendingPage"));
 const TokenAuthentication = lazy(() => import("./pages/TokenAuthentication"));
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function AppRoutes() {
   const location = useLocation();
@@ -54,10 +55,17 @@ function AppRoutes() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/adminPage" element={<AdminPage />} />
+        <Route
+          path="/adminPage"
+          element={
+            <ProtectedRoute>
+              <AdminPage />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/successPage" element={<SuccessPage />} />
         <Route path="/errorPage" element={<ErrorPage />} />
-        <Route path="/  " element={<PendingPage />} />
+        <Route path="/pendingPage" element={<PendingPage />} />
         <Route path="/token-authentication" element={<TokenAuthentication />} />
       </Routes>
       <Toaster position="top-right" richColors />

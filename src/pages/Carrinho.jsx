@@ -109,17 +109,46 @@ function Carrinho() {
   };
 
   const calcularFrete = async () => {
-    if (!cep || cep.length < 8) return toast.error("Informe um CEP válido");
+    const cepLimpo = cep?.replace(/\D/g, ""); // remove caracteres não numéricos
+
+    // Validação básica de CEP
+    if (!cepLimpo || cepLimpo.length !== 8) {
+      return toast.error("Informe um CEP válido com 8 dígitos.");
+    }
+
+    // Validação do carrinho
+    if (!carrinho || typeof carrinho.valorTotal !== "number") {
+      console.warn("Carrinho não está definido corretamente.");
+      return toast.error("Erro ao acessar informações do carrinho.");
+    }
 
     setIsCalculandoFrete(true);
 
     try {
-      const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 8000);
+
+      const response = await fetch(
+        `https://viacep.com.br/ws/${cepLimpo}/json/`,
+        {
+          signal: controller.signal,
+        }
+      );
+
+      clearTimeout(timeout);
+
+      if (!response.ok) {
+        throw new Error(`Erro HTTP: ${response.status}`);
+      }
+
       const data = await response.json();
 
-      if (data.erro) return toast.error("CEP inválido");
+      if (data.erro) {
+        return toast.error("CEP não encontrado. Verifique e tente novamente.");
+      }
 
-      const valorFrete = carrinho.valorTotal < 2000 ? 0.01 : 0;
+      // Lógica de frete
+      const valorFrete = carrinho.valorTotal < 2000 ? 19.90 : 0;
       const prazoEntrega = carrinho.valorTotal < 500 ? 5 : 3;
 
       setFrete({
@@ -127,10 +156,16 @@ function Carrinho() {
         prazo: prazoEntrega,
       });
 
-      toast.success("Frete calculado com sucesso!");
-    } catch (err) {
-      console.error(err);
-      toast.error("Erro ao calcular o frete");
+      toast.success(
+        `Frete calculado com sucesso! Prazo estimado: ${prazoEntrega} dias.`
+      );
+    } catch (error) {
+      if (error.name === "AbortError") {
+        toast.error("A requisição de frete demorou demais. Tente novamente.");
+      } else {
+        console.error("Erro ao calcular frete:", error);
+        toast.error("Não foi possível calcular o frete no momento.");
+      }
     } finally {
       setIsCalculandoFrete(false);
     }
@@ -401,7 +436,15 @@ function Carrinho() {
                 className="frete-input"
                 placeholder="Digite seu CEP"
                 value={cep}
-                onChange={(e) => setCep(e.target.value)}
+                maxLength={9}
+                onChange={(e) => {
+                  const value = e.target.value.replace(/\D/g, "");
+                  const formattedCep = value.replace(
+                    /^(\d{5})(\d{0,3})/,
+                    "$1-$2"
+                  );
+                  setCep(formattedCep);
+                }}
               />
 
               <button

@@ -172,7 +172,10 @@ function CrudNewsletter() {
               <div className="Principal__box__detalhes__item">ID</div>
               <div className="Principal__box__detalhes__item">Usuário ID</div>
               <div className="Principal__box__detalhes__item">Email</div>
-              <div className="Principal__box__detalhes__item">Ações</div>
+
+              {/* Ações newsletter
+              <div className="Principal__box__detalhes__item">Ações</div>      
+              */}
             </div>
 
             {isLoading ? (
@@ -194,6 +197,8 @@ function CrudNewsletter() {
                     <div className="Principal__box__item__inside">
                       {newsletter.email}
                     </div>
+
+                    {/* Ações newsletter
                     <div className="Principal__box__item__inside acoes">
                       <button onClick={() => handleEdit(newsletter)}>
                         Editar
@@ -205,6 +210,7 @@ function CrudNewsletter() {
                         Excluir
                       </button>
                     </div>
+                    */}
                   </li>
                 ))}
               </ul>

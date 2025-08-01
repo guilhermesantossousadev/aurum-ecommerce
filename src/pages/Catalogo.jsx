@@ -287,12 +287,18 @@ function Catalogo() {
               </div>
               <div className="anuncio__card__container">
                 <div className="anuncio__card__img">
-                  {anuncio.urLs?.[0] && (
+                  {anuncio.urLs?.[0] ? (
                     <img
                       src={anuncio.urLs[0]}
                       alt="Imagem do anúncio"
                       className="anuncio__image"
                     />
+                  ) : (
+                    <div className="anuncio__sem-imagem">
+                      <h4 style={{ fontSize: "25px" }}>
+                        Anuncio sem imagens cadastradas
+                      </h4>
+                    </div>
                   )}
                 </div>
                 <h3>{anuncio.titulo}</h3>

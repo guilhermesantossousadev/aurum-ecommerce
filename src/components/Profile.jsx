@@ -19,7 +19,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 import perfil from "../images/Common/perfil.png";
-import xpgn from "../images/Common/x.png"
+import xpgn from "../images/Common/x.png";
 
 import "../styles/components/Profile.css";
 
@@ -221,6 +221,16 @@ const Profile = () => {
     }
   };
 
+  // Função para parsear JSON seguro
+  const parseInformacaoAdicional = (info) => {
+    if (!info) return null;
+    try {
+      return JSON.parse(info);
+    } catch {
+      return null;
+    }
+  };
+
   useEffect(() => {
     searchCEP();
   }, []);
@@ -307,11 +317,12 @@ const Profile = () => {
           </div>
 
           <div className="Profile__container">
-
             <div className="Profile__content-section">
               <h2 className="Profile__section-title">Meus Anúncios</h2>
               {anuncios.length === 0 ? (
-                <p className="Profile__no-data">Você não possui anúncios cadastrados.</p>
+                <p className="Profile__no-data">
+                  Você não possui anúncios cadastrados.
+                </p>
               ) : (
                 <div className="Profile__cards-container">
                   {anuncios.map((anuncio) => (
@@ -327,7 +338,9 @@ const Profile = () => {
                         <h4>
                           <FaTag size={16} /> {anuncio.titulo}
                         </h4>
-                        <p><FaCogs size={14} /> Tipo: {anuncio.tipoPeca}</p>
+                        <p>
+                          <FaCogs size={14} /> Tipo: {anuncio.tipoPeca}
+                        </p>
                         <p>
                           {anuncio.isAvaliable ? (
                             <FaCheckCircle color="green" size={14} />
@@ -336,7 +349,9 @@ const Profile = () => {
                           )}{" "}
                           {anuncio.isAvaliable ? "Disponível" : "Indisponível"}
                         </p>
-                        <p><FaDollarSign size={14} /> R$ {anuncio.valor}</p>
+                        <p>
+                          <FaDollarSign size={14} /> R$ {anuncio.valor}
+                        </p>
                       </div>
                     </div>
                   ))}
@@ -345,35 +360,79 @@ const Profile = () => {
 
               <h2 className="Profile__section-title">Minhas Compras</h2>
               {compras.length === 0 ? (
-                <p className="Profile__no-data">Você ainda não realizou compras.</p>
+                <p className="Profile__no-data">
+                  Você ainda não realizou compras.
+                </p>
               ) : (
                 <div className="Profile__cards-container">
-                  {compras.map((compra) => (
-                    <div key={compra.id} className="Profile__card">
-                      <div className="Profile__card-info full">
-                        <h4>
-                          <FaTag size={16} /> Compra #{compra.id}
-                        </h4>
-                        <p><FaCogs size={14} /> {new Date(compra.dataCriacao).toLocaleDateString()}</p>
-                        <p><FaDollarSign size={14} /> Valor: R$ {compra.valorTransacao.toFixed(2)}</p>
-                        <p><FaCheckCircle size={14} color="green" /> Status: {compra.status}</p>
-                        <p><FaTag size={14} /> Método: {compra.metodoPagamento}</p>
-                        {compra.parcelas > 0 && <p>Parcelas: {compra.parcelas}</p>}
-                        {compra.informacaoAdicional && <p>Info: {compra.informacaoAdicional}</p>}
+                  {compras.map((compra) => {
+                    const infoAdicionalObj = parseInformacaoAdicional(
+                      compra.informacaoAdicional
+                    );
+
+                    return (
+                      <div key={compra.id} className="Profile__card">
+                        <div className="Profile__card-info full">
+                          <h4>
+                            <FaTag size={16} /> Compra #{compra.id}
+                          </h4>
+                          <p>
+                            <FaCogs size={14} />{" "}
+                            {new Date(compra.dataCriacao).toLocaleDateString()}
+                          </p>
+                          <p>
+                            <FaDollarSign size={14} /> Valor: R${" "}
+                            {compra.valorTransacao.toFixed(2)}
+                          </p>
+                          <p>
+                            <FaCheckCircle size={14} color="green" /> Status:{" "}
+                            {compra.status}
+                          </p>
+                          <p>
+                            <FaTag size={14} /> Método:{" "}
+                            {compra.metodoPagamento || "Não informado"}
+                          </p>
+                          {compra.parcelas > 0 && (
+                            <p>Parcelas: {compra.parcelas}</p>
+                          )}
+
+                          {infoAdicionalObj && (
+                            <div className="Profile__informacao-adicional">
+                              <p>
+                                <strong>Detalhes adicionais:</strong>
+                              </p>
+                              {infoAdicionalObj.anuncios &&
+                                Array.isArray(infoAdicionalObj.anuncios) && (
+                                  <ul>
+                                    {infoAdicionalObj.anuncios.map(
+                                      (item, index) => (
+                                        <li key={index}>
+                                          Titulo: {item.Titulo} - Valor: R${" "}
+                                          {item.Valor.toFixed(2)}
+                                        </li>
+                                      )
+                                    )}
+                                  </ul>
+                                )}
+                            </div>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               )}
             </div>
-
           </div>
         </div>
       </div>
 
       {isPopupOpen && (
         <div className="popup-overlay-profile" onClick={closePopup}>
-          <div className="popup-content-profile" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="popup-content-profile"
+            onClick={(e) => e.stopPropagation()}
+          >
             <h3>Edite o seu perfil</h3>
 
             <div className="Profile__info__item">

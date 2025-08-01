@@ -1,5 +1,3 @@
-// Detalhes.jsx corrigido, pronto para colar
-
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
@@ -14,10 +12,11 @@ function Detalhes() {
   const user = useSelector((state) => state.user);
 
   const [anuncio, setAnuncio] = useState(null);
+  const [parcelas, setParcelas] = useState(null);
   const [joia, setJoia] = useState(null);
   const [loading, setLoading] = useState(true);
   const [loadingAddCarrinho, setLoadingAddCarrinho] = useState(false);
-  const [isCalculed, setisCalculed] = useState(false);
+  const [isCalculed, setIsCalculed] = useState(false);
   const [error, setError] = useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
@@ -27,6 +26,7 @@ function Detalhes() {
   const [valorTotal, setValorTotal] = useState(null);
   const [opcoesFrete, setOpcoesFrete] = useState([]);
   const [loadingFrete, setLoadingFrete] = useState(false);
+  const [freteSelecionado, setFreteSelecionado] = useState(null);
 
   const tabelaFrete = { SP: 22, RJ: 25, MG: 20 };
 
@@ -40,13 +40,16 @@ function Detalhes() {
   };
 
   const calcularFrete = async () => {
-    if (!cep || cep.length !== 8) {
+    const cepSemHifen = cep.replace(/\D/g, "");
+    if (!cepSemHifen || cepSemHifen.length !== 8) {
       toast.error("CEP inválido.");
       return;
     }
     setLoadingFrete(true);
     try {
-      const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+      const response = await fetch(
+        `https://viacep.com.br/ws/${cepSemHifen}/json/`
+      );
       const data = await response.json();
       if (data.erro) {
         toast.error("CEP não encontrado.");
@@ -95,10 +98,13 @@ function Detalhes() {
             ),
         },
       ];
-      setisCalculed(true);
+      setIsCalculed(true);
       setOpcoesFrete(opcoes);
+      setFreteSelecionado(null); // resetar opção selecionada ao calcular frete
+
+      // Atualizar valor total somente com preço da joia inicialmente
       if (joia) {
-        setValorTotal(joia.valor + freteBase);
+        setValorTotal(joia.valor);
       }
     } catch (error) {
       console.error("Erro ao calcular frete:", error);
@@ -114,6 +120,7 @@ function Detalhes() {
       const usuarioId = user?.id;
       if (!usuarioId) {
         toast.error("Usuário não está logado.");
+        setLoadingAddCarrinho(false);
         return;
       }
       const carrinhoResponse = await fetch(
@@ -121,8 +128,17 @@ function Detalhes() {
       );
       if (!carrinhoResponse.ok) throw new Error("Erro ao buscar carrinho");
       const carrinhoData = await carrinhoResponse.json();
-      const anunciosAtuais = carrinhoData.anunciosId?.anunciosId || [];
-      anunciosAtuais.push(anuncio.id.toString());
+
+      // Ajustado: assumindo que anunciosId é array direto
+      const anunciosAtuais = Array.isArray(carrinhoData.anunciosId)
+        ? [...carrinhoData.anunciosId]
+        : [];
+
+      // Verifica se o anúncio já está no carrinho para evitar duplicata
+      if (!anunciosAtuais.includes(anuncio.id.toString())) {
+        anunciosAtuais.push(anuncio.id.toString());
+      }
+
       const carrinhoAtualizado = {
         baseUrl: "string",
         requestClientOptions: {
@@ -136,7 +152,7 @@ function Detalhes() {
         },
         id: carrinhoData.id,
         usuarioId,
-        anunciosId: { anunciosId: anunciosAtuais },
+        anunciosId: anunciosAtuais,
         valorTotal: 0,
       };
       await fetch(
@@ -163,12 +179,56 @@ function Detalhes() {
     }
   };
 
+  // Atualize sua função calcValorParcelas para receber o valor
+  const calcValorParcelas = async (valor) => {
+    try {
+      if (!valor) return;
+      const response = await fetch(
+        `https://marketplacejoias-api-latest.onrender.com/api/Anuncio/CalcValorParcelas?preco=${valor}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      const data = await response.text();
+
+      const numero = Number(data.replace(/\./g, "").replace(",", "."));
+
+      if (!isNaN(numero)) {
+        // Formata para moeda BRL
+        const valorFormatado = new Intl.NumberFormat("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        }).format(numero);
+        setParcelas(valorFormatado);
+      } else {
+        setParcelas(data);
+      }
+    } catch (err) {
+      console.error("Erro ao calcular parcelas:", err);
+    }
+  };
+
+  useEffect(() => {
+    if (valorTotal !== null) {
+      const numeroParcelas = 4;
+      const valorParcela = valorTotal / numeroParcelas;
+
+      const valorParcelaFormatado = new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      }).format(valorParcela);
+
+      setParcelas(`${numeroParcelas}x Sem Juros de ${valorParcelaFormatado}`);
+    }
+  }, [valorTotal]);
+
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       setError(null);
       try {
-        // Fetch Anuncio
+        // Fetch Anúncio
         const anuncioResponse = await fetch(
           `https://marketplacejoias-api-latest.onrender.com/api/Anuncio/GetByIdAnuncio?id=${id}`
         );
@@ -178,7 +238,7 @@ function Detalhes() {
         const anuncioData = await anuncioResponse.json();
         setAnuncio(anuncioData);
 
-        // Fetch Joia using anuncioData.joiaId
+        // Fetch Joia usando anuncioData.joiaId
         const joiaResponse = await fetch(
           `https://marketplacejoias-api-latest.onrender.com/api/Joia/GetByIdJoia?id=${anuncioData.joiaId}`
         );
@@ -187,6 +247,9 @@ function Detalhes() {
         }
         const joiaData = await joiaResponse.json();
         setJoia(joiaData);
+
+        // Inicializar valor total com preço da joia
+        setValorTotal(joiaData.valor);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -197,7 +260,18 @@ function Detalhes() {
     if (id) {
       fetchData();
     }
-  }, [id]); // Dependência apenas do ID
+  }, [id]);
+
+  // Atualiza valorTotal quando muda a opção de frete selecionada
+  useEffect(() => {
+    if (!joia) return;
+
+    if (freteSelecionado) {
+      setValorTotal(joia.valor + freteSelecionado.preco);
+    } else {
+      setValorTotal(joia.valor);
+    }
+  }, [freteSelecionado, joia]);
 
   const formatarPreco = (preco) =>
     new Intl.NumberFormat("pt-BR", {
@@ -209,7 +283,7 @@ function Detalhes() {
     return (
       <div className="detalhes__container">
         <div className="loading-container">
-          <h2 className="loading-text">Carregando Anuncio...</h2>
+          <h2 className="loading-text">Carregando Anúncio...</h2>
           <span className="loading-spinner"></span>
         </div>
       </div>
@@ -239,16 +313,14 @@ function Detalhes() {
             {anuncio.urLs?.length ? (
               <ImageCarousel images={anuncio.urLs} />
             ) : (
-              <img src={anuncio.url} alt="Imagem do joia" />
+              <img src={anuncio.url} alt="Imagem da joia" />
             )}
           </div>
           <div className="detalhes__container__internal__right">
             <p className="detalhes__info__titulo">{anuncio.titulo}</p>
             <div className="detalhes__info__item__p">
               <div className="detalhes__venda__container">
-                <span>
-                  4x sem juros de {joia ? formatarPreco(joia.valor / 4) : "-"}
-                </span>
+                <span>{parcelas}</span>
                 <p className="detalhes__valor">
                   {joia ? formatarPreco(joia.valor) : "Valor não disponível"}
                 </p>
@@ -256,46 +328,66 @@ function Detalhes() {
             </div>
             <div
               className={`frete__container ${
-                anuncio.isAvaliable === true ? "" : "isAvaliable"
+                anuncio.isAvaliable === true ? "" : "not-available"
               }`}
             >
               <div
                 className={`frete__container__item ${isCalculed ? "left" : ""}`}
               >
-                <BotaoPrimario
-                  texto="Adicionar ao carrinho"
+                <button
+                  className="btn-adicionar-carrinho"
                   onClick={adicionarAoCarrinho}
-                  loading={loadingAddCarrinho}
-                />
+                  disabled={loadingAddCarrinho}
+                >
+                  {loadingAddCarrinho ? (
+                    <span className="loading-spinner"></span>
+                  ) : (
+                    "Adicionar ao carrinho"
+                  )}
+                </button>
 
                 <input
                   type="text"
                   placeholder="Digite seu CEP"
                   value={cep}
-                  onChange={(e) =>
-                    setCep(e.target.value.replace(/\D/g, "").slice(0, 8))
-                  }
-                  maxLength={8}
+                  onChange={(e) => {
+                    let valor = e.target.value.replace(/\D/g, "").slice(0, 8);
+                    if (valor.length > 5) {
+                      valor = valor.slice(0, 5) + "-" + valor.slice(5);
+                    }
+                    setCep(valor);
+                  }}
+                  maxLength={9}
                   className="frete__input"
                 />
-                <BotaoPrimario
+
+                <button
+                  className={`btn-calcular-frete ${
+                    loadingFrete ? "loading" : ""
+                  }`}
                   onClick={calcularFrete}
-                  loading={loadingFrete}
-                  texto="Calcular Frete"
-                />
+                >
+                  {loadingFrete ? (
+                    <span className="loading-spinner"></span>
+                  ) : (
+                    "Calcular Frete"
+                  )}
+                </button>
               </div>
               <div className="frete__container__item">
                 {opcoesFrete.length > 0 && (
                   <div className="frete__resultado">
                     {opcoesFrete.map((opcao, idx) => (
                       <div key={idx} className="frete__opcao">
-                        <span>
-                          {opcao.tipo}:{" "}
-                          {opcao.preco === 0
-                            ? "Grátis"
-                            : formatarPreco(opcao.preco)}{" "}
-                          - {opcao.descricao}
-                        </span>
+                        <label>
+                          <span>
+                            {opcao.tipo}:{" "}
+                            {opcao.preco === 0
+                              ? "Grátis"
+                              : formatarPreco(opcao.preco)}{" "}
+                            - {opcao.descricao}
+                          </span>
+                        </label>
                       </div>
                     ))}
                   </div>
@@ -304,10 +396,10 @@ function Detalhes() {
             </div>
             <div
               className={`anuncio__notAvaliable ${
-                anuncio.isAvaliable === true ? "" : "isAvaliable"
+                anuncio.isAvaliable === true ? "hidden" : ""
               }`}
             >
-              <h1>Anuncio não disponível</h1>
+              <h1>Anúncio não disponível</h1>
             </div>
           </div>
         </div>

@@ -1,11 +1,16 @@
-import { useSelector } from "react-redux";
+import React from "react";
 import { Navigate } from "react-router-dom";
 
-const ProtectedRoute = ({ children }) => {
-  const usuario = useSelector((state) => state.user);
-  const isAuthenticated = usuario?.email || localStorage.getItem("user");
+function ProtectedRoute({ children }) {
+  const userJson = localStorage.getItem("user");
+  const user = userJson ? JSON.parse(userJson) : null;
 
-  return isAuthenticated ? children : <Navigate to="/login" />;
-};
+  if (!user || !user.isAdmin) {
+    // Se não for admin ou não estiver logado, redireciona para login
+    return <Navigate to="/login" replace />;
+  }
+
+  return children;
+}
 
 export default ProtectedRoute;

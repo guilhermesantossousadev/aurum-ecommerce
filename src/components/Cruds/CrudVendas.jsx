@@ -36,6 +36,32 @@ function CrudVendas() {
     fetchVendas();
   }, []);
 
+  function traduzirStatus(status) {
+    switch (status) {
+      case "approved":
+        return "Aprovado";
+      case "pending":
+        return "Pendente";
+      case "in_process":
+        return "Em processo";
+      case "rejected":
+        return "Rejeitado";
+      case "cancelled":
+        return "Cancelado";
+      case "refunded":
+        return "Reembolsado";
+      case "charged_back":
+        return "Contestação";
+      case "not_carried_out":
+        return "Não realizado";
+      case null:
+      case undefined:
+        return "Sem status";
+      default:
+        return "Desconhecido";
+    }
+  }
+
   return (
     <div className="Separator">
       <div className="Principal">
@@ -70,16 +96,29 @@ function CrudVendas() {
                     R$ {venda.valorTransacao}
                   </div>
                   <div className="Principal__box__item__inside">
-                    R$ {venda.valorLiquio}
+                    <span>
+                      {venda.valorLiquio == null
+                        ? "Sem valor líquido"
+                        : `Valor líquido: R$ ${venda.valorLiquio.toFixed(2)}`}
+                    </span>
                   </div>
                   <div className="Principal__box__item__inside">
-                    {venda.status}
+                    <span>{traduzirStatus(venda.status)}</span>
                   </div>
                   <div className="Principal__box__item__inside">
                     {venda.metodoPagamento}
+                    <span>
+                      {venda.metodoPagamento == null
+                        ? "Não finalizado"
+                        : `${venda.metodoPagamento}`}
+                    </span>
                   </div>
                   <div className="Principal__box__item__inside">
-                    {venda.parcelas}x
+                    <span>
+                      {venda.parcelas == null
+                        ? "Não finalizado"
+                        : `${venda.parcelas}`}
+                    </span>
                   </div>
                   <div className="Principal__box__item__inside">
                     {venda.emailPagador}
@@ -91,7 +130,25 @@ function CrudVendas() {
                     {new Date(venda.dataAprovacao).toLocaleString()}
                   </div>
                   <div className="Principal__box__item__inside">
-                    {venda.informacaoAdicional}
+                    {(() => {
+                      try {
+                        const info = JSON.parse(venda.informacaoAdicional);
+                        return (
+                          <div>
+                            <div>Usuário: {info.usuarioId}</div>
+                            {info.anuncios?.map((anuncio, index) => (
+                              <div key={index}>
+                                <span>Produto:</span>
+                                <br></br>
+                                {anuncio.Titulo} - R$ {anuncio.Valor}
+                              </div>
+                            ))}
+                          </div>
+                        );
+                      } catch (e) {
+                        return <div>Erro ao ler informações</div>;
+                      }
+                    })()}
                   </div>
                 </li>
               ))}
