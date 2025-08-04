@@ -148,7 +148,7 @@ function Carrinho() {
       }
 
       // Lógica de frete
-      const valorFrete = carrinho.valorTotal < 2000 ? 19.90 : 0;
+      const valorFrete = carrinho.valorTotal < 2000 ? 0.01 : 0;
       const prazoEntrega = carrinho.valorTotal < 500 ? 5 : 3;
 
       setFrete({
