@@ -3,8 +3,11 @@ import { useState, useEffect } from "react";
 import { FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { Toaster, toast } from "sonner";
+import { FaShoppingBag } from "react-icons/fa";
 
 import formatCurrency from "../components/utils/formatCurrency";
+
+import SetaPretaEsquerda from "../images/Setas/SetaPretaEsquerda.png";
 
 import "../styles/pages/Carrinho.css";
 
@@ -351,7 +354,7 @@ function Carrinho() {
         <div className="carrinho-container">
           <div className="loading-container">
             <h2 className="loading-text">Carregando seu Carrinho...</h2>
-            <span className="loading-spinner"></span>
+            <span className="loading-spinner-carrinho "></span>
           </div>
         </div>
       </div>
@@ -366,6 +369,13 @@ function Carrinho() {
 
   return (
     <div className="Carrinho">
+      <div className="Carrinho-top">
+        <div className="Carrinho-top-return">
+          <img src={SetaPretaEsquerda} alt="SetaPretaEsquerda" /> Continuar
+          comprando
+        </div>
+      </div>
+
       <div className="carrinho-container">
         {!carrinho?.anunciosId?.anunciosId?.length ? (
           <div className="carrinho-vazio">
@@ -378,135 +388,139 @@ function Carrinho() {
           </div>
         ) : (
           <div className="carrinho-content">
-            <div className="carrinho-items">
-              {anunciosUnicos.map((anuncio) => {
-                const joia = joias.find((j) => j.id === anuncio.joiaId);
-
-                return (
-                  <div key={anuncio.id} className="carrinho-item">
-                    <div className="item-imagem">
-                      {anuncio.urLs?.length > 0 && (
-                        <img src={anuncio.urLs[0]} alt={anuncio.titulo} />
-                      )}
-                    </div>
-                    <div className="item-detalhes">
-                      <h3>{anuncio.titulo}</h3>
-                      <p className="item-tipo">Tipo: {joia?.tipoPeca}</p>
-                      <p className="item-material">
-                        Material: {joia?.material}
-                      </p>
-                      {joia?.isStudded && (
-                        <p className="item-cravejado">
-                          Material Cravejado: {joia.materialCravejado}
-                        </p>
-                      )}
-                      <button
-                        className="btn-remover"
-                        onClick={() => removerDoCarrinho(anuncio.id)}
-                      >
-                        <FaTrash /> Remover
-                      </button>
-                    </div>
-                    <div className="item-valor">
-                      R${" "}
-                      {joia?.valor?.toLocaleString("pt-BR", {
-                        minimumFractionDigits: 2,
-                      })}
-                    </div>
-                  </div>
-                );
-              })}
+            <div className="carrinho-content-top">
+              <FaShoppingBag size={24} /> Meu Carrinho
             </div>
+            <div className="carrinho-content-bottom">
+              <div className="carrinho-items">
+                {anunciosUnicos.map((anuncio) => {
+                  const joia = joias.find((j) => j.id === anuncio.joiaId);
 
-            <div className="carrinho-resumo">
-              <h3>Resumo do pedido</h3>
-
-              <div className="resumo-item">
-                <span>Subtotal do pedido</span>
-                <span>
-                  R$
-                  {carrinho.valorTotal?.toLocaleString("pt-BR", {
-                    minimumFractionDigits: 2,
-                  })}
-                </span>
-              </div>
-
-              <input
-                type="text"
-                className="frete-input"
-                placeholder="Digite seu CEP"
-                value={cep}
-                maxLength={9}
-                onChange={(e) => {
-                  const value = e.target.value.replace(/\D/g, "");
-                  const formattedCep = value.replace(
-                    /^(\d{5})(\d{0,3})/,
-                    "$1-$2"
+                  return (
+                    <div key={anuncio.id} className="carrinho-item">
+                      <div className="item-imagem">
+                        {anuncio.urLs?.length > 0 && (
+                          <img src={anuncio.urLs[0]} alt={anuncio.titulo} />
+                        )}
+                      </div>
+                      <div className="item-detalhes">
+                        <h3>{anuncio.titulo}</h3>
+                        <p className="item-tipo">Tipo: {joia?.tipoPeca}</p>
+                        <p className="item-material">
+                          Material: {joia?.material}
+                        </p>
+                        {joia?.isStudded && (
+                          <p className="item-cravejado">
+                            Material Cravejado: {joia.materialCravejado}
+                          </p>
+                        )}
+                        <button
+                          className="btn-remover"
+                          onClick={() => removerDoCarrinho(anuncio.id)}
+                        >
+                          <FaTrash /> Remover
+                        </button>
+                      </div>
+                      <div className="item-valor">
+                        R${" "}
+                        {joia?.valor?.toLocaleString("pt-BR", {
+                          minimumFractionDigits: 2,
+                        })}
+                      </div>
+                    </div>
                   );
-                  setCep(formattedCep);
-                }}
-              />
-
-              <button
-                className="frete-btn"
-                onClick={calcularFrete}
-                disabled={isCalculandoFrete}
-              >
-                {isCalculandoFrete ? (
-                  <span className="loading-spinner"></span>
-                ) : (
-                  "Calcular Frete"
-                )}
-              </button>
-
-              {frete && (
-                <p
-                  className={`frete-simulado ${
-                    frete.valor === "0.00" ? "frete-gratis" : ""
-                  }`}
-                >
-                  Frete via PAC:{" "}
-                  {frete.valor === "0.00" ? (
-                    <>
-                      <strong>Grátis</strong> •{" "}
-                      <strong>Entrega em {frete.prazo} dias úteis</strong>
-                    </>
-                  ) : (
-                    <>
-                      R${frete.valor} • Entrega em {frete.prazo} dias úteis
-                    </>
-                  )}
-                </p>
-              )}
-
-              <div className="resumo-total">
-                <span>Total:</span>
-                <span>Valor: {formatCurrency(carrinho.valorTotal)}</span>
+                })}
               </div>
+              <div className="carrinho-resumo">
+                <h3>Resumo do pedido</h3>
 
-              <button
-                className="btn-finalizar-compra"
-                onClick={finalizarPedido}
-                disabled={isFinalizando}
-              >
-                {isFinalizando ? (
-                  <span className="loading-spinner"></span>
-                ) : (
-                  "FINALIZAR PEDIDO"
+                <div className="resumo-item">
+                  <span>Subtotal do pedido</span>
+                  <span>
+                    R$
+                    {carrinho.valorTotal?.toLocaleString("pt-BR", {
+                      minimumFractionDigits: 2,
+                    })}
+                  </span>
+                </div>
+
+                <input
+                  type="text"
+                  className="frete-input"
+                  placeholder="Digite seu CEP"
+                  value={cep}
+                  maxLength={9}
+                  onChange={(e) => {
+                    const value = e.target.value.replace(/\D/g, "");
+                    const formattedCep = value.replace(
+                      /^(\d{5})(\d{0,3})/,
+                      "$1-$2"
+                    );
+                    setCep(formattedCep);
+                  }}
+                />
+
+                <button
+                  className="frete-btn"
+                  onClick={calcularFrete}
+                  disabled={isCalculandoFrete}
+                >
+                  {isCalculandoFrete ? (
+                    <span className="loading-spinner"></span>
+                  ) : (
+                    "Calcular Frete"
+                  )}
+                </button>
+
+                {frete && (
+                  <p
+                    className={`frete-simulado ${
+                      frete.valor === "0.00" ? "frete-gratis" : ""
+                    }`}
+                  >
+                    Frete via PAC:{" "}
+                    {frete.valor === "0.00" ? (
+                      <>
+                        <strong>Grátis</strong> •{" "}
+                        <strong>Entrega em {frete.prazo} dias úteis</strong>
+                      </>
+                    ) : (
+                      <>
+                        R${frete.valor} • Entrega em {frete.prazo} dias úteis
+                      </>
+                    )}
+                  </p>
                 )}
-              </button>
 
-              <p className="installments">
-                Em até 9x de R$
-                {parcelas}
-              </p>
-              <p className="pix-discount">
-                Pix: R$
-                {(carrinho.valorTotal * 0.95).toLocaleString("pt-BR", {
-                  minimumFractionDigits: 2,
-                })}{" "}
-                (5% nos produtos)
-              </p>
+                <div className="resumo-total">
+                  <span>Total:</span>
+                  <span>Valor: {formatCurrency(carrinho.valorTotal)}</span>
+                </div>
+
+                <button
+                  className="btn-finalizar-compra"
+                  onClick={finalizarPedido}
+                  disabled={isFinalizando}
+                >
+                  {isFinalizando ? (
+                    <span className="loading-spinner"></span>
+                  ) : (
+                    "FINALIZAR PEDIDO"
+                  )}
+                </button>
+
+                <p className="installments">
+                  Em até 9x de R$
+                  {parcelas}
+                </p>
+                <p className="pix-discount">
+                  Pix: R$
+                  {(carrinho.valorTotal * 0.95).toLocaleString("pt-BR", {
+                    minimumFractionDigits: 2,
+                  })}{" "}
+                  (5% nos produtos)
+                </p>
+              </div>
             </div>
           </div>
         )}

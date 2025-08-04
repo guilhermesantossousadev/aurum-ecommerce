@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Toaster, toast } from "sonner";
-import "../../styles/Cruds/Cruds.css";
+import { useDispatch, useSelector } from "react-redux";
 
+import "../../styles/Cruds/Cruds.css";
 const apiBaseUrl = "https://marketplacejoias-api-latest.onrender.com/api/Venda";
 
 const initialFormState = {
@@ -18,8 +19,10 @@ const initialFormState = {
 };
 
 function CrudVendas() {
+  const user = useSelector((state) => state.user);
   const [vendas, setVendas] = useState([]);
   const [form, setForm] = useState(initialFormState);
+  const [nome, setNome] = useState("");
 
   const fetchVendas = async () => {
     try {
@@ -31,6 +34,23 @@ function CrudVendas() {
       toast.error(error.message);
     }
   };
+
+  const GetNome = async () => {
+    try {
+      const response = await fetch(
+        `https://marketplacejoias-api-latest.onrender.com/api/Usuario/GetNomeByIdUsuario?id=${user.id}`
+      );
+      if (!response.ok) throw new Error("Erro ao buscar vendas.");
+      const data = await response.text();
+      setNome(data);
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+  useEffect(() => {
+    GetNome();
+  }, []);
 
   useEffect(() => {
     fetchVendas();
@@ -135,7 +155,7 @@ function CrudVendas() {
                         const info = JSON.parse(venda.informacaoAdicional);
                         return (
                           <div>
-                            <div>Usuário: {info.usuarioId}</div>
+                            <div>Usuário: {nome}</div>
                             {info.anuncios?.map((anuncio, index) => (
                               <div key={index}>
                                 <span>Produto:</span>
