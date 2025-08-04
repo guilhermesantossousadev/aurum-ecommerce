@@ -108,7 +108,6 @@ const Profile = () => {
         }
       );
       if (!response.ok) throw new Error("Erro ao atualizar o perfil.");
-      toast.success("Dados atualizados com sucesso!");
       setEditField(null);
     } catch (error) {
       toast.error("Erro na atualização: " + error.message);
@@ -435,7 +434,7 @@ const Profile = () => {
             <h3>Edite o seu perfil</h3>
 
             <div className="Profile__info__item">
-              <label>NOME</label>
+              <label>Nome</label>
               <input
                 className="Profile__info__input"
                 value={nome}
@@ -444,7 +443,7 @@ const Profile = () => {
             </div>
 
             <div className="Profile__info__item">
-              <label>EMAIL</label>
+              <label>E-mail</label>
               <input
                 className="Profile__info__input"
                 value={email}
@@ -453,7 +452,7 @@ const Profile = () => {
             </div>
 
             <div className="Profile__info__item">
-              <label>CPF</label>
+              <label>Cpf</label>
               <input
                 className="Profile__info__input"
                 value={cpf}
@@ -462,7 +461,7 @@ const Profile = () => {
             </div>
 
             <div className="Profile__info__item">
-              <label>IDADE</label>
+              <label>Idade</label>
               <input
                 className="Profile__info__input"
                 value={idade}
@@ -475,7 +474,7 @@ const Profile = () => {
               onClick={handleSaveAll} // Função para salvar tudo de uma vez
               style={{ marginTop: "1rem" }}
             >
-              <FaSave size={20} color="#000" /> Salvar
+              Salvar
             </button>
 
             <button

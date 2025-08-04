@@ -486,13 +486,13 @@
 .pagination__number {
   width: 40px;
   height: 40px;
+  border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #fff;
   border: 1px solid #000;
   color: #000;
-  border-radius: 4px;
   cursor: pointer;
   transition: var(--filter-transition);
   font-size: 1rem;
