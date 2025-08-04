@@ -561,15 +561,15 @@
 .Sobre__Capabilities__container__item {
   width: 33%;
   height: 100%;
-  padding: 2rem;
 }
 
 .Sobre__Capabilities__container__item h1 {
-  color: #f9cdcd;
+  font-size: 2rem;
   text-transform: uppercase;
+  margin: 0;
+  color: #f9cdcd;
   font-weight: 800;
-  font-size: 3rem;
-  margin-top: -5px;
+  margin-top: -2px;
   font-weight: normal;
 }
 
@@ -690,9 +690,12 @@
 }
 
 .Sobre__awards__item h1 {
-  color: #f9cdcd;
-  font-size: 4rem;
+  font-size: 2rem;
   text-transform: uppercase;
+  margin: 0;
+  color: #f9cdcd;
+  font-weight: 800;
+  margin-top: -2px;
   font-weight: normal;
 }
 

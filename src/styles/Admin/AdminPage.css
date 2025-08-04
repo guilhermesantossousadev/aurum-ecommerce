@@ -121,6 +121,11 @@
   transition: all 0.3s ease;
 }
 
+svg {
+  fill: #fff !important;
+  stroke: #fff !important;
+}
+
 /* Responsividade */
 @media (max-width: 1024px) {
   .Admin {

@@ -127,7 +127,7 @@ function CrudVendas() {
                     {new Date(venda.dataCriacao).toLocaleString()}
                   </div>
                   <div className="Principal__box__item__inside">
-                    {new Date(venda.dataAprovacao).toLocaleString()}
+                    {venda.dataAprovacao}
                   </div>
                   <div className="Principal__box__item__inside">
                     {(() => {

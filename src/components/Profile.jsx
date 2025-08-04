@@ -30,6 +30,7 @@ const Profile = () => {
 
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [editField, setEditField] = useState(null);
+  const [isSaving, setIsSaving] = useState(false);
 
   const [email, setEmail] = useState(user.email || "");
   const [cpf, setCpf] = useState(user.cpf || "");
@@ -114,23 +115,6 @@ const Profile = () => {
     }
   };
 
-  const handleSave = async (field) => {
-    const validators = {
-      nome: nome.trim().length > 0,
-      cpf: cpf.trim().length > 0,
-      idade: /^\d+$/.test(idade) && parseInt(idade) > 0,
-      email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email),
-    };
-
-    if (!validators[field]) {
-      toast.error("Campo inválido");
-      return;
-    }
-
-    const values = { nome, cpf, idade, email };
-    await updateUserData({ [field]: values[field] });
-  };
-
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -212,11 +196,14 @@ const Profile = () => {
     const updatedData = { nome, cpf, idade, email };
 
     try {
+      setIsSaving(true);
       await updateUserData(updatedData);
       toast.success("Perfil atualizado com sucesso!");
       closePopup();
     } catch (error) {
       toast.error("Erro ao atualizar perfil: " + error.message);
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -471,10 +458,10 @@ const Profile = () => {
 
             <button
               className="Profile__info__saveButton"
-              onClick={handleSaveAll} // Função para salvar tudo de uma vez
-              style={{ marginTop: "1rem" }}
+              onClick={handleSaveAll}
+              disabled={isSaving}
             >
-              Salvar
+              {isSaving ? <div className="loading-spinner"></div> : "Salvar"}
             </button>
 
             <button

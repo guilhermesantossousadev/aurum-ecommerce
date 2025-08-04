@@ -77,10 +77,7 @@ const Login = () => {
               required
             />
 
-            <div
-              className="Login__input-container"
-              style={{ position: "relative", width: "95%" }}
-            >
+            <div className="Login__input-container">
               <input
                 className="Login__input"
                 type={showPassword ? "text" : "password"}
@@ -95,7 +92,7 @@ const Login = () => {
                 style={{
                   position: "absolute",
                   right: "10px",
-                  top: "20%",
+                  top: "50%",
                   transform: "translateY(-50%)",
                   background: "transparent",
                   border: "none",
@@ -112,7 +109,13 @@ const Login = () => {
               type="submit"
               disabled={isLoading}
             >
-              {isLoading ? "Entrando..." : "Entrar"}
+              {isLoading ? (
+                <>
+                  <span className="loading-spinner-login"></span>
+                </>
+              ) : (
+                "Entrar"
+              )}
             </button>
           </form>
 
