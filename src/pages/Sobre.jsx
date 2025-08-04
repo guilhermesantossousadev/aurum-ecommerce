@@ -53,8 +53,8 @@ const Sobre = () => {
             A Aurum Lumine® é uma joalheria digital que prospera na intersecção
             entre design, dados e tecnologia. Juntos, estamos focados em
             transformar joias e culturas — em todo o mundo. Estratégia.
-            Experiência. Experiência Digital. Detalhes. Tecnologia.
-            Somos exclusivamente criados para construir acessórios que importam na
+            Experiência. Experiência Digital. Detalhes. Tecnologia. Somos
+            exclusivamente criados para construir acessórios que importam na
             cultura.
           </h3>
         </div>
@@ -171,16 +171,11 @@ const Sobre = () => {
             <div className="Sobre__Capabilities__container__item">
               <h2>Comércio e Design de Produto</h2>
               <ul>
-                <li>Market Analysis & Business Case Development</li>
                 <li>Catálogo Digital de Joias </li>
-                <li>E-commerce com Carrinho de Compras</li>
                 <li>Personalização de Joias </li>
                 <li>Emissão de Nota Fiscal Eletrônica</li>
                 <li>Suporte ao Cliente (E-mail)</li>
                 <li>Certificação de Autenticidade</li>
-                <li>Marketing Digital</li>
-                <li>Segurança</li>
-                <li>Proteção de Dados</li>
               </ul>
             </div>
             <div className="Sobre__Capabilities__container__item">
@@ -188,12 +183,8 @@ const Sobre = () => {
               <ul>
                 <li>Ecossistema</li>
                 <li>Inteligência Empresarial</li>
-                <li>Arquitetura de Marca</li>
-                <li>Mensagem da Marca</li>
                 <li>Identidade Visual</li>
                 <li>Diretrizes</li>
-                <li>Design Visual</li>
-                <li>Design Gráfico</li>
                 <li>Nomenclatura da marca</li>
               </ul>
             </div>

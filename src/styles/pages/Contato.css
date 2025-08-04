@@ -157,7 +157,7 @@
 
 .Contato__init__item__bottom__right__top__item span:hover {
   text-decoration: none;
-  cursor: pointer;
+  cursor: default;
 }
 
 .Contato__init__item__bottom__right__bottom__item span:hover {

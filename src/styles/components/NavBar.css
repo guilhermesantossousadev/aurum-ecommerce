@@ -247,14 +247,14 @@
   font-size: 20px;
   background: none;
   border: none;
-  color: var(--text-color);
+  color: #fff;
   cursor: pointer;
-  border: 1px solid var(--border-color);
+  border: none;
   transition: var(--transition-speed) ease;
 }
 
 .navbar__close:hover {
-  color: var(--text-hover-color);
+  scale: 1.1;
   border: 1px solid var(--border-hover-color);
 }
 

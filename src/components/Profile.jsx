@@ -316,8 +316,8 @@ const Profile = () => {
             </div>
           </div>
 
-          <div className="Profile__container">
-            <div className="Profile__content-section">
+          <div className="Profile__content-grid">
+            <div className="Profile__section-box">
               <h2 className="Profile__section-title">Meus Anúncios</h2>
               {anuncios.length === 0 ? (
                 <p className="Profile__no-data">
@@ -357,7 +357,9 @@ const Profile = () => {
                   ))}
                 </div>
               )}
+            </div>
 
+            <div className="Profile__section-box">
               <h2 className="Profile__section-title">Minhas Compras</h2>
               {compras.length === 0 ? (
                 <p className="Profile__no-data">
@@ -369,7 +371,6 @@ const Profile = () => {
                     const infoAdicionalObj = parseInformacaoAdicional(
                       compra.informacaoAdicional
                     );
-
                     return (
                       <div key={compra.id} className="Profile__card">
                         <div className="Profile__card-info full">
@@ -395,25 +396,23 @@ const Profile = () => {
                           {compra.parcelas > 0 && (
                             <p>Parcelas: {compra.parcelas}</p>
                           )}
-
                           {infoAdicionalObj && (
                             <div className="Profile__informacao-adicional">
                               <p>
                                 <strong>Detalhes adicionais:</strong>
                               </p>
-                              {infoAdicionalObj.anuncios &&
-                                Array.isArray(infoAdicionalObj.anuncios) && (
-                                  <ul>
-                                    {infoAdicionalObj.anuncios.map(
-                                      (item, index) => (
-                                        <li key={index}>
-                                          Titulo: {item.Titulo} - Valor: R${" "}
-                                          {item.Valor.toFixed(2)}
-                                        </li>
-                                      )
-                                    )}
-                                  </ul>
-                                )}
+                              {Array.isArray(infoAdicionalObj.anuncios) && (
+                                <ul>
+                                  {infoAdicionalObj.anuncios.map(
+                                    (item, index) => (
+                                      <li key={index}>
+                                        Título: {item.Titulo} - Valor: R${" "}
+                                        {item.Valor.toFixed(2)}
+                                      </li>
+                                    )
+                                  )}
+                                </ul>
+                              )}
                             </div>
                           )}
                         </div>
