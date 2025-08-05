@@ -192,12 +192,16 @@ function Catalogo() {
         <div className="Search__header">
           <div className="Search__header__container">
             <img src={searchicon} alt="searchicon" className="search__lupe" />
-            <img
-              src={xpng}
-              alt="xpng"
-              className="search__x"
-              onClick={ClearSearch}
-            />
+
+            {searchTerm.trim() !== "" && (
+              <img
+                src={xpng}
+                alt="xpng"
+                className="search__x"
+                onClick={ClearSearch}
+              />
+            )}
+            
             <input
               type="text"
               placeholder="O que você está procurando?"

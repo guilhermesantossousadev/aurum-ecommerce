@@ -156,7 +156,7 @@ function CrudVendas() {
                     <span>
                       {venda.parcelas == null
                         ? "Não finalizado"
-                        : `${venda.parcelas}x`}
+                        : `${venda.parcelas} x`}
                     </span>
                   </div>
                   <div className="Principal__box__item__inside">
