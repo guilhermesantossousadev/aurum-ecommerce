@@ -253,7 +253,7 @@ function Catalogo() {
         </div>
 
         <div className="Catalogo__filters__button__item right">
-          <Link to="/cadastroJoia" className="anuncie-button">
+          <Link to="/cadastroAnuncio" className="anuncie-button">
             Anuncie agora
           </Link>
         </div>

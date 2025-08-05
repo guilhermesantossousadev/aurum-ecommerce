@@ -10,14 +10,24 @@ import imgA from "../images/Sobre/Photo4.jpg";
 import imgB from "../images/Sobre/Photo1.jpg";
 import imgC from "../images/Sobre/Photo2.jpg";
 
+
+
+import Couture from "../images/Sobre/Couture.jpeg"
+import Jna from "../images/Sobre/Jna.jpeg"
+import Hrd from "../images/Sobre/Hrd.jpeg"
+import Jewellery from "../images/Sobre/Jewellery.jpeg"
+import Inhorgenta from "../images/Sobre/Inhorgenta.jpeg"
+import Goldsmiths from "../images/Sobre/Goldsmiths.jpeg"
+import RedDot from "../images/Sobre/RedDot.jpeg"
+
 const palavras = [
-  { texto: "Couture Design Awards", imagem: imgA },
-  { texto: "JNA Awards", imagem: imgB },
-  { texto: "HRD Antwerp Design Awards", imagem: imgC },
-  { texto: "Jewellery World Awards", imagem: imgB },
-  { texto: "Inhorgenta Award", imagem: imgC },
-  { texto: "Goldsmiths’ Craft & DC Awards", imagem: imgC },
-  { texto: "Red Dot Award: Product Design", imagem: imgC },
+  { texto: "Couture Design Awards", imagem: Couture },
+  { texto: "JNA Awards", imagem: Jna },
+  { texto: "HRD Antwerp Design Awards", imagem: Hrd },
+  { texto: "Jewellery World Awards", imagem: Jewellery },
+  { texto: "Inhorgenta Award", imagem: Inhorgenta },
+  { texto: "Goldsmiths’ Craft & DC Awards", imagem: Goldsmiths },
+  { texto: "Red Dot Award: Product Design", imagem: RedDot },
 ];
 
 const Sobre = () => {

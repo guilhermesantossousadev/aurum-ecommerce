@@ -15,7 +15,7 @@ import "./App.css";
 
 // Lazy imports das páginas
 const Home = lazy(() => import("./pages/Home"));
-const CadastroJoia = lazy(() => import("./components/CadastroJoia"));
+const CadastroAnuncio = lazy(() => import("./components/CadastroAnuncio"));
 const Detalhes = lazy(() => import("./pages/detalhes/Detalhes"));
 const Catalogo = lazy(() => import("./pages/Catalogo"));
 const Sobre = lazy(() => import("./pages/Sobre"));
@@ -44,7 +44,7 @@ function AppRoutes() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/cadastroJoia" element={<CadastroJoia />} />
+        <Route path="/cadastroAnuncio" element={<CadastroAnuncio />} />
         <Route path="/detalhes/:id" element={<Detalhes />} />
         <Route path="/catalogo/:tipo" element={<Catalogo />} />
         <Route path="/sobre" element={<Sobre />} />

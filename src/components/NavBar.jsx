@@ -22,7 +22,7 @@ const NavBar = () => {
     "/successPage",
     "/errorPage",
     "/pendingPage",
-    "/cadastroJoia"
+    "/cadastroJoia",
   ].includes(location.pathname);
 
   const isWhiteTextPage = [
@@ -31,6 +31,7 @@ const NavBar = () => {
     "/careers",
     "/adminPage",
     "/profile",
+    "/cadastroAnuncio",
   ].includes(location.pathname);
 
   const isPinkTextPage = ["/profile", "/sobre", "/adminPage"].includes(

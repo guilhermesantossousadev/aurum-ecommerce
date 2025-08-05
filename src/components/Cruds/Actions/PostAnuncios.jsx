@@ -112,12 +112,27 @@ const PostAnuncios = () => {
 
   async function handleCreateJoia() {
     try {
+      const cleanValor = parseFloat(
+        String(joiaData.valor)
+          .replace("R$", "")
+          .replace(/\./g, "")
+          .replace(",", ".")
+          .trim()
+      );
+
+      const joiaDataClean = {
+        ...joiaData,
+        valor: cleanValor,
+      };
+
+      console.log(JSON.stringify(joiaDataClean));
+
       const response = await fetch(
         "https://marketplacejoias-api-latest.onrender.com/api/Joia/PostJoia",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(joiaData),
+          body: JSON.stringify(joiaDataClean),
         }
       );
 
@@ -171,6 +186,15 @@ const PostAnuncios = () => {
 
   return (
     <div className="PostAnuncios">
+      <div className="step-counter">
+        <p>
+          {step === 1 ? "Cadastro da Joia" : "Cadastro do Anúncio"}
+        </p>
+        <div className="step-bar">
+          <div className={`step-progress ${step === 2 ? "complete" : ""}`} />
+        </div>
+      </div>
+
       {step === 1 && (
         <form
           onSubmit={(e) => {
@@ -178,8 +202,6 @@ const PostAnuncios = () => {
             handleCreateJoia();
           }}
         >
-          <h2>Cadastro da Joia</h2>
-
           <label>Tipo da Peça</label>
           <select
             value={joiaData.tipoPeca}
@@ -226,7 +248,6 @@ const PostAnuncios = () => {
             required
           />
 
-
           <label>Material</label>
           <select
             value={joiaData.material}
@@ -237,8 +258,8 @@ const PostAnuncios = () => {
             <option value="Ouro">Ouro</option>
             <option value="Ouro Branco">Ouro Branco</option>
             <option value="Ouro Rosé">Ouro Rosé</option>
-            <option value="Prata">Prata</option>
-            <option value="Prata de Lei">Prata de Lei</option>
+            <option value="Prata 950">Prata 950</option>
+            <option value="Prata 925">Prata 925</option>
             <option value="Platina">Platina</option>
             <option value="Paládio">Paládio</option>
             <option value="Aço Inoxidável">Aço Inoxidável</option>
@@ -256,7 +277,6 @@ const PostAnuncios = () => {
             <option value="Vidro">Vidro</option>
           </select>
 
-
           <label className="checkbox-label">
             <input
               type="checkbox"
@@ -267,7 +287,6 @@ const PostAnuncios = () => {
             />
             Cravejada
           </label>
-
 
           {joiaData.isStudded && (
             <div>
@@ -300,9 +319,8 @@ const PostAnuncios = () => {
             e.preventDefault();
             handleCreateAnuncio();
           }}
+          className="form-etapa2"
         >
-          <h2>Cadastro do Anúncio</h2>
-
           <label>Título</label>
           <input
             type="text"

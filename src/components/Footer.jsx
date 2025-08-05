@@ -32,6 +32,7 @@ function Footer() {
         "/catalogo/anel",
         "/catalogo/pingente",
         "/catalogo/brinco",
+        "/cadastroAnuncio",
       ].includes(path)
     )
       return "white-text";

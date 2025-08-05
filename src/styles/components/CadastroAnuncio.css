@@ -3,15 +3,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem;
+  padding-top: 150px;
+  min-height: 100vh;
   width: 100%;
 }
 
 .step-counter {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
   text-align: center;
   font-weight: bold;
-  color: #333;
+  color: #0c0c0c; /* ou sua cor de texto preferida */
   width: 300px;
 }
 
@@ -28,8 +29,8 @@
 .step-progress {
   height: 100%;
   width: 50%;
-  background-color: #555; /* sua cor desejada */
-  transition: width 0.3s ease;
+  background-color: #555;
+  transition: width 0.3s ease-in-out;
 }
 
 .step-progress.complete {
@@ -68,7 +69,7 @@
   transition: border-color 0.3s ease;
   color: #555 !important;
   box-sizing: border-box;
-  background-color: #fff;
+  background-color: #f4f8f9;
 }
 
 .PostAnuncios input {
@@ -179,10 +180,4 @@
   border: solid #fff;
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
-}
-
-.form-etapa2 {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
 }
