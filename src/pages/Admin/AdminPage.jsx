@@ -44,7 +44,6 @@ function AdminPage() {
                 onKeyDown={(e) => (e.key === "Enter" ? setStep(0) : null)}
                 style={{ display: "flex", flexDirection: "row", gap: "10px" }}
               >
-                <FaChartLine size={20} />
                 Gráficos & Dados
               </li>
             </ul>
@@ -61,7 +60,7 @@ function AdminPage() {
                 onKeyDown={(e) => (e.key === "Enter" ? setStep(1) : null)}
                 style={{ display: "flex", flexDirection: "row", gap: "10px" }}
               >
-                <GiDiamondRing size={20} /> Anúncios & Joias
+                Anúncios & Joias
               </li>
               <li
                 className={step === 2 ? "active" : ""}
@@ -71,7 +70,6 @@ function AdminPage() {
                 onKeyDown={(e) => (e.key === "Enter" ? setStep(2) : null)}
                 style={{ display: "flex", flexDirection: "row", gap: "10px" }}
               >
-                <FaDollarSign size={20} />
                 Vendas
               </li>
             </ul>
@@ -88,7 +86,6 @@ function AdminPage() {
                 onKeyDown={(e) => (e.key === "Enter" ? setStep(3) : null)}
                 style={{ display: "flex", flexDirection: "row", gap: "10px" }}
               >
-                <FaUsers size={20} />
                 Usuários
               </li>
               <li
@@ -99,7 +96,6 @@ function AdminPage() {
                 onKeyDown={(e) => (e.key === "Enter" ? setStep(4) : null)}
                 style={{ display: "flex", flexDirection: "row", gap: "10px" }}
               >
-                <FaEnvelope size={20} />
                 Newsletter
               </li>
             </ul>
@@ -117,7 +113,7 @@ function AdminPage() {
                 }
                 style={{ display: "flex", flexDirection: "row", gap: "10px" }}
               >
-                <FaUser size={20} /> Perfil
+                Perfil
               </li>
               <li
                 className="profile__logout"
@@ -127,7 +123,7 @@ function AdminPage() {
                 onKeyDown={(e) => (e.key === "Enter" ? handleLogout() : null)}
                 style={{ display: "flex", flexDirection: "row", gap: "10px" }}
               >
-                <FaSignOutAlt size={20} /> Sair
+                Sair
               </li>
             </ul>
           </div>

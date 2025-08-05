@@ -466,7 +466,7 @@ function Carrinho() {
                   disabled={isCalculandoFrete}
                 >
                   {isCalculandoFrete ? (
-                    <span className="loading-spinner"></span>
+                    <span className="loading-spinner-button"></span>
                   ) : (
                     "Calcular Frete"
                   )}
@@ -503,7 +503,7 @@ function Carrinho() {
                   disabled={isFinalizando}
                 >
                   {isFinalizando ? (
-                    <span className="loading-spinner"></span>
+                    <span className="loading-spinner-button"></span>
                   ) : (
                     "FINALIZAR PEDIDO"
                   )}

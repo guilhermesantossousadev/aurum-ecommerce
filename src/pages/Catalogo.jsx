@@ -296,7 +296,7 @@ function Catalogo() {
                   ) : (
                     <div className="anuncio__sem-imagem">
                       <h4 style={{ fontSize: "25px" }}>
-                        Anuncio sem imagens cadastradas
+                        Anúncio sem imagens cadastradas
                       </h4>
                     </div>
                   )}

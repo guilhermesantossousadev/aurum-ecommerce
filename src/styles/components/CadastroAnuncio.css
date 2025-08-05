@@ -70,6 +70,7 @@
   color: #555 !important;
   box-sizing: border-box;
   background-color: #f4f8f9;
+  resize: none; /* Impede o redimensionamento manual */
 }
 
 .PostAnuncios input {

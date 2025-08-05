@@ -82,6 +82,26 @@ function CrudVendas() {
     }
   }
 
+  function traduzirMetodo(metodoPagamento) {
+    switch (metodoPagamento) {
+      case "credit_card":
+        return "Cartão de Crédito";
+      case "debit_card":
+        return "Cartão de Débito";
+      case "account_money":
+        return "Saldo (Mercado Pago)";
+      case "bank_transfer":
+        return "Transferência Bancária";
+      case "ticket":
+        return "Boleto";
+      case null:
+      case undefined:
+        return "Sem status";
+      default:
+        return "Desconhecido";
+    }
+  }
+
   return (
     <div className="Separator">
       <div className="Principal">
@@ -126,18 +146,17 @@ function CrudVendas() {
                     <span>{traduzirStatus(venda.status)}</span>
                   </div>
                   <div className="Principal__box__item__inside">
-                    {venda.metodoPagamento}
                     <span>
                       {venda.metodoPagamento == null
                         ? "Não finalizado"
-                        : `${venda.metodoPagamento}`}
+                        : `${traduzirMetodo(venda.metodoPagamento)}`}
                     </span>
                   </div>
                   <div className="Principal__box__item__inside">
                     <span>
                       {venda.parcelas == null
                         ? "Não finalizado"
-                        : `${venda.parcelas}`}
+                        : `${venda.parcelas}x`}
                     </span>
                   </div>
                   <div className="Principal__box__item__inside">

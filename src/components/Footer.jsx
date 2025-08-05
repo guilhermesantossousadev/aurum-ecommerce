@@ -75,7 +75,9 @@ function Footer() {
       setEmail("");
     } catch (error) {
       console.error(error);
-      toast.error("Ocorreu um erro ao cadastrar o email.");
+      toast.error(
+        "Ocorreu um erro ao cadastrar o email, é necessario ter uma conta no site para cadastrar o email."
+      );
     } finally {
       setLoading(false); // finaliza loading
     }
@@ -84,7 +86,7 @@ function Footer() {
   const offices = [
     { name: "San Diego", id: "sandiego" },
     { name: "Nova York", id: "newyork" },
-    { name: "Área da Baía de São Francisco", id: "bayarea" },
+    { name: "Área da Baía", id: "bayarea" },
     { name: "St. Louis", id: "stlouis" },
     { name: "Amsterdã", id: "amsterdam" },
     { name: "Londres", id: "london" },
@@ -110,11 +112,11 @@ function Footer() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className={`input__footer ${footerColorClass}`}
-                disabled={loading} // opcional: impede digitação durante loading
+                disabled={loading}
               />
               <button type="submit" disabled={loading}>
                 {loading ? (
-                  <span className="loading-spinner"></span>
+                  <span className="loading-spinner-footer"></span>
                 ) : (
                   <img
                     src={
