@@ -32,6 +32,7 @@ svg {
 .carrinho-content {
   width: 100%;
   height: 100%;
+  margin-top: 2rem;
 }
 
 .carrinho-content-top {
@@ -51,6 +52,7 @@ svg {
   grid-template-columns: 2fr 1fr;
   gap: 2rem;
 }
+
 .carrinho-items {
   border-radius: 12px;
   padding: 1.5rem;
@@ -65,9 +67,10 @@ svg {
   grid-template-columns: auto 1fr auto;
   gap: 1.5rem;
   padding: 1.5rem;
-  border-bottom: 1px solid #eee;
+  border: 1px solid #eee;
   transition: background-color 0.2s;
-  border: 1px solid #33333311;
+  min-height: 100px;
+  margin-bottom: 10px;
 }
 
 .carrinho-item:hover {
@@ -194,10 +197,11 @@ svg {
 .carrinho-resumo {
   background: white;
   padding: 1.5rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   height: fit-content;
   position: sticky;
   top: 100px;
+  border: 1px solid #eee;
+  margin-top: 23px;
 }
 
 .carrinho-resumo span {
@@ -239,12 +243,22 @@ svg {
   color: white;
   border: none;
   font-size: 1rem;
-  font-weight: bold;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   border-radius: 4px;
+}
+
+.btn-finalizar-compra:hover:not(:disabled) {
+  background-color: #222222;
+}
+
+.btn-finalizar-compra:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #000000;
 }
 
 .btn-finalizar-compra:hover {
@@ -522,7 +536,6 @@ svg {
 
 .frete-input {
   width: 100%;
-  max-width: 400px;
   height: 50px;
   padding: 0.8rem;
   border: none;

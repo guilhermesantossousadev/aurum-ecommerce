@@ -476,10 +476,7 @@ function Carrinho() {
                         </button>
                       </div>
                       <div className="item-valor">
-                        R${" "}
-                        {joia?.valor?.toLocaleString("pt-BR", {
-                          minimumFractionDigits: 2,
-                        })}
+                        {formatCurrency(joia.valor)}
                       </div>
                     </div>
                   );
@@ -550,11 +547,10 @@ function Carrinho() {
                   <span>Total:</span>
                   <span>Valor: {formatCurrency(carrinho.valorTotal)}</span>
                 </div>
-
                 <button
                   className="btn-finalizar-compra"
                   onClick={finalizarPedido}
-                  disabled={isFinalizando}
+                  disabled={isFinalizando || !frete}
                 >
                   {isFinalizando ? (
                     <span className="loading-spinner-button"></span>
