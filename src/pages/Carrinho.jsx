@@ -156,6 +156,7 @@ function Carrinho() {
       setParcelas(
         parseFloat(data || 0).toLocaleString("pt-BR", {
           minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
         })
       );
     } catch (error) {
@@ -560,7 +561,7 @@ function Carrinho() {
                 </button>
 
                 <p className="installments">
-                  Em até 9x de R$
+                  Em até 12x de R$
                   {parcelas}
                 </p>
                 <p className="pix-discount">
