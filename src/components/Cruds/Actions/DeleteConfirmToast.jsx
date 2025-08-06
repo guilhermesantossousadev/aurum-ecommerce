@@ -72,7 +72,6 @@ function DeleteConfirmToast({ id, onClose, onDelete }) {
             border: "none",
             padding: "6px 12px",
             cursor: "pointer",
-            borderRadius: "4px",
           }}
         >
           Cancelar
