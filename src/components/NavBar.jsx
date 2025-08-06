@@ -171,7 +171,7 @@ const NavBar = () => {
             ✖
           </button>
           <li>
-            <Link to="/" onClick={() => setIsMenuOpen(false)}>
+            <Link to="/" onClick={() => setIsMenuOpen(false)} className="titulo">
               Aurum
             </Link>
           </li>

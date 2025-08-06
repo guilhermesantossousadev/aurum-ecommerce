@@ -51,7 +51,7 @@ const Sobre = () => {
       <div className="Sobre__container">
         <div className="Sobre__container__item">
           <h1 className="Sobre__container__item__h1__left fade-in-up">
-            Nos transformamos valores culturais
+            Nós transformamos valores culturais
           </h1>
         </div>
 

@@ -141,17 +141,15 @@ function Catalogo() {
           ].map((tipo) => (
             <label key={tipo}>
               <input
-                type="checkbox"
+                type="radio"
+                name="tipo"
                 checked={
                   removerAcentos(tempFilter.tipo) === removerAcentos(tipo)
                 }
                 onChange={() =>
                   setTempFilter({
                     ...tempFilter,
-                    tipo:
-                      removerAcentos(tempFilter.tipo) === removerAcentos(tipo)
-                        ? "todos"
-                        : tipo,
+                    tipo: tipo,
                   })
                 }
               />
@@ -164,13 +162,13 @@ function Catalogo() {
           {["todos", "disponivel", "indisponivel"].map((status) => (
             <label key={status}>
               <input
-                type="checkbox"
+                type="radio"
+                name="disponibilidade"
                 checked={tempFilter.disponibilidade === status}
                 onChange={() =>
                   setTempFilter({
                     ...tempFilter,
-                    disponibilidade:
-                      tempFilter.disponibilidade === status ? "todos" : status,
+                    disponibilidade: status,
                   })
                 }
               />
@@ -201,7 +199,7 @@ function Catalogo() {
                 onClick={ClearSearch}
               />
             )}
-            
+
             <input
               type="text"
               placeholder="O que você está procurando?"

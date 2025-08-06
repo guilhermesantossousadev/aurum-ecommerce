@@ -399,7 +399,7 @@ function Detalhes() {
                   onClick={calcularFrete}
                 >
                   {loadingFrete ? (
-                    <span className="loading-spinner"></span>
+                    <span className="loading-spinner-detalhes"></span>
                   ) : (
                     "Calcular Frete"
                   )}

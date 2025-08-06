@@ -162,6 +162,7 @@
   color: var(--text-color);
   cursor: pointer;
   transition: var(--transition-speed) ease;
+  margin-top: 0;
 }
 
 .navbar__toggle:hover {
@@ -195,6 +196,10 @@
   color: #fff !important;
 }
 
+.titulo {
+  font-size: 400px;
+}
+
 .navbar__mobile__ul {
   width: 100%;
   padding: 3rem;
@@ -222,11 +227,13 @@
 }
 
 .navbar__mobile a {
-  font-size: 24px;
+  font-size: 40px;
   font-weight: 600;
   color: #fff !important;
   color: var(--text-color);
   transition: color var(--transition-speed) ease-in-out;
+  padding-left: 40px;
+  padding-bottom: 60px;
 }
 
 .navbar__mobile a:hover {
@@ -242,9 +249,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  top: 20px;
-  right: 20px;
-  font-size: 20px;
+  top: 15px;
+  right: 35px;
+  font-size: 30px;
   background: none;
   border: none;
   color: #fff;

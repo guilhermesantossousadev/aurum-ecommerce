@@ -218,9 +218,10 @@ function CrudUsuarios() {
 
           <section className="Principal__box">
             <div className="Principal__box__detalhes">
-              <div className="Principal__box__detalhes__item">ID</div>
+              {/*<div className="Principal__box__detalhes__item">ID</div> */}
               <div className="Principal__box__detalhes__item">Nome</div>
               <div className="Principal__box__detalhes__item">Email</div>
+              <div className="Principal__box__detalhes__item">Endereço</div>
               <div className="Principal__box__detalhes__item">Ações</div>
             </div>
 
@@ -232,14 +233,20 @@ function CrudUsuarios() {
               <ul>
                 {usuarios.map((usuario) => (
                   <li key={usuario.id} className="Principal__box__item">
+                    {/*                    
                     <div className="Principal__box__item__inside">
                       {usuario.id}
-                    </div>
+                    </div> 
+                    */}
                     <div className="Principal__box__item__inside">
                       {usuario.nome}
                     </div>
                     <div className="Principal__box__item__inside">
                       {usuario.email}
+                    </div>
+
+                    <div className="Principal__box__item__inside">
+                      {usuario.endereco}
                     </div>
                     <div className="Principal__box__item__inside acoes">
                       <button onClick={() => handleEdit(usuario)}>

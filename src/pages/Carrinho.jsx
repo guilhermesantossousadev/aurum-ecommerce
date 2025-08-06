@@ -29,6 +29,63 @@ function Carrinho() {
 
   const [isFinalizando, setIsFinalizando] = useState(false);
   const [isCalculandoFrete, setIsCalculandoFrete] = useState(false);
+  const [isRemovendo, setIsRemovendo] = useState(false);
+
+  // Função para confirmação de exclusão com toast customizado
+  const confirmDelete = (id) => {
+    toast.custom((t) => (
+      <div
+        style={{
+          background: "white",
+          padding: "1rem",
+          borderRadius: "8px",
+          maxWidth: "300px",
+          textAlign: "center",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+        }}
+      >
+        <p>Tem certeza que deseja deletar este cadastro da newsletter?</p>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            gap: "10px",
+            marginTop: "10px",
+          }}
+        >
+          <button
+            onClick={async () => {
+              toast.dismiss(t.id);
+              await removerDoCarrinho(id);
+            }}
+            style={{
+              background: "#d9534f",
+              color: "white",
+              border: "none",
+              padding: "6px 12px",
+              cursor: "pointer",
+              borderRadius: "4px",
+            }}
+          >
+            Deletar
+          </button>
+          <button
+            onClick={() => toast.dismiss(t.id)}
+            style={{
+              background: "#6c757d",
+              color: "white",
+              border: "none",
+              padding: "6px 12px",
+              cursor: "pointer",
+              borderRadius: "4px",
+            }}
+          >
+            Cancelar
+          </button>
+        </div>
+      </div>
+    ));
+  };
 
   const finalizarPedido = async () => {
     if (!frete) {
@@ -273,9 +330,11 @@ function Carrinho() {
   // Remover totalmente do carrinho (todos os itens desse anúncio)
   const removerDoCarrinho = async (anuncioId) => {
     try {
+      setIsRemovendo(true);
       const usuarioId = user?.id;
       if (!usuarioId) {
         toast.error("Usuário não está logado.");
+        setIsRemovendo(false);
         return;
       }
 
@@ -314,11 +373,12 @@ function Carrinho() {
       );
 
       toast.success("Produto removido do carrinho com sucesso!");
-
-      await fetchCarrinho();
     } catch (err) {
       console.error("Erro ao remover do carrinho:", err);
       toast.error("Erro ao remover do carrinho");
+    } finally {
+      setIsRemovendo(false);
+      await fetchCarrinho();
     }
   };
 
@@ -369,13 +429,6 @@ function Carrinho() {
 
   return (
     <div className="Carrinho">
-      <div className="Carrinho-top">
-        <div className="Carrinho-top-return">
-          <img src={SetaPretaEsquerda} alt="SetaPretaEsquerda" /> Continuar
-          comprando
-        </div>
-      </div>
-
       <div className="carrinho-container">
         {!carrinho?.anunciosId?.anunciosId?.length ? (
           <div className="carrinho-vazio">
@@ -388,9 +441,7 @@ function Carrinho() {
           </div>
         ) : (
           <div className="carrinho-content">
-            <div className="carrinho-content-top">
-              <FaShoppingBag size={24} /> Meu Carrinho
-            </div>
+            <div className="carrinho-content-top">Meu Carrinho</div>
             <div className="carrinho-content-bottom">
               <div className="carrinho-items">
                 {anunciosUnicos.map((anuncio) => {
@@ -414,11 +465,18 @@ function Carrinho() {
                             Material Cravejado: {joia.materialCravejado}
                           </p>
                         )}
+
                         <button
                           className="btn-remover"
-                          onClick={() => removerDoCarrinho(anuncio.id)}
+                          onClick={() => confirmDelete(anuncio.id)}
                         >
-                          <FaTrash /> Remover
+                          {isRemovendo ? (
+                            <span className="loading-spinner-button-black"></span>
+                          ) : (
+                            <>
+                              <FaTrash /> Remover
+                            </>
+                          )}
                         </button>
                       </div>
                       <div className="item-valor">

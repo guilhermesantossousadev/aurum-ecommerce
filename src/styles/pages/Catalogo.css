@@ -180,7 +180,7 @@
   padding-top: 20px;
 }
 
-.filtersContent label input[type="checkbox"] {
+.filtersContent label input[type="radio"] {
   accent-color: #050505;
   /* cor da marca */
   width: 20px;
@@ -191,7 +191,7 @@
   /* aumenta o tamanho geral */
 }
 
-.filtersContent label input[type="checkbox"]:hover {
+.filtersContent label input[type="radio"]:hover {
   cursor: pointer;
 }
 

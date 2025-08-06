@@ -111,7 +111,10 @@ function CrudVendas() {
 
         <section className="Principal__box">
           <div className="Principal__box__detalhes">
+            {/* 
             <div className="Principal__box__detalhes__item">ID</div>
+            */}
+            <div className="Principal__box__detalhes__item">Informações</div>
             <div className="Principal__box__detalhes__item">Transação</div>
             <div className="Principal__box__detalhes__item">Líquido</div>
             <div className="Principal__box__detalhes__item">Status</div>
@@ -120,7 +123,6 @@ function CrudVendas() {
             <div className="Principal__box__detalhes__item">Email</div>
             <div className="Principal__box__detalhes__item">Criação</div>
             <div className="Principal__box__detalhes__item">Aprovação</div>
-            <div className="Principal__box__detalhes__item">Informações</div>
           </div>
 
           {vendas.length === 0 ? (
@@ -131,7 +133,31 @@ function CrudVendas() {
             <ul>
               {vendas.map((venda) => (
                 <li key={venda.id} className="Principal__box__item">
-                  <div className="Principal__box__item__inside">{venda.id}</div>
+                  {/*
+                    <div className="Principal__box__item__inside">{venda.id}</div>           
+                  */}
+
+                  <div className="Principal__box__item__inside">
+                    {(() => {
+                      try {
+                        const info = JSON.parse(venda.informacaoAdicional);
+                        return (
+                          <div>
+                            <div>Usuário: {nome}</div>
+                            {info.anuncios?.map((anuncio, index) => (
+                              <div key={index}>
+                                <span>Produto:</span>
+                                <br></br>
+                                {anuncio.Titulo} - R$ {anuncio.Valor}
+                              </div>
+                            ))}
+                          </div>
+                        );
+                      } catch (e) {
+                        return <div>Erro ao ler informações</div>;
+                      }
+                    })()}
+                  </div>
                   <div className="Principal__box__item__inside">
                     R$ {venda.valorTransacao}
                   </div>
@@ -167,27 +193,6 @@ function CrudVendas() {
                   </div>
                   <div className="Principal__box__item__inside">
                     {venda.dataAprovacao}
-                  </div>
-                  <div className="Principal__box__item__inside">
-                    {(() => {
-                      try {
-                        const info = JSON.parse(venda.informacaoAdicional);
-                        return (
-                          <div>
-                            <div>Usuário: {nome}</div>
-                            {info.anuncios?.map((anuncio, index) => (
-                              <div key={index}>
-                                <span>Produto:</span>
-                                <br></br>
-                                {anuncio.Titulo} - R$ {anuncio.Valor}
-                              </div>
-                            ))}
-                          </div>
-                        );
-                      } catch (e) {
-                        return <div>Erro ao ler informações</div>;
-                      }
-                    })()}
                   </div>
                 </li>
               ))}
