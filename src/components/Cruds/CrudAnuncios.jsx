@@ -176,7 +176,7 @@ function CrudAnuncios() {
     setIsPopupOpen(false);
     setSelectedAnuncio(null);
   };
-  
+
   function corrigirAcentoTipoPeca(tipoPeca) {
     if (!tipoPeca) return "";
 
@@ -199,12 +199,24 @@ function CrudAnuncios() {
       {step === 0 && (
         <div className="Principal">
           <div className="Principal__Create">
-            <button
-              className="Principal__Create__button"
-              onClick={() => setStep(1)}
-            >
-              Criar Anúncio
-            </button>
+            <div className="Principal__Create__item left">
+              <h2>Anuncios</h2>
+            </div>
+            <div className="Principal__Create__item right">
+              {" "}
+              <button
+                onClick={() => setStep(1)}
+                style={{
+                  background: "#333333aa",
+                  color: "white",
+                  border: "none",
+                  padding: "6px 12px",
+                  cursor: "pointer",
+                }}
+              >
+                Criar Anúncio
+              </button>
+            </div>
           </div>
           <section className="Principal__box">
             <div className="Principal__box__detalhes">
@@ -234,12 +246,28 @@ function CrudAnuncios() {
                       {formatCurrency(anuncio.valor)}
                     </div>
                     <div className="Principal__box__item__inside acoes">
-                      <button onClick={() => handleOpenPopup(anuncio)}>
-                        Visualizar Joia
+                      <button
+                        onClick={() => handleOpenPopup(anuncio)}
+                        style={{
+                          background: "#6c757d",
+                          color: "white",
+                          border: "none",
+                          padding: "6px 12px",
+                          cursor: "pointer",
+                        }}
+                      >
+                        Visualizar
                       </button>
+
                       <button
                         onClick={() => confirmDelete(anuncio.id)}
-                        style={{ backgroundColor: "#b50f0f" }}
+                        style={{
+                          background: "#d9534f",
+                          color: "white",
+                          border: "none",
+                          padding: "6px 12px",
+                          cursor: "pointer",
+                        }}
                       >
                         Deletar
                       </button>
@@ -254,12 +282,24 @@ function CrudAnuncios() {
       {step === 1 && (
         <div className="Separator">
           <div className="Principal__Create">
-            <button
-              className="Principal__Create__button"
-              onClick={() => setStep(0)}
-            >
-              Voltar
-            </button>
+            <div className="Principal__Create__item left">
+              <h2>Anuncios</h2>
+            </div>
+            <div className="Principal__Create__item right">
+              {" "}
+              <button
+                onClick={() => setStep(0)}
+                style={{
+                  background: "#333333aa",
+                  color: "white",
+                  border: "none",
+                  padding: "6px 12px",
+                  cursor: "pointer",
+                }}
+              >
+                Voltar
+              </button>
+            </div>
           </div>
           <div className="Principal">
             <PostAnuncios

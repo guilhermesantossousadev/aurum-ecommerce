@@ -17,12 +17,28 @@
 .Principal__Create {
   width: 100%;
   display: flex;
+  flex-direction: row;
   padding: 0 3rem;
   margin-bottom: 1rem;
   min-height: 50px;
   gap: 20px;
-  justify-content: flex-start;
-  flex-wrap: wrap;
+  align-items: center;
+  justify-content: start;
+}
+
+.Principal__Create__item.left {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+}
+
+.Principal__Create__item.right {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: end;
 }
 
 .Principal__Create__button {
@@ -97,30 +113,19 @@
 .Principal__box__item__inside {
   width: 100%;
   display: flex;
+  justify-content: center;
   align-items: center;
   padding-left: 0.2rem;
   word-break: break-word;
 }
 
 .Principal__box__item__inside.acoes {
+  display: flex;
   justify-content: center;
-  gap: 0.5rem;
+  align-items: center;
+  gap: 1rem;
   padding-left: 0px;
-}
-
-.Principal__box__item__inside button {
-  padding: 0.4rem 0.8rem;
-  background-color: #333333aa;
-  border: none;
-  border-radius: 4px;
-  color: #fff;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.Principal__box__item__inside button:hover {
-  background-color: #161616c7;
+  margin-top: -15px;
 }
 
 .Principal__box p {

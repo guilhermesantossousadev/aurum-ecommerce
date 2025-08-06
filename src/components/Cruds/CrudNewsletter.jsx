@@ -155,16 +155,28 @@ function CrudNewsletter() {
       {step === 0 && (
         <div className="Principal">
           <div className="Principal__Create">
-            <button
-              className="Principal__Create__button"
-              onClick={() => {
-                setStep(1);
-                setEditId(null);
-                setForm(initialFormState);
-              }}
-            >
-              Criar Mensagem
-            </button>
+            <div className="Principal__Create__item left">
+              <h2>Newslleter</h2>
+            </div>
+            <div className="Principal__Create__item right">
+              {" "}
+              <button
+                onClick={() => {
+                  setStep(1);
+                  setEditId(null);
+                  setForm(initialFormState);
+                }}
+                style={{
+                  background: "#333333aa",
+                  color: "white",
+                  border: "none",
+                  padding: "6px 12px",
+                  cursor: "pointer",
+                }}
+              >
+                Criar Mensagem
+              </button>
+            </div>
           </div>
 
           <section className="Principal__box">
@@ -223,12 +235,23 @@ function CrudNewsletter() {
       {step === 1 && (
         <div className="Principal">
           <div className="Principal__Create">
-            <button
-              className="Principal__Create__button"
-              onClick={() => setStep(0)}
-            >
-              Voltar
-            </button>
+            <div className="Principal__Create__item left">
+              <h2>Newslleter</h2>
+            </div>
+            <div className="Principal__Create__item right">
+              <button
+                onClick={() => setStep(0)}
+                style={{
+                  background: "#333333aa",
+                  color: "white",
+                  border: "none",
+                  padding: "6px 12px",
+                  cursor: "pointer",
+                }}
+              >
+                Voltar
+              </button>
+            </div>
           </div>
           <SendNewsletterMessage />
         </div>

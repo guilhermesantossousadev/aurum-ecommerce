@@ -181,16 +181,27 @@ function CrudUsuarios() {
       {step === 1 ? (
         <div>
           <div className="Principal__Create">
-            <button
-              className="Principal__Create__button"
-              onClick={() => {
-                setStep(0);
-                setEditId(null);
-                setForm(initialFormState);
-              }}
-            >
-              Voltar
-            </button>
+            <div className="Principal__Create__item left">
+              <h2>Usuarios</h2>
+            </div>
+            <div className="Principal__Create__item right">
+              <button
+                onClick={() => {
+                  setStep(0);
+                  setEditId(null);
+                  setForm(initialFormState);
+                }}
+                style={{
+                  background: "#333333aa",
+                  color: "white",
+                  border: "none",
+                  padding: "6px 12px",
+                  cursor: "pointer",
+                }}
+              >
+                Voltar
+              </button>
+            </div>
           </div>
           <div className="Principal">
             <UsuarioForm
@@ -204,16 +215,28 @@ function CrudUsuarios() {
       ) : (
         <div className="Principal">
           <div className="Principal__Create">
-            <button
-              className="Principal__Create__button"
-              onClick={() => {
-                setStep(1);
-                setEditId(null);
-                setForm(initialFormState);
-              }}
-            >
-              Criar Usuário
-            </button>
+            <div className="Principal__Create__item left">
+              <h2>Usuarios</h2>
+            </div>
+            <div className="Principal__Create__item right">
+              {" "}
+              <button
+                onClick={() => {
+                  setStep(1);
+                  setEditId(null);
+                  setForm(initialFormState);
+                }}
+                style={{
+                  background: "#333333aa",
+                  color: "white",
+                  border: "none",
+                  padding: "6px 12px",
+                  cursor: "pointer",
+                }}
+              >
+                Criar Usuário
+              </button>
+            </div>
           </div>
 
           <section className="Principal__box">
@@ -249,14 +272,30 @@ function CrudUsuarios() {
                       {usuario.endereco}
                     </div>
                     <div className="Principal__box__item__inside acoes">
-                      <button onClick={() => handleEdit(usuario)}>
+                      <button
+                        onClick={() => handleEdit(usuario)}
+                        style={{
+                          background: "#6c757d",
+                          color: "white",
+                          border: "none",
+                          padding: "6px 12px",
+                          cursor: "pointer",
+                        }}
+                      >
                         Editar
                       </button>
+
                       <button
                         onClick={() => confirmDelete(usuario.id)}
-                        style={{ backgroundColor: "#b50f0f" }}
+                        style={{
+                          background: "#d9534f",
+                          color: "white",
+                          border: "none",
+                          padding: "6px 12px",
+                          cursor: "pointer",
+                        }}
                       >
-                        Excluir
+                        Deletar
                       </button>
                     </div>
                   </li>
