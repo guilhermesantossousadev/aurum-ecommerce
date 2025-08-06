@@ -7,6 +7,11 @@
   /* Para telas muito pequenas, permite scroll vertical */
 }
 
+svg {
+  fill: #252422 !important;
+  stroke: #252422 !important;
+}
+
 .Login__left {
   width: 50%;
   height: 100%;
@@ -137,7 +142,7 @@
   display: inline-block;
   width: 20px;
   height: 20px;
-  border: 4px solid transparent; /* Melhor usar branco para contraste no botão preto */
+  border: 4px solid transparent;
   border-top: 4px solid #000;
   border-radius: 50%;
   animation: spin 1s linear infinite;

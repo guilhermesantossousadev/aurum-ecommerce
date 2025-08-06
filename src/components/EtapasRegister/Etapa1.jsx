@@ -1,5 +1,5 @@
 import "../../styles/pages/Register.css";
-import { toast } from "sonner"; // se ainda não estava importado
+import { toast } from "sonner";
 
 const Etapa1 = ({
   nome,
@@ -12,26 +12,49 @@ const Etapa1 = ({
   next,
 }) => {
   const handleCpfChange = (e) => {
-    const value = e.target.value;
-    const formatted = value
-      .replace(/\D/g, "")
+    const rawValue = e.target.value;
+    const onlyNumbers = rawValue.replace(/\D/g, "");
+
+    // Se o usuário digitou algo que não seja número, mostra o toast
+    if (/\D/.test(rawValue)) {
+      toast.error("O CPF deve conter apenas números.");
+    }
+
+    // Aplica a formatação
+    const formatted = onlyNumbers
       .replace(/(\d{3})(\d)/, "$1.$2")
       .replace(/(\d{3})(\d)/, "$1.$2")
-      .replace(/(\d{3})(\d{1,2})/, "$1-$2");
+      .replace(/(\d{3})(\d{1,2})/, "$1-$2")
+      .slice(0, 14);
+
     setCpf(formatted);
+
+    // Validação apenas quando CPF está completo
     if (formatted.length === 14 && !validarCPF(formatted)) {
-      toast.error("CPF inválido");
+      toast.error("CPF inválido.");
     }
   };
 
   const handleNomeChange = (e) => {
     const valor = e.target.value;
-
-    // Permite apenas letras, acentos e espaços
     if (/^[A-Za-zÀ-ÿ\s]*$/.test(valor)) {
       setNome(valor);
     } else {
       toast.error("O nome não pode conter números ou caracteres especiais.");
+    }
+  };
+
+  const handleIdadeChange = (e) => {
+    const value = e.target.value;
+
+    if (/^\d{0,2}$/.test(value)) {
+      if (value && (parseInt(value) < 0 || parseInt(value) > 120)) {
+        toast.error("Insira uma idade válida entre 0 e 120 anos.");
+      } else {
+        setIdade(value);
+      }
+    } else {
+      toast.error("A idade deve conter apenas números.");
     }
   };
 
@@ -51,6 +74,7 @@ const Etapa1 = ({
           placeholder="Nome Completo"
         />
       </div>
+
       <div className="Register__form-group">
         <input
           type="text"
@@ -59,24 +83,22 @@ const Etapa1 = ({
           required
           className="Register__input"
           placeholder="CPF"
+          maxLength={14}
         />
       </div>
+
       <div className="Register__form-group">
         <input
           type="text"
           value={idade}
-          onChange={(e) => {
-            const value = e.target.value;
-            // aceita apenas números
-            if (/^\d*$/.test(value)) {
-              setIdade(value);
-            }
-          }}
+          onChange={handleIdadeChange}
           required
           className="Register__input"
           placeholder="Idade"
+          maxLength={2}
         />
       </div>
+
       <button type="button" onClick={next} className="Register__button">
         Próximo
       </button>

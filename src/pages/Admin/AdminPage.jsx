@@ -1,15 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  FaSignOutAlt,
-  FaChartLine,
-  FaDollarSign,
-  FaUsers,
-  FaEnvelope,
-  FaUser,
-} from "react-icons/fa";
-import { GiDiamondRing } from "react-icons/gi";
 
 import "../../styles/Admin/AdminPage.css";
 import CrudAnuncios from "../../components/Cruds/CrudAnuncios";
@@ -18,6 +9,7 @@ import CrudVendas from "../../components/Cruds/CrudVendas";
 import CrudNewsletter from "../../components/Cruds/CrudNewsletter";
 
 import { logout } from "../../store/userSlice";
+import Graficos from "../Admin/Graficos";
 
 function AdminPage() {
   const [step, setStep] = useState(0);
@@ -132,7 +124,7 @@ function AdminPage() {
 
       <div className="Admin__right">
         <main className="Admin__all" role="main">
-          {step === 0 && <div>Dashboard</div>}
+          {step === 0 && <Graficos />}
           {step === 1 && <CrudAnuncios />}
           {step === 2 && <CrudVendas />}
           {step === 3 && <CrudUsuarios />}

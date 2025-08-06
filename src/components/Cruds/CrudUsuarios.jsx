@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Toaster, toast } from "sonner";
 import UsuarioForm from "../Cruds/Actions/PostUsuario"; // Confirme se o caminho está correto
 
+import DeleteConfirmToast from "../Cruds/Actions/DeleteConfirmToast.jsx";
+
 const apiBaseUrl =
   "https://marketplacejoias-api-latest.onrender.com/api/Usuario";
 
@@ -78,11 +80,17 @@ function CrudUsuarios() {
     }
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id, motivoParam) => {
     try {
-      const response = await fetch(`${apiBaseUrl}/DeleteUsuario?id=${id}`, {
-        method: "DELETE",
-      });
+      console.log("Deletando usuário ID:", id, "Motivo:", motivoParam);
+      const response = await fetch(
+        `${apiBaseUrl}/DeleteByAdminUsuario?id=${id}&motivo=${encodeURIComponent(
+          motivoParam
+        )}`,
+        {
+          method: "DELETE",
+        }
+      );
       if (!response.ok) throw new Error("Erro ao excluir usuário.");
       toast.success("Usuário excluído com sucesso!");
       fetchUsuarios();
@@ -92,54 +100,14 @@ function CrudUsuarios() {
   };
 
   const confirmDelete = (id) => {
-    const toastId = toast.custom((t) => (
-      <div
-        style={{
-          background: "white",
-          padding: "1rem",
-          borderRadius: "8px",
-          maxWidth: "300px",
-          textAlign: "center",
+    toast.custom((t) => (
+      <DeleteConfirmToast
+        id={id}
+        onClose={() => toast.dismiss(t.id)}
+        onDelete={async (motivo) => {
+          await handleDelete(id, motivo);
         }}
-      >
-        <p>Tem certeza que deseja deletar este Usuario?</p>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            gap: "10px",
-            marginTop: "10px",
-          }}
-        >
-          <button
-            onClick={async () => {
-              await handleDelete(id);
-              toast.dismiss(t.id); // Fecha o toast após deletar
-            }}
-            style={{
-              background: "#d9534f",
-              color: "white",
-              border: "none",
-              padding: "6px 12px",
-              cursor: "pointer",
-            }}
-          >
-            Deletar
-          </button>
-          <button
-            onClick={() => toast.dismiss(t.id)}
-            style={{
-              background: "#6c757d",
-              color: "white",
-              border: "none",
-              padding: "6px 12px",
-              cursor: "pointer",
-            }}
-          >
-            Cancelar
-          </button>
-        </div>
-      </div>
+      />
     ));
   };
 
@@ -272,19 +240,6 @@ function CrudUsuarios() {
                       {usuario.endereco}
                     </div>
                     <div className="Principal__box__item__inside acoes">
-                      <button
-                        onClick={() => handleEdit(usuario)}
-                        style={{
-                          background: "#6c757d",
-                          color: "white",
-                          border: "none",
-                          padding: "6px 12px",
-                          cursor: "pointer",
-                        }}
-                      >
-                        Editar
-                      </button>
-
                       <button
                         onClick={() => confirmDelete(usuario.id)}
                         style={{

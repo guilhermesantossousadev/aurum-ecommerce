@@ -200,7 +200,7 @@ function CrudAnuncios() {
         <div className="Principal">
           <div className="Principal__Create">
             <div className="Principal__Create__item left">
-              <h2>Anuncios</h2>
+              <h2>Anúncios</h2>
             </div>
             <div className="Principal__Create__item right">
               {" "}
@@ -283,7 +283,7 @@ function CrudAnuncios() {
         <div className="Separator">
           <div className="Principal__Create">
             <div className="Principal__Create__item left">
-              <h2>Anuncios</h2>
+              <h2>Anúncios</h2>
             </div>
             <div className="Principal__Create__item right">
               {" "}

@@ -38,10 +38,8 @@ function Carrinho() {
         style={{
           background: "white",
           padding: "1rem",
-          borderRadius: "8px",
           maxWidth: "300px",
           textAlign: "center",
-          boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
         }}
       >
         <p>Tem certeza que deseja deletar este cadastro da newsletter?</p>
@@ -64,7 +62,6 @@ function Carrinho() {
               border: "none",
               padding: "6px 12px",
               cursor: "pointer",
-              borderRadius: "4px",
             }}
           >
             Deletar
@@ -77,7 +74,6 @@ function Carrinho() {
               border: "none",
               padding: "6px 12px",
               cursor: "pointer",
-              borderRadius: "4px",
             }}
           >
             Cancelar

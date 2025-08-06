@@ -142,7 +142,7 @@
   background-color: #3b3b3b;
 }
 
-.PostAnuncios .checkbox-label {
+.PostAnuncios .radio-label {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -152,34 +152,30 @@
   cursor: pointer;
 }
 
-.PostAnuncios .checkbox-label input[type="checkbox"] {
-  appearance: none;
-  width: 18px;
-  height: 18px;
-  border: 1.5px solid #999;
-  border-radius: 4px;
-  background-color: #fff;
-  display: inline-block;
-  position: relative;
-  transition: all 0.2s ease-in-out;
+.PostAnuncios .radio-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  font-weight: 500;
+  color: #555;
   cursor: pointer;
 }
 
-.PostAnuncios .checkbox-label input[type="checkbox"]:checked {
-  background-color: #555;
-  border-color: #555;
+.PostAnuncios .radio-label input[type="radio"] {
+  accent-color: #050505;
+  /* cor da marca */
+  width: 20px;
+  /* opcional: tamanho da caixa */
+  height: 20px;
+  /* opcional: tamanho da caixa */
+  transform: scale(1.2);
+  /* aumenta o tamanho geral */
 }
 
-.PostAnuncios .checkbox-label input[type="checkbox"]:checked::after {
-  content: "";
-  position: absolute;
-  top: 30%;
-  left: 40%;
-  width: 4px;
-  height: 9px;
-  border: solid #fff;
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
+.PostAnuncios .radio-label input[type="radio"]:checked {
+  background-color: #555;
+  border-color: #555;
 }
 
 .form-etapa2 {

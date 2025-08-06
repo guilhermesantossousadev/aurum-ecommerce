@@ -18,7 +18,6 @@ const NavBar = () => {
     "/servicos",
     "/carrinho",
     "/contato",
-    "/token-authentication",
     "/successPage",
     "/errorPage",
     "/pendingPage",
@@ -32,6 +31,7 @@ const NavBar = () => {
     "/adminPage",
     "/profile",
     "/cadastroAnuncio",
+    "/token-authentication",
   ].includes(location.pathname);
 
   const isPinkTextPage = ["/profile", "/sobre", "/adminPage"].includes(
@@ -171,7 +171,11 @@ const NavBar = () => {
             ✖
           </button>
           <li>
-            <Link to="/" onClick={() => setIsMenuOpen(false)} className="titulo">
+            <Link
+              to="/"
+              onClick={() => setIsMenuOpen(false)}
+              className="titulo"
+            >
               Aurum
             </Link>
           </li>

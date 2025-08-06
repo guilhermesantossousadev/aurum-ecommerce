@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "../styles/pages/TokenAuthentication.css";
-import { Toaster, toast } from 'sonner';
+import { Toaster, toast } from "sonner";
 
 const TokenAuthentication = () => {
   const navigate = useNavigate();
@@ -141,7 +141,7 @@ const TokenAuthentication = () => {
               className="TokenAuth__input"
               type="email"
               name="email"
-              placeholder="Digite seu email"
+              placeholder="Digite seu e-mail"
               value={formData.email}
               onChange={handleChange}
               required
@@ -151,7 +151,11 @@ const TokenAuthentication = () => {
               type="submit"
               disabled={isLoading}
             >
-              {isLoading ? "Enviando..." : "Solicitar Token"}
+              {isLoading ? (
+                <span className="loading-spinner-token"></span>
+              ) : (
+                "Solicitar Token"
+              )}
             </button>
           </form>
         )}
@@ -172,7 +176,11 @@ const TokenAuthentication = () => {
               type="submit"
               disabled={isLoading}
             >
-              {isLoading ? "Verificando..." : "Verificar Token"}
+              {isLoading ? (
+                <span className="loading-spinner-token"></span>
+              ) : (
+                "Verificar Token"
+              )}
             </button>
           </form>
         )}
@@ -202,7 +210,11 @@ const TokenAuthentication = () => {
               type="submit"
               disabled={isLoading}
             >
-              {isLoading ? "Redefinindo..." : "Redefinir Senha"}
+              {isLoading ? (
+                <span className="loading-spinner-token"></span>
+              ) : (
+                "Redefinir Senha"
+              )}
             </button>
           </form>
         )}

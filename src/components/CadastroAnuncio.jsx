@@ -5,6 +5,7 @@ import DragAndDropUploader from "./DragAndDropUploader";
 import SpecificInputs from "./SpecificInputs";
 
 import "../styles/components/CadastroAnuncio.css";
+
 const apiBaseUrl =
   import.meta.env.VITE_API_BASE_URL ||
   "https://marketplacejoias-api-latest.onrender.com/api";
@@ -48,6 +49,23 @@ const CadastroAnuncio = () => {
   const [selectedImages, setSelectedImages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  // Verificação de login
+  if (!user || !user.id) {
+    return (
+      <div className="CadastroAnuncio">
+        <div className="CadastroAnuncio-container">
+          <div className="CadastroAnuncio-error">
+            <h2>Você não está logado</h2>
+            <p>Por favor, faça login para acessar o cadastro de anúncio.</p>
+            <a href="/login" className="btn-login">
+              Ir para Login
+            </a>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const handleChangeNumeros = (e) => {
     const { name, value } = e.target;
     const somenteNumeros = value.replace(/[^0-9.]/g, "");
@@ -68,11 +86,7 @@ const CadastroAnuncio = () => {
     setForm((prev) => ({
       ...prev,
       [name]:
-        type === "checkbox"
-          ? checked
-          : type === "number"
-          ? Number(value)
-          : value,
+        type === "radio" ? checked : type === "number" ? Number(value) : value,
     }));
   };
 
@@ -249,12 +263,17 @@ const CadastroAnuncio = () => {
             <option value="Vidro">Vidro</option>
           </select>
 
-          <label className="checkbox-label">
+          <label className="radio-label">
             <input
-              type="checkbox"
+              type="radio"
               name="isStudded"
               checked={form.isStudded}
-              onChange={handleChange}
+              onClick={() =>
+                setForm((prev) => ({
+                  ...prev,
+                  isStudded: !prev.isStudded,
+                }))
+              }
             />
             Cravejada
           </label>

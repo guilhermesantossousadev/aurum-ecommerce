@@ -146,13 +146,17 @@ function Catalogo() {
                 checked={
                   removerAcentos(tempFilter.tipo) === removerAcentos(tipo)
                 }
-                onChange={() =>
-                  setTempFilter({
-                    ...tempFilter,
-                    tipo: tipo,
-                  })
+                onClick={() =>
+                  setTempFilter((prev) => ({
+                    ...prev,
+                    tipo:
+                      removerAcentos(prev.tipo) === removerAcentos(tipo)
+                        ? ""
+                        : tipo,
+                  }))
                 }
               />
+
               {tipo.charAt(0).toUpperCase() + tipo.slice(1)}
             </label>
           ))}
@@ -165,13 +169,15 @@ function Catalogo() {
                 type="radio"
                 name="disponibilidade"
                 checked={tempFilter.disponibilidade === status}
-                onChange={() =>
-                  setTempFilter({
-                    ...tempFilter,
-                    disponibilidade: status,
-                  })
+                onClick={() =>
+                  setTempFilter((prev) => ({
+                    ...prev,
+                    disponibilidade:
+                      prev.disponibilidade === status ? "" : status,
+                  }))
                 }
               />
+
               {status === "todos"
                 ? "Todos"
                 : status === "disponivel"

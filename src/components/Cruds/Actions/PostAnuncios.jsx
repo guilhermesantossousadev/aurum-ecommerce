@@ -187,9 +187,7 @@ const PostAnuncios = () => {
   return (
     <div className="PostAnuncios">
       <div className="step-counter">
-        <p>
-          {step === 1 ? "Cadastro da Joia" : "Cadastro do Anúncio"}
-        </p>
+        <p>{step === 1 ? "Cadastro da Joia" : "Cadastro do Anúncio"}</p>
         <div className="step-bar">
           <div className={`step-progress ${step === 2 ? "complete" : ""}`} />
         </div>
@@ -277,12 +275,12 @@ const PostAnuncios = () => {
             <option value="Vidro">Vidro</option>
           </select>
 
-          <label className="checkbox-label">
+          <label className="radio-label">
             <input
-              type="checkbox"
+              type="radio"
               checked={joiaData.isStudded}
-              onChange={(e) =>
-                handleBooleanChange("isStudded", e.target.checked)
+              onClick={() =>
+                handleBooleanChange("isStudded", !joiaData.isStudded)
               }
             />
             Cravejada
