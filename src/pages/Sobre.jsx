@@ -122,8 +122,7 @@ const Sobre = () => {
               </h1>
               <span className="Sobre__hero__item__right__top__right">28</span>
               <p className="Sobre__hero__item__right__top__right">
-                Como parte do Dept, temos 28 escritórios e mais de 1.500 pessoas
-                em todo o mundo dedicadas a fornecer os melhores serviços de
+                Como parte do Dept,estamos dedicados a fornecer os melhores serviços de
                 design, estratégia e tecnologia aos nossos clientes parceiros.
               </p>
             </div>
