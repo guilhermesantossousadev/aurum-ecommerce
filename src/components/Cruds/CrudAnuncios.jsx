@@ -252,7 +252,7 @@ function CrudAnuncios() {
                           <button
                             onClick={() => handleOpenPopup(anuncio)}
                             style={{
-                              background: "#6c757d",
+                              background: "#333333aa",
                               color: "white",
                               border: "none",
                               padding: "6px 12px",
