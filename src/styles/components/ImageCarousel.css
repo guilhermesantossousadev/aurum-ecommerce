@@ -59,6 +59,7 @@
 
 /* Botões de navegação */
 .carousel__button {
+  margin: 0;
   background: rgba(37, 36, 34, 0.5);
   color: white;
   border: none;

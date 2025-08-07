@@ -17,9 +17,25 @@ const initialFormState = {
 function CrudNewsletter() {
   const [step, setStep] = useState(0);
   const [newsletters, setNewsletters] = useState([]);
+  const [messagenewsletters, setMessageNewsletters] = useState([]);
   const [form, setForm] = useState(initialFormState);
   const [editId, setEditId] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  const fetchMessageNewsletters = async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetch(`${apiBaseUrl}/GetMessagesNewsletter`);
+      if (!response.ok)
+        throw new Error("Erro ao buscar mensagens newsletters.");
+      const datamessage = await response.json();
+      setMessageNewsletters(datamessage);
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const fetchNewsletters = async () => {
     try {
@@ -34,6 +50,10 @@ function CrudNewsletter() {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchMessageNewsletters();
+  }, []);
 
   useEffect(() => {
     fetchNewsletters();
@@ -215,6 +235,68 @@ function CrudNewsletter() {
                           {newsletter.email}
                         </div>
 
+                        {/* Ações newsletter (descomentadas se quiser usar)
+                      <div className="Principal__box__item__inside acoes">
+                        <button onClick={() => handleEdit(newsletter)}>
+                          Editar
+                        </button>
+                        <button
+                          onClick={() => confirmDelete(newsletter.id)}
+                          style={{ backgroundColor: "#b50f0f" }}
+                        >
+                          Excluir
+                        </button>
+                      </div>
+                      */}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </section>
+
+              <div
+                className="Principal__Create"
+                style={{ paddingTop: "5rem", paddingBottom: "1rem" }}
+              >
+                <div className="Principal__Create__item left">
+                  <h2>Mensagens Newsletter</h2>
+                </div>
+                <div className="Principal__Create__item right"></div>
+              </div>
+
+              <section className="Principal__box">
+                <div className="Principal__box__detalhes">
+                  <div className="Principal__box__detalhes__item">data</div>
+                  <div className="Principal__box__detalhes__item">titulo</div>
+                  <div className="Principal__box__detalhes__item">mensagem</div>
+
+                  {/* Ações newsletter (descomentadas se quiser usar)
+                <div className="Principal__box__detalhes__item">Ações</div>
+                */}
+                </div>
+
+                {messagenewsletters.length === 0 ? (
+                  <p className="Principal__box__item__inside">
+                    Nenhuma mensagem da newsletter encontrada.
+                  </p>
+                ) : (
+                  <ul>
+                    {messagenewsletters.map((messagenewsletter) => (
+                      <li
+                        key={messagenewsletter.id}
+                        className="Principal__box__item"
+                      >
+                        <div className="Principal__box__item__inside">
+                          {new Date(messagenewsletter.data).toLocaleDateString(
+                            "pt-BR"
+                          )}
+                        </div>
+                        <div className="Principal__box__item__inside">
+                          {messagenewsletter.titulo}
+                        </div>
+                        <div className="Principal__box__item__inside">
+                          {messagenewsletter.mensagem}
+                        </div>
                         {/* Ações newsletter (descomentadas se quiser usar)
                       <div className="Principal__box__item__inside acoes">
                         <button onClick={() => handleEdit(newsletter)}>
