@@ -452,7 +452,13 @@ function Carrinho() {
                         )}
                       </div>
                       <div className="item-detalhes">
-                        <h3>{anuncio.titulo}</h3>
+                        <Link
+                          to={`/detalhes/${anuncio.id}`}
+                          className="item-titulo-link"
+                        >
+                          {anuncio.titulo}
+                        </Link>
+
                         <p className="item-tipo">Tipo: {joia?.tipoPeca}</p>
                         <p className="item-material">
                           Material: {joia?.material}

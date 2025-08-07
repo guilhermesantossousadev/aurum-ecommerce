@@ -119,6 +119,7 @@
 .footer__item__top h1 {
   max-width: 500px;
   font-size: 1.2rem !important;
+  font-weight: normal;
 }
 
 .footer__item__top.left {

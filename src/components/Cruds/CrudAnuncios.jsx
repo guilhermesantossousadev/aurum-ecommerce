@@ -196,129 +196,133 @@ function CrudAnuncios() {
 
   return (
     <div className="Separator">
-      {step === 0 && (
-        <div className="Principal">
-          <div className="Principal__Create">
-            <div className="Principal__Create__item left">
-              <h2>Anúncios</h2>
-            </div>
-            <div className="Principal__Create__item right">
-              {" "}
-              <button
-                onClick={() => setStep(1)}
-                style={{
-                  background: "#333333aa",
-                  color: "white",
-                  border: "none",
-                  padding: "6px 12px",
-                  cursor: "pointer",
-                }}
-              >
-                Criar Anúncio
-              </button>
-            </div>
-          </div>
-          <section className="Principal__box">
-            <div className="Principal__box__detalhes">
-              <div className="Principal__box__detalhes__item">Tipo</div>
-              <div className="Principal__box__detalhes__item">Título</div>
-              <div className="Principal__box__detalhes__item">Valor</div>
-              <div className="Principal__box__detalhes__item">Ações</div>
-            </div>
-
-            {isLoading ? (
-              <p className="Principal__box__item__inside">Carregando...</p>
-            ) : anuncios.length === 0 ? (
-              <p className="Principal__box__item__inside">
-                Nenhum anúncio encontrado.
-              </p>
-            ) : (
-              <ul>
-                {anuncios.map((anuncio) => (
-                  <li key={anuncio.id} className="Principal__box__item">
-                    <div className="Principal__box__item__inside">
-                      {corrigirAcentoTipoPeca(anuncio.tipoPeca)}
-                    </div>
-                    <div className="Principal__box__item__inside">
-                      {anuncio.titulo}
-                    </div>
-                    <div className="Principal__box__item__inside">
-                      {formatCurrency(anuncio.valor)}
-                    </div>
-                    <div className="Principal__box__item__inside acoes">
-                      <button
-                        onClick={() => handleOpenPopup(anuncio)}
-                        style={{
-                          background: "#6c757d",
-                          color: "white",
-                          border: "none",
-                          padding: "6px 12px",
-                          cursor: "pointer",
-                        }}
-                      >
-                        Visualizar
-                      </button>
-
-                      <button
-                        onClick={() => confirmDelete(anuncio.id)}
-                        style={{
-                          background: "#d9534f",
-                          color: "white",
-                          border: "none",
-                          padding: "6px 12px",
-                          cursor: "pointer",
-                        }}
-                      >
-                        Deletar
-                      </button>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </section>
+      {isLoading ? (
+        <div className="crud-spinner-wrapper">
+          <div className="crud-spinner"></div>
         </div>
-      )}
-      {step === 1 && (
-        <div className="Separator">
-          <div className="Principal__Create">
-            <div className="Principal__Create__item left">
-              <h2>Anúncios</h2>
-            </div>
-            <div className="Principal__Create__item right">
-              {" "}
-              <button
-                onClick={() => setStep(0)}
-                style={{
-                  background: "#333333aa",
-                  color: "white",
-                  border: "none",
-                  padding: "6px 12px",
-                  cursor: "pointer",
-                }}
-              >
-                Voltar
-              </button>
-            </div>
-          </div>
-          <div className="Principal">
-            <PostAnuncios
-              titulo={titulo}
-              setTitulo={setTitulo}
-              joiaId={joiaId}
-              setJoiaId={setJoiaId}
-              urLs={urLs}
-              setUrLs={setUrLs}
-              handleUpdateAnuncio={handleUpdateAnuncio}
-              setStep={setStep}
-            />
-          </div>
-        </div>
-      )}
+      ) : (
+        <>
+          {step === 0 && (
+            <div className="Principal">
+              <div className="Principal__Create">
+                <div className="Principal__Create__item left">
+                  <h2>Anúncios</h2>
+                </div>
+                <div className="Principal__Create__item right">
+                  <button
+                    onClick={() => setStep(1)}
+                    style={{
+                      background: "#333333aa",
+                      color: "white",
+                      border: "none",
+                      padding: "6px 12px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Criar Anúncio
+                  </button>
+                </div>
+              </div>
+              <section className="Principal__box">
+                <div className="Principal__box__detalhes">
+                  <div className="Principal__box__detalhes__item">Tipo</div>
+                  <div className="Principal__box__detalhes__item">Título</div>
+                  <div className="Principal__box__detalhes__item">Valor</div>
+                  <div className="Principal__box__detalhes__item">Ações</div>
+                </div>
 
-      {/* Renderização do Popup de Visualização */}
-      {isPopupOpen && selectedAnuncio && (
-        <Popup anuncio={selectedAnuncio} onClose={handleClosePopup} />
+                {anuncios.length === 0 ? (
+                  <p className="Principal__box__item__inside">
+                    Nenhum anúncio encontrado.
+                  </p>
+                ) : (
+                  <ul>
+                    {anuncios.map((anuncio) => (
+                      <li key={anuncio.id} className="Principal__box__item">
+                        <div className="Principal__box__item__inside">
+                          {corrigirAcentoTipoPeca(anuncio.tipoPeca)}
+                        </div>
+                        <div className="Principal__box__item__inside">
+                          {anuncio.titulo}
+                        </div>
+                        <div className="Principal__box__item__inside">
+                          {formatCurrency(anuncio.valor)}
+                        </div>
+                        <div className="Principal__box__item__inside acoes">
+                          <button
+                            onClick={() => handleOpenPopup(anuncio)}
+                            style={{
+                              background: "#6c757d",
+                              color: "white",
+                              border: "none",
+                              padding: "6px 12px",
+                              cursor: "pointer",
+                            }}
+                          >
+                            Visualizar
+                          </button>
+
+                          <button
+                            onClick={() => confirmDelete(anuncio.id)}
+                            style={{
+                              background: "#d9534f",
+                              color: "white",
+                              border: "none",
+                              padding: "6px 12px",
+                              cursor: "pointer",
+                            }}
+                          >
+                            Deletar
+                          </button>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </section>
+            </div>
+          )}
+
+          {step === 1 && (
+            <div className="Separator">
+              <div className="Principal__Create">
+                <div className="Principal__Create__item left">
+                  <h2>Anúncios</h2>
+                </div>
+                <div className="Principal__Create__item right">
+                  <button
+                    onClick={() => setStep(0)}
+                    style={{
+                      background: "#333333aa",
+                      color: "white",
+                      border: "none",
+                      padding: "6px 12px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Voltar
+                  </button>
+                </div>
+              </div>
+              <div className="Principal">
+                <PostAnuncios
+                  titulo={titulo}
+                  setTitulo={setTitulo}
+                  joiaId={joiaId}
+                  setJoiaId={setJoiaId}
+                  urLs={urLs}
+                  setUrLs={setUrLs}
+                  handleUpdateAnuncio={handleUpdateAnuncio}
+                  setStep={setStep}
+                />
+              </div>
+            </div>
+          )}
+
+          {isPopupOpen && selectedAnuncio && (
+            <Popup anuncio={selectedAnuncio} onClose={handleClosePopup} />
+          )}
+        </>
       )}
     </div>
   );

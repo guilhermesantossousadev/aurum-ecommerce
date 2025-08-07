@@ -41,21 +41,6 @@
   justify-content: end;
 }
 
-.Principal__Create__button {
-  padding: 0.8rem 1.6rem;
-  background-color: #555;
-  border-radius: 6px;
-  color: #fff;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.Principal__Create__button:hover {
-  background-color: #3b3b3b;
-}
-
 .Principal__box {
   width: 100%;
   padding: 0 3rem;
@@ -133,6 +118,31 @@
   text-align: center;
   color: #555;
   font-style: italic;
+}
+
+.crud-spinner-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh; /* altura desejada da área de carregamento */
+}
+
+.crud-spinner {
+  border: 6px solid transparent;
+  border-top: 6px solid #333333aa;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Responsividade */

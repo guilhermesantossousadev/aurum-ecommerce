@@ -452,6 +452,18 @@ svg {
   opacity: 0.8;
 }
 
+.item-titulo-link {
+  font-size: 1.2rem;
+  color: #333;
+  font-weight: 600;
+  text-decoration: none;
+  transition: text-decoration 0.2s ease;
+}
+
+.item-titulo-link:hover {
+  text-decoration: underline;
+}
+
 @media (max-width: 1024px) {
   .Carrinho-top {
     width: 100%;
