@@ -119,22 +119,20 @@
 }
 
 .anuncio__notAvaliable {
-  display: none;
-}
-
-.anuncio__notAvaliable.isAvaliable {
-  display: block;
   width: 100%;
   height: 300px;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.anuncio__notAvaliable.isAvaliable h1 {
-  color: #fff;
   font-weight: normal;
   text-transform: uppercase;
+  font-size: 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+.anuncio__notAvaliable h1 {
+  color: #fff;
 }
 
 .frete__container__item {

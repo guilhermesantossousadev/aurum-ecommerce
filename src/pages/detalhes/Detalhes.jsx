@@ -345,81 +345,84 @@ function Detalhes() {
                 </p>
               </div>
             </div>
-            <div
-              className={`frete__container ${
-                anuncio.isAvaliable === true ? "" : "not-available"
-              }`}
-            >
-              <div
-                className={`frete__container__item ${isCalculed ? "left" : ""}`}
-              >
-                <button
-                  className="btn-adicionar-carrinho"
-                  onClick={adicionarAoCarrinho}
-                  disabled={loadingAddCarrinho}
-                >
-                  {loadingAddCarrinho ? (
-                    <span className="loading-spinner-detalhes-btn"></span>
-                  ) : (
-                    "Adicionar ao Carrinho"
-                  )}
-                </button>
 
-                <input
-                  type="text"
-                  placeholder="Digite seu CEP"
-                  value={cep}
-                  onChange={(e) => {
-                    let valor = e.target.value.replace(/\D/g, "").slice(0, 8);
-                    if (valor.length > 5) {
-                      valor = valor.slice(0, 5) + "-" + valor.slice(5);
-                    }
-                    setCep(valor);
-                  }}
-                  maxLength={9}
-                  className="frete__input"
-                />
-
-                <button
-                  className={`btn-calcular-frete ${
-                    loadingFrete ? "loading" : ""
+            {anuncio.isAvaliable === true && (
+              <div className="frete__container">
+                <div
+                  className={`frete__container__item ${
+                    isCalculed ? "left" : ""
                   }`}
-                  onClick={calcularFrete}
                 >
-                  {loadingFrete ? (
-                    <span className="loading-spinner-detalhes-btn"></span>
-                  ) : (
-                    "Calcular Frete"
+                  <button
+                    className="btn-adicionar-carrinho"
+                    onClick={adicionarAoCarrinho}
+                    disabled={
+                      loadingAddCarrinho || anuncio.isAvaliable === false
+                    }
+                  >
+                    {loadingAddCarrinho ? (
+                      <span className="loading-spinner-detalhes-btn"></span>
+                    ) : (
+                      "Adicionar ao Carrinho"
+                    )}
+                  </button>
+
+                  <input
+                    type="text"
+                    placeholder="Digite seu CEP"
+                    value={cep}
+                    onChange={(e) => {
+                      let valor = e.target.value.replace(/\D/g, "").slice(0, 8);
+                      if (valor.length > 5) {
+                        valor = valor.slice(0, 5) + "-" + valor.slice(5);
+                      }
+                      setCep(valor);
+                    }}
+                    maxLength={9}
+                    className="frete__input"
+                    disabled={anuncio.isAvaliable === false}
+                  />
+
+                  <button
+                    className={`btn-calcular-frete ${
+                      loadingFrete ? "loading" : ""
+                    }`}
+                    onClick={calcularFrete}
+                    disabled={loadingFrete || anuncio.isAvaliable === false}
+                  >
+                    {loadingFrete ? (
+                      <span className="loading-spinner-detalhes-btn"></span>
+                    ) : (
+                      "Calcular Frete"
+                    )}
+                  </button>
+                </div>
+                <div className="frete__container__item">
+                  {anuncio.isAvaliable && opcoesFrete.length > 0 && (
+                    <div className="frete__resultado">
+                      {opcoesFrete.map((opcao, idx) => (
+                        <div key={idx} className="frete__opcao">
+                          <label>
+                            <span>
+                              {opcao.tipo}:{" "}
+                              {opcao.preco === 0
+                                ? "Grátis"
+                                : formatarPreco(opcao.preco)}{" "}
+                              - {opcao.descricao}
+                            </span>
+                          </label>
+                        </div>
+                      ))}
+                    </div>
                   )}
-                </button>
+                </div>
               </div>
-              <div className="frete__container__item">
-                {opcoesFrete.length > 0 && (
-                  <div className="frete__resultado">
-                    {opcoesFrete.map((opcao, idx) => (
-                      <div key={idx} className="frete__opcao">
-                        <label>
-                          <span>
-                            {opcao.tipo}:{" "}
-                            {opcao.preco === 0
-                              ? "Grátis"
-                              : formatarPreco(opcao.preco)}{" "}
-                            - {opcao.descricao}
-                          </span>
-                        </label>
-                      </div>
-                    ))}
-                  </div>
-                )}
+            )}
+            {anuncio.isAvaliable === false && (
+              <div className="anuncio__notAvaliable">
+                <h1>Anúncio não disponível</h1>
               </div>
-            </div>
-            <div
-              className={`anuncio__notAvaliable ${
-                anuncio.isAvaliable === true ? "hidden" : ""
-              }`}
-            >
-              <h1>Anúncio não disponível</h1>
-            </div>
+            )}
           </div>
         </div>
 
