@@ -380,6 +380,7 @@
   display: flex;
   gap: 20px;
   justify-content: left;
+  align-items: center;
 }
 
 .Profile__buttons__item h1 {
