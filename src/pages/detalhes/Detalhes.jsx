@@ -373,7 +373,7 @@ function Detalhes() {
                   {loadingAddCarrinho ? (
                     <span className="loading-spinner"></span>
                   ) : (
-                    "Adicionar ao carrinho"
+                    "Adicionar ao Carrinho"
                   )}
                 </button>
 

@@ -15,8 +15,9 @@ import {
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/userSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { toast } from "sonner";
+import formatCurrency from "../components/utils/formatCurrency";
 
 import perfil from "../images/Common/perfil.png";
 import xpgn from "../images/Common/x.png";
@@ -320,23 +321,23 @@ const Profile = () => {
                           <p>Sem imagem</p>
                         )}
                       </div>
-                      <div className="Profile__card-info">
-                        <h4>
-                          <FaTag size={16} /> {anuncio.titulo}
-                        </h4>
+                      <div className="Profile__card__anuncio__info">
+                        <Link
+                          to={`/detalhes/${anuncio.id}`}
+                          className="item-titulo-link"
+                        >
+                          <h4>Titulo: {anuncio.titulo}</h4>
+                        </Link>
                         <p>
-                          <FaCogs size={14} /> Tipo: {anuncio.tipoPeca}
+                          <span>• Tipo:</span> {anuncio.tipoPeca}
                         </p>
                         <p>
-                          {anuncio.isAvaliable ? (
-                            <FaCheckCircle color="green" size={14} />
-                          ) : (
-                            <FaTimesCircle color="red" size={14} />
-                          )}{" "}
+                          <span> • Status: </span>
                           {anuncio.isAvaliable ? "Disponível" : "Indisponível"}
                         </p>
                         <p>
-                          <FaDollarSign size={14} /> R$ {anuncio.valor}
+                          <span> • Valor: </span>
+                          {formatCurrency(anuncio.valor)}
                         </p>
                       </div>
                     </div>
