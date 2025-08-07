@@ -30,7 +30,7 @@ const Etapa2 = ({
           onBlur={checkEmailExists}
           required
           className="Register__input"
-          placeholder="e-mail"
+          placeholder="E-mail"
         />
       </div>
 
