@@ -232,10 +232,10 @@ function Carrinho() {
   if (!user?.id) {
     return (
       <div className="Carrinho">
-        <div className="carrinho-container">
+        <div className="carrinho-containe">
           <div className="carrinho-error">
             <h2>Você não está logado</h2>
-            <p>Por favor, faça login para acessar o carrinho.</p>
+            <p>Por favor, faça login para acessar o cadastro de anúncio.</p>
             <a href="/login" className="btn-login">
               Ir para Login
             </a>

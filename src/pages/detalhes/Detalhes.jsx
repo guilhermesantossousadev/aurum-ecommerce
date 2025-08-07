@@ -115,43 +115,34 @@ function Detalhes() {
   };
 
   const adicionarAoCarrinho = async () => {
-    console.log("Iniciando adicionarAoCarrinho...");
     setLoadingAddCarrinho(true);
     try {
       const usuarioId = user?.id;
-      console.log("Usuário ID:", usuarioId);
       if (!usuarioId) {
         toast.error("Usuário não está logado.");
         setLoadingAddCarrinho(false);
         return;
       }
 
-      console.log("Buscando carrinho do usuário...");
       const carrinhoResponse = await fetch(
         `https://marketplacejoias-api-latest.onrender.com/api/Carrinho/GetByUsuarioIdCarrinho?usuarioId=${usuarioId}`
       );
-      console.log("Resposta do fetch do carrinho:", carrinhoResponse);
 
       if (!carrinhoResponse.ok) throw new Error("Erro ao buscar carrinho");
 
       const carrinhoData = await carrinhoResponse.json();
-      console.log("Dados do carrinho:", carrinhoData);
 
       const anunciosAtuais = Array.isArray(carrinhoData.anunciosId?.anunciosId)
         ? [...carrinhoData.anunciosId.anunciosId]
         : [];
 
-      console.log("Anúncios atuais no carrinho:", anunciosAtuais);
-      console.log("ID do anúncio atual:", anuncio.id);
-
-      if (!anunciosAtuais.includes(anuncio.id.toString())) {
-        anunciosAtuais.push(anuncio.id.toString());
-        console.log("Anúncio adicionado ao array:", anunciosAtuais);
-      } else {
-        console.log(
-          "Anúncio já está no carrinho. Não será adicionado novamente."
-        );
+      if (anunciosAtuais.includes(anuncio.id.toString())) {
+        toast.error("Produto já está no carrinho.");
+        setLoadingAddCarrinho(false);
+        return;
       }
+
+      anunciosAtuais.push(anuncio.id.toString());
 
       const carrinhoAtualizado = {
         baseUrl: "string",
@@ -171,12 +162,11 @@ function Detalhes() {
         id: carrinhoData.id,
         usuarioId,
         anunciosId: {
-          anunciosId: anunciosAtuais, // Aqui é o ponto importante!
+          anunciosId: anunciosAtuais,
         },
         valorTotal: 0,
       };
 
-      console.log("Enviando carrinho atualizado:", carrinhoAtualizado);
       const putResponse = await fetch(
         `https://marketplacejoias-api-latest.onrender.com/api/Carrinho/PutCarrinho`,
         {
@@ -185,10 +175,9 @@ function Detalhes() {
           body: JSON.stringify(carrinhoAtualizado),
         }
       );
-      console.log("Resposta PUT carrinho:", putResponse);
+
       if (!putResponse.ok) throw new Error("Erro ao atualizar carrinho");
 
-      console.log("Atualizando valor total...");
       const compileValueResponse = await fetch(
         `https://marketplacejoias-api-latest.onrender.com/api/Carrinho/CompileValue?usuarioId=${usuarioId}`,
         {
@@ -196,7 +185,7 @@ function Detalhes() {
           headers: { "Content-Type": "application/json" },
         }
       );
-      console.log("Resposta do CompileValue:", compileValueResponse);
+
       if (!compileValueResponse.ok)
         throw new Error("Erro ao compilar valor total");
 
@@ -206,7 +195,6 @@ function Detalhes() {
       toast.error("Erro ao adicionar ao carrinho");
     } finally {
       setLoadingAddCarrinho(false);
-      console.log("Finalizado adicionarAoCarrinho.");
     }
   };
 
@@ -371,7 +359,7 @@ function Detalhes() {
                   disabled={loadingAddCarrinho}
                 >
                   {loadingAddCarrinho ? (
-                    <span className="loading-spinner"></span>
+                    <span className="loading-spinner-detalhes-btn"></span>
                   ) : (
                     "Adicionar ao Carrinho"
                   )}
@@ -399,7 +387,7 @@ function Detalhes() {
                   onClick={calcularFrete}
                 >
                   {loadingFrete ? (
-                    <span className="loading-spinner-detalhes"></span>
+                    <span className="loading-spinner-detalhes-btn"></span>
                   ) : (
                     "Calcular Frete"
                   )}

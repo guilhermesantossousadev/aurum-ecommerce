@@ -1,17 +1,14 @@
 import {
   FaPencilAlt,
   FaSignOutAlt,
-  FaSave,
   FaUser,
   FaMapMarkerAlt,
   FaEnvelope,
   FaIdCard,
-  FaTag,
-  FaCogs,
-  FaCheckCircle,
-  FaTimesCircle,
-  FaDollarSign,
+  FaChevronDown,
+  FaChevronUp,
 } from "react-icons/fa";
+
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/userSlice";
@@ -48,6 +45,13 @@ const Profile = () => {
   const [compras, setCompras] = useState([]);
 
   const inputFileRef = useRef(null);
+
+  const [expandedCards, setExpandedCards] = useState([]);
+  const toggleExpand = (id) => {
+    setExpandedCards((prev) =>
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+    );
+  };
 
   const openPopup = () => setIsPopupOpen(true);
   const closePopup = () => {
@@ -218,6 +222,52 @@ const Profile = () => {
     }
   };
 
+  function traduzirStatus(status) {
+    switch (status) {
+      case "approved":
+        return "Aprovado";
+      case "pending":
+        return "Pendente";
+      case "in_process":
+        return "Em processo";
+      case "rejected":
+        return "Rejeitado";
+      case "cancelled":
+        return "Cancelado";
+      case "refunded":
+        return "Reembolsado";
+      case "charged_back":
+        return "Contestação";
+      case "not_carried_out":
+        return "Não realizado";
+      case null:
+      case undefined:
+        return "Sem status";
+      default:
+        return "Desconhecido";
+    }
+  }
+
+  function traduzirMetodo(metodoPagamento) {
+    switch (metodoPagamento) {
+      case "credit_card":
+        return "Cartão de Crédito";
+      case "debit_card":
+        return "Cartão de Débito";
+      case "account_money":
+        return "Saldo (Mercado Pago)";
+      case "bank_transfer":
+        return "Transferência Bancária";
+      case "ticket":
+        return "Boleto";
+      case null:
+      case undefined:
+        return "Sem status";
+      default:
+        return "Desconhecido";
+    }
+  }
+
   useEffect(() => {
     searchCEP();
   }, []);
@@ -314,7 +364,7 @@ const Profile = () => {
                 <div className="Profile__cards-container">
                   {anuncios.map((anuncio) => (
                     <div key={anuncio.id} className="Profile__card__anuncio">
-                      <div className="Profile__card-image">
+                      <div className="Profile__card__anuncio__image">
                         {anuncio.urLs?.[0] ? (
                           <img src={anuncio.urLs[0]} alt="Imagem do anúncio" />
                         ) : (
@@ -347,7 +397,7 @@ const Profile = () => {
             </div>
 
             <div className="Profile__section-box">
-              <h2 className="Profile__section-title">Minhas Compras</h2>
+              <h2 className="Profile__section-title">Meus Pedidos</h2>
               {compras.length === 0 ? (
                 <p className="Profile__no-data">
                   Você ainda não realizou compras.
@@ -358,49 +408,88 @@ const Profile = () => {
                     const infoAdicionalObj = parseInformacaoAdicional(
                       compra.informacaoAdicional
                     );
+                    const isExpanded = expandedCards.includes(compra.id);
+
                     return (
-                      <div key={compra.id} className="Profile__card">
-                        <div className="Profile__card-info full">
-                          <h4>
-                            <FaTag size={16} /> Compra #{compra.id}
-                          </h4>
-                          <p>
-                            <FaCogs size={14} />{" "}
-                            {new Date(compra.dataCriacao).toLocaleDateString()}
-                          </p>
-                          <p>
-                            <FaDollarSign size={14} /> Valor: R${" "}
-                            {compra.valorTransacao.toFixed(2)}
-                          </p>
-                          <p>
-                            <FaCheckCircle size={14} color="green" /> Status:{" "}
-                            {compra.status}
-                          </p>
-                          <p>
-                            <FaTag size={14} /> Método:{" "}
-                            {compra.metodoPagamento || "Não informado"}
-                          </p>
-                          {compra.parcelas > 0 && (
-                            <p>Parcelas: {compra.parcelas}</p>
-                          )}
-                          {infoAdicionalObj && (
-                            <div className="Profile__informacao-adicional">
-                              <p>
-                                <strong>Detalhes adicionais:</strong>
-                              </p>
-                              {Array.isArray(infoAdicionalObj.anuncios) && (
-                                <ul>
-                                  {infoAdicionalObj.anuncios.map(
-                                    (item, index) => (
-                                      <li key={index}>
-                                        Título: {item.Titulo} - Valor: R${" "}
-                                        {item.Valor.toFixed(2)}
-                                      </li>
-                                    )
+                      <div
+                        key={compra.id}
+                        className="Profile__card__compra"
+                        style={{
+                          width: "100%",
+                          height: isExpanded ? "235px" : "65px",
+                          transition: "height 0.3s ease",
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <div className="Profile__card__compra__info">
+                          <div className="Profile__card__compra__info__top">
+                            <h4>Pedido: #{compra.id}</h4>
+
+                            <p>
+                              {new Date(
+                                compra.dataCriacao
+                              ).toLocaleDateString()}
+                            </p>
+                            <button onClick={() => toggleExpand(compra.id)}>
+                              {isExpanded ? <FaChevronUp /> : <FaChevronDown />}
+                            </button>
+                          </div>
+
+                          {isExpanded && (
+                            <>
+                              <div className="Profile__card__compra__info__container">
+                                <div className="Profile__card__compra__info__item__left">
+                                  <span>
+                                    • Status: {traduzirStatus(compra.status)}
+                                  </span>
+
+                                  <span>
+                                    • Metodo de pagamento:{" "}
+                                    {compra.metodoPagamento == null
+                                      ? "Não finalizado"
+                                      : traduzirMetodo(compra.metodoPagamento)}
+                                  </span>
+
+                                  {compra.parcelas > 0 && (
+                                    <p> • Parcelas: {compra.parcelas}</p>
                                   )}
-                                </ul>
-                              )}
-                            </div>
+                                  <h3>
+                                    •<strong> Total: </strong>
+                                    {formatCurrency(compra.valorTransacao)}
+                                  </h3>
+                                </div>
+                                <div className="Profile__card__compra__info__item__rigth">
+                                  {infoAdicionalObj && (
+                                    <div className="Profile__informacao-adicional">
+                                      <p>Produtos :</p>
+                                      {Array.isArray(
+                                        infoAdicionalObj.anuncios
+                                      ) && (
+                                        <ul
+                                          style={{
+                                            height: "100%",
+                                            width: "100%",
+                                          }}
+                                        >
+                                          {infoAdicionalObj.anuncios.map(
+                                            (item, index) => (
+                                              <li key={index}>
+                                                <p>Título: {item.Titulo}</p>
+                                                <p>
+                                                  Valor:{" "}
+                                                  {formatCurrency(item.Valor)}
+                                                </p>
+                                              </li>
+                                            )
+                                          )}
+                                        </ul>
+                                      )}
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                            </>
                           )}
                         </div>
                       </div>

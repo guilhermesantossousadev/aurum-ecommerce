@@ -146,7 +146,8 @@ function CrudVendas() {
                           const info = JSON.parse(venda.informacaoAdicional);
                           return (
                             <div>
-                              <div>Usuário: {nome}</div>
+                              <div>Usuário: {nome.split(" ")[0]}</div>
+
                               {info.anuncios?.map((anuncio, index) => (
                                 <div key={index}>
                                   <span>Produto:</span>

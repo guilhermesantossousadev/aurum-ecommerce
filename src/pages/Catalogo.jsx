@@ -304,7 +304,7 @@ function Catalogo() {
                   ) : (
                     <div className="anuncio__sem-imagem">
                       <h4 style={{ fontSize: "25px" }}>
-                        Anúncio sem imagens cadastradas
+                        Anúncio sem imagens
                       </h4>
                     </div>
                   )}
@@ -322,7 +322,10 @@ function Catalogo() {
         {totalPages > 1 && (
           <div className="pagination">
             <button
-              onClick={() => paginate(currentPage - 1)}
+              onClick={() => {
+                paginate(currentPage - 1);
+                setShowFilters(false);
+              }}
               disabled={currentPage === 1}
               className="pagination__button"
             >
@@ -341,7 +344,10 @@ function Catalogo() {
               </button>
             ))}
             <button
-              onClick={() => paginate(currentPage + 1)}
+              onClick={() => {
+                paginate(currentPage + 1);
+                setShowFilters(false);
+              }}
               disabled={currentPage === totalPages}
               className="pagination__button"
             >
