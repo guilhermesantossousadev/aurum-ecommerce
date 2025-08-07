@@ -118,7 +118,10 @@ function Catalogo() {
 
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
-    window.scrollTo(0, 0);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   const handleAnuncioClick = (anuncioId) => {
@@ -303,9 +306,7 @@ function Catalogo() {
                     />
                   ) : (
                     <div className="anuncio__sem-imagem">
-                      <h4 style={{ fontSize: "25px" }}>
-                        Anúncio sem imagens
-                      </h4>
+                      <h4 style={{ fontSize: "25px" }}>Anúncio sem imagens</h4>
                     </div>
                   )}
                 </div>
@@ -338,7 +339,11 @@ function Catalogo() {
                 className={`pagination__number ${
                   currentPage === num ? "active" : ""
                 }`}
-                onClick={() => paginate(num)}
+                onClick={() => {
+                  paginate(num);
+
+                  setShowFilters(false);
+                }}
               >
                 <span> {num}</span>
               </button>
