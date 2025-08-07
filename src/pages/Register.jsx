@@ -326,7 +326,7 @@ const Register = () => {
                   enderecoFormatado={enderecoFormatado}
                   next={solicitarTokenPosEndereco}
                   back={() => setSubStep(3)}
-                  corrigirEndereco={corrigirEndereco} // ✅ implementado
+                  corrigirEndereco={corrigirEndereco}
                   isLoading={isLoading}
                 />
               )}

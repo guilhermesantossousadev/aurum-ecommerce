@@ -128,8 +128,8 @@
 }
 
 .crud-spinner {
-  border: 6px solid transparent;
-  border-top: 6px solid #333333aa;
+  border: 3px solid transparent;
+  border-top: 3px solid #333333aa;
   border-radius: 50%;
   width: 20px;
   height: 20px;

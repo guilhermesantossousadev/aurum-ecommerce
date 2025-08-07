@@ -42,7 +42,7 @@ function Carrinho() {
           textAlign: "center",
         }}
       >
-        <p>Tem certeza que deseja deletar este cadastro da newsletter?</p>
+        <p>Tem certeza que deseja deletar este produto do seu carrinho?</p>
         <div
           style={{
             display: "flex",

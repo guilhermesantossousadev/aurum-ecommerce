@@ -146,119 +146,119 @@ function CrudUsuarios() {
 
   return (
     <div className="Separator">
-      {step === 1 ? (
-        <div>
-          <div className="Principal__Create">
-            <div className="Principal__Create__item left">
-              <h2>Usuarios</h2>
-            </div>
-            <div className="Principal__Create__item right">
-              <button
-                onClick={() => {
-                  setStep(0);
-                  setEditId(null);
-                  setForm(initialFormState);
-                }}
-                style={{
-                  background: "#333333aa",
-                  color: "white",
-                  border: "none",
-                  padding: "6px 12px",
-                  cursor: "pointer",
-                }}
-              >
-                Voltar
-              </button>
-            </div>
-          </div>
-          <div className="Principal">
-            <UsuarioForm
-              form={form}
-              handleChange={handleChange}
-              handleSubmit={handleSubmit}
-              editId={editId}
-            />
-          </div>
+      {isLoading ? (
+        <div className="crud-spinner-wrapper">
+          <div className="crud-spinner"></div>
         </div>
       ) : (
-        <div className="Principal">
-          <div className="Principal__Create">
-            <div className="Principal__Create__item left">
-              <h2>Usuarios</h2>
+        <>
+          {step === 1 ? (
+            <div>
+              <div className="Principal__Create">
+                <div className="Principal__Create__item left">
+                  <h2>Usuários</h2>
+                </div>
+                <div className="Principal__Create__item right">
+                  <button
+                    onClick={() => {
+                      setStep(0);
+                      setEditId(null);
+                      setForm(initialFormState);
+                    }}
+                    style={{
+                      background: "#333333aa",
+                      color: "white",
+                      border: "none",
+                      padding: "6px 12px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Voltar
+                  </button>
+                </div>
+              </div>
+              <div className="Principal">
+                <UsuarioForm
+                  form={form}
+                  handleChange={handleChange}
+                  handleSubmit={handleSubmit}
+                  editId={editId}
+                />
+              </div>
             </div>
-            <div className="Principal__Create__item right">
-              {" "}
-              <button
-                onClick={() => {
-                  setStep(1);
-                  setEditId(null);
-                  setForm(initialFormState);
-                }}
-                style={{
-                  background: "#333333aa",
-                  color: "white",
-                  border: "none",
-                  padding: "6px 12px",
-                  cursor: "pointer",
-                }}
-              >
-                Criar Usuário
-              </button>
+          ) : (
+            <div className="Principal">
+              <div className="Principal__Create">
+                <div className="Principal__Create__item left">
+                  <h2>Usuarios</h2>
+                </div>
+                <div className="Principal__Create__item right">
+                  <button
+                    onClick={() => {
+                      setStep(1);
+                      setEditId(null);
+                      setForm(initialFormState);
+                    }}
+                    style={{
+                      background: "#333333aa",
+                      color: "white",
+                      border: "none",
+                      padding: "6px 12px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Criar Usuário
+                  </button>
+                </div>
+              </div>
+
+              <section className="Principal__box">
+                <div className="Principal__box__detalhes">
+                  {/*<div className="Principal__box__detalhes__item">ID</div>*/}
+                  <div className="Principal__box__detalhes__item">Nome</div>
+                  <div className="Principal__box__detalhes__item">Email</div>
+                  <div className="Principal__box__detalhes__item">Endereço</div>
+                  <div className="Principal__box__detalhes__item">Ações</div>
+                </div>
+
+                {usuarios.length === 0 ? (
+                  <p>Nenhum usuário encontrado.</p>
+                ) : (
+                  <ul>
+                    {usuarios.map((usuario) => (
+                      <li key={usuario.id} className="Principal__box__item">
+                        {/* <div className="Principal__box__item__inside">{usuario.id}</div> */}
+                        <div className="Principal__box__item__inside">
+                          {usuario.nome}
+                        </div>
+                        <div className="Principal__box__item__inside">
+                          {usuario.email}
+                        </div>
+                        <div className="Principal__box__item__inside">
+                          {usuario.endereco}
+                        </div>
+                        <div className="Principal__box__item__inside acoes">
+                          <button
+                            onClick={() => confirmDelete(usuario.id)}
+                            style={{
+                              background: "#d9534f",
+                              color: "white",
+                              border: "none",
+                              padding: "6px 12px",
+                              cursor: "pointer",
+                            }}
+                          >
+                            Deletar
+                          </button>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </section>
             </div>
-          </div>
-
-          <section className="Principal__box">
-            <div className="Principal__box__detalhes">
-              {/*<div className="Principal__box__detalhes__item">ID</div> */}
-              <div className="Principal__box__detalhes__item">Nome</div>
-              <div className="Principal__box__detalhes__item">Email</div>
-              <div className="Principal__box__detalhes__item">Endereço</div>
-              <div className="Principal__box__detalhes__item">Ações</div>
-            </div>
-
-            {isLoading ? (
-              <p>Carregando usuários...</p>
-            ) : usuarios.length === 0 ? (
-              <p>Nenhum usuário encontrado.</p>
-            ) : (
-              <ul>
-                {usuarios.map((usuario) => (
-                  <li key={usuario.id} className="Principal__box__item">
-                    {/*                    
-                    <div className="Principal__box__item__inside">
-                      {usuario.id}
-                    </div> 
-                    */}
-                    <div className="Principal__box__item__inside">
-                      {usuario.nome}
-                    </div>
-                    <div className="Principal__box__item__inside">
-                      {usuario.email}
-                    </div>
-
-                    <div className="Principal__box__item__inside">
-                      {usuario.endereco}
-                    </div>
-                    <div className="Principal__box__item__inside acoes">
-                      <button
-                        onClick={() => confirmDelete(usuario.id)}
-                        style={{
-                          background: "#d9534f",
-                          color: "white",
-                          border: "none",
-                          padding: "6px 12px",
-                          cursor: "pointer",
-                        }}
-                      >
-                        Deletar
-                      </button>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </section>
-        </div>
+          )}
+        </>
       )}
     </div>
   );

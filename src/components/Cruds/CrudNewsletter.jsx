@@ -152,109 +152,115 @@ function CrudNewsletter() {
 
   return (
     <div className="Separator">
-      {step === 0 && (
-        <div className="Principal">
-          <div className="Principal__Create">
-            <div className="Principal__Create__item left">
-              <h2>Newslleter</h2>
-            </div>
-            <div className="Principal__Create__item right">
-              {" "}
-              <button
-                onClick={() => {
-                  setStep(1);
-                  setEditId(null);
-                  setForm(initialFormState);
-                }}
-                style={{
-                  background: "#333333aa",
-                  color: "white",
-                  border: "none",
-                  padding: "6px 12px",
-                  cursor: "pointer",
-                }}
-              >
-                Criar Mensagem
-              </button>
-            </div>
-          </div>
-
-          <section className="Principal__box">
-            <div className="Principal__box__detalhes">
-              <div className="Principal__box__detalhes__item">ID</div>
-              <div className="Principal__box__detalhes__item">Usuário ID</div>
-              <div className="Principal__box__detalhes__item">Email</div>
-
-              {/* Ações newsletter
-              <div className="Principal__box__detalhes__item">Ações</div>      
-              */}
-            </div>
-
-            {isLoading ? (
-              <p className="Principal__box__item__inside">Carregando...</p>
-            ) : newsletters.length === 0 ? (
-              <p className="Principal__box__item__inside">
-                Nenhuma newsletter encontrada.
-              </p>
-            ) : (
-              <ul>
-                {newsletters.map((newsletter) => (
-                  <li key={newsletter.id} className="Principal__box__item">
-                    <div className="Principal__box__item__inside">
-                      {newsletter.id}
-                    </div>
-                    <div className="Principal__box__item__inside">
-                      {newsletter.usuarioId}
-                    </div>
-                    <div className="Principal__box__item__inside">
-                      {newsletter.email}
-                    </div>
-
-                    {/* Ações newsletter
-                    <div className="Principal__box__item__inside acoes">
-                      <button onClick={() => handleEdit(newsletter)}>
-                        Editar
-                      </button>
-                      <button
-                        onClick={() => confirmDelete(newsletter.id)}
-                        style={{ backgroundColor: "#b50f0f" }}
-                      >
-                        Excluir
-                      </button>
-                    </div>
-                    */}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </section>
+      {isLoading ? (
+        <div className="crud-spinner-wrapper">
+          <div className="crud-spinner"></div>
         </div>
-      )}
+      ) : (
+        <>
+          {step === 0 && (
+            <div className="Principal">
+              <div className="Principal__Create">
+                <div className="Principal__Create__item left">
+                  <h2>Newsletter</h2>
+                </div>
+                <div className="Principal__Create__item right">
+                  <button
+                    onClick={() => {
+                      setStep(1);
+                      setEditId(null);
+                      setForm(initialFormState);
+                    }}
+                    style={{
+                      background: "#333333aa",
+                      color: "white",
+                      border: "none",
+                      padding: "6px 12px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Criar Mensagem
+                  </button>
+                </div>
+              </div>
 
-      {/* Envio de mensagem */}
-      {step === 1 && (
-        <div className="Principal">
-          <div className="Principal__Create">
-            <div className="Principal__Create__item left">
-              <h2>Newslleter</h2>
+              <section className="Principal__box">
+                <div className="Principal__box__detalhes">
+                  <div className="Principal__box__detalhes__item">ID</div>
+                  <div className="Principal__box__detalhes__item">
+                    Usuário ID
+                  </div>
+                  <div className="Principal__box__detalhes__item">Email</div>
+
+                  {/* Ações newsletter (descomentadas se quiser usar)
+                <div className="Principal__box__detalhes__item">Ações</div>
+                */}
+                </div>
+
+                {newsletters.length === 0 ? (
+                  <p className="Principal__box__item__inside">
+                    Nenhuma newsletter encontrada.
+                  </p>
+                ) : (
+                  <ul>
+                    {newsletters.map((newsletter) => (
+                      <li key={newsletter.id} className="Principal__box__item">
+                        <div className="Principal__box__item__inside">
+                          {newsletter.id}
+                        </div>
+                        <div className="Principal__box__item__inside">
+                          {newsletter.usuarioId}
+                        </div>
+                        <div className="Principal__box__item__inside">
+                          {newsletter.email}
+                        </div>
+
+                        {/* Ações newsletter (descomentadas se quiser usar)
+                      <div className="Principal__box__item__inside acoes">
+                        <button onClick={() => handleEdit(newsletter)}>
+                          Editar
+                        </button>
+                        <button
+                          onClick={() => confirmDelete(newsletter.id)}
+                          style={{ backgroundColor: "#b50f0f" }}
+                        >
+                          Excluir
+                        </button>
+                      </div>
+                      */}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </section>
             </div>
-            <div className="Principal__Create__item right">
-              <button
-                onClick={() => setStep(0)}
-                style={{
-                  background: "#333333aa",
-                  color: "white",
-                  border: "none",
-                  padding: "6px 12px",
-                  cursor: "pointer",
-                }}
-              >
-                Voltar
-              </button>
+          )}
+
+          {step === 1 && (
+            <div className="Principal">
+              <div className="Principal__Create">
+                <div className="Principal__Create__item left">
+                  <h2>Newsletter</h2>
+                </div>
+                <div className="Principal__Create__item right">
+                  <button
+                    onClick={() => setStep(0)}
+                    style={{
+                      background: "#333333aa",
+                      color: "white",
+                      border: "none",
+                      padding: "6px 12px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Voltar
+                  </button>
+                </div>
+              </div>
+              <SendNewsletterMessage />
             </div>
-          </div>
-          <SendNewsletterMessage />
-        </div>
+          )}
+        </>
       )}
     </div>
   );

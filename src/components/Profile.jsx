@@ -312,7 +312,7 @@ const Profile = () => {
               ) : (
                 <div className="Profile__cards-container">
                   {anuncios.map((anuncio) => (
-                    <div key={anuncio.id} className="Profile__card">
+                    <div key={anuncio.id} className="Profile__card__anuncio">
                       <div className="Profile__card-image">
                         {anuncio.urLs?.[0] ? (
                           <img src={anuncio.urLs[0]} alt="Imagem do anúncio" />
