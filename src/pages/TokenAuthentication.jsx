@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import "../styles/pages/TokenAuthentication.css";
 import { Toaster, toast } from "sonner";
+
+import SetaPretaEsquerda from "../images/Setas/SetaPretaEsquerda.png"
+
+import "../styles/pages/TokenAuthentication.css";
 
 const TokenAuthentication = () => {
   const navigate = useNavigate();
@@ -123,6 +126,9 @@ const TokenAuthentication = () => {
 
   return (
     <div className="TokenAuth">
+      <div className="return__token">
+        <Link to="/login"><img src={SetaPretaEsquerda} alt="SetaPretaEsquerda" /> Voltar</Link>
+      </div>
       <div className="TokenAuth__container">
         <h1 className="TokenAuth__title">Redefinição de Senha</h1>
 

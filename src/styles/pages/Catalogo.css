@@ -512,6 +512,7 @@
   transform-origin: bottom;
   transition: transform 0.3s ease;
   z-index: 0;
+  border: none;
 }
 
 .pagination__number.active span {
@@ -520,16 +521,19 @@
 
 .pagination__number:hover::before {
   transform: scaleY(1);
+  border: none;
 }
 
 .pagination__number:hover {
   color: #fff;
+  border: none;
 }
 
 .pagination__number span {
   position: relative;
   z-index: 2;
   transition: color 0.3s ease;
+  border: none;
 }
 
 .pagination__number:hover span {
@@ -547,6 +551,7 @@
 
 .pagination__number.active {
   color: #fff;
+  border: none;
 }
 
 /* Responsividade para telas <= 480px */

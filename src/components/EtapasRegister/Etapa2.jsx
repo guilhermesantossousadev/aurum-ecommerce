@@ -2,6 +2,8 @@ import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "../../styles/pages/Register.css";
 
+import SetaPretaEsquerda from "../../images/Setas/SetaPretaEsquerda.png"
+
 const Etapa2 = ({
   email,
   setEmail,
@@ -18,6 +20,10 @@ const Etapa2 = ({
 
   return (
     <>
+      <div className="return__register" onClick={back} style={{ cursor: "pointer" }}>
+        <img src={SetaPretaEsquerda} alt="Voltar" />
+        Voltar à etapa anterior
+      </div>
       <div className="progress-bar">
         <div className="progress" style={{ width: "50%" }} />
       </div>
@@ -117,9 +123,6 @@ const Etapa2 = ({
       <div className="Register__form-buttons">
         <button type="button" onClick={next} className="Register__button">
           Próximo
-        </button>
-        <button type="button" onClick={back} className="Register__button">
-          Voltar
         </button>
       </div>
     </>

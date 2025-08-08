@@ -19,6 +19,37 @@
   position: relative;
 }
 
+
+.return__register {
+  position: absolute;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  top: 70px;
+  left: 35px;
+  font-size: 1.5rem;
+  font-weight: normal;
+  z-index: 1;
+}
+
+.return__register img {
+  width: 24px;
+}
+
+.return__register a {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.return__register a:hover {
+  text-decoration: underline;
+}
+
 .Register__left span {
   position: absolute;
   top: 80px;

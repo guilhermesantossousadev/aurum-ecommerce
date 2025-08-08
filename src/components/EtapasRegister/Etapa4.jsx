@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "../../styles/pages/Register.css";
 
+import SetaPretaEsquerda from "../../images/Setas/SetaPretaEsquerda.png"
+
 const Etapa4 = ({
   cep,
   numero,
@@ -24,6 +26,10 @@ const Etapa4 = ({
 
   return (
     <>
+      <div className="return__register" onClick={back} style={{ cursor: "pointer" }}>
+        <img src={SetaPretaEsquerda} alt="Voltar" />
+        Voltar à etapa anterior
+      </div>
       <div className="progress-bar">
         <div className="progress" style={{ width: "100%" }} />
       </div>
@@ -43,9 +49,6 @@ const Etapa4 = ({
         </div>
 
         <div className="Register__form-buttons">
-          <button type="button" onClick={back} className="Register__button">
-            Voltar
-          </button>
           <button
             type="button"
             onClick={corrigirEndereco}
@@ -57,10 +60,11 @@ const Etapa4 = ({
             type="button"
             onClick={handleNext}
             className="Register__button"
-            disabled={isLoading}
+            disabled={isLoading || !enderecoFormatado}
           >
             {isLoading ? <div className="loading-spinner-register" /> : "Avançar"}
           </button>
+
         </div>
       </div>
     </>

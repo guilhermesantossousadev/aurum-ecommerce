@@ -9,6 +9,37 @@
   padding: 2rem;
 }
 
+.return__token {
+  position: absolute;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  top: 100px;
+  left: 65px;
+  font-size: 1.5rem;
+  font-weight: normal;
+  z-index: 1;
+}
+
+.return__token img {
+  width: 24px;
+}
+
+.return__token a {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.return__token a:hover {
+  text-decoration: underline;
+}
+
+
 .TokenAuth__container {
   width: 100%;
   max-width: 400px;

@@ -1,16 +1,24 @@
 import "../../styles/pages/Register.css";
+import SetaPretaEsquerda from "../../images/Setas/SetaPretaEsquerda.png";
 
 const Etapa3 = ({ cep, setCep, numero, setNumero, isLoading, back }) => {
   const handleCepChange = (e) => {
-    let value = e.target.value.replace(/\D/g, ""); // remove não dígitos
+    let value = e.target.value.replace(/\D/g, ""); // só números
+    if (value.length > 8) value = value.slice(0, 8);
+
+    // Aplica máscara: 12345678 -> 12345-678
     if (value.length > 5) {
-      value = value.slice(0, 5) + "-" + value.slice(5, 8);
+      value = value.slice(0, 5) + "-" + value.slice(5);
     }
     setCep(value);
   };
 
   return (
     <>
+      <div className="return__register" onClick={back} style={{ cursor: "pointer" }}>
+        <img src={SetaPretaEsquerda} alt="Voltar" />
+        Voltar à etapa anterior
+      </div>
       <div className="progress-bar">
         <div className="progress" style={{ width: "75%" }} />
       </div>
@@ -18,12 +26,11 @@ const Etapa3 = ({ cep, setCep, numero, setNumero, isLoading, back }) => {
       <div className="Register__form-group">
         <input
           type="text"
+          placeholder="CEP"
           value={cep}
           onChange={handleCepChange}
-          maxLength={9}
-          required
+          maxLength={9} // 8 números + 1 hífen
           className="Register__input"
-          placeholder="CEP"
         />
       </div>
       <div className="Register__form-group">
@@ -35,11 +42,6 @@ const Etapa3 = ({ cep, setCep, numero, setNumero, isLoading, back }) => {
           className="Register__input"
           placeholder="Número"
         />
-      </div>
-      <div className="Register__form-buttons">
-        <button type="button" onClick={back} className="Register__button">
-          Voltar
-        </button>
       </div>
     </>
   );

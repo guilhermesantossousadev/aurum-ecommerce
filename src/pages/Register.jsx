@@ -12,6 +12,7 @@ import ConfirmacaoToken from "../components/EtapasRegister/ConfirmacaoToken";
 
 import "../styles/pages/Register.css";
 import registervideo from "../images/videos/register.mp4";
+import SetaPretaEsquerda from "../images/Setas/SetaPretaEsquerda.png"
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -103,14 +104,26 @@ const Register = () => {
   };
 
   const searchCEP = async () => {
+    const cepLimpo = cep.replace(/\D/g, "");
+    if (!/^\d{8}$/.test(cepLimpo)) return null;
+
     try {
-      const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+      const response = await fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`);
       if (!response.ok) throw new Error("Erro ao buscar CEP.");
-      return await response.json();
+      const data = await response.json();
+
+      if (data.erro) {
+        toast.error("CEP não encontrado.");
+        return null;
+      }
+
+      return data;
     } catch {
+      toast.error("Erro ao buscar CEP. Verifique sua conexão.");
       return null;
     }
   };
+
 
   const handleRequestToken = async (e) => {
     e.preventDefault();
@@ -122,16 +135,19 @@ const Register = () => {
     }
 
     const cepData = await searchCEP();
-    const enderecoCompleto = cepData
-      ? `${cepData?.logradouro || ""} Nº ${numero}, ${cepData?.bairro || ""}, ${
-          cepData?.localidade || ""
-        }, ${cepData?.uf || ""}, ${cepData?.cep || ""}`
-      : "Endereço não encontrado";
+
+    if (!cepData) {
+      setIsLoading(false);
+      return; // Não avança se CEP inválido ou não encontrado
+    }
+
+    const enderecoCompleto = `${cepData.logradouro || ""} Nº ${numero}, ${cepData.bairro || ""}, ${cepData.localidade || ""}, ${cepData.uf || ""}, ${cepData.cep || ""}`;
 
     setEnderecoFormatado(enderecoCompleto);
     setSubStep(4);
     setIsLoading(false);
   };
+
 
   const solicitarTokenPosEndereco = async () => {
     setIsLoading(true);
@@ -249,16 +265,18 @@ const Register = () => {
   };
 
   const validarEtapa3 = () => {
-    if (!cep.trim() || !numero.trim()) {
+
+    if (!cepLimpo || !numero.trim()) {
       toast.error("Preencha o CEP e o número.");
       return false;
     }
-    if (!/^\d{8}$/.test(cep.replace(/\D/g, ""))) {
-      toast.error("CEP inválido.");
+    if (!/^\d{8}$/.test(cepLimpo)) {
+      toast.error("CEP inválido. Deve conter 8 números.");
       return false;
     }
     return true;
   };
+
 
   return (
     <div className="Register">

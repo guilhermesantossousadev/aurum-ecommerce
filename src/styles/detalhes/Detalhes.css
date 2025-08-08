@@ -81,19 +81,35 @@
   font-size: 2.6rem;
 }
 
+.Voltar__container {
+  background-color: transparent;
+  position: absolute;
+  top: 100px;
+  left: 63px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: normal;
+  gap: 10px;
+  color: #f9cdcd;
+}
+
+.Voltar__container:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .Voltar__btn {
   width: 24px;
   height: 24px;
   cursor: pointer;
-  position: absolute;
-  left: 2.3rem;
-  top: 100px;
-  left: 63px;
   transition: filter 0.3s ease;
 }
 
 .Voltar__btn:hover {
-  filter: brightness(0.8); /* efeito hover simples */
+  filter: brightness(0.8);
+  /* efeito hover simples */
 }
 
 .error__message {
@@ -136,7 +152,8 @@
 
 .frete__container__item {
   flex: 1;
-  min-width: 250px; /* garante largura mínima em colunas */
+  min-width: 250px;
+  /* garante largura mínima em colunas */
   max-width: 50%;
   display: flex;
   justify-content: center;
@@ -155,10 +172,12 @@
   .frete__container {
     flex-direction: column;
   }
+
   .frete__container__item {
     max-width: 100%;
     padding-right: 0;
   }
+
   .frete__container__item.left {
     border-right: none;
     border-bottom: 1px solid #f9cdcd;
@@ -208,7 +227,8 @@
 }
 
 .btn-calcular-frete.loading {
-  background-color: #f0e68c; /* cor ao carregar */
+  background-color: #f0e68c;
+  /* cor ao carregar */
   cursor: wait;
 }
 
@@ -326,7 +346,8 @@
 
 .btn-adicionar-carrinho {
   width: 100%;
-  padding: 0.8rem 1rem; /* responsivo */
+  padding: 0.8rem 1rem;
+  /* responsivo */
   background-color: #f9cdcd;
   border: none;
   cursor: pointer;
@@ -395,6 +416,7 @@
   .detalhes__container {
     padding-top: 70px;
   }
+
   .detalhes__info__item__p {
     font-size: 0.9rem;
   }
@@ -454,6 +476,7 @@
   .detalhes__info__item__p__strong {
     font-size: 1rem;
   }
+
   .detalhes__container__imagem {
     padding-top: 1rem;
   }

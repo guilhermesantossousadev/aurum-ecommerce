@@ -324,7 +324,7 @@ function Detalhes() {
             alt="Voltar"
             className="Voltar__btn"
             onClick={() => navigate(-1)}
-          />
+          />Voltar
         </div>
 
         <div className="detalhes__container__internal">

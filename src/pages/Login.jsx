@@ -7,6 +7,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 import "../styles/pages/Login.css";
 import loginvideo from "../images/videos/login.mp4";
+import SetaPretaEsquerda from "../images/Setas/SetaPretaEsquerda.png"
 
 const Login = () => {
   const dispatch = useDispatch();

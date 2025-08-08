@@ -6,6 +6,7 @@
   flex-direction: column;
   background-color: rgb(255 255 255 / 95%);
   padding-top: 5rem;
+  overflow: hidden;
 }
 
 svg {
@@ -398,6 +399,7 @@ svg {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -413,7 +415,9 @@ svg {
   padding: 3rem;
   background: white;
   border-radius: 12px;
+  margin-top: -90px;
 }
+
 
 .carrinho-error h2 {
   color: #dc3545;

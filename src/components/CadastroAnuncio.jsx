@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "sonner";
 import DragAndDropUploader from "./DragAndDropUploader";
 import SpecificInputs from "./SpecificInputs";
+import { Link } from "react-router-dom";
 
 import "../styles/components/CadastroAnuncio.css";
+
+import SetaPretaEsquerda from "../images/Setas/SetaPretaEsquerda.png"
 
 const apiBaseUrl =
   import.meta.env.VITE_API_BASE_URL ||
@@ -53,6 +56,9 @@ const CadastroAnuncio = () => {
   if (!user || !user.id) {
     return (
       <div className="CadastroAnuncio">
+        <div className="return">
+          <Link to="/catalogo/todos"><img src={SetaPretaEsquerda} alt="SetaPretaEsquerda" /> Voltar</Link>
+        </div>
         <div className="CadastroAnuncio-container">
           <div className="CadastroAnuncio-error">
             <h2>Você não está logado</h2>
@@ -175,6 +181,9 @@ const CadastroAnuncio = () => {
 
   return (
     <div className="PostAnuncios">
+      <div className="return">
+        <Link to="/catalogo/todos"><img src={SetaPretaEsquerda} alt="SetaPretaEsquerda" /> Voltar</Link>
+      </div>
       <div className="step-counter">
         <p>{step === 1 ? "Cadastro da Joia" : "Cadastro do Anúncio"}</p>
         <div className="step-bar">

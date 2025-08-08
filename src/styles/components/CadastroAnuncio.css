@@ -1,3 +1,32 @@
+.return {
+  position: absolute;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  top: 100px;
+  left: 65px;
+  font-size: 1.5rem;
+  font-weight: normal;
+}
+
+.return img {
+  width: 24px;
+}
+
+.return a {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.return a:hover {
+  text-decoration: underline;
+}
+
 .PostAnuncios {
   background-color: #fff;
   display: flex;
@@ -12,7 +41,8 @@
   margin-bottom: 24px;
   text-align: center;
   font-weight: bold;
-  color: #0c0c0c; /* ou sua cor de texto preferida */
+  color: #0c0c0c;
+  /* ou sua cor de texto preferida */
   width: 300px;
 }
 
@@ -70,7 +100,8 @@
   color: #555 !important;
   box-sizing: border-box;
   background-color: #f4f8f9;
-  resize: none; /* Impede o redimensionamento manual */
+  resize: none;
+  /* Impede o redimensionamento manual */
 }
 
 .PostAnuncios input {
@@ -176,14 +207,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-.CadastroAnuncio {
   text-align: center;
   padding: 3rem;
   background: white;
   border-radius: 12px;
 }
+
 
 .CadastroAnuncio h2 {
   color: #dc3545;
@@ -205,6 +234,5 @@
 
 .CadastroAnuncio button:hover {
   background-color: #c82333;
-
   box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2);
 }
