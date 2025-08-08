@@ -76,7 +76,7 @@ function Footer() {
     } catch (error) {
       console.error(error);
       toast.error(
-        "Ocorreu um erro ao cadastrar o E-mail, é necessario ter uma conta no site para cadastrar o email."
+        "Ocorreu um erro ao cadastrar o e-mail, é necessario ter uma conta no site para cadastrar o e-mail."
       );
     } finally {
       setLoading(false); // finaliza loading
