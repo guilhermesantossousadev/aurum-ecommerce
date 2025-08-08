@@ -53,7 +53,7 @@ const Etapa2 = ({
             required
             className="Register__input"
             placeholder="Senha"
-            style={{ paddingRight: "40px" }} // espaço para o ícone
+            style={{ paddingRight: "40px" }}
           />
           <button
             type="button"
@@ -61,8 +61,8 @@ const Etapa2 = ({
             style={{
               position: "absolute",
               right: "12px",
-              top: "20%",
-              transform: "translateY(-50%)",
+              top: "0",
+              transform: "translateY(-50%, -50%)",
               background: "none",
               border: "none",
               cursor: "pointer",
@@ -97,8 +97,8 @@ const Etapa2 = ({
             style={{
               position: "absolute",
               right: "12px",
-              top: "20%",
-              transform: "translateY(-50%)",
+              top: "0",
+              transform: "translateY(-50%, -50%)",
               background: "none",
               border: "none",
               cursor: "pointer",

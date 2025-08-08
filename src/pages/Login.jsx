@@ -93,8 +93,8 @@ const Login = () => {
                 style={{
                   position: "absolute",
                   right: "10px",
-                  top: "20%",
-                  transform: "translateY(-50%)",
+                  top: "30%",
+                  transform: "translateY(-50%, -50%)",
                   background: "transparent",
                   border: "none",
                   cursor: "pointer",
