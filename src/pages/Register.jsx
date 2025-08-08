@@ -12,7 +12,7 @@ import ConfirmacaoToken from "../components/EtapasRegister/ConfirmacaoToken";
 
 import "../styles/pages/Register.css";
 import registervideo from "../images/videos/register.mp4";
-import SetaPretaEsquerda from "../images/Setas/SetaPretaEsquerda.png"
+import SetaPretaEsquerda from "../images/Setas/SetaPretaEsquerda.png";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -98,30 +98,32 @@ const Register = () => {
         )}`
       );
 
-      const result = await response.text();
-
-      if (!response.ok) {
-        toast.error("Erro ao verificar e-mail.");
-        return;
-      }
-
-      if (result === "true") {
+      if (response.status === 409) {
         toast.error("E-mail já está em uso.");
-      } else {
-        toast.success("E-mail disponível!");
+        return false;
       }
+
+      if (response.status === 200) {
+        toast.success("E-mail disponível!");
+        return true;
+      }
+
+      toast.error("Erro ao verificar e-mail.");
+      return false;
     } catch (error) {
       toast.error("Erro ao verificar e-mail.");
+      return false;
     }
   };
-
 
   const searchCEP = async () => {
     const cepLimpo = cep.replace(/\D/g, "");
     if (!/^\d{8}$/.test(cepLimpo)) return null;
 
     try {
-      const response = await fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`);
+      const response = await fetch(
+        `https://viacep.com.br/ws/${cepLimpo}/json/`
+      );
       if (!response.ok) throw new Error("Erro ao buscar CEP.");
       const data = await response.json();
 
@@ -136,7 +138,6 @@ const Register = () => {
       return null;
     }
   };
-
 
   const handleRequestToken = async (e) => {
     e.preventDefault();
@@ -154,13 +155,14 @@ const Register = () => {
       return; // Não avança se CEP inválido ou não encontrado
     }
 
-    const enderecoCompleto = `${cepData.logradouro || ""} Nº ${numero}, ${cepData.bairro || ""}, ${cepData.localidade || ""}, ${cepData.uf || ""}, ${cepData.cep || ""}`;
+    const enderecoCompleto = `${cepData.logradouro || ""} Nº ${numero}, ${
+      cepData.bairro || ""
+    }, ${cepData.localidade || ""}, ${cepData.uf || ""}, ${cepData.cep || ""}`;
 
     setEnderecoFormatado(enderecoCompleto);
     setSubStep(4);
     setIsLoading(false);
   };
-
 
   const solicitarTokenPosEndereco = async () => {
     setIsLoading(true);
@@ -224,7 +226,6 @@ const Register = () => {
     }
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -242,8 +243,10 @@ const Register = () => {
       }
 
       console.log("[handleSubmit] Token válido. Enviando usuário:");
-      console.log("[handleSubmit] JSON do usuário:", JSON.stringify(usuario, null, 2));
-
+      console.log(
+        "[handleSubmit] JSON do usuário:",
+        JSON.stringify(usuario, null, 2)
+      );
 
       const resCreate = await fetch(
         "https://marketplacejoias-api-latest.onrender.com/api/Usuario/PostUsuario",
@@ -267,19 +270,16 @@ const Register = () => {
         throw new Error(result.message || "Erro ao criar conta");
       }
 
-
       toast.success("Conta criada com sucesso!");
       dispatch(login(result));
       navigate("/");
     } catch (error) {
       console.error("[handleSubmit] Erro geral:", error);
       toast.error(error.message || "Erro inesperado ao cadastrar");
-    }
-    finally {
+    } finally {
       setIsLoading(false);
     }
   };
-
 
   const corrigirEndereco = () => {
     setEnderecoFormatado("");
@@ -332,7 +332,6 @@ const Register = () => {
     }
     return true;
   };
-
 
   return (
     <div className="Register">

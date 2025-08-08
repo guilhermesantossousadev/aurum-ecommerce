@@ -7,7 +7,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 import "../styles/pages/Login.css";
 import loginvideo from "../images/videos/login.mp4";
-import SetaPretaEsquerda from "../images/Setas/SetaPretaEsquerda.png"
+import SetaPretaEsquerda from "../images/Setas/SetaPretaEsquerda.png";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -46,7 +46,7 @@ const Login = () => {
         setTimeout(() => navigate("/adminPage"), 1500);
       } else {
         toast.success(`Login realizado com sucesso! Bem-vindo, ${user.nome}`);
-        setTimeout(() => navigate("/"), 500);
+        setTimeout(() => navigate("/"), 0);
       }
     } catch (error) {
       console.error("Erro no login:", error);
@@ -93,7 +93,7 @@ const Login = () => {
                 style={{
                   position: "absolute",
                   right: "10px",
-                  top: "50%",
+                  top: "20%",
                   transform: "translateY(-50%)",
                   background: "transparent",
                   border: "none",

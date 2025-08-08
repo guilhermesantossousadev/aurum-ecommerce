@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "../../styles/pages/Register.css";
 
-import SetaPretaEsquerda from "../../images/Setas/SetaPretaEsquerda.png"
+import SetaPretaEsquerda from "../../images/Setas/SetaPretaEsquerda.png";
 
 const Etapa2 = ({
   email,
@@ -20,7 +20,11 @@ const Etapa2 = ({
 
   return (
     <>
-      <div className="return__register" onClick={back} style={{ cursor: "pointer" }}>
+      <div
+        className="return__register"
+        onClick={back}
+        style={{ cursor: "pointer" }}
+      >
         <img src={SetaPretaEsquerda} alt="Voltar" />
         Voltar à etapa anterior
       </div>
@@ -33,7 +37,7 @@ const Etapa2 = ({
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          onBlur={checkEmailExists}
+          onBlur={(e) => checkEmailExists(e.target.value)}
           required
           className="Register__input"
           placeholder="E-mail"
@@ -57,7 +61,7 @@ const Etapa2 = ({
             style={{
               position: "absolute",
               right: "12px",
-              top: "50%",
+              top: "20%",
               transform: "translateY(-50%)",
               background: "none",
               border: "none",
@@ -71,11 +75,7 @@ const Etapa2 = ({
               padding: 0,
             }}
           >
-            {showPassword ? (
-              <FaEyeSlash />
-            ) : (
-              <FaEye />
-            )}
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
           </button>
         </div>
       </div>
@@ -97,7 +97,7 @@ const Etapa2 = ({
             style={{
               position: "absolute",
               right: "12px",
-              top: "50%",
+              top: "20%",
               transform: "translateY(-50%)",
               background: "none",
               border: "none",
@@ -111,11 +111,7 @@ const Etapa2 = ({
               padding: 0,
             }}
           >
-            {showConfirmPassword ? (
-              <FaEyeSlash />
-            ) : (
-              <FaEye />
-            )}
+            {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
           </button>
         </div>
       </div>
