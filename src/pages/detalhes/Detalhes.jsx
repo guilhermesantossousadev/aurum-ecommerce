@@ -83,20 +83,6 @@ function Detalhes() {
               new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate() + 4)
             ),
         },
-        {
-          tipo: "Entrega econômica",
-          preco: freteBase,
-          prazo: new Date(
-            hoje.getFullYear(),
-            hoje.getMonth(),
-            hoje.getDate() + 7
-          ),
-          descricao:
-            "Chegará " +
-            formatarData(
-              new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate() + 7)
-            ),
-        },
       ];
       setIsCalculed(true);
       setOpcoesFrete(opcoes);

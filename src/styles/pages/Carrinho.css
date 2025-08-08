@@ -285,8 +285,8 @@ svg {
 .btn-continuar-comprando {
   height: 40px;
   width: 120px;
-  background-color: #252422;
-  border: 1px solid #252422;
+  background-color: #000;
+  border: 1px solid #000;
   color: #fff;
   transition: color 0.3s ease;
   position: relative;
