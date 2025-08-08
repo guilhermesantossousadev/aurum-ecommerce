@@ -24,7 +24,7 @@
 }
 
 .return a:hover {
-  text-decoration: underline;
+  cursor: pointer;
 }
 
 .PostAnuncios {
@@ -212,7 +212,6 @@
   background: white;
   border-radius: 12px;
 }
-
 
 .CadastroAnuncio h2 {
   color: #dc3545;
