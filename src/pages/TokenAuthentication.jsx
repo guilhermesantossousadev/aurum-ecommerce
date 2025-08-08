@@ -127,7 +127,7 @@ const TokenAuthentication = () => {
   return (
     <div className="TokenAuth">
       <div
-        className="return__register__2"
+        className="return__token"
         onClick={() => {
           if (step === 1) {
             navigate("/login");
@@ -139,7 +139,7 @@ const TokenAuthentication = () => {
         }}
         style={{ cursor: "pointer" }}
       >
-        <img src={SetaPretaEsquerda} alt="Voltar" width={"24px"} />
+        <img src={SetaPretaEsquerda} alt="Voltar" />
         {step === 1 && "Voltar para login"}
         {step === 2 && "Voltar para etapa anterior"}
         {step === 3 && "Voltar para etapa anterior"}
