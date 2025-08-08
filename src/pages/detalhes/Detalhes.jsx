@@ -389,7 +389,7 @@ function Detalhes() {
                     {loadingFrete ? (
                       <span className="loading-spinner-detalhes-btn"></span>
                     ) : (
-                      "Calcular Frete"
+                      "Estimar Frete"
                     )}
                   </button>
                 </div>
