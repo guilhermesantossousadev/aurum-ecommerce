@@ -109,7 +109,7 @@
 }
 
 .Voltar__btn:hover {
-  filter: brightness(0.8);
+  cursor: pointer;
   /* efeito hover simples */
 }
 
