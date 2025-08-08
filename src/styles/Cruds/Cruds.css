@@ -103,6 +103,7 @@
   align-items: center;
   padding-left: 0.2rem;
   word-break: break-word;
+  text-align: center;
 }
 
 .Principal__box__item__inside.acoes {
@@ -112,6 +113,8 @@
   gap: 1rem;
   padding-left: 0px;
   margin-top: -15px;
+  word-break: break-word;
+  text-align: center;
 }
 
 .Principal__box p {
@@ -130,7 +133,7 @@
 
 .crud-spinner {
   border: 3px solid transparent;
-  border-top: 3px solid #333333aa;
+  border-top: 3px solid #3f4d67;
   border-radius: 50%;
   width: 20px;
   height: 20px;

@@ -212,7 +212,7 @@ function CrudAnuncios() {
                   <button
                     onClick={() => setStep(1)}
                     style={{
-                      background: "#333333aa",
+                      background: "#3f4d67",
                       color: "white",
                       border: "none",
                       padding: "6px 12px",
@@ -252,7 +252,7 @@ function CrudAnuncios() {
                           <button
                             onClick={() => handleOpenPopup(anuncio)}
                             style={{
-                              background: "#333333aa",
+                              background: "#3f4d67",
                               color: "white",
                               border: "none",
                               padding: "6px 12px",
@@ -293,7 +293,7 @@ function CrudAnuncios() {
                   <button
                     onClick={() => setStep(0)}
                     style={{
-                      background: "#333333aa",
+                      background: "#3f4d67",
                       color: "white",
                       border: "none",
                       padding: "6px 12px",

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Toaster, toast } from "sonner";
 import { useSelector } from "react-redux";
 
-import formatCurrency from "../utils/formatCurrency"
+import formatCurrency from "../utils/formatCurrency";
 
 import "../../styles/Cruds/Cruds.css";
 const apiBaseUrl = "https://marketplacejoias-api-latest.onrender.com/api/Venda";
@@ -94,7 +94,7 @@ function CrudVendas() {
       case "debit_card":
         return "Cartão de Débito";
       case "account_money":
-        return "Saldo (Mercado Pago)";
+        return "Saldo da conta";
       case "bank_transfer":
         return "Transferência Bancária";
       case "ticket":
@@ -122,7 +122,7 @@ function CrudVendas() {
           <section className="Principal__box">
             <div className="Principal__box__detalhes">
               {/* <div className="Principal__box__detalhes__item">ID</div> */}
-              <div className="Principal__box__detalhes__item">Informações</div>
+              <div className="Principal__box__detalhes__item">Usuário</div>
               <div className="Principal__box__detalhes__item">Transação</div>
               <div className="Principal__box__detalhes__item">Líquido</div>
               <div className="Principal__box__detalhes__item">Status</div>
@@ -148,8 +148,9 @@ function CrudVendas() {
                           const info = JSON.parse(venda.informacaoAdicional);
                           return (
                             <div>
-                              <div>Usuário: {nome.split(" ")[0]}</div>
+                              <div>{nome.split(" ")[0]}</div>
 
+                              {/*
                               {info.anuncios?.map((anuncio, index) => (
                                 <div key={index}>
                                   <span>Produto:</span>
@@ -157,6 +158,7 @@ function CrudVendas() {
                                   {anuncio.Titulo} - R$ {anuncio.Valor}
                                 </div>
                               ))}
+                              */}
                             </div>
                           );
                         } catch (e) {
@@ -171,7 +173,7 @@ function CrudVendas() {
                       <span>
                         {venda.valorLiquio == null
                           ? "Sem valor líquido"
-                          : `Valor líquido: ${formatCurrency(venda.valorLiquio)}`}
+                          : `${formatCurrency(venda.valorLiquio)}`}
                       </span>
                     </div>
                     <div className="Principal__box__item__inside">

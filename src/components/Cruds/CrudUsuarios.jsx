@@ -166,7 +166,7 @@ function CrudUsuarios() {
                       setForm(initialFormState);
                     }}
                     style={{
-                      background: "#333333aa",
+                      background: "#3f4d67",
                       color: "white",
                       border: "none",
                       padding: "6px 12px",
@@ -200,7 +200,7 @@ function CrudUsuarios() {
                       setForm(initialFormState);
                     }}
                     style={{
-                      background: "#333333aa",
+                      background: "#3f4d67",
                       color: "white",
                       border: "none",
                       padding: "6px 12px",
