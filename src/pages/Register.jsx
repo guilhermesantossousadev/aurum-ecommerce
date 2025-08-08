@@ -90,18 +90,31 @@ const Register = () => {
 
   const checkEmailExists = async () => {
     if (!email) return;
-    const response = await fetch(
-      `https://marketplacejoias-api-latest.onrender.com/api/Suport/ExistenceAuthenticationEmail?email=${encodeURIComponent(
-        email
-      )}`
-    );
-    const result = await response.text();
-    if (!response.ok) {
-      toast.error(result);
-    } else {
-      toast.success("E-mail disponível!");
+
+    try {
+      const response = await fetch(
+        `https://marketplacejoias-api-latest.onrender.com/api/Suport/ExistenceAuthenticationEmail?email=${encodeURIComponent(
+          email
+        )}`
+      );
+
+      const result = await response.text();
+
+      if (!response.ok) {
+        toast.error("Erro ao verificar e-mail.");
+        return;
+      }
+
+      if (result === "true") {
+        toast.error("E-mail já está em uso.");
+      } else {
+        toast.success("E-mail disponível!");
+      }
+    } catch (error) {
+      toast.error("Erro ao verificar e-mail.");
     }
   };
+
 
   const searchCEP = async () => {
     const cepLimpo = cep.replace(/\D/g, "");
@@ -159,10 +172,12 @@ const Register = () => {
       email,
       password,
       cep: cep.replace(/[^\d]/g, ""),
-      numero,
+      numero: parseInt(numero, 10),
       complemento,
       endereco: enderecoFormatado,
     };
+
+    console.log("[solicitarTokenPosEndereco] Dados do usuário:", data);
 
     try {
       const response = await fetch(
@@ -183,23 +198,52 @@ const Register = () => {
     }
   };
 
+  const checkToken = async (codigoToken) => {
+    try {
+      const response = await fetch(
+        `https://marketplacejoias-api-latest.onrender.com/api/Suport/AuthenticateToken?codigoToken=${codigoToken}`
+      );
+
+      const result = await response.text(); // <-- resultado será "true" ou "false"
+
+      if (!response.ok) {
+        toast.error("Erro ao validar o token.");
+        return false;
+      }
+
+      if (result === "true") {
+        toast.success("Token validado com sucesso!");
+        return true;
+      } else {
+        toast.error("Token inválido ou expirado.");
+        return false;
+      }
+    } catch (error) {
+      toast.error("Erro na requisição.");
+      return false;
+    }
+  };
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      const response = await fetch(
-        `https://marketplacejoias-api-latest.onrender.com/api/Suport/AuthenticateToken?codigoToken=${encodeURIComponent(
-          token
-        )}`,
-        { method: "GET" }
-      );
+      console.log("[handleSubmit] Enviando token:", token);
+      console.log("[handleSubmit] Validando token...");
 
-      if (!response.ok) {
-        toast.error("Token inválido ou expirado.");
+      const isTokenValid = await checkToken(token);
+
+      if (!isTokenValid) {
+        console.warn("[handleSubmit] Token inválido. Retornando para etapa 1.");
         setStep(1);
         return;
       }
+
+      console.log("[handleSubmit] Token válido. Enviando usuário:");
+      console.log("[handleSubmit] JSON do usuário:", JSON.stringify(usuario, null, 2));
+
 
       const resCreate = await fetch(
         "https://marketplacejoias-api-latest.onrender.com/api/Usuario/PostUsuario",
@@ -210,21 +254,32 @@ const Register = () => {
         }
       );
 
-      const result = await resCreate.json();
+      let result;
+      try {
+        result = await resCreate.json();
+      } catch (e) {
+        console.error("[handleSubmit] Erro ao fazer parsing da resposta:", e);
+        throw new Error("Erro inesperado na resposta do servidor.");
+      }
 
       if (!resCreate.ok) {
+        console.error("[handleSubmit] Erro na criação do usuário:", result);
         throw new Error(result.message || "Erro ao criar conta");
       }
+
 
       toast.success("Conta criada com sucesso!");
       dispatch(login(result));
       navigate("/");
     } catch (error) {
+      console.error("[handleSubmit] Erro geral:", error);
       toast.error(error.message || "Erro inesperado ao cadastrar");
-    } finally {
+    }
+    finally {
       setIsLoading(false);
     }
   };
+
 
   const corrigirEndereco = () => {
     setEnderecoFormatado("");
@@ -265,6 +320,7 @@ const Register = () => {
   };
 
   const validarEtapa3 = () => {
+    const cepLimpo = cep.replace(/\D/g, ""); // Remove tudo que não for número
 
     if (!cepLimpo || !numero.trim()) {
       toast.error("Preencha o CEP e o número.");
@@ -280,6 +336,19 @@ const Register = () => {
 
   return (
     <div className="Register">
+      {subStep == 1 && step === 1 && (
+        <div
+          className="return__register__2"
+          onClick={() => {
+            navigate("/login");
+          }}
+          style={{ cursor: "pointer" }}
+        >
+          <img src={SetaPretaEsquerda} alt="Voltar" />
+          Voltar ao Login
+        </div>
+      )}
+
       {step === 1 && (
         <div className="Register__left">
           <div className="Register__container">

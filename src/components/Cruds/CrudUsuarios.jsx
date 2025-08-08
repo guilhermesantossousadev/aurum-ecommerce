@@ -190,7 +190,7 @@ function CrudUsuarios() {
             <div className="Principal">
               <div className="Principal__Create">
                 <div className="Principal__Create__item left">
-                  <h2>Usuarios</h2>
+                  <h2>Usuários</h2>
                 </div>
                 <div className="Principal__Create__item right">
                   <button

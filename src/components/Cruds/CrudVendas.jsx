@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Toaster, toast } from "sonner";
 import { useSelector } from "react-redux";
 
+import formatCurrency from "../utils/formatCurrency"
+
 import "../../styles/Cruds/Cruds.css";
 const apiBaseUrl = "https://marketplacejoias-api-latest.onrender.com/api/Venda";
 
@@ -163,13 +165,13 @@ function CrudVendas() {
                       })()}
                     </div>
                     <div className="Principal__box__item__inside">
-                      R$ {venda.valorTransacao}
+                      {formatCurrency(venda.valorTransacao)}
                     </div>
                     <div className="Principal__box__item__inside">
                       <span>
                         {venda.valorLiquio == null
                           ? "Sem valor líquido"
-                          : `Valor líquido: R$ ${venda.valorLiquio.toFixed(2)}`}
+                          : `Valor líquido: ${formatCurrency(venda.valorLiquio)}`}
                       </span>
                     </div>
                     <div className="Principal__box__item__inside">

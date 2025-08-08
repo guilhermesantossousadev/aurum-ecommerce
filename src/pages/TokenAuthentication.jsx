@@ -126,9 +126,25 @@ const TokenAuthentication = () => {
 
   return (
     <div className="TokenAuth">
-      <div className="return__token">
-        <Link to="/login"><img src={SetaPretaEsquerda} alt="SetaPretaEsquerda" /> Voltar</Link>
+      <div
+        className="return__register__2"
+        onClick={() => {
+          if (step === 1) {
+            navigate("/login");
+          } else if (step === 2) {
+            setStep(1);
+          } else if (step === 3) {
+            setStep(2);
+          }
+        }}
+        style={{ cursor: "pointer" }}
+      >
+        <img src={SetaPretaEsquerda} alt="Voltar" />
+        {step === 1 && "Voltar para login"}
+        {step === 2 && "Voltar para etapa anterior"}
+        {step === 3 && "Voltar para etapa anterior"}
       </div>
+
       <div className="TokenAuth__container">
         <h1 className="TokenAuth__title">Redefinição de Senha</h1>
 

@@ -318,12 +318,11 @@ function Detalhes() {
   return (
     <div className="detalhes">
       <div className="detalhes__container">
-        <div className="Voltar__container">
+        <div className="Voltar__container" onClick={() => navigate(-1)}>
           <img
             src={SetaRosaEsquerda}
             alt="Voltar"
             className="Voltar__btn"
-            onClick={() => navigate(-1)}
           />Voltar
         </div>
 
@@ -349,9 +348,8 @@ function Detalhes() {
             {anuncio.isAvaliable === true && (
               <div className="frete__container">
                 <div
-                  className={`frete__container__item ${
-                    isCalculed ? "left" : ""
-                  }`}
+                  className={`frete__container__item ${isCalculed ? "left" : ""
+                    }`}
                 >
                   <button
                     className="btn-adicionar-carrinho"
@@ -384,9 +382,8 @@ function Detalhes() {
                   />
 
                   <button
-                    className={`btn-calcular-frete ${
-                      loadingFrete ? "loading" : ""
-                    }`}
+                    className={`btn-calcular-frete ${loadingFrete ? "loading" : ""
+                      }`}
                     onClick={calcularFrete}
                     disabled={loadingFrete || anuncio.isAvaliable === false}
                   >
