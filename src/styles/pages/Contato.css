@@ -142,17 +142,19 @@
 
 .Contato__init__item__bottom__right__bottom__item ul li:hover {
   text-decoration: none;
-  cursor: pointer;
+  cursor: default;
 }
 
 .Contato__init__item__bottom__right__top__item span {
   text-decoration: underline;
   color: rgb(69 72 67);
+  cursor: default;
 }
 
 .Contato__init__item__bottom__right__bottom__item span {
   text-decoration: underline;
   color: rgb(69 72 67);
+  cursor: default;
 }
 
 .Contato__init__item__bottom__right__top__item span:hover {
@@ -162,7 +164,7 @@
 
 .Contato__init__item__bottom__right__bottom__item span:hover {
   text-decoration: none;
-  cursor: pointer;
+  cursor: default;
 }
 
 .Contato__follow {
@@ -457,7 +459,7 @@
 
 .Contato__Box__item__top:hover img {
   transform: scale(1);
-  cursor: pointer;
+  cursor: default;
 }
 
 .Contato__Box__item__top__img {
