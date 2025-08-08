@@ -213,6 +213,10 @@
   border-radius: 12px;
 }
 
+.CadastroAnuncio-error{
+  margin-top: -10px;
+}
+
 .CadastroAnuncio h2 {
   color: #dc3545;
   margin-bottom: 1rem;
