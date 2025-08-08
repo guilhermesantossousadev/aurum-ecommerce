@@ -668,6 +668,11 @@ button {
 }
 
 @media (max-width: 768px) {
+
+  .Profile__content-grid {
+    height: 100vh;
+  }
+
   .Profile {
     min-height: auto;
     padding-bottom: 4rem;
@@ -681,8 +686,8 @@ button {
 
   .Profile__section-box {
     width: 100%;
-    min-height: 25vh;
-    height: 30vh;
+    min-height: 30vh;
+    height: 40vh;
   }
 
   .Profile__Box {

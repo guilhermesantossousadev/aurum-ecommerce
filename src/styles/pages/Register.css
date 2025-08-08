@@ -436,3 +436,23 @@
     display: none !important;
   }
 }
+
+@media (max-width: 1024px) {
+  .return__register__2 {
+    top: 100px;
+    left: 30px;
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .return__register__2 {
+    top: 80px;
+    left: 15px;
+    font-size: 1rem;
+  }
+
+  .return__register__2 img {
+    width: 20px;
+  }
+}
