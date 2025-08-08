@@ -93,10 +93,11 @@
   font-weight: normal;
   gap: 10px;
   color: #f9cdcd;
+  transition: filter 0.3s ease;
 }
 
 .Voltar__container:hover {
-  text-decoration: underline;
+  filter: brightness(0.8);
   cursor: pointer;
 }
 
