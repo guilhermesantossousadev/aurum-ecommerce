@@ -207,7 +207,7 @@ function Carrinho() {
       }
 
       // Lógica de frete
-      const valorFrete = carrinho.valorTotal < 2000 ? 0 : 0;
+      const valorFrete = carrinho.valorTotal < 2000 ? 0.5 : 0;
       const prazoEntrega = carrinho.valorTotal < 500 ? 5 : 3;
 
       setFrete({
@@ -568,8 +568,15 @@ function Carrinho() {
 
                 <div className="resumo-total">
                   <span>Total:</span>
-                  <span>Valor: {formatCurrency(carrinho.valorTotal)}</span>
+                  <span>
+                    Valor:{" "}
+                    {formatCurrency(
+                      (carrinho.valorTotal || 0) +
+                        (parseFloat(frete?.valor) || 0)
+                    )}
+                  </span>
                 </div>
+
                 <button
                   className="btn-finalizar-compra"
                   onClick={finalizarPedido}
