@@ -66,9 +66,9 @@ const Etapa2 = ({
             }}
           >
             {showPassword ? (
-              <FaEyeSlash style={{ marginTop: "-30px" }} />
+              <FaEyeSlash />
             ) : (
-              <FaEye style={{ marginTop: "-30px" }} />
+              <FaEye />
             )}
           </button>
         </div>
@@ -106,9 +106,9 @@ const Etapa2 = ({
             }}
           >
             {showConfirmPassword ? (
-              <FaEyeSlash style={{ marginTop: "-30px" }} />
+              <FaEyeSlash />
             ) : (
-              <FaEye style={{ marginTop: "-30px" }} />
+              <FaEye />
             )}
           </button>
         </div>

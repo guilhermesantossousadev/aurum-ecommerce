@@ -11,17 +11,13 @@ const Etapa1 = ({
   validarCPF,
   next,
 }) => {
+
   const handleCpfChange = (e) => {
     const rawValue = e.target.value;
     const onlyNumbers = rawValue.replace(/\D/g, "");
 
-    // Se o usuário digitou algo que não seja número, mostra o toast
-    if (/\D/.test(rawValue)) {
-      toast.error("O CPF deve conter apenas números.");
-    }
-
-    // Aplica a formatação
-    const formatted = onlyNumbers
+    // Aplica a máscara de CPF se tiver até 11 dígitos
+    let formatted = onlyNumbers
       .replace(/(\d{3})(\d)/, "$1.$2")
       .replace(/(\d{3})(\d)/, "$1.$2")
       .replace(/(\d{3})(\d{1,2})/, "$1-$2")
@@ -29,11 +25,12 @@ const Etapa1 = ({
 
     setCpf(formatted);
 
-    // Validação apenas quando CPF está completo
-    if (formatted.length === 14 && !validarCPF(formatted)) {
+    // Valida apenas se tiver 11 dígitos numéricos
+    if (onlyNumbers.length === 11 && !validarCPF(onlyNumbers)) {
       toast.error("CPF inválido.");
     }
   };
+
 
   const handleNomeChange = (e) => {
     const valor = e.target.value;

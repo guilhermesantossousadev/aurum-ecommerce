@@ -92,7 +92,7 @@ const Login = () => {
                 style={{
                   position: "absolute",
                   right: "10px",
-                  top: "25%",
+                  top: "50%",
                   transform: "translateY(-50%)",
                   background: "transparent",
                   border: "none",
