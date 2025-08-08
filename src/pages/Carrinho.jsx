@@ -14,6 +14,8 @@ import "../styles/pages/Carrinho.css";
 function Carrinho() {
   const user = useSelector((state) => state.user);
 
+  const [cepAutoFilled, setCepAutoFilled] = useState(false);
+
   const [carrinho, setCarrinho] = useState(null);
   const [error, setError] = useState(null);
   const [anuncios, setAnuncios] = useState([]);
@@ -508,6 +510,17 @@ function Carrinho() {
                   placeholder="Digite seu CEP"
                   value={cep}
                   maxLength={9}
+                  onClick={() => {
+                    if (!cepAutoFilled && user?.cep) {
+                      const cepLimpo = user.cep.replace(/\D/g, "");
+                      const formattedCep = cepLimpo.replace(
+                        /^(\d{5})(\d{0,3})/,
+                        "$1-$2"
+                      );
+                      setCep(formattedCep);
+                      setCepAutoFilled(true);
+                    }
+                  }}
                   onChange={(e) => {
                     const value = e.target.value.replace(/\D/g, "");
                     const formattedCep = value.replace(
@@ -515,6 +528,9 @@ function Carrinho() {
                       "$1-$2"
                     );
                     setCep(formattedCep);
+                    if (cepAutoFilled && formattedCep !== cep) {
+                      setCepAutoFilled(false);
+                    }
                   }}
                 />
 
