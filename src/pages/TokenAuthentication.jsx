@@ -140,9 +140,9 @@ const TokenAuthentication = () => {
         style={{ cursor: "pointer" }}
       >
         <img src={SetaPretaEsquerda} alt="Voltar" />
-        {step === 1 && "Voltar para login"}
-        {step === 2 && "Voltar para etapa anterior"}
-        {step === 3 && "Voltar para etapa anterior"}
+        {step === 1 && "Voltar"}
+        {step === 2 && "Voltar"}
+        {step === 3 && "Voltar"}
       </div>
 
       <div className="TokenAuth__container">

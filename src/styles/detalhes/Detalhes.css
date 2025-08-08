@@ -97,7 +97,6 @@
 }
 
 .Voltar__container:hover {
-  filter: brightness(0.8);
   cursor: pointer;
 }
 
