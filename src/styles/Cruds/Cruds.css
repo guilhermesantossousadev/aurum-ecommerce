@@ -50,7 +50,7 @@
 
 .Principal__box__detalhes {
   display: flex;
-  background-color: #333333aa;
+  background-color: #3f4d67;
   font-weight: 600;
   padding: 0.75rem 1rem;
   border-radius: 6px 6px 0 0;
@@ -62,11 +62,12 @@
   flex: 1;
   display: flex;
   align-items: center;
-  padding-left: 1rem;
-  border-right: 1px solid #555555aa;
+  justify-content: center;
+  border-right: 1px solid rgb(169 183 208);
   height: 50px;
   color: #fff;
   font-weight: normal;
+  text-transform: uppercase;
 }
 
 .Principal__box__detalhes__item:last-child {

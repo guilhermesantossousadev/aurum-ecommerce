@@ -216,7 +216,7 @@ function CrudUsuarios() {
                 <div className="Principal__box__detalhes">
                   {/*<div className="Principal__box__detalhes__item">ID</div>*/}
                   <div className="Principal__box__detalhes__item">Nome</div>
-                  <div className="Principal__box__detalhes__item">Email</div>
+                  <div className="Principal__box__detalhes__item">E-mail</div>
                   <div className="Principal__box__detalhes__item">Endereço</div>
                   <div className="Principal__box__detalhes__item">Ações</div>
                 </div>
