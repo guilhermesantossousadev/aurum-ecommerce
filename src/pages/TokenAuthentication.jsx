@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Toaster, toast } from "sonner";
 
-import SetaPretaEsquerda from "../images/Setas/SetaPretaEsquerda.png"
+import SetaPretaEsquerda from "../images/Setas/SetaPretaEsquerda.png";
 
 import "../styles/pages/TokenAuthentication.css";
 
@@ -139,7 +139,7 @@ const TokenAuthentication = () => {
         }}
         style={{ cursor: "pointer" }}
       >
-        <img src={SetaPretaEsquerda} alt="Voltar" />
+        <img src={SetaPretaEsquerda} alt="Voltar" width={"24px"} />
         {step === 1 && "Voltar para login"}
         {step === 2 && "Voltar para etapa anterior"}
         {step === 3 && "Voltar para etapa anterior"}
