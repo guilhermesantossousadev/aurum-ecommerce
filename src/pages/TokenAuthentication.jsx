@@ -153,7 +153,7 @@ const TokenAuthentication = () => {
 
         <div className="TokenAuth__step">
           {step === 1 && "Solicite o token de redefinição"}
-          {step === 2 && "Digite o token recebido"}
+          {step === 2 && "Digite o token recebido no seu E-mail"}
           {step === 3 && "Crie sua nova senha"}
         </div>
 

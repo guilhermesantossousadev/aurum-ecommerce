@@ -109,9 +109,7 @@ svg {
   transition: border-color 0.3s ease;
   color: #000 !important;
   box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
 }
 
 .Login__input:focus {
@@ -199,12 +197,24 @@ svg {
 
 .Login__input-container {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   width: 100%;
   max-width: 400px;
+}
+
+.Login__input-container button {
+  height: 50px; /* mesma altura do input */
+  width: 40px; /* largura suficiente para o ícone */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 0;
+  top: 20%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
 }
 
 /* Adiciona padding à direita para o ícone não sobrepor o texto */

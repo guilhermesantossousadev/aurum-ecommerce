@@ -220,6 +220,9 @@
 .navbar__mobile ul {
   list-style: none;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .navbar__mobile li {
@@ -232,7 +235,6 @@
   color: #fff !important;
   color: var(--text-color);
   transition: color var(--transition-speed) ease-in-out;
-  padding-left: 40px;
   padding-bottom: 60px;
 }
 

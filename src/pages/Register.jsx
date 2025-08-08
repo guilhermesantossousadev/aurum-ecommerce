@@ -202,11 +202,12 @@ const Register = () => {
 
   const checkToken = async (codigoToken) => {
     try {
+      console.log(codigoToken);
       const response = await fetch(
         `https://marketplacejoias-api-latest.onrender.com/api/Suport/AuthenticateToken?codigoToken=${codigoToken}`
       );
 
-      const result = await response.text(); // <-- resultado será "true" ou "false"
+      const result = await response.text();
 
       if (!response.ok) {
         toast.error("Erro ao validar o token.");

@@ -45,7 +45,7 @@ const Etapa2 = ({
       </div>
 
       <div className="Register__form-group">
-        <div style={{ position: "relative", width: "100%" }}>
+        <div className="Register__input-container">
           <input
             type={showPassword ? "text" : "password"}
             value={password}
@@ -53,27 +53,12 @@ const Etapa2 = ({
             required
             className="Register__input"
             placeholder="Senha"
-            style={{ paddingRight: "40px" }}
           />
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            style={{
-              position: "absolute",
-              right: "12px",
-              top: "0",
-              transform: "translateY(-50%, -50%)",
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              color: "#555",
-              fontSize: "1.2rem",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              height: "100%",
-              padding: 0,
-            }}
+            className="Register__input-btn"
+            aria-label={showPassword ? "Esconder senha" : "Mostrar senha"}
           >
             {showPassword ? <FaEyeSlash /> : <FaEye />}
           </button>
@@ -81,7 +66,7 @@ const Etapa2 = ({
       </div>
 
       <div className="Register__form-group">
-        <div style={{ position: "relative", width: "100%" }}>
+        <div className="Register__input-container">
           <input
             type={showConfirmPassword ? "text" : "password"}
             value={confirmPassword}
@@ -89,33 +74,21 @@ const Etapa2 = ({
             required
             className="Register__input"
             placeholder="Confirmar Senha"
-            style={{ paddingRight: "40px" }} // espaço para o ícone
           />
           <button
             type="button"
             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-            style={{
-              position: "absolute",
-              right: "12px",
-              top: "0",
-              transform: "translateY(-50%, -50%)",
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              color: "#555",
-              fontSize: "1.2rem",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              height: "100%",
-              padding: 0,
-            }}
+            className="Register__input-btn"
+            aria-label={
+              showConfirmPassword
+                ? "Esconder confirmação de senha"
+                : "Mostrar confirmação de senha"
+            }
           >
             {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
           </button>
         </div>
       </div>
-
       <div className="Register__form-buttons">
         <button type="button" onClick={next} className="Register__button">
           Próximo

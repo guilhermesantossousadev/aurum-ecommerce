@@ -30,14 +30,14 @@ const Profile = () => {
   const [editField, setEditField] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
 
-  const [email, setEmail] = useState(user.email || "");
-  const [cpf, setCpf] = useState(user.cpf || "");
-  const [idade, setIdade] = useState(user.idade || "");
-  const [nome, setNome] = useState(user.nome || "");
-
+  const [email, setEmail] = useState(user?.email || "");
+  const [cpf, setCpf] = useState(user?.cpf || "");
+  const [idade, setIdade] = useState(user?.idade || "");
+  const [nome, setNome] = useState(user?.nome || "");
   const [profileImage, setProfileImage] = useState(
-    user.fotoPerfilURL || perfil
+    user?.fotoPerfilURL || perfil
   );
+
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploading, setUploading] = useState(false);
 
@@ -60,9 +60,15 @@ const Profile = () => {
   };
 
   const handleLogout = () => {
+    console.log("Logout iniciado");
     dispatch(logout());
     navigate("/");
   };
+
+  if (!user) {
+    navigate("/login");
+    return null;
+  }
 
   const GetAnuncios = async () => {
     try {

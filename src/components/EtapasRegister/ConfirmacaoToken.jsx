@@ -5,9 +5,9 @@ const ConfirmacaoToken = ({ token, setToken, handleSubmit, isLoading }) => {
     <div className="Register__left">
       <div className="Register__container">
         <h1 className="Register__title">Confirme o Token</h1>
+        <p>Digite o token recebido no seu E-mail</p>
         <form className="Register__form" onSubmit={handleSubmit}>
           <div className="Register__form-group">
-            <label>Token</label>
             <input
               type="text"
               value={token}
@@ -21,7 +21,11 @@ const ConfirmacaoToken = ({ token, setToken, handleSubmit, isLoading }) => {
             disabled={isLoading}
             className="Register__button"
           >
-            {isLoading ? <div className="loading-spinner-register" /> : "Validar"}
+            {isLoading ? (
+              <div className="loading-spinner-register" />
+            ) : (
+              "Validar"
+            )}
           </button>
         </form>
       </div>
