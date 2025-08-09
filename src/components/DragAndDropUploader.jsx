@@ -17,18 +17,37 @@ function DragAndDropUploader({ onFilesUploaded }) {
     setDragging(false);
   };
 
+  const addFiles = (newFiles) => {
+    // Concatenar arquivos novos aos já selecionados
+    // Opcional: evitar arquivos duplicados pelo nome e tamanho
+    setSelectedFiles((prevFiles) => {
+      const allFiles = [...prevFiles];
+
+      newFiles.forEach((newFile) => {
+        const duplicate = allFiles.some(
+          (file) => file.name === newFile.name && file.size === newFile.size
+        );
+        if (!duplicate) {
+          allFiles.push(newFile);
+        }
+      });
+
+      onFilesUploaded(allFiles); // Atualizar callback com a lista completa
+      return allFiles;
+    });
+  };
+
   const handleDrop = (e) => {
     e.preventDefault();
     setDragging(false);
     const files = Array.from(e.dataTransfer.files);
-    setSelectedFiles(files);
-    onFilesUploaded(files);
+    addFiles(files);
   };
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
-    setSelectedFiles(files);
-    onFilesUploaded(files);
+    addFiles(files);
+    e.target.value = null; // limpar o input para permitir re-upload do mesmo arquivo se quiser
   };
 
   return (

@@ -179,6 +179,11 @@ const CadastroAnuncio = () => {
     }
   };
 
+  const handleFilesUploaded = (files) => {
+    setSelectedImages(files);
+  };
+
+
   return (
     <div className="PostAnuncios">
       <div className="return">
@@ -329,7 +334,7 @@ const CadastroAnuncio = () => {
           />
 
           <label>Imagens do Anúncio</label>
-          <DragAndDropUploader onFilesUploaded={setSelectedImages} />
+          <DragAndDropUploader onFilesUploaded={handleFilesUploaded} />
 
           <button type="submit" disabled={isLoading}>
             {isLoading ? "Publicando..." : "Cadastrar Anúncio"}
