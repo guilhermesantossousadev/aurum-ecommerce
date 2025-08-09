@@ -11,6 +11,7 @@ import {
 
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import { logout } from "../store/userSlice";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "sonner";
@@ -62,13 +63,21 @@ const Profile = () => {
   const handleLogout = () => {
     console.log("Logout iniciado");
     dispatch(logout());
-    navigate("/");
+    window.location.href = "/login";
   };
 
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  }, [user, navigate]);
+
+
   if (!user) {
-    navigate("/login");
-    return null;
+    return null; // Ou um loading simples
   }
+
 
   const GetAnuncios = async () => {
     try {
@@ -275,8 +284,19 @@ const Profile = () => {
   }
 
   useEffect(() => {
-    searchCEP();
-  }, []);
+    if (user?.cep) {
+      searchCEP();
+    }
+  }, [user?.cep]);
+
+  useEffect(() => {
+    setEmail(user?.email || "");
+    setCpf(user?.cpf || "");
+    setIdade(user?.idade || "");
+    setNome(user?.nome || "");
+    setProfileImage(user?.fotoPerfilURL || perfil);
+  }, [user]);
+
 
   return (
     <div className="Profile">
@@ -472,25 +492,25 @@ const Profile = () => {
                                       {Array.isArray(
                                         infoAdicionalObj.anuncios
                                       ) && (
-                                        <ul
-                                          style={{
-                                            height: "100%",
-                                            width: "100%",
-                                          }}
-                                        >
-                                          {infoAdicionalObj.anuncios.map(
-                                            (item, index) => (
-                                              <li key={index}>
-                                                <p>Título: {item.Titulo}</p>
-                                                <p>
-                                                  Valor:{" "}
-                                                  {formatCurrency(item.Valor)}
-                                                </p>
-                                              </li>
-                                            )
-                                          )}
-                                        </ul>
-                                      )}
+                                          <ul
+                                            style={{
+                                              height: "100%",
+                                              width: "100%",
+                                            }}
+                                          >
+                                            {infoAdicionalObj.anuncios.map(
+                                              (item, index) => (
+                                                <li key={index}>
+                                                  <p>Título: {item.Titulo}</p>
+                                                  <p>
+                                                    Valor:{" "}
+                                                    {formatCurrency(item.Valor)}
+                                                  </p>
+                                                </li>
+                                              )
+                                            )}
+                                          </ul>
+                                        )}
                                     </div>
                                   )}
                                 </div>

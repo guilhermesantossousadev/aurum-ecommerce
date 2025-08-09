@@ -14,15 +14,16 @@ const PostAnuncios = () => {
 
   const [joiaId, setJoiaId] = useState(null);
   const [titulo, setTitulo] = useState("");
-  const [urLs, setUrLs] = useState([""]);
+  const [urls, setUrls] = useState([]);
 
   const [selectedImages, setSelectedImages] = useState([]);
 
   const [usuarioId, setUsuarioId] = useState("");
 
+  // Agora valor numérico (number), não string formatada
   const [joiaData, setJoiaData] = useState({
     tipoPeca: "",
-    valor: 0,
+    valor: 0, // número
     descricao: "",
     peso: 0,
     material: "",
@@ -56,19 +57,20 @@ const PostAnuncios = () => {
     }
   }, [user]);
 
+  // Atualiza valor numérico com validação simples
   const handleCurrencyChange = (inputValue) => {
     // Remove tudo que não for dígito
     const onlyDigits = inputValue.replace(/\D/g, "");
     const numberValue = Number(onlyDigits) / 100;
 
-    // Atualiza o estado formatado como string
-    const formattedValue = numberValue.toLocaleString("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    });
-
-    handleChange("valor", formattedValue);
+    setJoiaData((prev) => ({ ...prev, valor: numberValue }));
   };
+
+  // Formata o valor para exibir no input como moeda BRL
+  const formattedValor = joiaData.valor.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
 
   const handleChange = (field, value) => {
     setJoiaData((prev) => ({ ...prev, [field]: value }));
@@ -78,10 +80,11 @@ const PostAnuncios = () => {
     setJoiaData((prev) => ({ ...prev, [field]: value }));
   };
 
+  // Envio das imagens: retorna as URLs enviadas ou [] em erro
   const handleUploadImages = async () => {
     if (!selectedImages || selectedImages.length === 0) {
       toast.error("Nenhuma imagem selecionada.");
-      return;
+      return [];
     }
 
     const formData = new FormData();
@@ -103,29 +106,28 @@ const PostAnuncios = () => {
       }
 
       toast.success("Imagens enviadas com sucesso!");
-      const urls = await response.json();
-      setUrLs(urls);
+      const urlsResponse = await response.json();
+      setUrls(urlsResponse);
+      return urlsResponse;
     } catch (error) {
       toast.error(`Erro ao enviar imagens: ${error.message}`);
+      return [];
     }
   };
 
+  // Criação da joia, agora valor numérico direto
   async function handleCreateJoia() {
     try {
-      const cleanValor = parseFloat(
-        String(joiaData.valor)
-          .replace("R$", "")
-          .replace(/\./g, "")
-          .replace(",", ".")
-          .trim()
-      );
-
       const joiaDataClean = {
         ...joiaData,
-        valor: cleanValor,
+        // valor já é número, só garantir
+        valor: Number(joiaData.valor),
       };
 
-      console.log(JSON.stringify(joiaDataClean));
+      // Se precisar enviar usuarioId junto, pode adicionar aqui:
+      // joiaDataClean.usuarioId = usuarioId;
+
+      console.log("Enviando joia:", JSON.stringify(joiaDataClean));
 
       const response = await fetch(
         "https://marketplacejoias-api-latest.onrender.com/api/Joia/PostJoia",
@@ -149,13 +151,19 @@ const PostAnuncios = () => {
     }
   }
 
+  // Criação do anúncio usando URLs retornadas do upload
   async function handleCreateAnuncio() {
-    await handleUploadImages();
+    const uploadedUrls = await handleUploadImages();
+
+    if (uploadedUrls.length === 0) {
+      // Se não teve imagens válidas, aborta criação
+      return;
+    }
 
     const anuncioData = {
       joiaId,
       titulo,
-      urLs,
+      urLs: uploadedUrls,
       usuarioId,
     };
 
@@ -174,9 +182,10 @@ const PostAnuncios = () => {
       }
 
       toast.success("Anúncio criado com sucesso!");
+      // Limpa estados para novo cadastro
       setTitulo("");
       setJoiaId(null);
-      setUrLs([""]);
+      setUrls([]);
       setSelectedImages([]);
       setStep(1);
     } catch (error) {
@@ -186,6 +195,8 @@ const PostAnuncios = () => {
 
   return (
     <div className="PostAnuncios">
+      <Toaster position="top-right" />
+
       <div className="step-counter">
         <p>{step === 1 ? "Cadastro da Joia" : "Cadastro do Anúncio"}</p>
         <div className="step-bar">
@@ -219,9 +230,10 @@ const PostAnuncios = () => {
           <label>Valor</label>
           <input
             type="text"
-            value={joiaData.valor}
+            value={formattedValor}
             onChange={(e) => handleCurrencyChange(e.target.value)}
             required
+            placeholder="R$ 0,00"
           />
 
           <label>Descrição</label>
@@ -238,7 +250,7 @@ const PostAnuncios = () => {
             pattern="[0-9]*[.,]?[0-9]*"
             value={joiaData.peso}
             onChange={(e) => {
-              const value = e.target.value.replace(",", "."); // aceita vírgula ou ponto
+              const value = e.target.value.replace(",", ".");
               if (/^\d*\.?\d*$/.test(value)) {
                 handleChange("peso", value);
               }
@@ -275,13 +287,11 @@ const PostAnuncios = () => {
             <option value="Vidro">Vidro</option>
           </select>
 
-          <label className="radio-label">
+          <label className="checkbox-label">
             <input
-              type="radio"
+              type="checkbox"
               checked={joiaData.isStudded}
-              onClick={() =>
-                handleBooleanChange("isStudded", !joiaData.isStudded)
-              }
+              onChange={(e) => handleBooleanChange("isStudded", e.target.checked)}
             />
             Cravejada
           </label>
@@ -292,9 +302,7 @@ const PostAnuncios = () => {
               <input
                 type="text"
                 value={joiaData.materialCravejado}
-                onChange={(e) =>
-                  handleChange("materialCravejado", e.target.value)
-                }
+                onChange={(e) => handleChange("materialCravejado", e.target.value)}
                 required
               />
             </div>
