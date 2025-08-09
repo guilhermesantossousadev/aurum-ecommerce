@@ -164,7 +164,6 @@
   border-radius: 7px;
 }
 
-/* Container geral que agora agrupa os dois blocos lado a lado */
 .Profile__container {
   height: 100vh;
   display: flex;
@@ -172,7 +171,6 @@
   padding-top: 2rem;
 }
 
-/* NOVO: grid para "Meus Anúncios" e "Minhas Compras" lado a lado */
 .Profile__content-grid {
   display: flex;
   flex-direction: row;
@@ -184,7 +182,6 @@
   height: 70vh;
 }
 
-/* NOVO: cada seção ocupa 48% do espaço com mínimo */
 .Profile__section-box {
   flex: 1 1 48%;
   display: flex;

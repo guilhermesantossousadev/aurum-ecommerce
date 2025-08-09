@@ -26,7 +26,7 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  top: 100px;
+  top: 90px;
   left: 65px;
   font-size: 1.5rem;
   font-weight: normal;
@@ -356,13 +356,15 @@
   max-width: 400px;
   height: 50px;
   padding: 0.8rem;
-  padding-right: 40px; /* espaço para o botão */
+  padding-right: 40px;
+  /* espaço para o botão */
   border: none;
   border-bottom: 1px solid #555;
   font-size: 1rem;
   color: #000 !important;
   box-sizing: border-box;
-  display: block; /* importante, sem flex */
+  display: block;
+  /* importante, sem flex */
 }
 
 .Register__input-container .Register__input:focus {
