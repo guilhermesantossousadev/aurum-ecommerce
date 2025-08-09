@@ -23,13 +23,13 @@ const Login = () => {
     setIsLoading(true);
 
     try {
+
+      console.log(password)
       const response = await fetch(
-        `https://marketplacejoias-api-latest.onrender.com/api/Usuario/LoginUsuario?email=${email}&password=${password}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-        }
+        `https://marketplacejoias-api-latest.onrender.com/api/Usuario/LoginUsuario?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`,
+        { method: "POST" }
       );
+
 
       if (!response.ok) {
         throw new Error("Credenciais inválidas");

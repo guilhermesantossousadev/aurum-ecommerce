@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Toaster, toast } from "sonner";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 import SetaPretaEsquerda from "../images/Setas/SetaPretaEsquerda.png";
 
@@ -15,9 +16,9 @@ const TokenAuthentication = () => {
     confirmPassword: "",
   });
   const [step, setStep] = useState(1);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,8 +31,6 @@ const TokenAuthentication = () => {
   const handleRequestToken = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    setError("");
-    setSuccess("");
 
     try {
       const response = await fetch(
@@ -44,15 +43,12 @@ const TokenAuthentication = () => {
         }
       );
 
-      if (!response.ok) {
-        throw new Error("Erro ao solicitar token");
-      }
+      if (!response.ok) throw new Error();
+
       toast.success("Token enviado para seu email!");
       setStep(2);
-    } catch (error) {
-      toast.error(
-        "Não foi possível enviar o token. Verifique o email e tente novamente."
-      );
+    } catch {
+      toast.error("Não foi possível enviar o token. Verifique o email e tente novamente.");
     } finally {
       setIsLoading(false);
     }
@@ -61,24 +57,18 @@ const TokenAuthentication = () => {
   const handleVerifyToken = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    setError("");
-    setSuccess("");
 
     try {
       const response = await fetch(
         `https://marketplacejoias-api-latest.onrender.com/api/Suport/AuthenticateToken?codigoToken=${formData.token}`,
-        {
-          method: "GET",
-        }
+        { method: "GET" }
       );
 
-      if (!response.ok) {
-        throw new Error("Token inválido");
-      }
+      if (!response.ok) throw new Error();
 
       toast.success("Token verificado com sucesso!");
       setStep(3);
-    } catch (error) {
+    } catch {
       toast.error("Token inválido ou expirado. Tente novamente.");
     } finally {
       setIsLoading(false);
@@ -88,11 +78,9 @@ const TokenAuthentication = () => {
   const handleResetPassword = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    setError("");
-    setSuccess("");
 
     if (formData.newPassword !== formData.confirmPassword) {
-      setError("As senhas não coincidem");
+      toast.error("As senhas não coincidem");
       setIsLoading(false);
       return;
     }
@@ -102,22 +90,15 @@ const TokenAuthentication = () => {
         `https://marketplacejoias-api-latest.onrender.com/api/Usuario/ResetPassword?email=${formData.email}&password=${formData.newPassword}`,
         {
           method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
         }
       );
 
-      if (!response.ok) {
-        throw new Error("Erro ao redefinir senha");
-      }
+      if (!response.ok) throw new Error();
 
       toast.success("Senha redefinida com sucesso!");
-
-      setTimeout(() => {
-        navigate("/login");
-      }, 1500);
-    } catch (error) {
+      setTimeout(() => navigate("/login"), 1500);
+    } catch {
       toast.error("Não foi possível redefinir a senha. Tente novamente.");
     } finally {
       setIsLoading(false);
@@ -126,30 +107,21 @@ const TokenAuthentication = () => {
 
   return (
     <div className="TokenAuth">
+      <Toaster position="top-right" richColors />
       <div
         className="return__token"
         onClick={() => {
-          if (step === 1) {
-            navigate("/login");
-          } else if (step === 2) {
-            setStep(1);
-          } else if (step === 3) {
-            setStep(2);
-          }
+          if (step === 1) navigate("/login");
+          else setStep(step - 1);
         }}
         style={{ cursor: "pointer" }}
       >
         <img src={SetaPretaEsquerda} alt="Voltar" />
-        {step === 1 && "Voltar"}
-        {step === 2 && "Voltar"}
-        {step === 3 && "Voltar"}
+        Voltar
       </div>
 
       <div className="TokenAuth__container">
         <h1 className="TokenAuth__title">Redefinição de Senha</h1>
-
-        {error && <div className="TokenAuth__error">{error}</div>}
-        {success && <div className="TokenAuth__success">{success}</div>}
 
         <div className="TokenAuth__step">
           {step === 1 && "Solicite o token de redefinição"}
@@ -168,16 +140,8 @@ const TokenAuthentication = () => {
               onChange={handleChange}
               required
             />
-            <button
-              className="TokenAuth__button"
-              type="submit"
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <span className="loading-spinner-token"></span>
-              ) : (
-                "Solicitar Token"
-              )}
+            <button className="TokenAuth__button" type="submit" disabled={isLoading}>
+              {isLoading ? <span className="loading-spinner-token"></span> : "Solicitar Token"}
             </button>
           </form>
         )}
@@ -193,50 +157,53 @@ const TokenAuthentication = () => {
               onChange={handleChange}
               required
             />
-            <button
-              className="TokenAuth__button"
-              type="submit"
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <span className="loading-spinner-token"></span>
-              ) : (
-                "Verificar Token"
-              )}
+            <button className="TokenAuth__button" type="submit" disabled={isLoading}>
+              {isLoading ? <span className="loading-spinner-token"></span> : "Verificar Token"}
             </button>
           </form>
         )}
 
         {step === 3 && (
           <form className="TokenAuth__form" onSubmit={handleResetPassword}>
-            <input
-              className="TokenAuth__input"
-              type="password"
-              name="newPassword"
-              placeholder="Nova senha"
-              value={formData.newPassword}
-              onChange={handleChange}
-              required
-            />
-            <input
-              className="TokenAuth__input"
-              type="password"
-              name="confirmPassword"
-              placeholder="Confirme a nova senha"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              required
-            />
-            <button
-              className="TokenAuth__button"
-              type="submit"
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <span className="loading-spinner-token"></span>
-              ) : (
-                "Redefinir Senha"
-              )}
+            <div className="TokenAuth__input-wrapper">
+              <input
+                className="TokenAuth__input"
+                type={showNewPassword ? "text" : "password"}
+                name="newPassword"
+                placeholder="Nova senha"
+                value={formData.newPassword}
+                onChange={handleChange}
+                required
+              />
+              <span
+                className="TokenAuth__eye"
+                onClick={() => setShowNewPassword((prev) => !prev)}
+              >
+                {showNewPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
+
+
+            <div className="TokenAuth__input-wrapper">
+              <input
+                className="TokenAuth__input"
+                type={showConfirmPassword ? "text" : "password"}
+                name="confirmPassword"
+                placeholder="Confirme a nova senha"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                required
+              />
+              <span
+                className="TokenAuth__eye"
+                onClick={() => setShowConfirmPassword((prev) => !prev)}
+              >
+                {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
+
+            <button className="TokenAuth__button" type="submit" disabled={isLoading}>
+              {isLoading ? <span className="loading-spinner-token"></span> : "Redefinir Senha"}
             </button>
           </form>
         )}
