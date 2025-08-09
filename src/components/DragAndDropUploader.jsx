@@ -61,14 +61,6 @@ function DragAndDropUploader({ onFilesUploaded }) {
       <p>
         Arraste e solte as imagens aqui <br /> ou clique para selecionar
       </p>
-      <input
-        type="file"
-        multiple
-        accept="image/*"
-        ref={fileInputRef}
-        className="file-input"
-        onChange={handleFileChange}
-      />
       <button
         type="button"
         className="upload-button"
