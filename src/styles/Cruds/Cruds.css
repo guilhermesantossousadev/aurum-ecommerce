@@ -83,6 +83,7 @@
 .Principal__box__item {
   display: flex;
   align-items: center;
+  justify-content: center;
   background-color: #fff;
   border: 1px solid #ddd;
   border-top: none;
@@ -163,7 +164,7 @@
 
 @media (max-width: 600px) {
   .Principal__Create {
-    flex-direction: column;
+    flex-direction: row;
     align-items: stretch;
     padding: 0 1rem;
   }

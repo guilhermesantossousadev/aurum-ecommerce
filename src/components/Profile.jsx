@@ -297,6 +297,14 @@ const Profile = () => {
     setProfileImage(user?.fotoPerfilURL || perfil);
   }, [user]);
 
+  function formatCPF(cpf) {
+    if (!cpf) return "";
+    const cleaned = cpf.replace(/\D/g, ""); // remove tudo que não é número
+    if (cleaned.length !== 11) return cpf; // se não tiver 11 dígitos, retorna original
+    return cleaned.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+  }
+
+
 
   return (
     <div className="Profile">
@@ -323,45 +331,17 @@ const Profile = () => {
 
           <div className="Profile__box__info">
             <div className="Profile__box__info__value">
-              <FaUser className="Profile__info__icon nome" />
               {user.nome}
             </div>
 
             <div className="Profile__box__info__value cep">
-              <FaMapMarkerAlt className="Profile__info__icon" />
-              {cepformatado}
+              {user.endereco}
             </div>
 
             <div className="Profile__box__info__inside">
-              <div className="Profile__box__info__inside__item">
-                <div className="Profile__box__info__inside__icon">
-                  <FaEnvelope className="Profile__info__icon" />
-                  E-mail:
-                </div>
-                <div className="Profile__box__info__inside__value">
-                  {user.email}
-                </div>
-              </div>
-
-              <div className="Profile__box__info__inside__item">
-                <div className="Profile__box__info__inside__icon">
-                  <FaIdCard className="Profile__info__icon" />
-                  Cpf:
-                </div>
-                <div className="Profile__box__info__inside__value">
-                  {user.cpf}
-                </div>
-              </div>
-
-              <div className="Profile__box__info__inside__item">
-                <div className="Profile__box__info__inside__icon">
-                  <FaIdCard className="Profile__info__icon" />
-                  Idade:
-                </div>
-                <div className="Profile__box__info__inside__value">
-                  {user.idade} Anos
-                </div>
-              </div>
+              <span><strong> • E-mail:</strong> {user.email}</span>
+              <span><strong> • CPF:</strong> {formatCPF(user.cpf)}</span>
+              <span><strong> • Idade:</strong> {user.idade} Anos</span>
             </div>
           </div>
 

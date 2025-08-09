@@ -124,8 +124,6 @@ const PostAnuncios = () => {
         valor: Number(joiaData.valor),
       };
 
-      // Se precisar enviar usuarioId junto, pode adicionar aqui:
-      // joiaDataClean.usuarioId = usuarioId;
 
       console.log("Enviando joia:", JSON.stringify(joiaDataClean));
 

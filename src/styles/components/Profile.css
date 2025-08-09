@@ -91,23 +91,27 @@
 }
 
 .Profile__box__info__value {
-  font-size: 1.8rem;
+  font-size: 2.78rem;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 20px;
   flex-wrap: wrap;
   text-align: center;
+  color: #000;
+  font-weight: bold;
 }
 
 .Profile__box__info__value.cep {
-  font-size: 1.3rem;
+  font-size: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 20px;
   flex-wrap: wrap;
   text-align: center;
+  font-weight: normal;
+  color: rgb(69 72 67);
 }
 
 .Profile__box__info__inside {
@@ -383,7 +387,7 @@
 
 .Profile__buttons__item h1 {
   position: relative;
-  color: #252422;
+  color: #000;
   z-index: 1;
 }
 
@@ -396,16 +400,16 @@
 }
 
 svg {
-  fill: #252422 !important;
-  stroke: #252422 !important;
+  fill: #000 !important;
+  stroke: #000 !important;
 }
 
 .Profile__buttons button {
   height: 40px;
   width: 120px;
   background-color: transparent;
-  border: 1px solid #252422;
-  color: #252422;
+  border: 1px solid #000;
+  color: #000;
   transition: color 0.3s ease;
   position: relative;
   overflow: hidden;
@@ -426,7 +430,7 @@ svg {
   left: 0;
   width: 100%;
   height: 0;
-  background-color: #252422;
+  background-color: #000;
   transition: height 0.3s ease;
   z-index: -1;
 }

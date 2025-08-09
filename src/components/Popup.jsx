@@ -9,12 +9,12 @@ function Popup({ anuncio, onClose }) {
     <div className="popup-overlay" onClick={onClose}>
       <div className="popup-content" onClick={(e) => e.stopPropagation()}>
         <h2>{anuncio.titulo}</h2>
-        <p>
+        <div className="tipo">
           <strong>Tipo:</strong> {anuncio.tipoPeca}
-        </p>
-        <p>
+        </div>
+        <div className="valor">
           <strong>Valor:</strong> {formatCurrency(anuncio.valor)}
-        </p>
+        </div>
 
         {anuncio.urLs && anuncio.urLs.length > 0 && (
           <div className="popup-images-container">
