@@ -80,10 +80,11 @@ const TokenAuthentication = () => {
     setIsLoading(true);
 
     if (formData.newPassword !== formData.confirmPassword) {
-      toast.error("As senhas não coincidem");
+      toast.error("A confirmação da senha está diferente da senha.");
       setIsLoading(false);
       return;
     }
+
 
     try {
       const response = await fetch(
