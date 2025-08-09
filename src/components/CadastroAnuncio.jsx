@@ -44,7 +44,10 @@ const initialFormState = {
 };
 
 const CadastroAnuncio = () => {
+  const navigate = useNavigate();
+
   const user = useSelector((state) => state.user);
+  
   const [step, setStep] = useState(1);
   const [form, setForm] = useState(initialFormState);
   const [joiaId, setJoiaId] = useState(null);
@@ -167,7 +170,8 @@ const CadastroAnuncio = () => {
       });
       if (!response.ok) throw new Error("Erro ao criar anúncio.");
       toast.success("Anúncio criado com sucesso!");
-      setStep(1);
+
+      setTimeout(() => navigate("/catalogo/todos"), 0);
       setForm(initialFormState);
       setJoiaId(null);
       setTitulo("");

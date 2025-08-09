@@ -43,7 +43,7 @@ const Login = () => {
         toast.success(
           `Login realizado com sucesso! Bem-vindo Admin, ${user.nome}`
         );
-        setTimeout(() => navigate("/adminPage"), 1500);
+        setTimeout(() => navigate("/adminPage"), 0);
       } else {
         toast.success(`Login realizado com sucesso! Bem-vindo, ${user.nome}`);
         setTimeout(() => navigate("/"), 0);
