@@ -18,8 +18,6 @@ function DragAndDropUploader({ onFilesUploaded }) {
   };
 
   const addFiles = (newFiles) => {
-    // Concatenar arquivos novos aos já selecionados
-    // Opcional: evitar arquivos duplicados pelo nome e tamanho
     setSelectedFiles((prevFiles) => {
       const allFiles = [...prevFiles];
 
@@ -32,7 +30,7 @@ function DragAndDropUploader({ onFilesUploaded }) {
         }
       });
 
-      onFilesUploaded(allFiles); // Atualizar callback com a lista completa
+      onFilesUploaded(allFiles);
       return allFiles;
     });
   };
@@ -47,7 +45,7 @@ function DragAndDropUploader({ onFilesUploaded }) {
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
     addFiles(files);
-    e.target.value = null; // limpar o input para permitir re-upload do mesmo arquivo se quiser
+    e.target.value = null; // permite reupload do mesmo arquivo
   };
 
   return (
@@ -57,10 +55,22 @@ function DragAndDropUploader({ onFilesUploaded }) {
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
       onClick={() => fileInputRef.current.click()}
+      style={{ cursor: "pointer" }}
     >
       <p>
         Arraste e solte as imagens aqui <br /> ou clique para selecionar
       </p>
+
+      {/* input oculto */}
+      <input
+        type="file"
+        multiple
+        accept="image/*"
+        ref={fileInputRef}
+        onChange={handleFileChange}
+        style={{ display: "none" }}
+      />
+
       <button
         type="button"
         className="upload-button"
@@ -71,6 +81,7 @@ function DragAndDropUploader({ onFilesUploaded }) {
       >
         Selecionar Imagens
       </button>
+
       {selectedFiles.length > 0 && (
         <ul className="file-list">
           {selectedFiles.map((file, index) => (
