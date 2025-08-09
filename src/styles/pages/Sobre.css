@@ -677,57 +677,63 @@
   height: 60vh;
   width: 100%;
   display: flex;
+  /* Layout padrão: dois itens lado a lado */
+  gap: 2rem;
+  padding: 0 2rem;
+  box-sizing: border-box;
 }
 
-/* Itens lado a lado em telas grandes */
 .Sobre__awards__item {
   width: 50%;
   height: 100%;
   padding: 4rem;
   position: relative;
   display: flex;
-  justify-content: left;
+  flex-direction: column;
+  justify-content: center;
+  /* Removi justify-content: left para centralizar verticalmente */
 }
 
 .Sobre__awards__item h1 {
   font-size: 2rem;
   text-transform: uppercase;
-  margin: 0;
+  margin: 0 0 1rem 0;
   color: #f9cdcd;
-  font-weight: 800;
-  margin-top: -2px;
   font-weight: normal;
 }
 
 .Sobre__awards__item h2 {
   color: #f9cdcd;
-  font-size: 2rem;
-  max-width: 500px;
-  margin-left: -200px;
-  margin-top: 10px;
+  font-size: 1.8rem;
+  max-width: 100%;
+  margin: 10px 0 0 0;
   font-weight: normal;
+  line-height: 1.3;
+  /* Removido margin-left negativo para evitar overflow */
 }
+
 
 @media (max-width: 1024px) {
   .Sobre__awards {
-    height: 40vh;
+    height: 60vh;
     width: 100%;
     display: flex;
     flex-direction: column;
+    padding: 1.5rem 1rem;
   }
 
   /* Itens lado a lado em telas grandes */
   .Sobre__awards__item {
     width: 100%;
     height: 100%;
-    padding: 2rem;
+    padding: 0;
     position: relative;
     display: flex;
   }
 
   .Sobre__awards__item h1 {
     color: #f9cdcd;
-    font-size: 4rem;
+    font-size: 2rem;
     text-transform: uppercase;
     font-weight: normal;
   }
