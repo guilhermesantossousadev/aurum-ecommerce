@@ -219,7 +219,7 @@ function CrudNewsletter() {
 
                 {newsletters.length === 0 ? (
                   <p className="Principal__box__item__inside">
-                    Nenhuma newsletter encontrada.
+                    Nenhum cadastro na newsletter encontrado.
                   </p>
                 ) : (
                   <ul>

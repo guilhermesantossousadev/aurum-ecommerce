@@ -21,7 +21,28 @@
   text-align: center;
 }
 
-button {
+.popup-images-container {
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.popup-images-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.popup-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.popup-close-button {
   padding: 0.5rem 1rem;
   margin-top: 1rem;
+  cursor: pointer;
 }

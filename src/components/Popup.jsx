@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/components/Popup.css";
-import formatCurrency from "../components/utils/formatCurrency"; // ajuste o caminho se necessário
+import formatCurrency from "../components/utils/formatCurrency";
 
 function Popup({ anuncio, onClose }) {
   if (!anuncio) return null;
@@ -17,35 +17,22 @@ function Popup({ anuncio, onClose }) {
         </p>
 
         {anuncio.urLs && anuncio.urLs.length > 0 && (
-          <div style={{ marginTop: "1rem" }}>
+          <div className="popup-images-container">
             <strong>Imagens:</strong>
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                gap: "0.5rem",
-                marginTop: "0.5rem",
-              }}
-            >
+            <div className="popup-images-list">
               {anuncio.urLs.map((url, index) => (
                 <img
                   key={index}
                   src={url}
                   alt={`Imagem ${index + 1}`}
-                  style={{
-                    width: "80px",
-                    height: "80px",
-                    objectFit: "cover",
-                    borderRadius: "8px",
-                    border: "1px solid #ccc",
-                  }}
+                  className="popup-image"
                 />
               ))}
             </div>
           </div>
         )}
 
-        <button onClick={onClose} style={{ marginTop: "1rem" }}>
+        <button onClick={onClose} className="popup-close-button">
           Fechar
         </button>
       </div>
