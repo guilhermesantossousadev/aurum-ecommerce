@@ -48,6 +48,15 @@ function DragAndDropUploader({ onFilesUploaded }) {
     e.target.value = null; // permite reupload do mesmo arquivo
   };
 
+  // Remove um arquivo da lista pelo índice
+  const removeFile = (indexToRemove) => {
+    setSelectedFiles((prevFiles) => {
+      const newFiles = prevFiles.filter((_, i) => i !== indexToRemove);
+      onFilesUploaded(newFiles);
+      return newFiles;
+    });
+  };
+
   return (
     <div
       className={`uploader-container ${dragging ? "dragging" : ""}`}
@@ -85,7 +94,28 @@ function DragAndDropUploader({ onFilesUploaded }) {
       {selectedFiles.length > 0 && (
         <ul className="file-list">
           {selectedFiles.map((file, index) => (
-            <li key={index}>• {file.name}</li>
+            <li key={index} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              • {file.name}
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  removeFile(index);
+                }}
+                style={{
+                  marginLeft: "auto",
+                  background: "transparent",
+                  border: "none",
+                  color: "red",
+                  fontWeight: "bold",
+                  cursor: "pointer",
+                  fontSize: "16px",
+                }}
+                aria-label={`Remover ${file.name}`}
+              >
+                ×
+              </button>
+            </li>
           ))}
         </ul>
       )}

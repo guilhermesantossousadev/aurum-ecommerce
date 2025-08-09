@@ -51,6 +51,9 @@ const PostAnuncios = () => {
     fonteEnergia: "",
   });
 
+  const [loadingJoia, setLoadingJoia] = useState(false);
+  const [loadingAnuncio, setLoadingAnuncio] = useState(false);
+
   useEffect(() => {
     if (user && user.id) {
       setUsuarioId(user.id);
@@ -59,10 +62,8 @@ const PostAnuncios = () => {
 
   // Atualiza valor numérico com validação simples
   const handleCurrencyChange = (inputValue) => {
-    // Remove tudo que não for dígito
     const onlyDigits = inputValue.replace(/\D/g, "");
     const numberValue = Number(onlyDigits) / 100;
-
     setJoiaData((prev) => ({ ...prev, valor: numberValue }));
   };
 
@@ -115,17 +116,13 @@ const PostAnuncios = () => {
     }
   };
 
-  // Criação da joia, agora valor numérico direto
   async function handleCreateJoia() {
+    setLoadingJoia(true);
     try {
       const joiaDataClean = {
         ...joiaData,
-        // valor já é número, só garantir
         valor: Number(joiaData.valor),
       };
-
-
-      console.log("Enviando joia:", JSON.stringify(joiaDataClean));
 
       const response = await fetch(
         "https://marketplacejoias-api-latest.onrender.com/api/Joia/PostJoia",
@@ -146,26 +143,28 @@ const PostAnuncios = () => {
       setStep(2);
     } catch (error) {
       toast.error(`Erro ao criar joia: ${error.message}`);
+    } finally {
+      setLoadingJoia(false);
     }
   }
 
-  // Criação do anúncio usando URLs retornadas do upload
   async function handleCreateAnuncio() {
-    const uploadedUrls = await handleUploadImages();
-
-    if (uploadedUrls.length === 0) {
-      // Se não teve imagens válidas, aborta criação
-      return;
-    }
-
-    const anuncioData = {
-      joiaId,
-      titulo,
-      urLs: uploadedUrls,
-      usuarioId,
-    };
-
+    setLoadingAnuncio(true);
     try {
+      const uploadedUrls = await handleUploadImages();
+
+      if (uploadedUrls.length === 0) {
+        setLoadingAnuncio(false);
+        return;
+      }
+
+      const anuncioData = {
+        joiaId,
+        titulo,
+        urLs: uploadedUrls,
+        usuarioId,
+      };
+
       const response = await fetch(
         "https://marketplacejoias-api-latest.onrender.com/api/Anuncio/PostAnuncio",
         {
@@ -188,6 +187,8 @@ const PostAnuncios = () => {
       setStep(1);
     } catch (error) {
       toast.error(`Erro ao criar anúncio: ${error.message}`);
+    } finally {
+      setLoadingAnuncio(false);
     }
   }
 
@@ -313,7 +314,9 @@ const PostAnuncios = () => {
             handleBooleanChange={handleBooleanChange}
           />
 
-          <button type="submit">Cadastrar Joia</button>
+          <button type="submit" disabled={loadingJoia}>
+            {loadingJoia ? "Carregando..." : "Cadastrar Joia"}
+          </button>
         </form>
       )}
 
@@ -335,7 +338,9 @@ const PostAnuncios = () => {
 
           <DragAndDropUploader onFilesUploaded={setSelectedImages} />
 
-          <button type="submit">Cadastrar Anúncio</button>
+          <button type="submit" disabled={loadingAnuncio}>
+            {loadingAnuncio ? "Carregando..." : "Cadastrar Anúncio"}
+          </button>
         </form>
       )}
     </div>
