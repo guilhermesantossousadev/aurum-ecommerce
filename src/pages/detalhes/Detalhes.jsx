@@ -60,18 +60,8 @@ function Detalhes() {
       const hoje = new Date();
       const opcoes = [
         {
-          tipo: "Retire em loja",
-          preco: 0,
-          prazo: new Date(
-            hoje.getFullYear(),
-            hoje.getMonth(),
-            hoje.getDate() + ((5 - hoje.getDay() + 7) % 7) + 1
-          ),
-          descricao: "Retire em uma loja a partir de sexta-feira",
-        },
-        {
           tipo: "Entrega expressa",
-          preco: freteBase + 5,
+          preco: 0.50,
           prazo: new Date(
             hoje.getFullYear(),
             hoje.getMonth(),
@@ -331,9 +321,8 @@ function Detalhes() {
             {anuncio.isAvaliable === true && (
               <div className="frete__container">
                 <div
-                  className={`frete__container__item ${
-                    isCalculed ? "left" : ""
-                  }`}
+                  className={`frete__container__item ${isCalculed ? "left" : ""
+                    }`}
                 >
                   <button
                     className="btn-adicionar-carrinho"
@@ -366,9 +355,8 @@ function Detalhes() {
                   />
 
                   <button
-                    className={`btn-calcular-frete ${
-                      loadingFrete ? "loading" : ""
-                    }`}
+                    className={`btn-calcular-frete ${loadingFrete ? "loading" : ""
+                      }`}
                     onClick={calcularFrete}
                     disabled={loadingFrete || anuncio.isAvaliable === false}
                   >
