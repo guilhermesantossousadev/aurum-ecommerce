@@ -257,6 +257,7 @@ function CrudAnuncios() {
                               border: "none",
                               padding: "6px 12px",
                               cursor: "pointer",
+                              fontSize: "12px"
                             }}
                           >
                             Visualizar

@@ -200,6 +200,8 @@
   }
 
   .Principal__box__item__inside.acoes {
-    justify-content: flex-start;
+    padding-top: 2rem;
+    align-items: center;
+    justify-content: center;
   }
 }
