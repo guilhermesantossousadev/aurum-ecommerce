@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "sonner";
+import { useNavigate, Link } from "react-router-dom";
+
 import DragAndDropUploader from "./DragAndDropUploader";
 import SpecificInputs from "./SpecificInputs";
-import { Link } from "react-router-dom";
 
 import "../styles/components/CadastroAnuncio.css";
 
-import SetaPretaEsquerda from "../images/Setas/SetaPretaEsquerda.png"
+import SetaPretaEsquerda from "../images/Setas/SetaPretaEsquerda.png";
 
 const apiBaseUrl =
   import.meta.env.VITE_API_BASE_URL ||
@@ -45,9 +46,8 @@ const initialFormState = {
 
 const CadastroAnuncio = () => {
   const navigate = useNavigate();
-
   const user = useSelector((state) => state.user);
-  
+
   const [step, setStep] = useState(1);
   const [form, setForm] = useState(initialFormState);
   const [joiaId, setJoiaId] = useState(null);
@@ -60,21 +60,24 @@ const CadastroAnuncio = () => {
     return (
       <div className="CadastroAnuncio">
         <div className="return">
-          <Link to="/catalogo/todos"><img src={SetaPretaEsquerda} alt="SetaPretaEsquerda" /> Voltar</Link>
+          <Link to="/catalogo/todos">
+            <img src={SetaPretaEsquerda} alt="Voltar" /> Voltar
+          </Link>
         </div>
         <div className="CadastroAnuncio-container">
           <div className="CadastroAnuncio-error">
             <h2>Você não está logado</h2>
             <p>Por favor, faça login para acessar o cadastro de anúncio.</p>
-            <a href="/login" className="btn-login">
+            <Link to="/login" className="btn-login">
               Ir para Login
-            </a>
+            </Link>
           </div>
         </div>
       </div>
     );
   }
 
+  // Controla campos numéricos com só números e ponto decimal
   const handleChangeNumeros = (e) => {
     const { name, value } = e.target;
     const somenteNumeros = value.replace(/[^0-9.]/g, "");
@@ -83,22 +86,27 @@ const CadastroAnuncio = () => {
     if (partes.length > 1) {
       formatted += "." + partes.slice(1).join("");
     }
-
     setForm((prev) => ({
       ...prev,
       [name]: formatted,
     }));
   };
 
+  // Handler genérico para inputs texto, number, checkbox, radio etc
   const handleChange = (e) => {
     const { name, type, value, checked } = e.target;
     setForm((prev) => ({
       ...prev,
       [name]:
-        type === "radio" ? checked : type === "number" ? Number(value) : value,
+        type === "checkbox"
+          ? checked
+          : type === "number"
+            ? Number(value)
+            : value,
     }));
   };
 
+  // Handler específico para booleanos se quiser usar direto
   const handleBooleanChange = (name, value) => {
     setForm((prev) => ({
       ...prev,
@@ -106,6 +114,7 @@ const CadastroAnuncio = () => {
     }));
   };
 
+  // Upload das imagens para o backend, retorna array de URLs
   const handleUploadImages = async () => {
     if (!selectedImages.length) {
       toast.error("Nenhuma imagem selecionada.");
@@ -116,13 +125,10 @@ const CadastroAnuncio = () => {
     selectedImages.forEach((file) => formData.append("files", file));
 
     try {
-      const response = await fetch(
-        `${apiBaseUrl}/Anuncio/UploadImagesAnuncio`,
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
+      const response = await fetch(`${apiBaseUrl}/Anuncio/UploadImagesAnuncio`, {
+        method: "POST",
+        body: formData,
+      });
       if (!response.ok) throw new Error("Erro ao enviar imagens.");
       const urls = await response.json();
       toast.success("Imagens enviadas com sucesso!");
@@ -133,6 +139,7 @@ const CadastroAnuncio = () => {
     }
   };
 
+  // Cria a joia no backend e avança para próximo passo
   const handleCreateJoia = async () => {
     setIsLoading(true);
     try {
@@ -142,8 +149,9 @@ const CadastroAnuncio = () => {
         body: JSON.stringify(form),
       });
       if (!response.ok) throw new Error("Erro ao criar joia.");
-      const id = await response.text();
-      setJoiaId(id);
+      // Supondo que retorne JSON com id: { id: "123" }
+      const data = await response.json();
+      setJoiaId(data.id || data);
       toast.success("Joia criada com sucesso!");
       setStep(2);
     } catch (error) {
@@ -153,14 +161,19 @@ const CadastroAnuncio = () => {
     }
   };
 
+  // Cria o anúncio vinculando a joia e imagens
   const handleCreateAnuncio = async () => {
     setIsLoading(true);
     try {
       const urls = await handleUploadImages();
+      if (!urls.length) {
+        setIsLoading(false);
+        return;
+      }
       const anuncioData = {
         joiaId,
         titulo,
-        urLs: urls,
+        urls, // corrigido para urls minúsculo
         usuarioId: user.id,
       };
       const response = await fetch(`${apiBaseUrl}/Anuncio/PostAnuncio`, {
@@ -183,16 +196,19 @@ const CadastroAnuncio = () => {
     }
   };
 
+  // Atualiza as imagens selecionadas
   const handleFilesUploaded = (files) => {
     setSelectedImages(files);
   };
 
-
   return (
     <div className="PostAnuncios">
       <div className="return">
-        <Link to="/catalogo/todos"><img src={SetaPretaEsquerda} alt="SetaPretaEsquerda" /> Voltar</Link>
+        <Link to="/catalogo/todos">
+          <img src={SetaPretaEsquerda} alt="Voltar" /> Voltar
+        </Link>
       </div>
+
       <div className="step-counter">
         <p>{step === 1 ? "Cadastro da Joia" : "Cadastro do Anúncio"}</p>
         <div className="step-bar">
@@ -283,10 +299,10 @@ const CadastroAnuncio = () => {
 
           <label className="radio-label">
             <input
-              type="radio"
+              type="checkbox"
               name="isStudded"
               checked={form.isStudded}
-              onClick={() =>
+              onChange={() =>
                 setForm((prev) => ({
                   ...prev,
                   isStudded: !prev.isStudded,

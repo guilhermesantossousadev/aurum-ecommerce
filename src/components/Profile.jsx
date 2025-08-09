@@ -372,7 +372,7 @@ const Profile = () => {
                     <div key={anuncio.id} className="Profile__card__anuncio">
                       <div className="Profile__card__anuncio__image">
                         {anuncio.urLs?.[0] ? (
-                          <img src={anuncio.urLs[0]} alt="Imagem do anúncio" />
+                          <img src={anuncio.urLs[0]} alt="Imagem do anúncio" onClick={`/detalhes/${anuncio.id}`} />
                         ) : (
                           <p>Sem imagem</p>
                         )}

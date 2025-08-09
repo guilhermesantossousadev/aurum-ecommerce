@@ -25,21 +25,6 @@ function AdminPage() {
     <div className="Admin">
       <div className="Admin__left">
         <nav className="Admin__menu" aria-label="Admin navigation menu">
-          <div className="Dashboard__menu__section">
-            <div className="Dashboard__menu__title">ADMINISTRAÇÂO</div>
-            <ul className="Dashboard__menu">
-              <li
-                className={step === 0 ? "active" : ""}
-                onClick={() => setStep(0)}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => (e.key === "Enter" ? setStep(0) : null)}
-                style={{ display: "flex", flexDirection: "row", gap: "10px" }}
-              >
-                Gráficos & Dados
-              </li>
-            </ul>
-          </div>
 
           <div className="Dashboard__menu__section">
             <div className="Dashboard__menu__title">COMERCIAL</div>
@@ -124,7 +109,6 @@ function AdminPage() {
 
       <div className="Admin__right">
         <main className="Admin__all" role="main">
-          {step === 0 && <Graficos />}
           {step === 1 && <CrudAnuncios />}
           {step === 2 && <CrudVendas />}
           {step === 3 && <CrudUsuarios />}
