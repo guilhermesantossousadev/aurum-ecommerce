@@ -57,20 +57,20 @@ function DragAndDropUploader({ onFilesUploaded }) {
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
       onClick={() => fileInputRef.current.click()}
+      style={{ cursor: "pointer" }}
     >
       <p>
         Arraste e solte as imagens aqui <br /> ou clique para selecionar
       </p>
-      <button
-        type="button"
-        className="upload-button"
-        onClick={(e) => {
-          e.stopPropagation();
-          fileInputRef.current.click();
-        }}
-      >
-        Selecionar Imagens
-      </button>
+      <input
+        type="file"
+        multiple
+        accept="image/*"
+        ref={fileInputRef}
+        className="file-input" // vai ficar oculto
+        onChange={handleFileChange}
+      />
+      {/* Pode tirar o botão se quiser */}
       {selectedFiles.length > 0 && (
         <ul className="file-list">
           {selectedFiles.map((file, index) => (
