@@ -2,8 +2,8 @@ import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { Toaster, toast } from "sonner";
-import { FaShoppingBag } from "react-icons/fa";
+import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 import formatCurrency from "../components/utils/formatCurrency";
 
@@ -13,6 +13,7 @@ import "../styles/pages/Carrinho.css";
 
 function Carrinho() {
   const user = useSelector((state) => state.user);
+  const navigate = useNavigate();
 
   const [cepAutoFilled, setCepAutoFilled] = useState(false);
 
@@ -450,7 +451,8 @@ function Carrinho() {
                     <div key={anuncio.id} className="carrinho-item">
                       <div className="item-imagem">
                         {anuncio.urLs?.length > 0 && (
-                          <img src={anuncio.urLs[0]} alt={anuncio.titulo} />
+                          < img src={anuncio.urLs[0]} alt={anuncio.titulo}
+                            onClick={() => navigate(`/detalhes/${anuncio.id}`)} />
                         )}
                       </div>
                       <div className="item-detalhes">
@@ -548,9 +550,8 @@ function Carrinho() {
 
                 {frete && (
                   <p
-                    className={`frete-simulado ${
-                      frete.valor === "0.00" ? "frete-gratis" : ""
-                    }`}
+                    className={`frete-simulado ${frete.valor === "0.00" ? "frete-gratis" : ""
+                      }`}
                   >
                     Frete via PAC:{" "}
                     {frete.valor === "0.00" ? (
@@ -572,7 +573,7 @@ function Carrinho() {
                     Valor:{" "}
                     {formatCurrency(
                       (carrinho.valorTotal || 0) +
-                        (parseFloat(frete?.valor) || 0)
+                      (parseFloat(frete?.valor) || 0)
                     )}
                   </span>
                 </div>

@@ -111,9 +111,9 @@ const Sobre = () => {
               <h1 className="Sobre__hero__item__right__top__left">Pessoas</h1>
               <span className="Sobre__hero__item__right__top__left">120+</span>
               <p className="Sobre__hero__item__right__top__left">
-                Somos uma equipe de alto nível, composta por pessoas diversas
-                que estão aqui para fazer um ótimo trabalho e ser uma ótima
-                companhia para trabalhar.
+                Somos uma equipe composta por pessoas diversas,
+                unidas pelo propósito de oferecer uma experiência única de compra e venda —
+                e de sermos um ambiente inspirador para trabalhar.
               </p>
             </div>
             <div className="Sobre__hero__item__right__top__right">
@@ -122,8 +122,9 @@ const Sobre = () => {
               </h1>
               <span className="Sobre__hero__item__right__top__right">28</span>
               <p className="Sobre__hero__item__right__top__right">
-                Como parte do Dept,estamos dedicados a fornecer os melhores serviços de
-                design, estratégia e tecnologia aos nossos clientes parceiros.
+                Como um marketplace digital especializado em joias,
+                dedicamo-nos a entregar a melhor experiência em design,
+                curadoria e tecnologia para nossos clientes e parceiros vendedores.
               </p>
             </div>
           </div>
@@ -133,17 +134,17 @@ const Sobre = () => {
               <h1>Anos</h1>
               <span>10</span>
               <p>
-                Embora tenhamos orgulho da nossa história e das nossas
-                realizações, somos leais ao nosso futuro e não ao nosso passado.
+                Temos orgulho da nossa trajetória e conquistas, mas nossa lealdade está voltada para o futuro,
+                para criar novas histórias brilhantes com cada peça que passa por nossas vitrines digitais.
               </p>
             </div>
             <div className="Sobre__hero__item__right__mid__right">
               <h1>Crescimento</h1>
               <span>168%</span>
               <p>
-                Como a 18ª agência de crescimento mais rápido da Adweek,
-                fortalecemos nossa empresa com novas lideranças, talentos e
-                clientes nos últimos dois anos. Aliás, estamos contratando.
+                Assim como lapidamos as pedras mais raras, fortalecemos nosso marketplace com novas parcerias,
+                talentos e coleções exclusivas nos últimos anos.
+                Estamos de portas abertas para novos talentos brilharem conosco.
               </p>
             </div>
           </div>
@@ -153,18 +154,17 @@ const Sobre = () => {
               <h1>Serviços</h1>
               <span>05</span>
               <p>
-                Estratégia. Experiência de Marca. Experiência Digital. Conteúdo.
-                Tecnologia. Somos exclusivamente criados para construir marcas
-                que importam na cultura.
+                Curadoria. Design Exclusivo. Experiência Digital. Cultura. Tecnologia.
+                Fomos criados para conectar peças que realmente importam para as pessoas e para a cultura.
               </p>
             </div>
             <div className="Sobre__hero__item__right__bottom__right">
               <h1>Classificação</h1>
               <span>01</span>
               <p>
-                Nas categorias relacionadas a dispositivos móveis e sites,
-                nenhuma outra agência foi reconhecida pelo Webby Awards mais do
-                que nós nos últimos quatro anos. Explore nosso trabalho.
+                No universo online de joias, nosso trabalho já foi reconhecido como referência em experiência digital e inovação.
+                Explore nossas coleções e descubra por que somos mais que um marketplace,
+                somos um palco para histórias preciosas.
               </p>
             </div>
           </div>

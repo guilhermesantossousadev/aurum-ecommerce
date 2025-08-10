@@ -95,7 +95,8 @@ function Detalhes() {
     try {
       const usuarioId = user?.id;
       if (!usuarioId) {
-        toast.error("Usuário não está logado.");
+        toast.error("Usuário não está logado, entre com seu login para conseguir adicionar um item ao carrinho");
+        navigate(`/login`)
         setLoadingAddCarrinho(false);
         return;
       }
