@@ -20,15 +20,12 @@
 }
 
 .Profile__Box {
-  position: absolute;
+  position: relative;
+  /* não precisa ser absolute */
   width: 92%;
-  height: auto;
-  max-height: 160vh;
-  min-height: 150vh;
   background-color: #fff;
-  transform: translate(-50%, -50%);
-  top: 40%;
-  left: 50%;
+  margin: -150px auto 2rem;
+  /* desloca para cima sobre a imagem */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   padding: 2rem;
   border-radius: 9px;
@@ -36,7 +33,36 @@
   display: flex;
   align-items: center;
   flex-direction: column;
+  height: auto;
+  /* deixa crescer */
+  max-height: none;
+  /* remove limite */
 }
+
+.Profile__content-grid {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  padding: 0 2rem;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+  height: auto;
+  /* deixa crescer */
+}
+
+.Profile__section-box {
+  flex: 1 1 48%;
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  min-height: 30vh;
+  max-height: 50vh;
+  height: auto;
+  overflow-y: auto;
+  /* evita barra interna desnecessária */
+}
+
 
 .Profile__Box__img {
   position: absolute;

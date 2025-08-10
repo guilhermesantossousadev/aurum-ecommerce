@@ -68,12 +68,14 @@
   background-color: #fafafa;
   transition: border-color 0.3s ease;
 }
+
 .PostUsuario input,
 .PostUsuario select,
 .PostUsuario textarea:focus {
   outline: none;
   border-color: #555;
 }
+
 .PostUsuario input:focus,
 .PostUsuario select:focus,
 .PostUsuario textarea:focus {
@@ -90,7 +92,7 @@
 .PostUsuario button {
   margin-top: 2rem;
   padding: 1rem 2rem;
-  background-color: #555;
+  background-color: rgb(63, 77, 103);
   border: none;
   border-radius: 6px;
   color: #fff;
@@ -101,7 +103,7 @@
 }
 
 .PostUsuario button:hover {
-  background-color: #3b3b3b;
+  background-color: rgb(105, 124, 161);
 }
 
 .PostUsuario .checkbox-label {

@@ -87,7 +87,7 @@
 .PostNewsletterMessage button {
   margin-top: 2rem;
   padding: 1rem 2rem;
-  background-color: #555;
+  background-color: rgb(63, 77, 103);
   border: none;
   border-radius: 6px;
   color: #fff;
@@ -99,5 +99,6 @@
 
 .PostNewsletter button:hover,
 .PostNewsletterMessage button:hover {
-  background-color: #3b3b3b;
+  background-color: rgb(105, 124, 161);
+  ;
 }

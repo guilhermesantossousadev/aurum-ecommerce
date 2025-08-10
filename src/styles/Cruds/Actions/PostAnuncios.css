@@ -28,7 +28,8 @@
 .step-progress {
   height: 100%;
   width: 50%;
-  background-color: #555; /* sua cor desejada */
+  background-color: #555;
+  /* sua cor desejada */
   transition: width 0.3s ease;
 }
 
@@ -122,13 +123,14 @@
   border: 1px solid #555;
   border-radius: 5px;
   background-color: transparent;
-  resize: none; /* Impede o redimensionamento manual */
+  resize: none;
+  /* Impede o redimensionamento manual */
 }
 
 .PostAnuncios button {
   margin-top: 2rem;
   padding: 1rem 2rem;
-  background-color: #555;
+  background-color: rgb(63, 77, 103);
   border: none;
   border-radius: 6px;
   color: #fff;
@@ -139,7 +141,7 @@
 }
 
 .PostAnuncios button:hover {
-  background-color: #3b3b3b;
+  background-color: rgb(105, 124, 161);
 }
 
 .PostAnuncios .radio-label {
