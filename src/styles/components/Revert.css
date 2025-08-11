@@ -9,6 +9,7 @@
 
 .Revert h2 {
     color: #28a745;
+    font-size: 3rem;
 }
 
 .Revert p {
@@ -16,6 +17,7 @@
     text-align: center;
     padding-top: 20px;
     color: #fff;
+    font-size: 1.5rem;
 }
 
 
@@ -24,6 +26,12 @@
 }
 
 @media(max-width:768px) {
+
+
+    .Revert h2 {
+        color: #28a745;
+        font-size: 2rem;
+    }
 
     .Revert p {
         max-width: 300px;
