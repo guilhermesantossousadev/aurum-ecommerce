@@ -56,7 +56,7 @@ function Revert() {
       .then((res) => {
         if (res.ok) {
           toast.success("Alterações revertidas com sucesso!");
-          setTimeout(() => navigate("/login"), 2500);
+          setTimeout(() => navigate("/login"), 3000);
         } else {
           return res.text().then((msg) => {
             throw new Error(msg || "Erro ao reverter alterações");
