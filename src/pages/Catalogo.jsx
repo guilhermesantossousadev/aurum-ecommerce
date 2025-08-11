@@ -12,7 +12,7 @@ import SetaPretaEsquerda from "../images/Setas/SetaPretaEsquerda.png";
 function Catalogo() {
   const { tipo } = useParams();
   const navigate = useNavigate();
-  const anunciosPerPage = 7;
+  const anunciosPerPage = 5;
   const tipoInicial = tipo ? tipo : "todos";
   const [selectedFilter, setSelectedFilter] = useState(tipoInicial);
   const [anuncios, setAnuncios] = useState([]);
