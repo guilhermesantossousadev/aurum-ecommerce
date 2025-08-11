@@ -6,10 +6,11 @@
 }
 
 .Profile__Top {
-  background: url("../../images/Profile/BannerProfile.jpg");
+  background: url("../../images/Profile/BannerProfile.jpg") no-repeat center center;
   width: 100%;
   min-height: 80vh;
   height: auto;
+  background-size: cover;
 }
 
 .Profile__Bottom {

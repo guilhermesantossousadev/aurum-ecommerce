@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Toaster, toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 import DragAndDropUploader from "../../../components/DragAndDropUploader";
 import SpecificInputs from "../../../components/SpecificInputs";
@@ -9,21 +10,18 @@ import "../../../styles/Cruds/Actions/PostAnuncios.css";
 
 const PostAnuncios = () => {
   const user = useSelector((state) => state.user);
+  const navigate = useNavigate();
 
   const [step, setStep] = useState(1); // 1: Joia, 2: Anúncio
 
   const [joiaId, setJoiaId] = useState(null);
   const [titulo, setTitulo] = useState("");
-  const [urls, setUrls] = useState([]);
-
   const [selectedImages, setSelectedImages] = useState([]);
-
   const [usuarioId, setUsuarioId] = useState("");
 
-  // Agora valor numérico (number), não string formatada
   const [joiaData, setJoiaData] = useState({
     tipoPeca: "",
-    valor: 0, // número
+    valor: 0,
     descricao: "",
     peso: 0,
     material: "",
@@ -81,7 +79,12 @@ const PostAnuncios = () => {
     setJoiaData((prev) => ({ ...prev, [field]: value }));
   };
 
-  // Envio das imagens: retorna as URLs enviadas ou [] em erro
+  // Atualiza as imagens selecionadas vindas do DragAndDropUploader
+  const handleFilesUploaded = (files) => {
+    setSelectedImages(files);
+  };
+
+  // Upload das imagens para o backend, retorna array de URLs
   const handleUploadImages = async () => {
     if (!selectedImages || selectedImages.length === 0) {
       toast.error("Nenhuma imagem selecionada.");
@@ -108,7 +111,6 @@ const PostAnuncios = () => {
 
       toast.success("Imagens enviadas com sucesso!");
       const urlsResponse = await response.json();
-      setUrls(urlsResponse);
       return urlsResponse;
     } catch (error) {
       toast.error(`Erro ao enviar imagens: ${error.message}`);
@@ -116,15 +118,26 @@ const PostAnuncios = () => {
     }
   };
 
-  async function handleCreateJoia() {
-    setLoadingJoia(true);
+  // Avança para o step 2 (formulário do anúncio)
+  const handleNextStep = (e) => {
+    e.preventDefault();
+    // Aqui pode validar os campos da joia antes de avançar
+    setStep(2);
+  };
+
+  // Cria joia + upload + cria anúncio no step 2
+  async function handleCreateAnuncio(e) {
+    e.preventDefault();
+    setLoadingAnuncio(true);
     try {
+      // Cria a joia primeiro
+      setLoadingJoia(true);
       const joiaDataClean = {
         ...joiaData,
         valor: Number(joiaData.valor),
       };
 
-      const response = await fetch(
+      const responseJoia = await fetch(
         "https://marketplacejoias-api-latest.onrender.com/api/Joia/PostJoia",
         {
           method: "POST",
@@ -133,39 +146,32 @@ const PostAnuncios = () => {
         }
       );
 
-      if (!response.ok) {
-        throw new Error(`Erro ao criar joia: ${response.status}`);
+      setLoadingJoia(false);
+
+      if (!responseJoia.ok) {
+        throw new Error(`Erro ao criar joia: ${responseJoia.status}`);
       }
 
-      const data = await response.text();
-      setJoiaId(data);
+      const joiaIdCreated = await responseJoia.text();
+      setJoiaId(joiaIdCreated);
       toast.success("Joia criada com sucesso!");
-      setStep(2);
-    } catch (error) {
-      toast.error(`Erro ao criar joia: ${error.message}`);
-    } finally {
-      setLoadingJoia(false);
-    }
-  }
 
-  async function handleCreateAnuncio() {
-    setLoadingAnuncio(true);
-    try {
+      // Upload das imagens
       const uploadedUrls = await handleUploadImages();
 
       if (uploadedUrls.length === 0) {
-        setLoadingAnuncio(false);
-        return;
+        throw new Error("Nenhuma imagem foi enviada.");
       }
 
+      // Cria o anúncio com o joiaId retornado
       const anuncioData = {
-        joiaId,
+        joiaId: joiaIdCreated,
         titulo,
-        urLs: uploadedUrls,
+        urls: uploadedUrls, // corrigi "urLs" para "urls"
         usuarioId,
       };
 
-      const response = await fetch(
+      const responseAnuncio = await fetch(
         "https://marketplacejoias-api-latest.onrender.com/api/Anuncio/PostAnuncio",
         {
           method: "POST",
@@ -174,21 +180,53 @@ const PostAnuncios = () => {
         }
       );
 
-      if (!response.ok) {
-        throw new Error(`Erro ao criar anúncio: ${response.status}`);
+      if (!responseAnuncio.ok) {
+        throw new Error(`Erro ao criar anúncio: ${responseAnuncio.status}`);
       }
 
       toast.success("Anúncio criado com sucesso!");
-      // Limpa estados para novo cadastro
+
+      navigate(`/catalogo/todos`)
+
+      // Limpa estados e volta para step 1
       setTitulo("");
-      setJoiaId(null);
-      setUrls([]);
+      setJoiaId(null); s
       setSelectedImages([]);
+      setJoiaData({
+        tipoPeca: "",
+        valor: 0,
+        descricao: "",
+        peso: 0,
+        material: "",
+        isStudded: false,
+        materialCravejado: "",
+        tamanho: 0,
+        formato: "",
+        tipoFecho: "",
+        modelo: "",
+        altura: 0,
+        pesoIndividual: 0,
+        comprimento: 0,
+        espessura: 0,
+        havePendant: false,
+        tipoCorrente: "",
+        regiao: "",
+        fechamento: "",
+        isAntiallergic: false,
+        haveCharms: false,
+        flexibilidade: "",
+        materialPulseira: "",
+        tipoMovimento: "",
+        haveWaterResistance: false,
+        diametroCaixa: 0,
+        fonteEnergia: "",
+      });
       setStep(1);
     } catch (error) {
-      toast.error(`Erro ao criar anúncio: ${error.message}`);
+      toast.error(error.message);
     } finally {
       setLoadingAnuncio(false);
+      setLoadingJoia(false);
     }
   }
 
@@ -196,27 +234,21 @@ const PostAnuncios = () => {
     <div className="PostAnuncios">
       <Toaster position="top-right" />
 
-      <div className="step-counter">
+      <div className="step-counter-anuncios">
         <p>{step === 1 ? "Cadastro da Joia" : "Cadastro do Anúncio"}</p>
-        <div className="step-bar">
-          <div className={`step-progress ${step === 2 ? "complete" : ""}`} />
+        <div className="step-bar-anuncios">
+          <div className={`step-progress-anuncios ${step === 2 ? "complete" : ""}`} />
         </div>
       </div>
 
       {step === 1 && (
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleCreateJoia();
-          }}
-        >
-          <label>Tipo da Peça</label>
+        <form onSubmit={handleNextStep}>
           <select
             value={joiaData.tipoPeca}
             onChange={(e) => handleChange("tipoPeca", e.target.value)}
             required
           >
-            <option value="">Selecione</option>
+            <option value="">Selecione o tipo de joia</option>
             <option value="Anel">Anel</option>
             <option value="Brinco">Brinco</option>
             <option value="Colar">Colar</option>
@@ -232,24 +264,25 @@ const PostAnuncios = () => {
             value={formattedValor}
             onChange={(e) => handleCurrencyChange(e.target.value)}
             required
-            placeholder="R$ 0,00"
+            placeholder="Valor"
           />
 
-          <label>Descrição</label>
           <textarea
+            placeholder="Descrição"
             value={joiaData.descricao}
             onChange={(e) => handleChange("descricao", e.target.value)}
             required
           />
 
-          <label>Peso</label>
+          <label>Peso(mm)</label>
           <input
             type="text"
+            placeholder="Peso"
             inputMode="decimal"
-            pattern="[0-9]*[.,]?[0-9]*"
             value={joiaData.peso}
             onChange={(e) => {
-              const value = e.target.value.replace(",", ".");
+              let value = e.target.value;
+              value = value.replace(",", ".");
               if (/^\d*\.?\d*$/.test(value)) {
                 handleChange("peso", value);
               }
@@ -257,13 +290,12 @@ const PostAnuncios = () => {
             required
           />
 
-          <label>Material</label>
           <select
             value={joiaData.material}
             onChange={(e) => handleChange("material", e.target.value)}
             required
           >
-            <option value="">Selecione</option>
+            <option value="">Selecione o material da joia</option>
             <option value="Ouro">Ouro</option>
             <option value="Ouro Branco">Ouro Branco</option>
             <option value="Ouro Rosé">Ouro Rosé</option>
@@ -296,10 +328,10 @@ const PostAnuncios = () => {
           </label>
 
           {joiaData.isStudded && (
-            <div>
-              <label>Material Cravejado</label>
+            <div className="material-cravejado-wrapper" style={{ width: "100%" }}>
               <input
                 type="text"
+                placeholder="Material Cravejado"
                 value={joiaData.materialCravejado}
                 onChange={(e) => handleChange("materialCravejado", e.target.value)}
                 required
@@ -315,20 +347,14 @@ const PostAnuncios = () => {
           />
 
           <button type="submit" disabled={loadingJoia}>
-            {loadingJoia ? "Carregando..." : "Cadastrar Joia"}
+            {loadingJoia ? "Carregando..." : "Avançar para Anúncio"}
           </button>
         </form>
       )}
 
       {step === 2 && (
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleCreateAnuncio();
-          }}
-          className="form-etapa2"
-        >
-          <label>Título</label>
+        <form onSubmit={handleCreateAnuncio} className="form-etapa2">
+          <label>Título do Anúncio</label>
           <input
             type="text"
             value={titulo}
@@ -336,10 +362,24 @@ const PostAnuncios = () => {
             required
           />
 
-          <DragAndDropUploader onFilesUploaded={setSelectedImages} />
+          <label>Imagens do Anúncio</label>
+          <DragAndDropUploader onFilesUploaded={handleFilesUploaded} />
 
-          <button type="submit" disabled={loadingAnuncio}>
-            {loadingAnuncio ? "Carregando..." : "Cadastrar Anúncio"}
+          {selectedImages.length > 0 && (
+            <div className="preview-images" style={{ marginTop: 10 }}>
+              {selectedImages.map((file, index) => (
+                <img
+                  key={index}
+                  src={URL.createObjectURL(file)}
+                  alt={`preview-${index}`}
+                  style={{ width: 100, height: 100, objectFit: "cover", marginRight: 10 }}
+                />
+              ))}
+            </div>
+          )}
+
+          <button type="submit" disabled={loadingAnuncio || loadingJoia}>
+            {loadingAnuncio || loadingJoia ? "Carregando..." : "Cadastrar Anúncio"}
           </button>
         </form>
       )}

@@ -1,14 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "sonner";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import DragAndDropUploader from "./DragAndDropUploader";
 import SpecificInputs from "./SpecificInputs";
 
 import "../styles/components/CadastroAnuncio.css";
-
-import SetaPretaEsquerda from "../images/Setas/SetaPretaEsquerda.png";
 
 const apiBaseUrl =
   import.meta.env.VITE_API_BASE_URL ||
@@ -45,192 +43,174 @@ const initialFormState = {
 };
 
 const CadastroAnuncio = () => {
-  const navigate = useNavigate();
   const user = useSelector((state) => state.user);
+  const navigate = useNavigate();
 
   const [step, setStep] = useState(1);
-  const [form, setForm] = useState(initialFormState);
+
   const [joiaId, setJoiaId] = useState(null);
   const [titulo, setTitulo] = useState("");
   const [selectedImages, setSelectedImages] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [usuarioId, setUsuarioId] = useState("");
 
-  // Verificação de login
-  if (!user || !user.id) {
-    return (
-      <div className="CadastroAnuncio">
-        <div className="return">
-          <Link to="/catalogo/todos">
-            <img src={SetaPretaEsquerda} alt="Voltar" /> Voltar
-          </Link>
-        </div>
-        <div className="CadastroAnuncio-container">
-          <div className="CadastroAnuncio-error">
-            <h2>Você não está logado</h2>
-            <p>Por favor, faça login para acessar o cadastro de anúncio.</p>
-            <Link to="/login" className="btn-login">
-              Ir para Login
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  const [joiaData, setJoiaData] = useState(initialFormState);
 
-  // Controla campos numéricos com só números e ponto decimal
-  const handleChangeNumeros = (e) => {
-    const { name, value } = e.target;
-    const somenteNumeros = value.replace(/[^0-9.]/g, "");
-    const partes = somenteNumeros.split(".");
-    let formatted = partes[0];
-    if (partes.length > 1) {
-      formatted += "." + partes.slice(1).join("");
+  const [loadingJoia, setLoadingJoia] = useState(false);
+  const [loadingAnuncio, setLoadingAnuncio] = useState(false);
+
+  useEffect(() => {
+    if (user && user.id) {
+      setUsuarioId(user.id);
     }
-    setForm((prev) => ({
-      ...prev,
-      [name]: formatted,
-    }));
+  }, [user]);
+
+  // Atualiza valor numérico com validação simples
+  const handleCurrencyChange = (inputValue) => {
+    const onlyDigits = inputValue.replace(/\D/g, "");
+    const numberValue = Number(onlyDigits) / 100;
+    setJoiaData((prev) => ({ ...prev, valor: numberValue }));
   };
 
-  // Handler genérico para inputs texto, number, checkbox, radio etc
-  const handleChange = (e) => {
-    const { name, type, value, checked } = e.target;
-    setForm((prev) => ({
-      ...prev,
-      [name]:
-        type === "checkbox"
-          ? checked
-          : type === "number"
-            ? Number(value)
-            : value,
-    }));
+  // Formata o valor para exibir no input como moeda BRL
+  const formattedValor = joiaData.valor.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
+
+  const handleChange = (field, value) => {
+    setJoiaData((prev) => ({ ...prev, [field]: value }));
   };
 
-  // Handler específico para booleanos se quiser usar direto
-  const handleBooleanChange = (name, value) => {
-    setForm((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+  const handleBooleanChange = (field, value) => {
+    setJoiaData((prev) => ({ ...prev, [field]: value }));
   };
 
-  // Upload das imagens para o backend, retorna array de URLs
+  const handleFilesUploaded = (files) => {
+    setSelectedImages(files);
+  };
+
   const handleUploadImages = async () => {
-    if (!selectedImages.length) {
+    if (!selectedImages || selectedImages.length === 0) {
       toast.error("Nenhuma imagem selecionada.");
       return [];
     }
 
     const formData = new FormData();
-    selectedImages.forEach((file) => formData.append("files", file));
+    selectedImages.forEach((file) => {
+      formData.append("files", file);
+    });
 
     try {
-      const response = await fetch(`${apiBaseUrl}/Anuncio/UploadImagesAnuncio`, {
-        method: "POST",
-        body: formData,
-      });
-      if (!response.ok) throw new Error("Erro ao enviar imagens.");
-      const urls = await response.json();
+      const response = await fetch(
+        `${apiBaseUrl}/Anuncio/UploadImagesAnuncio`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Erro ao enviar imagens: ${response.status}`);
+      }
+
       toast.success("Imagens enviadas com sucesso!");
-      return urls;
+      const urlsResponse = await response.json();
+      return urlsResponse;
     } catch (error) {
-      toast.error(error.message);
+      toast.error(`Erro ao enviar imagens: ${error.message}`);
       return [];
     }
   };
 
-  // Cria a joia no backend e avança para próximo passo
-  const handleCreateJoia = async () => {
-    setIsLoading(true);
-    try {
-      const response = await fetch(`${apiBaseUrl}/Joia/PostJoia`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-      if (!response.ok) throw new Error("Erro ao criar joia.");
-      // Supondo que retorne JSON com id: { id: "123" }
-      const data = await response.json();
-      setJoiaId(data.id || data);
-      toast.success("Joia criada com sucesso!");
-      setStep(2);
-    } catch (error) {
-      toast.error(error.message);
-    } finally {
-      setIsLoading(false);
-    }
+  const handleNextStep = (e) => {
+    e.preventDefault();
+    setStep(2);
   };
 
-  // Cria o anúncio vinculando a joia e imagens
-  const handleCreateAnuncio = async () => {
-    setIsLoading(true);
+  async function handleCreateAnuncio(e) {
+    e.preventDefault();
+    setLoadingAnuncio(true);
     try {
-      const urls = await handleUploadImages();
-      if (!urls.length) {
-        setIsLoading(false);
-        return;
-      }
-      const anuncioData = {
-        joiaId,
-        titulo,
-        urls, // corrigido para urls minúsculo
-        usuarioId: user.id,
+      setLoadingJoia(true);
+      const joiaDataClean = {
+        ...joiaData,
+        valor: Number(joiaData.valor),
       };
-      const response = await fetch(`${apiBaseUrl}/Anuncio/PostAnuncio`, {
+
+      const responseJoia = await fetch(`${apiBaseUrl}/Joia/PostJoia`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(joiaDataClean),
+      });
+
+      setLoadingJoia(false);
+
+      if (!responseJoia.ok) {
+        throw new Error(`Erro ao criar joia: ${responseJoia.status}`);
+      }
+
+      const joiaIdCreated = await responseJoia.text();
+      setJoiaId(joiaIdCreated);
+      toast.success("Joia criada com sucesso!");
+
+      const uploadedUrls = await handleUploadImages();
+
+      if (uploadedUrls.length === 0) {
+        throw new Error("Nenhuma imagem foi enviada.");
+      }
+
+      const anuncioData = {
+        joiaId: joiaIdCreated,
+        titulo,
+        urls: uploadedUrls,
+        usuarioId,
+      };
+
+      const responseAnuncio = await fetch(`${apiBaseUrl}/Anuncio/PostAnuncio`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(anuncioData),
       });
-      if (!response.ok) throw new Error("Erro ao criar anúncio.");
+
+      if (!responseAnuncio.ok) {
+        throw new Error(`Erro ao criar anúncio: ${responseAnuncio.status}`);
+      }
+
       toast.success("Anúncio criado com sucesso!");
 
-      setTimeout(() => navigate("/catalogo/todos"), 0);
-      setForm(initialFormState);
-      setJoiaId(null);
+      navigate(`/catalogo/todos`);
+
+      // Resetar formulário
       setTitulo("");
+      setJoiaId(null);
       setSelectedImages([]);
+      setJoiaData(initialFormState);
+      setStep(1);
     } catch (error) {
       toast.error(error.message);
     } finally {
-      setIsLoading(false);
+      setLoadingAnuncio(false);
+      setLoadingJoia(false);
     }
-  };
-
-  // Atualiza as imagens selecionadas
-  const handleFilesUploaded = (files) => {
-    setSelectedImages(files);
-  };
+  }
 
   return (
     <div className="PostAnuncios">
-      <div className="return">
-        <Link to="/catalogo/todos">
-          <img src={SetaPretaEsquerda} alt="Voltar" /> Voltar
-        </Link>
-      </div>
-
-      <div className="step-counter">
+      <div className="step-counter-anuncios">
         <p>{step === 1 ? "Cadastro da Joia" : "Cadastro do Anúncio"}</p>
-        <div className="step-bar">
-          <div className={`step-progress ${step === 2 ? "complete" : ""}`} />
+        <div className="step-bar-anuncios">
+          <div className={`step-progress-anuncios ${step === 2 ? "complete" : ""}`} />
         </div>
       </div>
 
       {step === 1 && (
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleCreateJoia();
-          }}
-        >
-          <label>Tipo da Peça</label>
+        <form onSubmit={handleNextStep}>
           <select
-            name="tipoPeca"
-            value={form.tipoPeca}
-            onChange={handleChange}
+            value={joiaData.tipoPeca}
+            onChange={(e) => handleChange("tipoPeca", e.target.value)}
             required
           >
-            <option value="">Selecione</option>
+            <option value="">Selecione o tipo de joia</option>
             <option value="Anel">Anel</option>
             <option value="Brinco">Brinco</option>
             <option value="Colar">Colar</option>
@@ -243,38 +223,40 @@ const CadastroAnuncio = () => {
           <label>Valor</label>
           <input
             type="text"
-            name="valor"
-            value={form.valor}
-            onChange={handleChangeNumeros}
+            value={formattedValor}
+            onChange={(e) => handleCurrencyChange(e.target.value)}
             required
+            placeholder="Valor"
           />
 
-          <label>Descrição</label>
           <textarea
-            name="descricao"
-            value={form.descricao}
-            onChange={handleChange}
+            placeholder="Descrição"
+            value={joiaData.descricao}
+            onChange={(e) => handleChange("descricao", e.target.value)}
             required
           />
 
-          <label>Peso</label>
+          <label>Peso(mm)</label>
           <input
             type="text"
-            name="peso"
+            placeholder="Peso"
             inputMode="decimal"
-            value={form.peso}
-            onChange={handleChangeNumeros}
+            value={joiaData.peso}
+            onChange={(e) => {
+              let value = e.target.value.replace(",", ".");
+              if (/^\d*\.?\d*$/.test(value)) {
+                handleChange("peso", value);
+              }
+            }}
             required
           />
 
-          <label>Material</label>
           <select
-            name="material"
-            value={form.material}
-            onChange={handleChange}
+            value={joiaData.material}
+            onChange={(e) => handleChange("material", e.target.value)}
             required
           >
-            <option value="">Selecione</option>
+            <option value="">Selecione o material da joia</option>
             <option value="Ouro">Ouro</option>
             <option value="Ouro Branco">Ouro Branco</option>
             <option value="Ouro Rosé">Ouro Rosé</option>
@@ -297,54 +279,42 @@ const CadastroAnuncio = () => {
             <option value="Vidro">Vidro</option>
           </select>
 
-          <label className="radio-label">
+          <label className="checkbox-label">
             <input
               type="checkbox"
-              name="isStudded"
-              checked={form.isStudded}
-              onChange={() =>
-                setForm((prev) => ({
-                  ...prev,
-                  isStudded: !prev.isStudded,
-                }))
-              }
+              checked={joiaData.isStudded}
+              onChange={(e) => handleBooleanChange("isStudded", e.target.checked)}
             />
             Cravejada
           </label>
 
-          {form.isStudded && (
-            <>
-              <label>Material Cravejado</label>
+          {joiaData.isStudded && (
+            <div className="material-cravejado-wrapper" style={{ width: "100%" }}>
               <input
                 type="text"
-                name="materialCravejado"
-                value={form.materialCravejado}
-                onChange={handleChange}
+                placeholder="Material Cravejado"
+                value={joiaData.materialCravejado}
+                onChange={(e) => handleChange("materialCravejado", e.target.value)}
                 required
               />
-            </>
+            </div>
           )}
 
           <SpecificInputs
-            tipoPeca={form.tipoPeca}
-            joiaData={form}
+            tipoPeca={joiaData.tipoPeca}
+            joiaData={joiaData}
             handleChange={handleChange}
             handleBooleanChange={handleBooleanChange}
           />
 
-          <button type="submit" disabled={isLoading}>
-            {isLoading ? "Salvando..." : "Cadastrar Joia"}
+          <button type="submit" disabled={loadingJoia}>
+            {loadingJoia ? "Carregando..." : "Avançar para Anúncio"}
           </button>
         </form>
       )}
 
       {step === 2 && (
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleCreateAnuncio();
-          }}
-        >
+        <form onSubmit={handleCreateAnuncio} className="form-etapa2">
           <label>Título do Anúncio</label>
           <input
             type="text"
@@ -356,8 +326,21 @@ const CadastroAnuncio = () => {
           <label>Imagens do Anúncio</label>
           <DragAndDropUploader onFilesUploaded={handleFilesUploaded} />
 
-          <button type="submit" disabled={isLoading}>
-            {isLoading ? "Publicando..." : "Cadastrar Anúncio"}
+          {selectedImages.length > 0 && (
+            <div className="preview-images" style={{ marginTop: 10 }}>
+              {selectedImages.map((file, index) => (
+                <img
+                  key={index}
+                  src={URL.createObjectURL(file)}
+                  alt={`preview-${index}`}
+                  style={{ width: 100, height: 100, objectFit: "cover", marginRight: 10 }}
+                />
+              ))}
+            </div>
+          )}
+
+          <button type="submit" disabled={loadingAnuncio || loadingJoia}>
+            {loadingAnuncio || loadingJoia ? "Carregando..." : "Cadastrar Anúncio"}
           </button>
         </form>
       )}

@@ -10,10 +10,10 @@ function Popup({ anuncio, onClose }) {
       <div className="popup-content" onClick={(e) => e.stopPropagation()}>
         <h2>{anuncio.titulo}</h2>
         <div className="tipo">
-          <strong>Tipo:</strong> {anuncio.tipoPeca}
+          <strong>Tipo: </strong> {anuncio.tipoPeca}
         </div>
         <div className="valor">
-          <strong>Valor:</strong> {formatCurrency(anuncio.valor)}
+          <strong>Valor: </strong> {formatCurrency(anuncio.valor)}
         </div>
 
         {anuncio.urLs && anuncio.urLs.length > 0 && (
