@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 import DragAndDropUploader from "./DragAndDropUploader";
 import SpecificInputs from "./SpecificInputs";
+import { validateSpecificInputs } from "./SpecificInputs"; // ajuste o caminho
 
 import "../styles/components/CadastroAnuncio.css";
 
@@ -124,11 +125,15 @@ const CadastroAnuncio = () => {
 
   const handleNextStep = (e) => {
     e.preventDefault();
-    setStep(2);
+    if (validateStep1()) {
+      setStep(2);
+    }
   };
 
   async function handleCreateAnuncio(e) {
     e.preventDefault();
+    if (!validateStep2()) return;
+
     setLoadingAnuncio(true);
     try {
       setLoadingJoia(true);
@@ -193,6 +198,51 @@ const CadastroAnuncio = () => {
       setLoadingJoia(false);
     }
   }
+
+  const validateStep1 = () => {
+    const errors = [];
+
+    // Validações gerais
+    if (!joiaData.tipoPeca) errors.push("Tipo de joia é obrigatório.");
+    if (joiaData.valor <= 0) errors.push("Valor deve ser maior que zero.");
+    if (!joiaData.descricao.trim()) errors.push("Descrição é obrigatória.");
+    if (joiaData.peso <= 0) errors.push("Peso deve ser maior que zero.");
+    if (!joiaData.material) errors.push("Material da joia é obrigatório.");
+    if (joiaData.isStudded && !joiaData.materialCravejado.trim()) {
+      errors.push("Material cravejado é obrigatório para joias cravejadas.");
+    }
+    if (joiaData.tamanho && joiaData.tamanho <= 0) {
+      errors.push("Tamanho deve ser maior que zero.");
+    }
+
+    // Validação específica
+    const specificErrors = validateSpecificInputs(joiaData.tipoPeca, joiaData);
+    errors.push(...specificErrors);
+
+    if (errors.length > 0) {
+      errors.forEach((err) => toast.error(err));
+      return false;
+    }
+
+    return true;
+  };
+
+  const validateStep2 = () => {
+    const errors = [];
+
+    if (!titulo.trim()) errors.push("Título do anúncio é obrigatório.");
+    if (!selectedImages || selectedImages.length === 0) {
+      errors.push("É necessário selecionar pelo menos uma imagem.");
+    }
+
+    if (errors.length > 0) {
+      errors.forEach((err) => toast.error(err));
+      return false;
+    }
+
+    return true;
+  };
+
 
   return (
     <div className="PostAnuncios">

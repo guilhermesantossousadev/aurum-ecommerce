@@ -1,3 +1,103 @@
+
+export function validateSpecificInputs(tipoPeca, joiaData) {
+  const errors = [];
+
+  switch (tipoPeca) {
+    case "Anel":
+      if (!joiaData.tamanho || joiaData.tamanho <= 0) {
+        errors.push("Tamanho do Anel deve ser maior que zero.");
+      }
+      if (!joiaData.formato || !joiaData.formato.trim()) {
+        errors.push("Formato do Anel é obrigatório.");
+      }
+      break;
+
+    case "Brinco":
+      if (!joiaData.tipoFecho || !joiaData.tipoFecho.trim()) {
+        errors.push("Tipo de Fecho é obrigatório.");
+      }
+      if (!joiaData.modelo || !joiaData.modelo.trim()) {
+        errors.push("Modelo do Brinco é obrigatório.");
+      }
+      if (!joiaData.altura || joiaData.altura <= 0) {
+        errors.push("Altura do Brinco deve ser maior que zero.");
+      }
+      if (!joiaData.pesoIndividual || joiaData.pesoIndividual <= 0) {
+        errors.push("Peso individual do Brinco deve ser maior que zero.");
+      }
+      break;
+
+    case "Colar":
+      if (!joiaData.modelo || !joiaData.modelo.trim()) {
+        errors.push("Modelo do Colar é obrigatório.");
+      }
+      if (!joiaData.comprimento || joiaData.comprimento <= 0) {
+        errors.push("Comprimento do Colar deve ser maior que zero.");
+      }
+      if (!joiaData.espessura || joiaData.espessura <= 0) {
+        errors.push("Espessura do Colar deve ser maior que zero.");
+      }
+      if (!joiaData.tipoCorrente || !joiaData.tipoCorrente.trim()) {
+        errors.push("Tipo da Corrente é obrigatório.");
+      }
+      break;
+
+    case "Piercing":
+      if (!joiaData.tamanho || joiaData.tamanho <= 0) {
+        errors.push("Tamanho do Piercing deve ser maior que zero.");
+      }
+      if (!joiaData.regiao || !joiaData.regiao.trim()) {
+        errors.push("Região do Piercing é obrigatória.");
+      }
+      if (!joiaData.fechamento || !joiaData.fechamento.trim()) {
+        errors.push("Fechamento do Piercing é obrigatório.");
+      }
+      break;
+
+    case "Pingente":
+      if (!joiaData.formato || !joiaData.formato.trim()) {
+        errors.push("Formato do Pingente é obrigatório.");
+      }
+      break;
+
+    case "Pulseira":
+      if (!joiaData.tipoFecho || !joiaData.tipoFecho.trim()) {
+        errors.push("Tipo de Fecho da Pulseira é obrigatório.");
+      }
+      if (!joiaData.comprimento || joiaData.comprimento <= 0) {
+        errors.push("Comprimento da Pulseira deve ser maior que zero.");
+      }
+      if (!joiaData.espessura || joiaData.espessura <= 0) {
+        errors.push("Espessura da Pulseira deve ser maior que zero.");
+      }
+      if (!joiaData.flexibilidade || !joiaData.flexibilidade.trim()) {
+        errors.push("Flexibilidade da Pulseira é obrigatória.");
+      }
+      break;
+
+    case "Relogio":
+      if (!joiaData.tipoMovimento || !joiaData.tipoMovimento.trim()) {
+        errors.push("Tipo de Movimento do Relógio é obrigatório.");
+      }
+      if (!joiaData.diametroCaixa || joiaData.diametroCaixa <= 0) {
+        errors.push("Diâmetro da Caixa deve ser maior que zero.");
+      }
+      if (!joiaData.materialPulseira || !joiaData.materialPulseira.trim()) {
+        errors.push("Material da Pulseira do Relógio é obrigatório.");
+      }
+      if (!joiaData.fonteEnergia || !joiaData.fonteEnergia.trim()) {
+        errors.push("Fonte de Energia do Relógio é obrigatória.");
+      }
+      break;
+
+    default:
+      break;
+  }
+
+  return errors;
+}
+
+
 export default function SpecificInputs({
   joiaData,
   handleChange,

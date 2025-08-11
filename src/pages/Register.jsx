@@ -341,14 +341,14 @@ const Register = () => {
   };
   // Função para validar senha forte
   const validarSenha = (senha) => {
-    const minLength = /.{8,}/;
+    const minLength = /.{6,}/;
     const maiuscula = /[A-Z]/;
     const minuscula = /[a-z]/;
     const numero = /[0-9]/;
     const especial = /[!@#$%^&*(),.?":{}|<>]/;
 
     if (!minLength.test(senha)) {
-      toast.error("A senha deve ter pelo menos 8 caracteres.");
+      toast.error("A senha deve ter pelo menos 6 caracteres.");
       return false;
     }
     if (!maiuscula.test(senha)) {
