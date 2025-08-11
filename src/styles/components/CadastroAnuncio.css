@@ -5,7 +5,7 @@
   align-items: center;
   width: 100%;
   min-height: 100vh;
-  padding-top: 100px;
+  padding-top: 150px;
 }
 
 .step-counter-anuncios {
@@ -27,7 +27,7 @@
   width: 100%;
   height: 13px;
   background-color: transparent;
-  border: 1px solid #3f4d67;
+  border: 1px solid #000;
   border-radius: 4px;
   margin-top: 8px;
   overflow: hidden;
@@ -36,7 +36,7 @@
 .step-progress-anuncios {
   height: 100%;
   width: 50%;
-  background-color: #3f4d67;
+  background-color: #000;
   transition: width 0.3s ease;
 }
 
@@ -121,7 +121,7 @@
 .PostAnuncios button {
   margin-top: 2rem;
   padding: 1rem 2rem;
-  background-color: rgb(63, 77, 103);
+  background-color: #000;
   border: none;
   border-radius: 6px;
   color: #fff;
@@ -155,7 +155,7 @@
   width: 40px;
   height: 20px;
   left: 0;
-  accent-color: rgb(63, 77, 103);
+  accent-color: #000;
   transform: scale(1.2);
   margin-top: 0;
 }
@@ -166,7 +166,7 @@
 
 .PostAnuncios .checkbox-label input[type="checkbox"]:checked {
   background-color: #555;
-  border-color: rgb(63, 77, 103);
+  border-color: #000;
 }
 
 .form-etapa2 {
