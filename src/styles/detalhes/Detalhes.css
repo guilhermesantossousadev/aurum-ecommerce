@@ -79,6 +79,7 @@
 .detalhes__info__titulo {
   color: var(--text-color);
   font-size: 2.6rem;
+  text-transform: uppercase;
 }
 
 .Voltar__container {
