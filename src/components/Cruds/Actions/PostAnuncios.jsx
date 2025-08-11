@@ -396,7 +396,7 @@ const PostAnuncios = () => {
           />
 
           <button type="submit" disabled={loadingJoia}>
-            {loadingJoia ? "Carregando..." : "Avançar para Anúncio"}
+            {loadingJoia ? <div className="crud-spinner"></div> : "Avançar para Anúncio"}
           </button>
         </form>
       )}

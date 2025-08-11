@@ -130,6 +130,9 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .PostAnuncios button:hover {

@@ -35,7 +35,7 @@ const Profile = () => {
 
   const [email, setEmail] = useState(user?.email || "");
   const isEmailChanged = email.trim().toLowerCase() !== user.email.trim().toLowerCase();
-  
+
   const [cpf, setCpf] = useState(user?.cpf || "");
   const [idade, setIdade] = useState(user?.idade || "");
   const [nome, setNome] = useState(user?.nome || "");
@@ -803,32 +803,30 @@ const Profile = () => {
             )}
 
             {step === 2 && (
-              <div className="Register__container">
-                <h1 className="Register__title">Confirme o Token</h1>
+                <h1 className="Profile__title">Confirme o Token</h1>
                 <p>Digite o token recebido no seu E-mail</p>
-                <form className="Register__form" onSubmit={handleSubmit}>
-                  <div className="Register__form-group">
+                <form className="Profile__form" onSubmit={handleSubmit}>
+                  <div className="Profile__form-group">
                     <input
                       type="text"
                       value={token}
                       onChange={(e) => setToken(e.target.value)}
                       required
-                      className="Register__input"
+                      className="Profile__input"
                     />
                   </div>
                   <button
                     type="submit"
                     disabled={isLoadingToken}
-                    className="Register__button"
+                    className="Profile__button"
                   >
                     {isLoadingToken ? (
-                      <div className="loading-spinner-register" />
+                      <div className="loading-spinner-Profile" />
                     ) : (
                       "Validar"
                     )}
                   </button>
                 </form>
-              </div>
             )}
 
             <button
