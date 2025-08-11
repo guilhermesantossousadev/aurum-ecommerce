@@ -33,8 +33,9 @@ const Profile = () => {
   const [token, setToken] = useState("");
   const [isLoadingToken, setIsLoadingToken] = useState(false);
 
-  const isEmailChanged = email.trim().toLowerCase() !== user.email.trim().toLowerCase();
   const [email, setEmail] = useState(user?.email || "");
+  const isEmailChanged = email.trim().toLowerCase() !== user.email.trim().toLowerCase();
+  
   const [cpf, setCpf] = useState(user?.cpf || "");
   const [idade, setIdade] = useState(user?.idade || "");
   const [nome, setNome] = useState(user?.nome || "");
@@ -760,7 +761,7 @@ const Profile = () => {
                     className="Profile__info__input"
                     value={cep}
                     onChange={(e) => setCep(formatCep(e.target.value))}
-                    onBlur={searchCEP()}
+                    onBlur={searchCEP}
                   />
                 </div>
 
