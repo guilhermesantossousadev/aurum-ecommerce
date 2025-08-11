@@ -12,7 +12,7 @@ import { logout } from "../../store/userSlice";
 import Graficos from "../Admin/Graficos";
 
 function AdminPage() {
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(1);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

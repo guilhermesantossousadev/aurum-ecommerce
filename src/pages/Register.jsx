@@ -77,6 +77,9 @@ const Register = () => {
       toast.error("E-mail inválido.");
       return false;
     }
+    if (!validarSenha(password)) {
+      return false;
+    }
     if (password !== confirmPassword) {
       toast.error("As senhas não coincidem.");
       return false;
@@ -155,9 +158,8 @@ const Register = () => {
       return; // Não avança se CEP inválido ou não encontrado
     }
 
-    const enderecoCompleto = `${cepData.logradouro || ""} Nº ${numero}, ${
-      cepData.bairro || ""
-    }, ${cepData.localidade || ""}, ${cepData.uf || ""}, ${cepData.cep || ""}`;
+    const enderecoCompleto = `${cepData.logradouro || ""} Nº ${numero}, ${cepData.bairro || ""
+      }, ${cepData.localidade || ""}, ${cepData.uf || ""}, ${cepData.cep || ""}`;
 
     setEnderecoFormatado(enderecoCompleto);
     setSubStep(4);
@@ -317,8 +319,12 @@ const Register = () => {
       toast.error("As senhas não coincidem.");
       return false;
     }
+    if (!validarSenha(password)) {
+      return false;
+    }
     return true;
   };
+
 
   const validarEtapa3 = () => {
     const cepLimpo = cep.replace(/\D/g, ""); // Remove tudo que não for número
@@ -333,6 +339,37 @@ const Register = () => {
     }
     return true;
   };
+  // Função para validar senha forte
+  const validarSenha = (senha) => {
+    const minLength = /.{8,}/;
+    const maiuscula = /[A-Z]/;
+    const minuscula = /[a-z]/;
+    const numero = /[0-9]/;
+    const especial = /[!@#$%^&*(),.?":{}|<>]/;
+
+    if (!minLength.test(senha)) {
+      toast.error("A senha deve ter pelo menos 8 caracteres.");
+      return false;
+    }
+    if (!maiuscula.test(senha)) {
+      toast.error("A senha deve conter ao menos uma letra maiúscula.");
+      return false;
+    }
+    if (!minuscula.test(senha)) {
+      toast.error("A senha deve conter ao menos uma letra minúscula.");
+      return false;
+    }
+    if (!numero.test(senha)) {
+      toast.error("A senha deve conter ao menos um número.");
+      return false;
+    }
+    if (!especial.test(senha)) {
+      toast.error("A senha deve conter ao menos um caractere especial.");
+      return false;
+    }
+    return true;
+  };
+
 
   return (
     <div className="Register">

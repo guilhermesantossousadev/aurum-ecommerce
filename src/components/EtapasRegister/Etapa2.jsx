@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { toast } from "sonner"; // importar toast
 
 import "../../styles/pages/Register.css";
 import SetaPretaEsquerda from "../../images/Setas/SetaPretaEsquerda.png";
@@ -19,19 +18,8 @@ const Etapa2 = ({
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  // Validação da senha antes de avançar
   const handleNext = () => {
-    if (password.length < 6) {
-      toast.error("A senha precisa ter no mínimo 6 caracteres.");
-      return;
-    }
-
-    if (password !== confirmPassword) {
-      toast.error("As senhas não coincidem.");
-      return;
-    }
-
-    next(); // avança para a próxima etapa se tudo OK
+    next();
   };
 
   return (

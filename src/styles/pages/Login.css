@@ -184,14 +184,14 @@ svg {
 }
 
 .Login__link.left {
-  color: #7c7c7c;
+  color: #000;
   text-decoration: none;
   font-size: 0.9rem;
   transition: color 0.3s ease;
 }
 
 .Login__link:hover {
-  color: #282828;
+  color: #585858;
   text-decoration: underline;
 }
 
@@ -202,14 +202,14 @@ svg {
 }
 
 .Login__input-container button {
-  height: 50px; /* mesma altura do input */
-  width: 40px; /* largura suficiente para o ícone */
+  height: 50px;
+  width: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: absolute;
   right: 0;
-  top: 20%;
+  top: 50%;
   transform: translateY(-50%);
   background: transparent;
   border: none;
@@ -230,7 +230,6 @@ svg {
     justify-content: center;
     margin-top: 100px;
     height: 60vh;
-    /* para não travar o tamanho da tela */
   }
 
   .Login__left,
@@ -320,7 +319,6 @@ svg {
   }
 }
 
-/* Ou se quiser só para iPhones */
 @media only screen and (min-device-width: 320px) and (max-device-width: 1024px) {
   video {
     display: none !important;

@@ -93,6 +93,7 @@ function Detalhes() {
     setLoadingAddCarrinho(true);
     try {
       const usuarioId = user?.id;
+
       if (!usuarioId) {
         toast.error("Usuário não está logado, entre com seu login para conseguir adicionar um item ao carrinho");
         navigate(`/login`)
@@ -100,6 +101,13 @@ function Detalhes() {
         return;
       }
 
+      // Validação que impede o usuário de adicionar seu próprio anúncio ao carrinho
+      if (anuncio.usuarioId === usuarioId) {
+        toast.error("Você não pode adicionar seu próprio anúncio ao carrinho.");
+        setLoadingAddCarrinho(false);
+        return;
+      }
+      
       const carrinhoResponse = await fetch(
         `https://marketplacejoias-api-latest.onrender.com/api/Carrinho/GetByUsuarioIdCarrinho?usuarioId=${usuarioId}`
       );

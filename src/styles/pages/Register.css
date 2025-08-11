@@ -378,10 +378,10 @@
 .Register__input-btn {
   position: absolute;
   right: 0;
-  top: 20%;
+  top: 50%;
   transform: translateY(-50%);
   height: 50px;
-  width: 40px;
+  width: 50px;
   background: transparent;
   border: none;
   cursor: pointer;

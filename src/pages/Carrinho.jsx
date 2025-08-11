@@ -463,15 +463,10 @@ function Carrinho() {
                           {anuncio.titulo}
                         </Link>
 
-                        <p className="item-tipo">Tipo: {joia?.tipoPeca}</p>
+                        <p className="item-tipo"><strong> • Tipo: </strong> {joia?.tipoPeca}</p>
                         <p className="item-material">
-                          Material: {joia?.material}
+                          <strong> • Material:</strong> {joia?.material}
                         </p>
-                        {joia?.isStudded && (
-                          <p className="item-cravejado">
-                            Material Cravejado: {joia.materialCravejado}
-                          </p>
-                        )}
 
                         <button
                           className="btn-remover"
