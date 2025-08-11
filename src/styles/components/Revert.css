@@ -1,0 +1,34 @@
+.Revert {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #262523;
+}
+
+.Revert h2 {
+    color: #28a745;
+}
+
+.Revert p {
+    max-width: 400px;
+    text-align: center;
+    padding-top: 20px;
+    color: #fff;
+}
+
+
+.Revert p strong {
+    color: #fff;
+}
+
+@media(max-width:768px) {
+
+    .Revert p {
+        max-width: 300px;
+        text-align: center;
+        padding-top: 20px;
+        font-size: 12px;
+    }
+}

@@ -323,9 +323,10 @@ const PostAnuncios = () => {
             required
           />
 
-          <label>Peso(mm)</label>
+
+          <label>Peso(g)</label>
           <input
-            type="text"
+            type="number"
             placeholder="Peso"
             inputMode="decimal"
             value={joiaData.peso}

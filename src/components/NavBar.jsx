@@ -48,7 +48,7 @@ const NavBar = () => {
     "/catalogo/pingente",
     "/catalogo/brinco",
   ].includes(location.pathname);
-
+  
   const isAuthPage = ["/login", "/register"].includes(location.pathname);
 
   const getTextClass = () => {

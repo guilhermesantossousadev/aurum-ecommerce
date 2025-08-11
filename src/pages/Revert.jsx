@@ -1,13 +1,17 @@
-import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useEffect, useRef } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+
+import "../styles/components/Revert.css";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
 function Revert() {
+  const navigate = useNavigate();
   const query = useQuery();
+  const hasRun = useRef(false);
 
   // Captura os parâmetros da URL
   const id = parseInt(query.get("id"));
@@ -24,6 +28,9 @@ function Revert() {
   const isAdmin = query.get("isAdmin") === "true";
 
   useEffect(() => {
+    if (hasRun.current) return;
+    hasRun.current = true;
+
     const user = {
       id,
       nome,
@@ -36,20 +43,20 @@ function Revert() {
       complemento,
       endereco,
       fotoPerfilURL,
-      isAdmin
+      isAdmin,
     };
 
-    // Faz a requisição PUT para a API
     fetch("https://marketplacejoias-api-latest.onrender.com/api/Usuario/ReverterAlteracoes", {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(user)
+      body: JSON.stringify(user),
     })
       .then((res) => {
         if (res.ok) {
           toast.success("Alterações revertidas com sucesso!");
+          setTimeout(() => navigate("/login"), 2500);
         } else {
           return res.text().then((msg) => {
             throw new Error(msg || "Erro ao reverter alterações");
@@ -60,12 +67,14 @@ function Revert() {
         console.error(err);
         toast.error(err.message);
       });
-  }, []);
+  }, [navigate, id, nome, cpf, idade, email, password, cep, numero, complemento, endereco, fotoPerfilURL, isAdmin]);
 
   return (
-    <div style={{ paddingTop: "100px" }}>
+    <div className="Revert">
       <h2>Revertendo alterações...</h2>
-      <p>Estamos processando a reversão das alterações do usuário <strong>{nome}</strong>.</p>
+      <p>
+        Estamos processando a reversão das alterações do usuário <strong>{nome}</strong>.
+      </p>
     </div>
   );
 }
