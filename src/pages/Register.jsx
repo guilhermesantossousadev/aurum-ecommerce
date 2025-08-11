@@ -445,7 +445,7 @@ const Register = () => {
                       }
                     }}
                   >
-                    {isLoading ? "Carregando..." : "Verificar Endereço"}
+                    {isLoading ? <div className="loading-spinner-register" /> : "Verificar Endereço"}
                   </button>
                 </>
               )}

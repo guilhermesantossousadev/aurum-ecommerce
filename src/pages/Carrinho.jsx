@@ -170,7 +170,7 @@ function Carrinho() {
   };
 
   const calcularFrete = async () => {
-    const cepLimpo = cep?.replace(/\D/g, ""); // remove caracteres não numéricos
+    const cepLimpo = cep?.replace(/\D/g, "");
 
     // Validação básica de CEP
     if (!cepLimpo || cepLimpo.length !== 8) {
@@ -186,15 +186,13 @@ function Carrinho() {
     setIsCalculandoFrete(true);
 
     try {
+      // Timeout para abortar requisição após 8 segundos
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 8000);
 
-      const response = await fetch(
-        `https://viacep.com.br/ws/${cepLimpo}/json/`,
-        {
-          signal: controller.signal,
-        }
-      );
+      const response = await fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`, {
+        signal: controller.signal,
+      });
 
       clearTimeout(timeout);
 
@@ -208,17 +206,18 @@ function Carrinho() {
         return toast.error("CEP não encontrado. Verifique e tente novamente.");
       }
 
-      // Lógica de frete
-      const valorFrete = carrinho.valorTotal < 2000 ? 0.05 : 0;
+      // Cálculo do frete: 5% do valorTotal para pedidos abaixo de 2000, senão grátis
+      const valorFrete = carrinho.valorTotal < 2000 ? carrinho.valorTotal * 0.05 : 0;
+      // Prazo de entrega: 5 dias se pedido < 500, senão 3 dias
       const prazoEntrega = carrinho.valorTotal < 500 ? 5 : 3;
 
       setFrete({
-        valor: valorFrete.toFixed(2),
+        valor: valorFrete, // número, não string
         prazo: prazoEntrega,
       });
 
       toast.success(
-        `Frete calculado com sucesso! Prazo estimado: ${prazoEntrega} dias.`
+        `Frete calculado com sucesso! Prazo estimado: ${prazoEntrega} dias úteis.`
       );
     } catch (error) {
       if (error.name === "AbortError") {

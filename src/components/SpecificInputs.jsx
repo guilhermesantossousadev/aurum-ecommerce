@@ -1,4 +1,3 @@
-
 export function validateSpecificInputs(tipoPeca, joiaData) {
   const errors = [];
 
@@ -97,7 +96,6 @@ export function validateSpecificInputs(tipoPeca, joiaData) {
   return errors;
 }
 
-
 export default function SpecificInputs({
   joiaData,
   handleChange,
@@ -113,8 +111,6 @@ export default function SpecificInputs({
     }
   }
 
-
-
   switch (joiaData.tipoPeca) {
     case "Anel":
       return (
@@ -123,26 +119,26 @@ export default function SpecificInputs({
             <label htmlFor="tamanho">Tamanho</label>
             <input
               id="tamanho"
-              type="text"
-              inputMode="numeric"
-              value={joiaData.tamanho}
-              onChange={(e) => handleNumericChange("tamanho", e)}
-              required
-              placeholder="Tamanho"
-            />
-          </div>
-          <label htmlFor="tamanho">(Aliança, Anel...)</label>
-          <div>
-            <input
-              id="tamanho"
-              type="text"
+              type="number"
+              step="any"
               inputMode="decimal"
               value={joiaData.tamanho}
               onChange={(e) => handleNumericChange("tamanho", e.target.value)}
               required
               placeholder="Tamanho"
             />
+          </div>
 
+          <div>
+            <label htmlFor="formato">Formato (Anel, Aliança...)</label>
+            <input
+              id="formato"
+              type="text"
+              value={joiaData.formato}
+              onChange={(e) => handleChange("formato", e.target.value)}
+              required
+              placeholder="Formato"
+            />
           </div>
         </>
       );
@@ -150,7 +146,9 @@ export default function SpecificInputs({
       return (
         <>
           <div>
+            <label htmlFor="tipoFecho">Tipo de Fecho</label>
             <input
+              id="tipoFecho"
               type="text"
               value={joiaData.tipoFecho}
               onChange={(e) => handleChange("tipoFecho", e.target.value)}
@@ -159,7 +157,9 @@ export default function SpecificInputs({
             />
           </div>
           <div>
+            <label htmlFor="modelo">Modelo</label>
             <input
+              id="modelo"
               type="text"
               value={joiaData.modelo}
               onChange={(e) => handleChange("modelo", e.target.value)}
@@ -172,6 +172,7 @@ export default function SpecificInputs({
             <input
               id="altura"
               type="number"
+              step="any"
               inputMode="decimal"
               value={joiaData.altura}
               onChange={(e) => handleNumericChange("altura", e.target.value)}
@@ -182,10 +183,10 @@ export default function SpecificInputs({
 
           <div>
             <label htmlFor="pesoIndividual">Peso Individual (g)</label>
-
             <input
               id="pesoIndividual"
               type="number"
+              step="any"
               inputMode="decimal"
               value={joiaData.pesoIndividual}
               onChange={(e) => handleNumericChange("pesoIndividual", e.target.value)}
@@ -199,7 +200,9 @@ export default function SpecificInputs({
       return (
         <>
           <div>
+            <label htmlFor="modelo">Modelo</label>
             <input
+              id="modelo"
               type="text"
               value={joiaData.modelo}
               onChange={(e) => handleChange("modelo", e.target.value)}
@@ -211,10 +214,11 @@ export default function SpecificInputs({
             <label htmlFor="comprimento">Comprimento (cm)</label>
             <input
               id="comprimento"
-              type="text"
-              inputMode="numeric"
+              type="number"
+              step="any"
+              inputMode="decimal"
               value={joiaData.comprimento}
-              onChange={(e) => handleNumericChange("comprimento", e)}
+              onChange={(e) => handleNumericChange("comprimento", e.target.value)}
               required
               placeholder="Comprimento (cm)"
             />
@@ -223,10 +227,11 @@ export default function SpecificInputs({
             <label htmlFor="espessura">Espessura (mm)</label>
             <input
               id="espessura"
-              type="text"
-              inputMode="numeric"
+              type="number"
+              step="any"
+              inputMode="decimal"
               value={joiaData.espessura}
-              onChange={(e) => handleNumericChange("espessura", e)}
+              onChange={(e) => handleNumericChange("espessura", e.target.value)}
               required
               placeholder="Espessura (mm)"
             />
@@ -243,7 +248,9 @@ export default function SpecificInputs({
             <label htmlFor="havePendant">Possui Pingente</label>
           </div>
           <div>
+            <label htmlFor="tipoCorrente">Tipo Corrente</label>
             <input
+              id="tipoCorrente"
               type="text"
               value={joiaData.tipoCorrente}
               onChange={(e) => handleChange("tipoCorrente", e.target.value)}
@@ -257,19 +264,22 @@ export default function SpecificInputs({
       return (
         <>
           <div>
-            <label htmlFor="tamanhoPiercing">Tamanho (mm)</label>
+            <label htmlFor="tamanho">Tamanho (mm)</label>
             <input
-              id="tamanhoPiercing"
-              type="text"
-              inputMode="numeric"
+              id="tamanho"
+              type="number"
+              step="any"
+              inputMode="decimal"
               value={joiaData.tamanho}
-              onChange={(e) => handleNumericChange("tamanho", e)}
+              onChange={(e) => handleNumericChange("tamanho", e.target.value)}
               required
               placeholder="Tamanho (mm)"
             />
           </div>
           <div>
+            <label htmlFor="regiao">Região</label>
             <input
+              id="regiao"
               type="text"
               value={joiaData.regiao}
               onChange={(e) => handleChange("regiao", e.target.value)}
@@ -278,7 +288,9 @@ export default function SpecificInputs({
             />
           </div>
           <div>
+            <label htmlFor="fechamento">Fechamento</label>
             <input
+              id="fechamento"
               type="text"
               value={joiaData.fechamento}
               onChange={(e) => handleChange("fechamento", e.target.value)}
@@ -302,7 +314,9 @@ export default function SpecificInputs({
     case "Pingente":
       return (
         <div>
+          <label htmlFor="formato">Formato</label>
           <input
+            id="formato"
             type="text"
             value={joiaData.formato}
             onChange={(e) => handleChange("formato", e.target.value)}
@@ -315,7 +329,9 @@ export default function SpecificInputs({
       return (
         <>
           <div>
+            <label htmlFor="tipoFecho">Tipo de Fecho</label>
             <input
+              id="tipoFecho"
               type="text"
               value={joiaData.tipoFecho}
               onChange={(e) => handleChange("tipoFecho", e.target.value)}
@@ -324,25 +340,27 @@ export default function SpecificInputs({
             />
           </div>
           <div>
-            <label htmlFor="comprimentoPulseira">Comprimento (cm)</label>
+            <label htmlFor="comprimento">Comprimento (cm)</label>
             <input
-              id="comprimentoPulseira"
-              type="text"
-              inputMode="numeric"
+              id="comprimento"
+              type="number"
+              step="any"
+              inputMode="decimal"
               value={joiaData.comprimento}
-              onChange={(e) => handleNumericChange("comprimento", e)}
+              onChange={(e) => handleNumericChange("comprimento", e.target.value)}
               required
               placeholder="Comprimento (cm)"
             />
           </div>
           <div>
-            <label htmlFor="espessuraPulseira">Espessura (mm)</label>
+            <label htmlFor="espessura">Espessura (mm)</label>
             <input
-              id="espessuraPulseira"
-              type="text"
-              inputMode="numeric"
+              id="espessura"
+              type="number"
+              step="any"
+              inputMode="decimal"
               value={joiaData.espessura}
-              onChange={(e) => handleNumericChange("espessura", e)}
+              onChange={(e) => handleNumericChange("espessura", e.target.value)}
               required
               placeholder="Espessura (mm)"
             />
@@ -359,7 +377,9 @@ export default function SpecificInputs({
             <label htmlFor="haveCharms">Possui Charms</label>
           </div>
           <div>
+            <label htmlFor="flexibilidade">Flexibilidade</label>
             <input
+              id="flexibilidade"
               type="text"
               value={joiaData.flexibilidade}
               onChange={(e) => handleChange("flexibilidade", e.target.value)}
@@ -373,7 +393,9 @@ export default function SpecificInputs({
       return (
         <>
           <div>
+            <label htmlFor="tipoMovimento">Tipo Movimento</label>
             <input
+              id="tipoMovimento"
               type="text"
               value={joiaData.tipoMovimento}
               onChange={(e) => handleChange("tipoMovimento", e.target.value)}
@@ -396,16 +418,19 @@ export default function SpecificInputs({
             <label htmlFor="diametroCaixa">Diâmetro Caixa (mm)</label>
             <input
               id="diametroCaixa"
-              type="text"
-              inputMode="numeric"
+              type="number"
+              step="any"
+              inputMode="decimal"
               value={joiaData.diametroCaixa}
-              onChange={(e) => handleNumericChange("diametroCaixa", e)}
+              onChange={(e) => handleNumericChange("diametroCaixa", e.target.value)}
               required
               placeholder="Diâmetro Caixa (mm)"
             />
           </div>
           <div>
+            <label htmlFor="materialPulseira">Material Pulseira</label>
             <input
+              id="materialPulseira"
               type="text"
               value={joiaData.materialPulseira}
               onChange={(e) => handleChange("materialPulseira", e.target.value)}
@@ -414,7 +439,9 @@ export default function SpecificInputs({
             />
           </div>
           <div>
+            <label htmlFor="fonteEnergia">Fonte Energia</label>
             <input
+              id="fonteEnergia"
               type="text"
               value={joiaData.fonteEnergia}
               onChange={(e) => handleChange("fonteEnergia", e.target.value)}

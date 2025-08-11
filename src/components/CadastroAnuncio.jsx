@@ -98,30 +98,32 @@ const CadastroAnuncio = () => {
 
     const formData = new FormData();
     selectedImages.forEach((file) => {
+      console.log("Appending file:", file.name, file.size);
       formData.append("files", file);
     });
 
     try {
-      const response = await fetch(
-        `${apiBaseUrl}/Anuncio/UploadImagesAnuncio`,
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
+      const response = await fetch(`${apiBaseUrl}/Anuncio/UploadImagesAnuncio`, {
+        method: "POST",
+        body: formData,
+      });
 
       if (!response.ok) {
-        throw new Error(`Erro ao enviar imagens: ${response.status}`);
+        const errorText = await response.text();
+        throw new Error(`Erro ao enviar imagens: ${response.status} - ${errorText}`);
       }
 
-      toast.success("Imagens enviadas com sucesso!");
       const urlsResponse = await response.json();
+      console.log("Upload response URLs:", urlsResponse);
+      toast.success("Imagens enviadas com sucesso!");
       return urlsResponse;
     } catch (error) {
       toast.error(`Erro ao enviar imagens: ${error.message}`);
+      console.error("Upload images error:", error);
       return [];
     }
   };
+
 
   const handleNextStep = (e) => {
     e.preventDefault();

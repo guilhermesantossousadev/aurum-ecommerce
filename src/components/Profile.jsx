@@ -85,7 +85,7 @@ const Profile = () => {
           cep,
           numero,
           complemento,
-          password: password.trim() ? password : undefined,
+          password: password.trim() ? password : user.password, // envia senha nova ou senha atual
         });
         toast.success("Perfil atualizado com sucesso!");
         closePopup();
@@ -219,7 +219,36 @@ const Profile = () => {
 
   // Atualizar dados do usuário
   const updateUserData = async (updatedData) => {
-    const data = { ...user, ...updatedData };
+
+    const data = {
+      baseUrl: "string",
+      requestClientOptions: {
+        schema: "string",
+        headers: {
+          additionalProp1: "string",
+          additionalProp2: "string",
+          additionalProp3: "string"
+        },
+        queryParams: {
+          additionalProp1: "string",
+          additionalProp2: "string",
+          additionalProp3: "string"
+        }
+      },
+      id: user.id,
+      nome: nome,
+      cpf: user.cpf,
+      idade: user.idade,
+      email: email,
+      password: password.trim() ? password : user.password, // envia senha nova ou senha atual
+      cep: cep,
+      numero: numero,
+      complemento: complemento,
+      endereco: user.endereco,
+      fotoPerfilURL: user.fotoPerfilURL,
+      isAdmin: user.isAdmin
+    }
+
     try {
       const response = await fetch(
         "https://marketplacejoias-api-latest.onrender.com/api/Usuario/PutUsuario",
@@ -307,21 +336,41 @@ const Profile = () => {
     if (!validators.cep) return toast.error("CEP inválido.");
     if (!validators.numero) return toast.error("Número inválido.");
 
+
     const updatedData = {
-      nome,
-      cpf,
-      idade,
-      email,
-      cep,
-      numero,
-      complemento,
+      baseUrl: "string",
+      requestClientOptions: {
+        schema: "string",
+        headers: {
+          additionalProp1: "string",
+          additionalProp2: "string",
+          additionalProp3: "string"
+        },
+        queryParams: {
+          additionalProp1: "string",
+          additionalProp2: "string",
+          additionalProp3: "string"
+        }
+      },
+      id: user.id,
+      nome: nome,
+      cpf: user.cpf,
+      idade: user.idade,
+      email: email,
       password: password.trim() ? password : user.password, // envia senha nova ou senha atual
-    };
-    
+      cep: cep,
+      numero: numero,
+      complemento: complemento,
+      endereco: user.endereco,
+      fotoPerfilURL: user.fotoPerfilURL,
+      isAdmin: user.isAdmin
+    }
+
+
     try {
       setIsSaving(true);
       await updateUserData(updatedData);
-      dispatch(updateUser(updatedData)); // atualiza Redux e localStorage
+      dispatch(updateUser(updatedData));
       toast.success("Perfil atualizado com sucesso!");
       closePopup();
     } catch (error) {

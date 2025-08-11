@@ -55,6 +55,11 @@ function CrudAnuncios() {
     }
   }
 
+  // Atualiza as imagens selecionadas vindas do DragAndDropUploader
+  const handleFilesUploaded = (files) => {
+    setSelectedImages(files);
+  };
+  
   const handleEditClick = (anuncio) => {
     setEditingAnuncio(anuncio);
     setTitulo(anuncio.titulo);
