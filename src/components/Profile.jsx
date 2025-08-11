@@ -530,10 +530,10 @@ const Profile = () => {
             </div>
             <div className="Profile__buttons__item end">
               <button onClick={openPopup}>
-                <FaPencilAlt size={20} className="Profile__icon" /> Editar
+                Editar
               </button>
               <button onClick={handleLogout}>
-                <FaSignOutAlt size={20} className="Profile__icon" /> Sair
+                Sair
               </button>
             </div>
           </div>
