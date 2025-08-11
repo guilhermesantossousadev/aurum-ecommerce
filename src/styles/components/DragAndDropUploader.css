@@ -66,14 +66,6 @@
   position: relative;
 }
 
-.file-list li::before {
-  content: "•";
-  color: #d9b346;
-  font-weight: bold;
-  position: absolute;
-  left: 0;
-}
-
 .file-input {
   display: none;
 }

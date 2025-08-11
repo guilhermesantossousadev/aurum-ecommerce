@@ -92,7 +92,7 @@ function DragAndDropUploader({ onFilesUploaded }) {
       </button>
 
       {selectedFiles.length > 0 && (
-        <ul className="file-list">
+        <ul className="file-list" style={{ listStyle: "none" }}>
           {selectedFiles.map((file, index) => (
             <li key={index} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
               • {file.name}
