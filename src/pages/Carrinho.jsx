@@ -413,7 +413,7 @@ function Carrinho() {
       <div className="Carrinho">
         <div className="carrinho-container">
           <div className="loading-container">
-            <h2 className="loading-text">Carregando seu Carrinho...</h2>
+            <h2 className="loading-text-carrinho">Carregando seu Carrinho...</h2>
             <span className="loading-spinner-carrinho "></span>
           </div>
         </div>

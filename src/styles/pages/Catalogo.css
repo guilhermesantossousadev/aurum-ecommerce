@@ -650,14 +650,14 @@
   min-height: 50vh;
 }
 
-.loading-text {
+.loading-text-catalogo {
   font-size: 1.5rem;
   color: #000;
   margin-bottom: 1rem;
   font-weight: 600;
 }
 
-.loading-spinner {
+.loading-spinner-catalogo {
   width: 20px;
   height: 20px;
   border: 4px solid #fff;

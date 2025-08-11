@@ -286,7 +286,7 @@ function Detalhes() {
     return (
       <div className="detalhes__container">
         <div className="loading-container">
-          <h2 className="loading-text">Carregando Anúncio...</h2>
+          <h2 className="loading-text-detalhes">Carregando Anúncio...</h2>
           <span className="loading-spinner-detalhes"></span>
         </div>
       </div>

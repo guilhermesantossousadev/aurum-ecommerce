@@ -275,8 +275,8 @@ function Catalogo() {
       <div className="anuncios__container">
         {loading && (
           <div className="loading-container">
-            <h2 className="loading-text">Carregando Anúncios...</h2>
-            <span className="loading-spinner"></span>
+            <h2 className="loading-text-catalogo">Carregando Anúncios...</h2>
+            <span className="loading-spinner-catalogo"></span>
           </div>
         )}
 
