@@ -1,5 +1,5 @@
 .Profile {
-  min-height: 250vh;
+  min-height: 180vh;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -22,11 +22,9 @@
 
 .Profile__Box {
   position: relative;
-  /* não precisa ser absolute */
   width: 92%;
   background-color: #fff;
-  margin: -150px auto 2rem;
-  /* desloca para cima sobre a imagem */
+  margin: -550px auto 2rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   padding: 2rem;
   border-radius: 9px;
@@ -35,9 +33,7 @@
   align-items: center;
   flex-direction: column;
   height: auto;
-  /* deixa crescer */
   max-height: none;
-  /* remove limite */
 }
 
 .Profile__content-grid {
