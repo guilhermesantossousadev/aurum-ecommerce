@@ -286,7 +286,7 @@ const CadastroAnuncio = () => {
             required
           />
 
-          <label>Peso(g)</label>
+          <label>Peso (G)</label>
           <input
             type="number"
             placeholder="Peso"
@@ -295,7 +295,7 @@ const CadastroAnuncio = () => {
             onChange={(e) => {
               let value = e.target.value.replace(",", ".");
               if (/^\d*\.?\d*$/.test(value)) {
-                handleChange("peso", value);
+                handleChange("peso", value === "" ? "" : Number(value));
               }
             }}
             required

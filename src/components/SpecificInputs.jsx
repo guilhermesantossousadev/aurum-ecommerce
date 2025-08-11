@@ -103,12 +103,17 @@ export default function SpecificInputs({
   handleChange,
   handleBooleanChange,
 }) {
-  function handleNumericChange(field, e) {
-    const val = e.target.value;
-    if (/^\d*\.?\d*$/.test(val)) {
-      handleChange(field, val === "" ? "" : Number(val));
+  function handleNumericChange(field, val) {
+    // Troca vírgula por ponto, para aceitar decimal com vírgula
+    const normalizedVal = val.replace(",", ".");
+
+    // Regex para número decimal (inteiro ou decimal)
+    if (/^\d*\.?\d*$/.test(normalizedVal)) {
+      handleChange(field, normalizedVal === "" ? "" : Number(normalizedVal));
     }
   }
+
+
 
   switch (joiaData.tipoPeca) {
     case "Anel":
@@ -129,12 +134,15 @@ export default function SpecificInputs({
           <label htmlFor="tamanho">(Aliança, Anel...)</label>
           <div>
             <input
+              id="tamanho"
               type="text"
-              value={joiaData.formato}
-              onChange={(e) => handleChange("formato", e.target.value)}
+              inputMode="decimal"
+              value={joiaData.tamanho}
+              onChange={(e) => handleNumericChange("tamanho", e.target.value)}
               required
-              placeholder="Formato"
+              placeholder="Tamanho"
             />
+
           </div>
         </>
       );
@@ -163,22 +171,24 @@ export default function SpecificInputs({
             <label htmlFor="altura">Altura (cm)</label>
             <input
               id="altura"
-              type="text"
-              inputMode="numeric"
+              type="number"
+              inputMode="decimal"
               value={joiaData.altura}
-              onChange={(e) => handleNumericChange("altura", e)}
+              onChange={(e) => handleNumericChange("altura", e.target.value)}
               required
               placeholder="Altura (cm)"
             />
           </div>
+
           <div>
             <label htmlFor="pesoIndividual">Peso Individual (g)</label>
+
             <input
               id="pesoIndividual"
-              type="text"
-              inputMode="numeric"
+              type="number"
+              inputMode="decimal"
               value={joiaData.pesoIndividual}
-              onChange={(e) => handleNumericChange("pesoIndividual", e)}
+              onChange={(e) => handleNumericChange("pesoIndividual", e.target.value)}
               required
               placeholder="Peso Individual (g)"
             />
