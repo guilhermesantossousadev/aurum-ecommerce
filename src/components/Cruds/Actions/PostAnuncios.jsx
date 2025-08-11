@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 
 import DragAndDropUploader from "../../../components/DragAndDropUploader";
-import SpecificInputs, { validateSpecificInputs } from "./SpecificInputs";
+import SpecificInputs, { validateSpecificInputs } from "../../SpecificInputs";
 
 import "../../../styles/Cruds/Actions/PostAnuncios.css";
 
