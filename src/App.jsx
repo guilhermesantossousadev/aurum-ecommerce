@@ -31,6 +31,7 @@ const SuccessPage = lazy(() => import("./pages/StatusPages/SuccessPage"));
 const ErrorPage = lazy(() => import("./pages/StatusPages/ErrorPage"));
 const PendingPage = lazy(() => import("./pages/StatusPages/PendingPage"));
 const TokenAuthentication = lazy(() => import("./pages/TokenAuthentication"));
+const Revert = lazy(() => import("./pages/Revert"));
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function AppRoutes() {
@@ -66,6 +67,7 @@ function AppRoutes() {
         <Route path="/successPage" element={<SuccessPage />} />
         <Route path="/errorPage" element={<ErrorPage />} />
         <Route path="/pendingPage" element={<PendingPage />} />
+        <Route path="/revert" element={<Revert />} />
         <Route path="/token-authentication" element={<TokenAuthentication />} />
       </Routes>
       <Toaster position="top-right" richColors />
