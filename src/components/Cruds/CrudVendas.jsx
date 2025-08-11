@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Toaster, toast } from "sonner";
+import { useState, useEffect } from "react";
+import { toast } from "sonner";
 import { useSelector } from "react-redux";
 
 import formatCurrency from "../utils/formatCurrency";

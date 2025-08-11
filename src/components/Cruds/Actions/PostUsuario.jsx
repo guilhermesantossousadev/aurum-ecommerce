@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Toaster, toast } from 'sonner';
+import { useState } from "react";
+import { toast } from 'sonner';
 
 import "../../../styles/Cruds/Actions/PostUsuario.css";
 
@@ -20,6 +20,7 @@ const initialFormState = {
 
 const PostUsuario = ({ onUserCreated }) => {
   const [form, setForm] = useState(initialFormState);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,6 +29,7 @@ const PostUsuario = ({ onUserCreated }) => {
 
   const handleCreate = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const response = await fetch(`${apiBaseUrl}/PostUsuario`, {
         method: "POST",
@@ -40,6 +42,8 @@ const PostUsuario = ({ onUserCreated }) => {
       setForm(initialFormState); // Limpa o formulário
     } catch (error) {
       toast.error(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -54,6 +58,7 @@ const PostUsuario = ({ onUserCreated }) => {
           value={form.nome}
           onChange={handleChange}
           required
+          disabled={loading}
         />
 
         <label htmlFor="cpf">CPF</label>
@@ -63,6 +68,7 @@ const PostUsuario = ({ onUserCreated }) => {
           value={form.cpf}
           onChange={handleChange}
           required
+          disabled={loading}
         />
 
         <label htmlFor="idade">Idade</label>
@@ -78,8 +84,8 @@ const PostUsuario = ({ onUserCreated }) => {
             handleChange({ target: { name: "idade", value: onlyNumbers } });
           }}
           required
+          disabled={loading}
         />
-
 
         <label htmlFor="email">E-mail</label>
         <input
@@ -89,6 +95,7 @@ const PostUsuario = ({ onUserCreated }) => {
           value={form.email}
           onChange={handleChange}
           required
+          disabled={loading}
         />
 
         <label htmlFor="password">Senha</label>
@@ -99,6 +106,7 @@ const PostUsuario = ({ onUserCreated }) => {
           value={form.password}
           onChange={handleChange}
           required
+          disabled={loading}
         />
 
         <label htmlFor="cep">CEP</label>
@@ -115,8 +123,8 @@ const PostUsuario = ({ onUserCreated }) => {
           }}
           maxLength={9}
           required
+          disabled={loading}
         />
-
 
         <label htmlFor="numero">Número</label>
         <input
@@ -132,8 +140,8 @@ const PostUsuario = ({ onUserCreated }) => {
           }}
           min={0}
           required
+          disabled={loading}
         />
-
 
         <label htmlFor="complemento">Complemento</label>
         <input
@@ -141,6 +149,7 @@ const PostUsuario = ({ onUserCreated }) => {
           name="complemento"
           value={form.complemento}
           onChange={handleChange}
+          disabled={loading}
         />
 
         <label htmlFor="endereco">Endereço</label>
@@ -150,9 +159,12 @@ const PostUsuario = ({ onUserCreated }) => {
           value={form.endereco}
           onChange={handleChange}
           required
+          disabled={loading}
         />
 
-        <button type="submit">Criar</button>
+        <button type="submit" disabled={loading}>
+          {loading ? <div className="crud-spinner"></div> : "Criar"}
+        </button>
       </form>
     </div>
   );

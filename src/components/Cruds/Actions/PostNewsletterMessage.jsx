@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Toaster, toast } from 'sonner';
+import { useState } from "react";
+import { toast } from 'sonner';
 
 const apiBaseUrl =
   "https://marketplacejoias-api-latest.onrender.com/api/Newsletter";
@@ -11,9 +11,11 @@ const initialMessageState = {
 
 function PostNewsletterMessage() {
   const [messageForm, setMessageForm] = useState(initialMessageState);
+  const [loading, setLoading] = useState(false);
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const response = await fetch(`${apiBaseUrl}/PostMessageNewsletter`, {
         method: "POST",
@@ -25,6 +27,8 @@ function PostNewsletterMessage() {
       setMessageForm(initialMessageState);
     } catch (error) {
       toast.error(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -39,6 +43,7 @@ function PostNewsletterMessage() {
           onChange={(e) =>
             setMessageForm({ ...messageForm, titulo: e.target.value })
           }
+          disabled={loading}
         />
 
         <label htmlFor="mensagem">Mensagem</label>
@@ -48,9 +53,12 @@ function PostNewsletterMessage() {
           onChange={(e) =>
             setMessageForm({ ...messageForm, mensagem: e.target.value })
           }
+          disabled={loading}
         />
 
-        <button type="submit">Enviar Mensagem</button>
+        <button type="submit" disabled={loading}>
+          {loading ? <div className="crud-spinner"></div> : "Enviar Mensagem"}
+        </button>
       </form>
     </div>
   );

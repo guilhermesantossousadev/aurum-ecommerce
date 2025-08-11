@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Toaster, toast } from "sonner";
+import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 
 import DragAndDropUploader from "../../../components/DragAndDropUploader";
@@ -282,7 +282,6 @@ const PostAnuncios = () => {
 
   return (
     <div className="PostAnuncios">
-      <Toaster position="top-right" />
 
       <div className="step-counter-anuncios">
         <p>{step === 1 ? "Cadastro da Joia" : "Cadastro do Anúncio"}</p>
@@ -429,7 +428,8 @@ const PostAnuncios = () => {
           )}
 
           <button type="submit" disabled={loadingAnuncio || loadingJoia}>
-            {loadingAnuncio || loadingJoia ? "Carregando..." : "Cadastrar Anúncio"}
+            {loadingAnuncio || loadingJoia ?
+              <div className="crud-spinner"></div> : "Cadastrar Anúncio"}
           </button>
         </form>
       )}

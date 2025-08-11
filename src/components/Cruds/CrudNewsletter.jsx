@@ -1,6 +1,6 @@
 // ... imports
-import React, { useState, useEffect } from "react";
-import { Toaster, toast } from "sonner";
+import { useState, useEffect } from "react";
+import { toast } from "sonner";
 
 import PostNewsletter from "../Cruds/Actions/PostNewsletter";
 import SendNewsletterMessage from "../Cruds/Actions/PostNewsletterMessage";

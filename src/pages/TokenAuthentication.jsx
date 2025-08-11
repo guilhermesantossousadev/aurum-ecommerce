@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Toaster, toast } from "sonner";
+import { toast } from "sonner";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 import SetaPretaEsquerda from "../images/Setas/SetaPretaEsquerda.png";
@@ -108,7 +108,6 @@ const TokenAuthentication = () => {
 
   return (
     <div className="TokenAuth">
-      <Toaster position="top-right" richColors />
       <div
         className="return__token"
         onClick={() => {

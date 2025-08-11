@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
-import { toast, Toaster } from "sonner";
+import { toast } from "sonner";
 
 import { login } from "../store/userSlice";
 import Etapa1 from "../components/EtapasRegister/Etapa1";

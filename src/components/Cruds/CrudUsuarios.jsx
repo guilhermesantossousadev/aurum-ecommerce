@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Toaster, toast } from "sonner";
+import { useState, useEffect } from "react";
+import { toast } from "sonner";
 import UsuarioForm from "../Cruds/Actions/PostUsuario"; // Confirme se o caminho está correto
 
 import DeleteConfirmToast from "../Cruds/Actions/DeleteConfirmToast.jsx";

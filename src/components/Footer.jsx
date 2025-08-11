@@ -3,7 +3,7 @@ import "../styles/components/Footer.css";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Toaster, toast } from "sonner";
+import { toast } from "sonner";
 
 import setadireitabranca from "../images/Setas/setadireitabranca.png";
 import setadireitapreta from "../images/Setas/SetaPretaDireita.png";
@@ -123,8 +123,8 @@ function Footer() {
                       footerColorClass === "black-text"
                         ? setadireitapreta
                         : footerColorClass === "pink-text"
-                        ? SetaRosaDireita
-                        : setadireitabranca
+                          ? SetaRosaDireita
+                          : setadireitabranca
                     }
                     alt="seta direita"
                   />
