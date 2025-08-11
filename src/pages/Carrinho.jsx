@@ -172,12 +172,10 @@ function Carrinho() {
   const calcularFrete = async () => {
     const cepLimpo = cep?.replace(/\D/g, "");
 
-    // Validação básica de CEP
     if (!cepLimpo || cepLimpo.length !== 8) {
       return toast.error("Informe um CEP válido com 8 dígitos.");
     }
 
-    // Validação do carrinho
     if (!carrinho || typeof carrinho.valorTotal !== "number") {
       console.warn("Carrinho não está definido corretamente.");
       return toast.error("Erro ao acessar informações do carrinho.");
@@ -186,7 +184,6 @@ function Carrinho() {
     setIsCalculandoFrete(true);
 
     try {
-      // Timeout para abortar requisição após 8 segundos
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 8000);
 
@@ -196,9 +193,7 @@ function Carrinho() {
 
       clearTimeout(timeout);
 
-      if (!response.ok) {
-        throw new Error(`Erro HTTP: ${response.status}`);
-      }
+      if (!response.ok) throw new Error(`Erro HTTP: ${response.status}`);
 
       const data = await response.json();
 
@@ -206,19 +201,17 @@ function Carrinho() {
         return toast.error("CEP não encontrado. Verifique e tente novamente.");
       }
 
-      // Cálculo do frete: 5% do valorTotal para pedidos abaixo de 2000, senão grátis
+      // Corrigir o cálculo do frete para 5% do valor total quando < 2000
       const valorFrete = carrinho.valorTotal < 2000 ? carrinho.valorTotal * 0.05 : 0;
-      // Prazo de entrega: 5 dias se pedido < 500, senão 3 dias
+
       const prazoEntrega = carrinho.valorTotal < 500 ? 5 : 3;
 
       setFrete({
-        valor: valorFrete, // número, não string
+        valor: valorFrete,
         prazo: prazoEntrega,
       });
 
-      toast.success(
-        `Frete calculado com sucesso! Prazo estimado: ${prazoEntrega} dias úteis.`
-      );
+      toast.success(`Frete calculado com sucesso! Prazo estimado: ${prazoEntrega} dias úteis.`);
     } catch (error) {
       if (error.name === "AbortError") {
         toast.error("A requisição de frete demorou demais. Tente novamente.");
@@ -230,6 +223,7 @@ function Carrinho() {
       setIsCalculandoFrete(false);
     }
   };
+
 
   // Tratamento para usuário não logado
   if (!user?.id) {
@@ -545,34 +539,31 @@ function Carrinho() {
                 </button>
 
                 {frete && (
-                  <p
-                    className={`frete-simulado ${frete.valor === "0.00" ? "frete-gratis" : ""
-                      }`}
-                  >
+                  <p className={`frete-simulado ${frete.valor === 0 ? "frete-gratis" : ""}`}>
                     Frete via PAC:{" "}
-                    {frete.valor === "0.00" ? (
+                    {frete.valor === 0 ? (
                       <>
-                        <strong>Grátis</strong> •{" "}
-                        <strong>Entrega em {frete.prazo} dias úteis</strong>
+                        <strong>Grátis</strong> • <strong>Entrega em {frete.prazo} dias úteis</strong>
                       </>
                     ) : (
                       <>
-                        R${frete.valor} • Entrega em {frete.prazo} dias úteis
+                        {formatCurrency(frete.valor)} • Entrega em {frete.prazo} dias úteis
                       </>
                     )}
                   </p>
                 )}
 
+
                 <div className="resumo-total">
                   <span>Total:</span>
                   <span>
-                    Valor:{" "}
                     {formatCurrency(
-                      (carrinho.valorTotal || 0) +
-                      (parseFloat(frete?.valor) || 0)
+                      (parseFloat(carrinho.valorTotal) || 0) + (parseFloat(frete?.valor) || 0)
                     )}
                   </span>
+
                 </div>
+
 
                 <button
                   className="btn-finalizar-compra"
