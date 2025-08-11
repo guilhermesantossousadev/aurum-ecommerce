@@ -1,10 +1,6 @@
 import {
   FaPencilAlt,
   FaSignOutAlt,
-  FaUser,
-  FaMapMarkerAlt,
-  FaEnvelope,
-  FaIdCard,
   FaChevronDown,
   FaChevronUp,
 } from "react-icons/fa";
@@ -27,17 +23,27 @@ const Profile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [usuario, setUsuario] = useState(null);
+
+  const [step, setStep] = useState(1);
+
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [editField, setEditField] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
+  const [token, setToken] = useState("");
+  const [isLoadingToken, setIsLoadingToken] = useState(false);
 
   const [email, setEmail] = useState(user?.email || "");
   const [cpf, setCpf] = useState(user?.cpf || "");
   const [idade, setIdade] = useState(user?.idade || "");
   const [nome, setNome] = useState(user?.nome || "");
-  const [profileImage, setProfileImage] = useState(
-    user?.fotoPerfilURL || perfil
-  );
+
+  const [password, setPassword] = useState("");
+  const [cep, setCep] = useState(user?.cep || "");
+  const [numero, setNumero] = useState(user?.numero || "");
+  const [complemento, setComplemento] = useState(user?.complemento || "");
+
+  const [profileImage, setProfileImage] = useState(user?.fotoPerfilURL || perfil);
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploading, setUploading] = useState(false);
@@ -57,15 +63,78 @@ const Profile = () => {
   const openPopup = () => setIsPopupOpen(true);
   const closePopup = () => {
     setIsPopupOpen(false);
-    setEditField(null);
+    setStep(1);
+    setToken("");
   };
 
+  const solicitarToken = async () => {
+    setIsLoading(true);
+
+    const data = {
+      nome,
+      cpf: cpf.replace(/[^\d]/g, ""),
+      idade: parseInt(idade) || 0,
+      email,
+      password,
+      cep: cep.replace(/[^\d]/g, ""),
+      numero: parseInt(numero, 10),
+      complemento,
+      endereco: cepFormatado,
+    };
+
+    console.log("[solicitarToken ] Dados do usuário:", data);
+
+    try {
+      const response = await fetch(
+        `https://marketplacejoias-api-latest.onrender.com/api/Suport/RequestTokenAuth?email=${email}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      if (!response.ok) throw new Error("Erro ao solicitar token.");
+      toast.success("Token enviado para seu e-mail.");
+      setUsuario(data);
+      setStep(2);
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const checkToken = async (codigoToken) => {
+    try {
+      console.log(codigoToken);
+      const response = await fetch(
+        `https://marketplacejoias-api-latest.onrender.com/api/Suport/AuthenticateToken?codigoToken=${codigoToken}`
+      );
+
+      const result = await response.text();
+
+      if (!response.ok) {
+        toast.error("Erro ao validar o token.");
+        return false;
+      }
+
+      if (result === "true") {
+        toast.success("Token validado com sucesso!");
+        return true;
+      } else {
+        toast.error("Token inválido ou expirado.");
+        return false;
+      }
+    } catch (error) {
+      toast.error("Erro na requisição.");
+      return false;
+    }
+  };
+
+
   const handleLogout = () => {
-    console.log("Logout iniciado");
     dispatch(logout());
     window.location.href = "/login";
   };
-
 
   useEffect(() => {
     if (!user) {
@@ -73,12 +142,11 @@ const Profile = () => {
     }
   }, [user, navigate]);
 
-
   if (!user) {
-    return null; // Ou um loading simples
+    return null;
   }
 
-
+  // Buscar anúncios do usuário
   const GetAnuncios = async () => {
     try {
       const response = await fetch(
@@ -92,6 +160,7 @@ const Profile = () => {
     }
   };
 
+  // Buscar compras do usuário
   const GetCompras = async () => {
     try {
       const response = await fetch(
@@ -117,6 +186,7 @@ const Profile = () => {
     }
   }, [user?.email]);
 
+  // Atualizar dados do usuário
   const updateUserData = async (updatedData) => {
     const data = { ...user, ...updatedData };
     try {
@@ -129,12 +199,13 @@ const Profile = () => {
         }
       );
       if (!response.ok) throw new Error("Erro ao atualizar o perfil.");
-      setEditField(null);
     } catch (error) {
       toast.error("Erro na atualização: " + error.message);
+      throw error;
     }
   };
 
+  // Upload da imagem de perfil
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -168,19 +239,15 @@ const Profile = () => {
     }
   };
 
-  const [cepformatado, setcepFormatado] = useState("");
-
+  // Buscar endereço via CEP
   const searchCEP = async () => {
     try {
-      if (!user?.cep) return;
+      if (!cep) return;
 
-      const response = await fetch(
-        `https://viacep.com.br/ws/${user.cep}/json/`
-      );
+      const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
       if (!response.ok) throw new Error("Erro ao buscar CEP.");
 
       const cepData = await response.json();
-
       setcepFormatado(`${cepData.logradouro}, ${cepData.uf}`);
     } catch (e) {
       console.log(e);
@@ -188,32 +255,46 @@ const Profile = () => {
     }
   };
 
+  // Estado para mostrar endereço formatado via CEP
+  const [cepFormatado, setcepFormatado] = useState("");
+
+  useEffect(() => {
+    if (cep) {
+      searchCEP();
+    }
+  }, [cep]);
+
+  // Salvar todos dados atualizados
   const handleSaveAll = async () => {
     const validators = {
       nome: nome.trim().length > 0,
       cpf: cpf.trim().length > 0,
       idade: /^\d+$/.test(idade) && parseInt(idade) > 0,
       email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email),
+      cep: cep.trim().length > 0,
+      numero: numero.toString().trim().length > 0,
     };
 
-    if (!validators.nome) {
-      toast.error("Nome inválido.");
-      return;
-    }
-    if (!validators.cpf) {
-      toast.error("CPF inválido.");
-      return;
-    }
-    if (!validators.idade) {
-      toast.error("Idade inválida.");
-      return;
-    }
-    if (!validators.email) {
-      toast.error("E-mail inválido.");
-      return;
-    }
+    if (!validators.nome) return toast.error("Nome inválido.");
+    if (!validators.cpf) return toast.error("CPF inválido.");
+    if (!validators.idade) return toast.error("Idade inválida.");
+    if (!validators.email) return toast.error("E-mail inválido.");
+    if (!validators.cep) return toast.error("CEP inválido.");
+    if (!validators.numero) return toast.error("Número inválido.");
 
-    const updatedData = { nome, cpf, idade, email };
+    const updatedData = {
+      nome,
+      cpf,
+      idade,
+      email,
+      cep,
+      numero,
+      complemento,
+    };
+
+    if (password.trim()) {
+      updatedData.password = password;
+    }
 
     try {
       setIsSaving(true);
@@ -227,7 +308,45 @@ const Profile = () => {
     }
   };
 
-  // Função para parsear JSON seguro
+  // Formatar CPF para exibição
+  function formatCPF(cpf) {
+    if (!cpf) return "";
+    const cleaned = cpf.replace(/\D/g, ""); // remove tudo que não é número
+    if (cleaned.length !== 11) return cpf;
+    return cleaned.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+  }
+
+  // Verificar se e-mail já existe na base
+  const checkEmailExists = async () => {
+    if (!email) return true;
+
+    if (email.trim().toLowerCase() === user.email.trim().toLowerCase()) {
+      return true;
+    }
+
+    try {
+      const response = await fetch(
+        `https://marketplacejoias-api-latest.onrender.com/api/Suport/ExistenceAuthenticationEmail?email=${encodeURIComponent(
+          email
+        )}`
+      );
+
+      if (response.status === 409) {
+        toast.error("E-mail já está em uso.");
+        return false;
+      }
+      if (response.status === 200) {
+        return true;
+      }
+      toast.error("Erro ao verificar e-mail.");
+      return false;
+    } catch {
+      toast.error("Erro ao verificar e-mail.");
+      return false;
+    }
+  };
+
+  // Função para parsear JSON seguro para info adicional da compra
   const parseInformacaoAdicional = (info) => {
     if (!info) return null;
     try {
@@ -237,6 +356,7 @@ const Profile = () => {
     }
   };
 
+  // Traduzir status de compra
   function traduzirStatus(status) {
     switch (status) {
       case "approved":
@@ -263,6 +383,7 @@ const Profile = () => {
     }
   }
 
+  // Traduzir método pagamento
   function traduzirMetodo(metodoPagamento) {
     switch (metodoPagamento) {
       case "credit_card":
@@ -283,27 +404,83 @@ const Profile = () => {
     }
   }
 
-  useEffect(() => {
-    if (user?.cep) {
-      searchCEP();
-    }
-  }, [user?.cep]);
-
+  // Atualizar estados quando user muda
   useEffect(() => {
     setEmail(user?.email || "");
     setCpf(user?.cpf || "");
     setIdade(user?.idade || "");
     setNome(user?.nome || "");
+    setCep(user?.cep || "");
+    setNumero(user?.numero || "");
+    setComplemento(user?.complemento || "");
     setProfileImage(user?.fotoPerfilURL || perfil);
   }, [user]);
 
-  function formatCPF(cpf) {
-    if (!cpf) return "";
-    const cleaned = cpf.replace(/\D/g, ""); // remove tudo que não é número
-    if (cleaned.length !== 11) return cpf; // se não tiver 11 dígitos, retorna original
-    return cleaned.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
-  }
+  // Submit da confirmação do token (step 2)
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
+    if (!token.trim()) {
+      toast.error("Por favor, digite o token.");
+      return;
+    }
+
+    setIsLoadingToken(true);
+
+    try {
+      const response = await fetch(
+        `https://marketplacejoias-api-latest.onrender.com/api/Suport/AuthenticateToken?codigoToken=${encodeURIComponent(
+          token
+        )}`,
+        { method: "GET" }
+      );
+
+      if (!response.ok) {
+        throw new Error("Token inválido ou expirado.");
+      }
+
+      await handleSaveAll();
+
+      toast.success("Token validado e perfil atualizado!");
+      closePopup();
+      setStep(1);
+      setToken("");
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      setIsLoadingToken(false);
+    }
+  };
+
+  const handleSubmitToken = async (e) => {
+    e.preventDefault();
+
+    if (!token.trim()) {
+      toast.error("Por favor, digite o token.");
+      return;
+    }
+
+    setIsLoading(true);
+
+    const valido = await checkToken(token);
+
+    if (valido) {
+      try {
+        setIsSaving(true);
+        await updateUserData(usuario);  // salva os dados guardados
+        toast.success("Perfil atualizado com sucesso!");
+        setIsPopupOpen(false);
+        setStep(1);
+        setToken("");
+      } catch (error) {
+        toast.error("Erro ao atualizar perfil: " + error.message);
+      } finally {
+        setIsSaving(false);
+      }
+    }
+
+    setIsLoading(false);
+  };
 
 
   return (
@@ -330,18 +507,20 @@ const Profile = () => {
           />
 
           <div className="Profile__box__info">
-            <div className="Profile__box__info__value">
-              {user.nome}
-            </div>
+            <div className="Profile__box__info__value">{user.nome}</div>
 
-            <div className="Profile__box__info__value cep">
-              {user.endereco}
-            </div>
+            <div className="Profile__box__info__value cep">{cepFormatado}</div>
 
             <div className="Profile__box__info__inside">
-              <span><strong> • E-mail:</strong> {user.email}</span>
-              <span><strong> • CPF:</strong> {formatCPF(user.cpf)}</span>
-              <span><strong> • Idade:</strong> {user.idade} Anos</span>
+              <span>
+                <strong> • E-mail:</strong> {user.email}
+              </span>
+              <span>
+                <strong> • CPF:</strong> {formatCPF(user.cpf)}
+              </span>
+              <span>
+                <strong> • Idade:</strong> {user.idade} Anos
+              </span>
             </div>
           </div>
 
@@ -410,9 +589,7 @@ const Profile = () => {
             <div className="Profile__section-box">
               <h2 className="Profile__section-title">Meus Pedidos</h2>
               {compras.length === 0 ? (
-                <p className="Profile__no-data">
-                  Você ainda não realizou compras.
-                </p>
+                <p className="Profile__no-data">Você ainda não realizou compras.</p>
               ) : (
                 <div className="Profile__cards-container">
                   {compras.map((compra) => {
@@ -436,12 +613,7 @@ const Profile = () => {
                         <div className="Profile__card__compra__info">
                           <div className="Profile__card__compra__info__top">
                             <h4>Pedido: #{compra.id}</h4>
-
-                            <p>
-                              {new Date(
-                                compra.dataCriacao
-                              ).toLocaleDateString()}
-                            </p>
+                            <p>{new Date(compra.dataCriacao).toLocaleDateString()}</p>
                             <button onClick={() => toggleExpand(compra.id)}>
                               {isExpanded ? <FaChevronUp /> : <FaChevronDown />}
                             </button>
@@ -451,20 +623,14 @@ const Profile = () => {
                             <>
                               <div className="Profile__card__compra__info__container">
                                 <div className="Profile__card__compra__info__item__left">
-                                  <span>
-                                    • Status: {traduzirStatus(compra.status)}
-                                  </span>
-
+                                  <span>• Status: {traduzirStatus(compra.status)}</span>
                                   <span>
                                     • Metodo de pagamento:{" "}
                                     {compra.metodoPagamento == null
                                       ? "Não finalizado"
                                       : traduzirMetodo(compra.metodoPagamento)}
                                   </span>
-
-                                  {compra.parcelas > 0 && (
-                                    <p> • Parcelas: {compra.parcelas}</p>
-                                  )}
+                                  {compra.parcelas > 0 && <p> • Parcelas: {compra.parcelas}</p>}
                                   <h3>
                                     •<strong> Total: </strong>
                                     {formatCurrency(compra.valorTransacao)}
@@ -474,28 +640,21 @@ const Profile = () => {
                                   {infoAdicionalObj && (
                                     <div className="Profile__informacao-adicional">
                                       <p>Produtos :</p>
-                                      {Array.isArray(
-                                        infoAdicionalObj.anuncios
-                                      ) && (
-                                          <ul
-                                            style={{
-                                              height: "100%",
-                                              width: "100%",
-                                            }}
-                                          >
-                                            {infoAdicionalObj.anuncios.map(
-                                              (item, index) => (
-                                                <li key={index}>
-                                                  <p>Título: {item.Titulo}</p>
-                                                  <p>
-                                                    Valor:{" "}
-                                                    {formatCurrency(item.Valor)}
-                                                  </p>
-                                                </li>
-                                              )
-                                            )}
-                                          </ul>
-                                        )}
+                                      {Array.isArray(infoAdicionalObj.anuncios) && (
+                                        <ul
+                                          style={{
+                                            height: "100%",
+                                            width: "100%",
+                                          }}
+                                        >
+                                          {infoAdicionalObj.anuncios.map((item, index) => (
+                                            <li key={index}>
+                                              <p>Título: {item.Titulo}</p>
+                                              <p>Valor: {formatCurrency(item.Valor)}</p>
+                                            </li>
+                                          ))}
+                                        </ul>
+                                      )}
                                     </div>
                                   )}
                                 </div>
@@ -519,58 +678,123 @@ const Profile = () => {
             className="popup-content-profile"
             onClick={(e) => e.stopPropagation()}
           >
-            <h3>Edite o seu perfil</h3>
+            {step === 1 && (
+              <div
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <h3>Edite os seus dados</h3>
 
-            <div className="Profile__info__item">
-              <label>Nome</label>
-              <input
-                className="Profile__info__input"
-                value={nome}
-                onChange={(e) => setNome(e.target.value)}
-              />
-            </div>
+                <div className="Profile__info__item">
+                  <label>Nome</label>
+                  <input
+                    className="Profile__info__input"
+                    value={nome}
+                    onChange={(e) => setNome(e.target.value)}
+                  />
+                </div>
 
-            <div className="Profile__info__item">
-              <label>E-mail</label>
-              <input
-                className="Profile__info__input"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
+                <div className="Profile__info__item">
+                  <label>E-mail</label>
+                  <input
+                    className="Profile__info__input"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    onBlur={checkEmailExists}
+                  />
+                </div>
 
-            <div className="Profile__info__item">
-              <label>Cpf</label>
-              <input
-                className="Profile__info__input"
-                value={cpf}
-                onChange={(e) => setCpf(e.target.value)}
-              />
-            </div>
+                <div className="Profile__info__item">
+                  <label>Senha</label>
+                  <input
+                    type="password"
+                    className="Profile__info__input"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Digite uma nova senha"
+                  />
+                </div>
 
-            <div className="Profile__info__item">
-              <label>Idade</label>
-              <input
-                className="Profile__info__input"
-                value={idade}
-                onChange={(e) => setIdade(e.target.value)}
-              />
-            </div>
+                <div className="Profile__info__item">
+                  <label>CEP</label>
+                  <input
+                    className="Profile__info__input"
+                    value={cep}
+                    onChange={(e) => setCep(e.target.value)}
+                  />
+                </div>
 
-            <button
-              className="Profile__info__saveButton"
-              onClick={handleSaveAll}
-              disabled={isSaving}
-            >
-              {isSaving ? <div className="loading-spinner"></div> : "Salvar"}
-            </button>
+                <div className="Profile__info__item">
+                  <label>Número</label>
+                  <input
+                    className="Profile__info__input"
+                    value={numero}
+                    onChange={(e) => setNumero(e.target.value)}
+                  />
+                </div>
+
+                <div className="Profile__info__item">
+                  <label>Complemento</label>
+                  <input
+                    placeholder="(opcional)"
+                    className="Profile__info__input"
+                    value={complemento}
+                    onChange={(e) => setComplemento(e.target.value)}
+                  />
+                </div>
+
+                <button
+                  className="Profile__info__saveButton"
+                  onClick={solicitarToken}
+                  disabled={isLoading || isSaving}
+                >
+                  {isLoading ? <div className="loading-spinner"></div> : "Avançar"}
+                </button>
+
+              </div>
+            )}
+
+            {step === 2 && (
+              <div className="Register__container">
+                <h1 className="Register__title">Confirme o Token</h1>
+                <p>Digite o token recebido no seu E-mail</p>
+                <form className="Register__form" onSubmit={handleSubmit}>
+                  <div className="Register__form-group">
+                    <input
+                      type="text"
+                      value={token}
+                      onChange={(e) => setToken(e.target.value)}
+                      required
+                      className="Register__input"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={isLoadingToken}
+                    className="Register__button"
+                  >
+                    {isLoadingToken ? (
+                      <div className="loading-spinner-register" />
+                    ) : (
+                      "Validar"
+                    )}
+                  </button>
+                </form>
+              </div>
+            )}
 
             <button
               onClick={closePopup}
               className="Profile__closePopup"
               style={{ marginTop: "1rem" }}
             >
-              <img src={xpgn} alt="xpgn" />
+              <img src={xpgn} alt="Fechar popup" />
             </button>
           </div>
         </div>

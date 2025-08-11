@@ -60,7 +60,7 @@ function Detalhes() {
       const opcoes = [
         {
           tipo: "Entrega expressa",
-          preco: 0.50,
+          preco: 0.05,
           prazo: new Date(
             hoje.getFullYear(),
             hoje.getMonth(),

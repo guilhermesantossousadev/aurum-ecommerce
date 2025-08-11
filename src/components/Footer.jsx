@@ -160,7 +160,7 @@ function Footer() {
             </ul>
 
             <ul className={`footer__item__bottom__ul ${footerColorClass}`}>
-              <h1>● INICIATIVAS</h1>
+              <h1>● CARACTERÍSTICAS</h1>
               <li>
                 <Link to="/sobre#panorama">Panorama</Link>
               </li>

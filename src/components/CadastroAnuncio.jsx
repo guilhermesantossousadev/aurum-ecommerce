@@ -4,8 +4,8 @@ import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 
 import DragAndDropUploader from "./DragAndDropUploader";
-import SpecificInputs from "./SpecificInputs";
-import { validateSpecificInputs } from "./SpecificInputs"; // ajuste o caminho
+import SpecificInputs, { validateSpecificInputs } from "./SpecificInputs";
+
 
 import "../styles/components/CadastroAnuncio.css";
 

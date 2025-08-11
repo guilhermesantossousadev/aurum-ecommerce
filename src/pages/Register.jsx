@@ -290,6 +290,13 @@ const Register = () => {
   };
 
   const validarEtapa1 = () => {
+
+    const minLength = /.{6,}/;
+
+    if (!minLength.test(nome)) {
+      toast.error("O nome precisa conter mais de 2 caracteres.");
+      return false;
+    }
     if (!nome.trim() || !cpf.trim() || !idade.trim()) {
       toast.error("Preencha nome, CPF e idade.");
       return false;
