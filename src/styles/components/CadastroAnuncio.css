@@ -133,7 +133,7 @@
 }
 
 .PostAnuncios button:hover {
-  background-color: rgb(105, 124, 161);
+  background-color: #333;
 }
 
 .PostAnuncios .checkbox-label {
