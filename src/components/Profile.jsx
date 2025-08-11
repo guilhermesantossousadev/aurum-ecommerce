@@ -8,7 +8,7 @@ import {
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { logout } from "../store/userSlice";
+import { logout, updateUser } from "../store/userSlice";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "sonner";
 import formatCurrency from "../components/utils/formatCurrency";
@@ -324,6 +324,7 @@ const Profile = () => {
     try {
       setIsSaving(true);
       await updateUserData(updatedData);
+      dispatch(updateUser(updatedData)); // atualiza Redux e localStorage
       toast.success("Perfil atualizado com sucesso!");
       closePopup();
     } catch (error) {
@@ -331,6 +332,7 @@ const Profile = () => {
     } finally {
       setIsSaving(false);
     }
+
   };
 
   // Formatar CPF para exibição
@@ -803,6 +805,7 @@ const Profile = () => {
             )}
 
             {step === 2 && (
+              <div className="Profile__container">
                 <h1 className="Profile__title">Confirme o Token</h1>
                 <p>Digite o token recebido no seu E-mail</p>
                 <form className="Profile__form" onSubmit={handleSubmit}>
@@ -827,6 +830,7 @@ const Profile = () => {
                     )}
                   </button>
                 </form>
+              </div>
             )}
 
             <button
