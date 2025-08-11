@@ -33,6 +33,7 @@ const Profile = () => {
   const [token, setToken] = useState("");
   const [isLoadingToken, setIsLoadingToken] = useState(false);
 
+  const isEmailChanged = email.trim().toLowerCase() !== user.email.trim().toLowerCase();
   const [email, setEmail] = useState(user?.email || "");
   const [cpf, setCpf] = useState(user?.cpf || "");
   const [idade, setIdade] = useState(user?.idade || "");
@@ -66,6 +67,35 @@ const Profile = () => {
     setStep(1);
     setToken("");
   };
+
+  const handleSaveButtonClick = async () => {
+    if (isEmailChanged) {
+      // inicia o fluxo de token
+      await solicitarToken();
+    } else {
+      // salva direto sem token
+      try {
+        setIsSaving(true);
+        await updateUserData({
+          nome,
+          cpf,
+          idade,
+          email,
+          cep,
+          numero,
+          complemento,
+          password: password.trim() ? password : undefined,
+        });
+        toast.success("Perfil atualizado com sucesso!");
+        closePopup();
+      } catch (error) {
+        toast.error("Erro ao atualizar perfil: " + error.message);
+      } finally {
+        setIsSaving(false);
+      }
+    }
+  };
+
 
   const solicitarToken = async () => {
     setIsLoading(true);
@@ -257,12 +287,6 @@ const Profile = () => {
 
   // Estado para mostrar endereço formatado via CEP
   const [cepFormatado, setcepFormatado] = useState("");
-
-  useEffect(() => {
-    if (cep) {
-      searchCEP();
-    }
-  }, [cep]);
 
   // Salvar todos dados atualizados
   const handleSaveAll = async () => {
@@ -482,6 +506,15 @@ const Profile = () => {
     setIsLoading(false);
   };
 
+  function formatCep(value) {
+    // Remove tudo que não for número
+    const onlyNumbers = value.replace(/\D/g, "");
+
+    // Aplica a máscara 00000-000
+    if (onlyNumbers.length <= 5) return onlyNumbers;
+    return onlyNumbers.slice(0, 5) + "-" + onlyNumbers.slice(5, 8);
+  }
+
 
   return (
     <div className="Profile">
@@ -689,7 +722,7 @@ const Profile = () => {
                   justifyContent: "center",
                 }}
               >
-                <h3>Edite os seus dados</h3>
+                <h3>Edite seus dados</h3>
 
                 <div className="Profile__info__item">
                   <label>Nome</label>
@@ -726,7 +759,8 @@ const Profile = () => {
                   <input
                     className="Profile__info__input"
                     value={cep}
-                    onChange={(e) => setCep(e.target.value)}
+                    onChange={(e) => setCep(formatCep(e.target.value))}
+                    onBlur={searchCEP()}
                   />
                 </div>
 
@@ -751,11 +785,18 @@ const Profile = () => {
 
                 <button
                   className="Profile__info__saveButton"
-                  onClick={solicitarToken}
+                  onClick={handleSaveButtonClick}
                   disabled={isLoading || isSaving}
                 >
-                  {isLoading ? <div className="loading-spinner"></div> : "Avançar"}
+                  {isLoading ? (
+                    <div className="loading-spinner"></div>
+                  ) : isEmailChanged ? (
+                    "Avançar"
+                  ) : (
+                    "Salvar"
+                  )}
                 </button>
+
 
               </div>
             )}
