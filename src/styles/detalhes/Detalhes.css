@@ -9,14 +9,14 @@
   min-height: 200vh;
   padding-top: 80px;
   padding-inline: 4rem;
-  background-color: var(--background-color);
+  background-color: #262523;
   margin-top: 0;
 }
 
 .detalhes__container {
   width: 100%;
   min-height: 100vh;
-  background-color: var(--background-color);
+  background-color: #262523;
   padding-top: 100px;
   display: flex;
   flex-direction: column;
