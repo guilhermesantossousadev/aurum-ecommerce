@@ -315,12 +315,9 @@ const Profile = () => {
       cep,
       numero,
       complemento,
+      password: password.trim() ? password : user.password, // envia senha nova ou senha atual
     };
-
-    if (password.trim()) {
-      updatedData.password = password;
-    }
-
+    
     try {
       setIsSaving(true);
       await updateUserData(updatedData);
@@ -824,7 +821,7 @@ const Profile = () => {
                     className="Profile__button"
                   >
                     {isLoadingToken ? (
-                      <div className="loading-spinner-Profile" />
+                      <div className="loading-spinner" />
                     ) : (
                       "Validar"
                     )}
