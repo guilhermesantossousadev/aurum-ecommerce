@@ -71,7 +71,7 @@ function Revert() {
 
   return (
     <div className="Revert">
-      <h2>Revertendo alterações...</h2>
+      <h2>Revertendo Alterações</h2>
       <p>
         Estamos processando a reversão das alterações do usuário <strong>{nome}</strong>.
       </p>
