@@ -32,7 +32,8 @@ function Carrinho() {
 
   const [isFinalizando, setIsFinalizando] = useState(false);
   const [isCalculandoFrete, setIsCalculandoFrete] = useState(false);
-  const [isRemovendo, setIsRemovendo] = useState(false);
+  const [removendoId, setRemovendoId] = useState(null);
+
 
   // Função para confirmação de exclusão com toast customizado
   const confirmDelete = (id) => {
@@ -330,11 +331,11 @@ function Carrinho() {
   // Remover totalmente do carrinho (todos os itens desse anúncio)
   const removerDoCarrinho = async (anuncioId) => {
     try {
-      setIsRemovendo(true);
+      setRemovendoId(anuncioId); // controla apenas este item
       const usuarioId = user?.id;
       if (!usuarioId) {
         toast.error("Usuário não está logado.");
-        setIsRemovendo(false);
+        setRemovendoId(null);
         return;
       }
 
@@ -346,7 +347,6 @@ function Carrinho() {
       const carrinhoData = await carrinhoResponse.json();
       const anunciosAtuais = carrinhoData.anunciosId?.anunciosId || [];
 
-      // Remove todas as ocorrências do anuncioId
       const anunciosAtualizados = anunciosAtuais.filter(
         (id) => id !== anuncioId.toString()
       );
@@ -377,10 +377,11 @@ function Carrinho() {
       console.error("Erro ao remover do carrinho:", err);
       toast.error("Erro ao remover do carrinho");
     } finally {
-      setIsRemovendo(false);
+      setRemovendoId(null);
       await fetchCarrinho();
     }
   };
+
 
   useEffect(() => {
     if (user?.id) {
@@ -472,13 +473,14 @@ function Carrinho() {
                           className="btn-remover"
                           onClick={() => confirmDelete(anuncio.id)}
                         >
-                          {isRemovendo ? (
+                          {removendoId === anuncio.id ? (
                             <span className="loading-spinner-button-black"></span>
                           ) : (
                             <>
                               <FaTrash /> Remover
                             </>
                           )}
+
                         </button>
                       </div>
                       <div className="item-valor">
