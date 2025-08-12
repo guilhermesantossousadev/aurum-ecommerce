@@ -279,25 +279,35 @@ const Profile = () => {
   };
 
   const handleUploadImage = async (file) => {
-    if (!file) return toast.error("Selecione uma imagem.");
+    if (!file) {
+      toast.error("Selecione uma imagem.");
+      return;
+    }
+
     setUploading(true);
+
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("usuarioId", user.id);
+
     try {
-      const res = await fetch(
+      const response = await fetch(
         `https://marketplacejoias-api-latest.onrender.com/api/Usuario/UploadImageUsuario?usuarioId=${user.id}`,
-        { method: "POST", body: formData }
+        {
+          method: "POST",
+          body: formData,
+        }
       );
-      if (!res.ok) throw new Error();
+
+      if (!response.ok) throw new Error();
+
       toast.success("Imagem atualizada!");
-      setSelectedFile(null);
-    } catch {
+    } catch (error) {
       toast.error("Erro ao enviar imagem");
     } finally {
       setUploading(false);
     }
   };
+
 
   // Buscar endereço via CEP
   const searchCEP = async () => {
