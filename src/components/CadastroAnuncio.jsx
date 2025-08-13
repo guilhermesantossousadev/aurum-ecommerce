@@ -134,72 +134,88 @@ const CadastroAnuncio = () => {
   };
 
   async function handleCreateAnuncio(e) {
-  e.preventDefault();
-  if (!validateStep2()) return;
+    e.preventDefault();
+    if (!validateStep2()) return;
 
-  setLoadingAnuncio(true);
-  try {
-    setLoadingJoia(true);
+    setLoadingAnuncio(true);
 
-    const joiaDataClean = {
-      ...joiaData,
-      valor: Number(joiaData.valor),
-    };
+    try {
+      setLoadingJoia(true);
 
-    const responseJoia = await fetch(`${apiBaseUrl}/Joia/PostJoia`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(joiaDataClean),
-    });
+      // Remove campos vazios e converte para número quando aplicável
+      const joiaDataClean = Object.fromEntries(
+        Object.entries(joiaData)
+          .filter(([_, v]) => v !== "" && v !== null && v !== undefined)
+          .map(([k, v]) => {
+            if (["valor", "peso", "tamanho"].includes(k)) {
+              return [k, v !== "" && v !== null ? Number(v) : null];
+            }
+            return [k, v];
+          })
+      );
 
-    setLoadingJoia(false);
+      // Se o backend espera valor em centavos, converte aqui
+      if (typeof joiaDataClean.valor === "number" && joiaDataClean.valor < 10) {
+        joiaDataClean.valor = Math.round(joiaDataClean.valor * 100);
+      }
 
-    if (!responseJoia.ok) {
-      throw new Error(`Erro ao criar joia: ${responseJoia.status}`);
+      console.log("Enviando para /Joia/PostJoia:", joiaDataClean);
+
+      const responseJoia = await fetch(`${apiBaseUrl}/Joia/PostJoia`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(joiaDataClean),
+      });
+
+      setLoadingJoia(false);
+
+      if (!responseJoia.ok) {
+        const errorText = await responseJoia.text();
+        throw new Error(`Erro ao criar joia: ${responseJoia.status} - ${errorText}`);
+      }
+
+      const { id: joiaIdCreated } = await responseJoia.json();
+
+      toast.success("Joia criada com sucesso!");
+
+      const uploadedUrls = await handleUploadImages();
+      if (!uploadedUrls.length) {
+        throw new Error("Nenhuma imagem foi enviada.");
+      }
+
+      const anuncioData = {
+        joiaId: joiaIdCreated,
+        titulo,
+        urLs: uploadedUrls, // cuidado com a chave, deve ser igual ao backend
+        usuarioId: user?.id,
+      };
+
+      const responseAnuncio = await fetch(`${apiBaseUrl}/Anuncio/PostAnuncio`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(anuncioData),
+      });
+
+      if (!responseAnuncio.ok) {
+        throw new Error(`Erro ao criar anúncio: ${responseAnuncio.status}`);
+      }
+
+      toast.success("Anúncio criado com sucesso!");
+      navigate(`/catalogo/todos`);
+
+      setTitulo("");
+      setJoiaId(null);
+      setSelectedImages([]);
+      setJoiaData(initialFormState);
+      setStep(1);
+
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      setLoadingAnuncio(false);
+      setLoadingJoia(false);
     }
-
-    const { id: joiaIdCreated } = await responseJoia.json();
-
-    toast.success("Joia criada com sucesso!");
-
-    const uploadedUrls = await handleUploadImages();
-    if (!uploadedUrls.length) {
-      throw new Error("Nenhuma imagem foi enviada.");
-    }
-
-    const anuncioData = {
-      joiaId: joiaIdCreated,
-      titulo,
-      urls: uploadedUrls,
-      usuarioId: user?.id
-    };
-
-    const responseAnuncio = await fetch(`${apiBaseUrl}/Anuncio/PostAnuncio`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(anuncioData),
-    });
-
-    if (!responseAnuncio.ok) {
-      throw new Error(`Erro ao criar anúncio: ${responseAnuncio.status}`);
-    }
-
-    toast.success("Anúncio criado com sucesso!");
-    navigate(`/catalogo/todos`);
-
-    setTitulo("");
-    setJoiaId(null);
-    setSelectedImages([]);
-    setJoiaData(initialFormState);
-    setStep(1);
-
-  } catch (error) {
-    toast.error(error.message);
-  } finally {
-    setLoadingAnuncio(false);
-    setLoadingJoia(false);
   }
-}
 
   const validateStep1 = () => {
     const errors = [];
