@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import DragAndDropUploader from "./DragAndDropUploader";
 import SpecificInputs, { validateSpecificInputs } from "./SpecificInputs";
 
-
 import "../styles/components/CadastroAnuncio.css";
 
 const apiBaseUrl =
@@ -15,20 +14,20 @@ const apiBaseUrl =
 
 const initialFormState = {
   tipoPeca: "",
-  valor: "",
+  valor: 0,
   descricao: "",
-  peso: "",
+  peso: 0,
   material: "",
   isStudded: false,
   materialCravejado: "",
-  tamanho: "",
+  tamanho: 0,
   formato: "",
   tipoFecho: "",
   modelo: "",
-  altura: "",
-  pesoIndividual: "",
-  comprimento: "",
-  espessura: "",
+  altura: 0,
+  pesoIndividual: 0,
+  comprimento: 0,
+  espessura: 0,
   havePendant: false,
   tipoCorrente: "",
   regiao: "",
@@ -38,11 +37,10 @@ const initialFormState = {
   flexibilidade: "",
   tipoMovimento: "",
   haveWaterResistance: false,
-  diametroCaixa: "",
+  diametroCaixa: 0,
   materialPulseira: "",
   fonteEnergia: "",
 };
-
 
 const CadastroAnuncio = () => {
   const user = useSelector((state) => state.user);
@@ -99,7 +97,6 @@ const CadastroAnuncio = () => {
 
     const formData = new FormData();
     selectedImages.forEach((file) => {
-      console.log("Appending file:", file.name, file.size);
       formData.append("files", file);
     });
 
@@ -110,21 +107,17 @@ const CadastroAnuncio = () => {
       });
 
       if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Erro ao enviar imagens: ${response.status} - ${errorText}`);
+        throw new Error(`Erro ao enviar imagens: ${response.status}`);
       }
 
-      const urlsResponse = await response.json();
-      console.log("Upload response URLs:", urlsResponse);
       toast.success("Imagens enviadas com sucesso!");
+      const urlsResponse = await response.json();
       return urlsResponse;
     } catch (error) {
       toast.error(`Erro ao enviar imagens: ${error.message}`);
-      console.error("Upload images error:", error);
       return [];
     }
   };
-
 
   const handleNextStep = (e) => {
     e.preventDefault();
@@ -138,28 +131,15 @@ const CadastroAnuncio = () => {
     if (!validateStep2()) return;
 
     setLoadingAnuncio(true);
-
     try {
+      // Cria a joia primeiro
       setLoadingJoia(true);
-
-      // Remove campos vazios e converte para número quando aplicável
-      const joiaDataClean = Object.fromEntries(
-        Object.entries(joiaData)
-          .filter(([_, v]) => v !== "" && v !== null && v !== undefined)
-          .map(([k, v]) => {
-            if (["valor", "peso", "tamanho"].includes(k)) {
-              return [k, v !== "" && v !== null ? Number(v) : null];
-            }
-            return [k, v];
-          })
-      );
-
-      // Se o backend espera valor em centavos, converte aqui
-      if (typeof joiaDataClean.valor === "number" && joiaDataClean.valor < 10) {
-        joiaDataClean.valor = Math.round(joiaDataClean.valor * 100);
-      }
-
-      console.log("Enviando para /Joia/PostJoia:", joiaDataClean);
+      const joiaDataClean = {
+        ...joiaData,
+        valor: Number(joiaData.valor),
+        peso: Number(joiaData.peso),
+        tamanho: Number(joiaData.tamanho),
+      };
 
       const responseJoia = await fetch(`${apiBaseUrl}/Joia/PostJoia`, {
         method: "POST",
@@ -170,24 +150,26 @@ const CadastroAnuncio = () => {
       setLoadingJoia(false);
 
       if (!responseJoia.ok) {
-        const errorText = await responseJoia.text();
-        throw new Error(`Erro ao criar joia: ${responseJoia.status} - ${errorText}`);
+        throw new Error(`Erro ao criar joia: ${responseJoia.status}`);
       }
 
-      const { id: joiaIdCreated } = await responseJoia.json();
-
+      // Backend retorna só o ID como texto
+      const joiaIdCreated = await responseJoia.text();
+      setJoiaId(joiaIdCreated);
       toast.success("Joia criada com sucesso!");
 
+      // Upload das imagens
       const uploadedUrls = await handleUploadImages();
-      if (!uploadedUrls.length) {
+      if (uploadedUrls.length === 0) {
         throw new Error("Nenhuma imagem foi enviada.");
       }
 
+      // Cria o anúncio com o joiaId retornado
       const anuncioData = {
         joiaId: joiaIdCreated,
         titulo,
-        urLs: uploadedUrls, // cuidado com a chave, deve ser igual ao backend
-        usuarioId: user?.id,
+        urls: uploadedUrls, // Corrigido para "urls"
+        usuarioId,
       };
 
       const responseAnuncio = await fetch(`${apiBaseUrl}/Anuncio/PostAnuncio`, {
@@ -203,12 +185,12 @@ const CadastroAnuncio = () => {
       toast.success("Anúncio criado com sucesso!");
       navigate(`/catalogo/todos`);
 
+      // Limpa estados
       setTitulo("");
       setJoiaId(null);
       setSelectedImages([]);
       setJoiaData(initialFormState);
       setStep(1);
-
     } catch (error) {
       toast.error(error.message);
     } finally {
@@ -220,7 +202,6 @@ const CadastroAnuncio = () => {
   const validateStep1 = () => {
     const errors = [];
 
-    // Validações gerais
     if (!joiaData.tipoPeca) errors.push("Tipo de joia é obrigatório.");
     if (joiaData.valor <= 0) errors.push("Valor deve ser maior que zero.");
     if (!joiaData.descricao.trim()) errors.push("Descrição é obrigatória.");
@@ -233,7 +214,6 @@ const CadastroAnuncio = () => {
       errors.push("Tamanho deve ser maior que zero.");
     }
 
-    // Validação específica
     const specificErrors = validateSpecificInputs(joiaData.tipoPeca, joiaData);
     errors.push(...specificErrors);
 
@@ -260,26 +240,6 @@ const CadastroAnuncio = () => {
 
     return true;
   };
-
-  const handleNumberChange = (field, value) => {
-    // Permite campo vazio
-    if (value === "") {
-      setJoiaData((prev) => ({ ...prev, [field]: "" }));
-      return;
-    }
-
-    let v = value.replace(/[^0-9.]/g, "");
-
-    // Garante que só tenha um ponto
-    if ((v.match(/\./g) || []).length > 1) {
-      v = v.substring(0, v.lastIndexOf("."));
-    }
-
-    setJoiaData((prev) => ({ ...prev, [field]: v }));
-  };
-
-
-
 
   return (
     <div className="PostAnuncios">
@@ -325,13 +285,12 @@ const CadastroAnuncio = () => {
 
           <label>Peso (G)</label>
           <input
-            type="text"
+            type="number"
             placeholder="Peso"
             value={joiaData.peso}
-            onChange={(e) => handleNumberChange("peso", e.target.value)}
+            onChange={(e) => handleChange("peso", e.target.value)}
             required
           />
-
 
           <select
             value={joiaData.material}
@@ -390,7 +349,7 @@ const CadastroAnuncio = () => {
           />
 
           <button type="submit" disabled={loadingJoia}>
-            {loadingJoia ? "Carregando..." : "Avançar para Anúncio"}
+            {loadingJoia ? <div className="crud-spinner"></div> : "Avançar para Anúncio"}
           </button>
         </form>
       )}
@@ -422,7 +381,8 @@ const CadastroAnuncio = () => {
           )}
 
           <button type="submit" disabled={loadingAnuncio || loadingJoia}>
-            {loadingAnuncio || loadingJoia ? "Carregando..." : "Cadastrar Anúncio"}
+            {loadingAnuncio || loadingJoia ?
+              <div className="crud-spinner"></div> : "Cadastrar Anúncio"}
           </button>
         </form>
       )}
