@@ -134,73 +134,72 @@ const CadastroAnuncio = () => {
   };
 
   async function handleCreateAnuncio(e) {
-    e.preventDefault();
-    if (!validateStep2()) return;
+  e.preventDefault();
+  if (!validateStep2()) return;
 
-    setLoadingAnuncio(true);
-    try {
-      setLoadingJoia(true);
-      const joiaDataClean = {
-        ...joiaData,
-        valor: Number(joiaData.valor),
-      };
+  setLoadingAnuncio(true);
+  try {
+    setLoadingJoia(true);
 
-      const responseJoia = await fetch(`${apiBaseUrl}/Joia/PostJoia`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(joiaDataClean),
-      });
+    const joiaDataClean = {
+      ...joiaData,
+      valor: Number(joiaData.valor),
+    };
 
-      setLoadingJoia(false);
+    const responseJoia = await fetch(`${apiBaseUrl}/Joia/PostJoia`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(joiaDataClean),
+    });
 
-      if (!responseJoia.ok) {
-        throw new Error(`Erro ao criar joia: ${responseJoia.status}`);
-      }
+    setLoadingJoia(false);
 
-      const joiaIdCreated = await responseJoia.text();
-      setJoiaId(joiaIdCreated);
-      toast.success("Joia criada com sucesso!");
-
-      const uploadedUrls = await handleUploadImages();
-
-      if (uploadedUrls.length === 0) {
-        throw new Error("Nenhuma imagem foi enviada.");
-      }
-
-      const anuncioData = {
-        joiaId: joiaIdCreated,
-        titulo,
-        urls: uploadedUrls,
-        usuarioId,
-      };
-
-      const responseAnuncio = await fetch(`${apiBaseUrl}/Anuncio/PostAnuncio`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(anuncioData),
-      });
-
-      if (!responseAnuncio.ok) {
-        throw new Error(`Erro ao criar anúncio: ${responseAnuncio.status}`);
-      }
-
-      toast.success("Anúncio criado com sucesso!");
-
-      navigate(`/catalogo/todos`);
-
-      // Resetar formulário
-      setTitulo("");
-      setJoiaId(null);
-      setSelectedImages([]);
-      setJoiaData(initialFormState);
-      setStep(1);
-    } catch (error) {
-      toast.error(error.message);
-    } finally {
-      setLoadingAnuncio(false);
-      setLoadingJoia(false);
+    if (!responseJoia.ok) {
+      throw new Error(`Erro ao criar joia: ${responseJoia.status}`);
     }
+
+    const { id: joiaIdCreated } = await responseJoia.json();
+
+    toast.success("Joia criada com sucesso!");
+
+    const uploadedUrls = await handleUploadImages();
+    if (!uploadedUrls.length) {
+      throw new Error("Nenhuma imagem foi enviada.");
+    }
+
+    const anuncioData = {
+      joiaId: joiaIdCreated,
+      titulo,
+      urls: uploadedUrls,
+      usuarioId: user?.id
+    };
+
+    const responseAnuncio = await fetch(`${apiBaseUrl}/Anuncio/PostAnuncio`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(anuncioData),
+    });
+
+    if (!responseAnuncio.ok) {
+      throw new Error(`Erro ao criar anúncio: ${responseAnuncio.status}`);
+    }
+
+    toast.success("Anúncio criado com sucesso!");
+    navigate(`/catalogo/todos`);
+
+    setTitulo("");
+    setJoiaId(null);
+    setSelectedImages([]);
+    setJoiaData(initialFormState);
+    setStep(1);
+
+  } catch (error) {
+    toast.error(error.message);
+  } finally {
+    setLoadingAnuncio(false);
+    setLoadingJoia(false);
   }
+}
 
   const validateStep1 = () => {
     const errors = [];
