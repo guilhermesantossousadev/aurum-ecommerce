@@ -59,7 +59,7 @@ function CrudAnuncios() {
   const handleFilesUploaded = (files) => {
     setSelectedImages(files);
   };
-  
+
   const handleEditClick = (anuncio) => {
     setEditingAnuncio(anuncio);
     setTitulo(anuncio.titulo);
@@ -69,15 +69,37 @@ function CrudAnuncios() {
   };
 
   async function handleUpdateAnuncio() {
-    if (!editingAnuncio) return;
+    if (!editingAnuncio) {
+      toast.error("Nenhum anúncio selecionado para edição.");
+      return;
+    }
 
+    // Validações
+    if (!joiaId || Number(joiaId) <= 0) {
+      toast.error("Informe o ID da joia.");
+      return;
+    }
+    if (!titulo || !titulo.trim()) {
+      toast.error("Informe o título do anúncio.");
+      return;
+    }
+    if (!usuarioId || Number(usuarioId) <= 0) {
+      toast.error("Usuário não identificado.");
+      return;
+    }
+
+    // Monta objeto com tipos corretos
     const anuncioData = {
-      id: editingAnuncio.id,
-      joiaId,
-      titulo,
-      urLs,
-      usuarioId,
+      id: Number(editingAnuncio.id),
+      joiaId: Number(joiaId),
+      titulo: titulo.trim(),
+      urLs: Array.isArray(urLs)
+        ? urLs.filter((url) => url && url.trim() !== "")
+        : [],
+      usuarioId: Number(usuarioId),
     };
+
+    console.log("Enviando anuncioData:", anuncioData); // Debug
 
     try {
       const response = await fetch(
@@ -90,6 +112,8 @@ function CrudAnuncios() {
       );
 
       if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Erro da API:", errorText);
         throw new Error(`Erro ao atualizar anúncio: ${response.status}`);
       }
 
@@ -104,6 +128,7 @@ function CrudAnuncios() {
       toast.error(`Erro ao atualizar anúncio: ${error.message}`);
     }
   }
+
 
   const confirmDelete = (id) => {
     toast.custom((t) => (
