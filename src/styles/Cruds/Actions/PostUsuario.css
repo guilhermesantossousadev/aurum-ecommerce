@@ -1,117 +1,458 @@
 .PostUsuario {
-  background-color: #fff;
+  height: 60vh;
+  width: 100%;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  padding: 2rem;
-  width: 100%;
-}
-
-.PostUsuario form {
-  width: 100%;
-  max-width: 800px;
-  padding: 2rem;
-  border-radius: 8px;
-  margin-bottom: 2rem;
-}
-
-.PostUsuario h2 {
+  justify-content: center;
   text-align: center;
-  margin-bottom: 1.5rem;
-  color: #555;
+  background-color: #f5f5f5;
+  flex-direction: column;
 }
 
-.PostUsuario label {
-  display: block;
-  margin-top: 1rem;
-  font-weight: 600;
-  color: #555;
+svg {
+  fill: #000 !important;
+  stroke: #000 !important;
 }
 
-.PostUsuario textarea {
-  width: 100%;
-  height: 50px;
-  padding: 0.8rem;
-  border: none;
-  border-bottom: 1px solid #555;
-  border-radius: 0;
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
-  color: #555 !important;
-  box-sizing: border-box;
-  background-color: #f4f8f9;
-}
-
-.PostUsuario input {
-  width: 100%;
-  height: 50px;
-  padding: 0.8rem;
-  border: none;
-  border-bottom: 1px solid #555;
-  border-radius: 0;
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
-  color: #555 !important;
-  box-sizing: border-box;
+.PostUsuario__left {
+  width: 50%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #fff;
+  padding: 2rem;
+  box-sizing: border-box;
+  position: relative;
 }
 
-.PostUsuario select {
-  width: 100%;
-  padding: 0.75rem;
-  margin-top: 0.5rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  background-color: #fafafa;
-  transition: border-color 0.3s ease;
-}
-
-.PostUsuario input,
-.PostUsuario select,
-.PostUsuario textarea:focus {
-  outline: none;
-  border-color: #555;
-}
-
-.PostUsuario input:focus,
-.PostUsuario select:focus,
-.PostUsuario textarea:focus {
-  outline: none;
-  border-color: #999;
-  background-color: #fff;
-}
-
-.PostUsuario textarea {
-  resize: vertical;
-  min-height: 100px;
-}
-
-.PostUsuario button {
-  margin-top: 2rem;
-  padding: 1rem 2rem;
-  background-color: rgb(63, 77, 103);
-  border: none;
-  border-radius: 6px;
-  color: #fff;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  width: 100%;
-}
-
-.PostUsuario button:hover {
-  background-color: rgb(105, 124, 161);
-}
-
-.PostUsuario .checkbox-label {
+.return__PostUsuario__2 {
+  position: absolute;
+  color: #000;
   display: flex;
   align-items: center;
-  margin-top: 1rem;
+  justify-content: center;
+  gap: 10px;
+  top: 100px;
+  left: 65px;
+  font-size: 1.5rem;
+  font-weight: normal;
+  z-index: 1;
+  transition: filter 0.3s ease;
 }
 
-.PostUsuario .checkbox-label input {
-  margin-right: 0.5rem;
+.return__PostUsuario__2:hover {
+  filter: brightness(0.8);
+}
+
+.return__PostUsuario__2 img {
+  width: 24px;
+}
+
+.return__PostUsuario__2 a {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.return__PostUsuario {
+  position: absolute;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  top: 70px;
+  left: 35px;
+  font-size: 1.5rem;
+  font-weight: normal;
+  z-index: 1;
+  transition: filter 0.3s ease;
+}
+
+.return__PostUsuario img {
+  width: 24px;
+}
+
+.return__PostUsuario a {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.return__PostUsuario:hover {
+  filter: brightness(0.8);
+}
+
+.PostUsuario__left span {
+  position: absolute;
+  top: 80px;
+  left: 80px;
+  color: #000;
+}
+
+.PostUsuario__left span a {
+  color: #000;
+}
+
+.PostUsuario__left.seta {
+  color: #000;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.PostUsuario__rigth {
+  width: 50%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.PostUsuario__rigth video {
+  max-height: 100vh;
+  width: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.PostUsuario__rigth img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+  display: block;
+}
+
+.PostUsuario__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  overflow: hidden;
+  position: relative;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.PostUsuario__title {
+  text-align: center;
+  color: #333;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+}
+
+.PostUsuario__form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 700px;
+  box-sizing: border-box;
+}
+
+.PostUsuario__form__item__container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.PostUsuario__form__item {
+  flex: 1 1 48%;
+  display: flex;
+  flex-direction: column;
+  min-width: 150px;
+}
+
+.PostUsuario__form label {
+  padding-bottom: 0.5rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.PostUsuario__form-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+}
+
+.PostUsuario__input {
+  width: 100%;
+  max-width: 400px;
+  height: 50px;
+  padding: 0.8rem;
+  border: none;
+  border-bottom: 1px solid #555;
+  border-radius: 0;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  color: #000 !important;
+  box-sizing: border-box;
+}
+
+.PostUsuario__input:focus {
+  outline: none;
+  border-color: #000;
+}
+
+.PostUsuario__button {
+  width: 100%;
+  max-width: 400px;
+  padding: 0.8rem;
+  background-color: #3f4d67;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background-color 0.3s ease;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.PostUsuario__button:hover {
+  background-color: #2d3c58;
+}
+
+.PostUsuario__button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.PostUsuario__links {
+  position: absolute;
+  bottom: 50px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.PostUsuario__link {
+  color: #000;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+  text-align: center;
+  margin-left: -30px;
+}
+
+.PostUsuario__link:hover {
+  color: #282828;
+  text-decoration: underline;
+}
+
+.PostUsuario__form-buttons {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Barra de progresso */
+.progress-bar-post {
+  height: 6px;
+  width: 95%;
+  background-color: #eee;
+  border-radius: 5px;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+}
+
+.progress-bar-post .progress {
+  height: 100%;
+  background-color: #3f4d67;
+  width: 0%;
+  transition: width 0.4s ease-in-out;
+}
+
+.loading-spinner-PostUsuario {
+  width: 20px;
+  height: 20px;
+  border: 4px solid transparent;
+  border-top: 4px solid #3f4d67;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* animação giratória */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.PostUsuario__input-container {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+.PostUsuario__input-container .PostUsuario__input {
+  width: 100%;
+  max-width: 400px;
+  height: 50px;
+  padding: 0.8rem;
+  padding-right: 40px;
+  /* espaço para o botão */
+  border: none;
+  border-bottom: 1px solid #555;
+  font-size: 1rem;
+  color: #000 !important;
+  box-sizing: border-box;
+  display: block;
+  /* importante, sem flex */
+}
+
+.PostUsuario__input-container .PostUsuario__input:focus {
+  outline: none;
+  border-color: #000;
+}
+
+.PostUsuario__input-btn {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 50px;
+  width: 50px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #555;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+/* Responsividade para tablets e celulares */
+@media (max-width: 1024px) {
+  .PostUsuario {
+    flex-direction: column;
+    height: auto;
+    margin-top: 0;
+  }
+
+  .PostUsuario__left,
+  .PostUsuario__rigth {
+    width: 100%;
+    height: auto;
+  }
+
+  .PostUsuario__left {
+    padding: 2rem 1.5rem;
+  }
+
+  .PostUsuario__rigth {
+    display: block;
+    /* Esconder vídeo/imagem para telas menores */
+  }
+
+  .PostUsuario__container {
+    padding: 1.5rem;
+  }
+
+  .PostUsuario__form__item__container {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .PostUsuario__form__item {
+    flex: 1 1 100%;
+  }
+
+
+  .PostUsuario__links {
+    position: static;
+    padding: 1rem 1.5rem 3rem;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-inline: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .PostUsuario__title {
+    font-size: 1.5rem;
+  }
+
+  .PostUsuario__rigth {
+    display: none;
+  }
+
+  .PostUsuario__form {
+    max-width: 100%;
+  }
+
+  .PostUsuario__form__item__container {
+    gap: 12px;
+  }
+
+  .PostUsuario__button {
+    font-size: 0.9rem;
+    padding: 0.7rem;
+  }
+
+  .PostUsuario__links {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* Esconder todos os vídeos em telas até 1024px (smartphones) */
+@media (max-width: 1024px) {
+  video {
+    display: none !important;
+  }
+}
+
+/* Ou se quiser só para iPhones */
+@media only screen and (min-device-width: 320px) and (max-device-width: 1024px) {
+  video {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  .return__PostUsuario__2 {
+    top: 100px;
+    left: 30px;
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .return__PostUsuario__2 {
+    top: 80px;
+    left: 15px;
+    font-size: 1rem;
+  }
+
+  .return__PostUsuario__2 img {
+    width: 20px;
+  }
 }

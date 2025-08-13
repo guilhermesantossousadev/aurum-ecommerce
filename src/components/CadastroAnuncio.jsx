@@ -15,20 +15,20 @@ const apiBaseUrl =
 
 const initialFormState = {
   tipoPeca: "",
-  valor: 0,
+  valor: "",
   descricao: "",
-  peso: 0,
+  peso: "",
   material: "",
   isStudded: false,
   materialCravejado: "",
-  tamanho: 0,
+  tamanho: "",
   formato: "",
   tipoFecho: "",
   modelo: "",
-  altura: 0,
-  pesoIndividual: 0,
-  comprimento: 0,
-  espessura: 0,
+  altura: "",
+  pesoIndividual: "",
+  comprimento: "",
+  espessura: "",
   havePendant: false,
   tipoCorrente: "",
   regiao: "",
@@ -38,10 +38,11 @@ const initialFormState = {
   flexibilidade: "",
   tipoMovimento: "",
   haveWaterResistance: false,
-  diametroCaixa: 0,
+  diametroCaixa: "",
   materialPulseira: "",
   fonteEnergia: "",
 };
+
 
 const CadastroAnuncio = () => {
   const user = useSelector((state) => state.user);
@@ -245,6 +246,25 @@ const CadastroAnuncio = () => {
     return true;
   };
 
+  const handleNumberChange = (field, value) => {
+    // Permite campo vazio
+    if (value === "") {
+      setJoiaData((prev) => ({ ...prev, [field]: "" }));
+      return;
+    }
+
+    let v = value.replace(/[^0-9.]/g, "");
+
+    // Garante que só tenha um ponto
+    if ((v.match(/\./g) || []).length > 1) {
+      v = v.substring(0, v.lastIndexOf("."));
+    }
+
+    setJoiaData((prev) => ({ ...prev, [field]: v }));
+  };
+
+
+
 
   return (
     <div className="PostAnuncios">
@@ -290,18 +310,13 @@ const CadastroAnuncio = () => {
 
           <label>Peso (G)</label>
           <input
-            type="number"
+            type="text"
             placeholder="Peso"
-            inputMode="decimal"
             value={joiaData.peso}
-            onChange={(e) => {
-              let value = e.target.value.replace(",", ".");
-              if (/^\d*\.?\d*$/.test(value)) {
-                handleChange("peso", value === "" ? "" : Number(value));
-              }
-            }}
+            onChange={(e) => handleNumberChange("peso", e.target.value)}
             required
           />
+
 
           <select
             value={joiaData.material}

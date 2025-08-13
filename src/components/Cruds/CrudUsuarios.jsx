@@ -183,7 +183,14 @@ function CrudUsuarios() {
                   handleChange={handleChange}
                   handleSubmit={handleSubmit}
                   editId={editId}
+                  onSuccess={() => {
+                    fetchUsuarios();
+                    setStep(0);
+                    setForm(initialFormState);
+                    setEditId(null);
+                  }}
                 />
+
               </div>
             </div>
           ) : (

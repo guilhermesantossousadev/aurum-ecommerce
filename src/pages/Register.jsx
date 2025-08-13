@@ -290,21 +290,21 @@ const Register = () => {
   };
 
   const validarEtapa1 = () => {
-
-    const minLength = /.{6,}/;
-
-    if (!minLength.test(nome)) {
-      toast.error("O nome precisa conter mais de 2 caracteres.");
-      return false;
-    }
     if (!nome.trim() || !cpf.trim() || !idade.trim()) {
       toast.error("Preencha nome, CPF e idade.");
       return false;
     }
+
+    if (!/.{7,}/.test(nome)) { // mínimo 7 caracteres
+      toast.error("O nome precisa conter mais de 6 caracteres.");
+      return false;
+    }
+
     if (!validarCPF(cpf)) {
       toast.error("CPF inválido.");
       return false;
     }
+
     const idadeInt = parseInt(idade, 10);
     if (isNaN(idadeInt) || idadeInt < 10 || idadeInt > 120) {
       toast.error("Idade inválida.");
