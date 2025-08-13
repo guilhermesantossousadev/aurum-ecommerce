@@ -304,10 +304,9 @@
     padding-top: 5rem;
   }
 
-  .Register__left,
-  .Register__rigth {
+  .Register__left{
     width: 100%;
-    height: auto;
+    height: 100vh;
   }
 
   .Register__left {
@@ -401,10 +400,9 @@
     margin-top: 0;
   }
 
-  .Register__left,
-  .Register__rigth {
+  .Register__left {
     width: 100%;
-    height: auto;
+    height: 100vhs;
   }
 
   .Register__left {
@@ -412,7 +410,7 @@
   }
 
   .Register__rigth {
-    display: block;
+    display: none;
     /* Esconder vídeo/imagem para telas menores */
   }
 
@@ -497,7 +495,7 @@
 
 @media (max-width: 480px) {
   .return__register__2 {
-    top: 80px;
+    top: 100px;
     left: 15px;
     font-size: 1rem;
   }
