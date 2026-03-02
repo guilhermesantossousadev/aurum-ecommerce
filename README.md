@@ -51,18 +51,6 @@ Aurum Crave é um e-commerce moderno e responsivo voltado para venda de joias, d
 - Navegação responsiva
 - Animações suaves com Framer Motion
 
-
-## 🏗️ Estrutura do Projeto
-
-src/
-├── components/
-├── pages/
-├── store/
-├── styles/
-├── assets/
-└── App.jsx
-
-
 ## 🎯 Objetivo do Projeto
 
 Aplicar na prática conhecimentos de:
